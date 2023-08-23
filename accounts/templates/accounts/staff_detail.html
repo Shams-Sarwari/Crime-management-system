@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Staff Detail Page</h1>
+    <br>
+    <h1>{{ staff.first_name }} {{ staff.last_name }}</h1>
+    <p>email: {{ staff.email }}</p>
+    <p>phone: {{ staff.phone_num }}</p>
+{% endblock content %}
+

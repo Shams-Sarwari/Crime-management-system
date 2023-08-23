@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <h1>This is driver list page.</h1>
+    {% for driver in drivers %}
+        <div>
+            <a href="{% url 'accounts:driver-detail' driver.id %}"><h2>{{ driver.first_name }} {{ driver.last_name }}</h2></a>
+        </div>
+    {% endfor %}
+{% endblock content %}

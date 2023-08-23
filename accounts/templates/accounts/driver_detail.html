@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Driver detail page.</h1>
+    <h2>{{ driver.first_name }} {{ driver.last_name }}</h2>
+
+    <p>Driver license: {{ driver.licence_num }}</p>
+    <p>Driver phone: {{ driver.phone_num }}</p>
+    <a href="{% url 'accounts:edit-driver-profile' driver.id %}">Edit</a>
+{% endblock content %}

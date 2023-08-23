@@ -60,7 +60,7 @@ class StaffProfile(models.Model):
     last_name = models.CharField(max_length=200, blank=True, null=True)
     father_name = models.CharField(max_length=200)
     gender = models.CharField(max_length=5, choices=GENDER, default='آقا')
-    tazkira_num = models.CharField(max_length=255, unique=True, primary_key=False)
+    tazkira_num = models.CharField(max_length=255)
     current_address = models.OneToOneField('Address', on_delete=models.CASCADE, null=True)
     work_place = models.ForeignKey('WorkPlace', on_delete=models.SET_NULL, null=True)
     phone_num = models.CharField(max_length=14,unique=True, null=True, blank=True)
@@ -99,7 +99,7 @@ class DriverProfile(models.Model):
     father_name = models.CharField(max_length=200)
     gender = models.CharField(max_length=5, choices=GENDER, default='آقا')
     blood_group = models.CharField(max_length=10, blank=True, null=True)
-    tazkira_num = models.CharField(max_length=255, unique=True, primary_key=False)
+    tazkira_num = models.CharField(max_length=255)
     current_address = models.OneToOneField('Address', on_delete=models.CASCADE, blank=True, null=True)
     phone_num = models.CharField(max_length=14,unique=True, null=True, blank=True)
     tazkira_img = models.ImageField(upload_to="media/driver/id_images", default="media/driver_id.jpg", null=True, blank=True)
@@ -107,7 +107,7 @@ class DriverProfile(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
 
     def __str__(self) -> str:
-        return f'{self.first_name}, {self.last_name}, {self.license_num}'
+        return f'{self.first_name}, {self.last_name}, {self.licence_num}'
 
 
 class Address(models.Model):
