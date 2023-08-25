@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action="" method='POST'>
+        {% csrf_token %}
+        <h3>Are you sure you want to delete {{ profile.first_name }} {{ profile.last_name }}
+            with email: {{ profile.email}}?
+        </h3>
+        <input type="Submit" value="Delete">
+    </form>
+{% endblock content %}

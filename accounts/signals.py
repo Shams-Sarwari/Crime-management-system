@@ -30,3 +30,4 @@ def delete_driver_or_staff_user(sender, instance, **kwargs):
 
 post_save.connect(create_driver_or_staff_profile, sender=get_user_model())
 post_delete.connect(delete_driver_or_staff_user, sender=DriverProfile)
+post_delete.connect(delete_driver_or_staff_user, sender=StaffProfile)

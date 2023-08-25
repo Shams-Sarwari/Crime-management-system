@@ -6,5 +6,6 @@
 
     <p>Driver license: {{ driver.licence_num }}</p>
     <p>Driver phone: {{ driver.phone_num }}</p>
-    <a href="{% url 'accounts:edit-driver-profile' driver.id %}">Edit</a>
+    <a href="{% url 'accounts:edit-driver-profile' driver.id %}">Edit</a><br>
+    <a href="{% url 'accounts:delete-driver-profile' driver.id %}">Delete</a>
 {% endblock content %}

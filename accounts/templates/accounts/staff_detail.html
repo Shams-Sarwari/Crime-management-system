@@ -6,5 +6,7 @@
     <h1>{{ staff.first_name }} {{ staff.last_name }}</h1>
     <p>email: {{ staff.email }}</p>
     <p>phone: {{ staff.phone_num }}</p>
+    <a href="{% url 'accounts:edit-staff-profile' staff.id %}">Edit</a><br>
+    <a href="{% url 'accounts:delete-staff-profile' staff.id %}">Delete</a>
 {% endblock content %}
 

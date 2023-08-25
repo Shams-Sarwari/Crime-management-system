@@ -12,5 +12,9 @@ urlpatterns = [
     path('login/', views.login_user, name='login'),
     path('logout/', views.logout_user, name='logout'),
     path('register_driver/', views.register_driver, name='register-driver'),
-    path('edit_driver_profile/<uuid:pk>/', views.edit_driver_profile, name='edit-driver-profile')
+    path('edit_driver_profile/<uuid:pk>/', views.edit_driver_profile, name='edit-driver-profile'),
+    path('create_staff/', views.create_staff_user, name='create-staff-user'),
+    path('edit_staff_profile/<uuid:pk>/', views.edit_staff_profile, name='edit-staff-profile'),
+    path('delete_driver_profile/<uuid:pk>/', views.delete_driver_profile, name='delete-driver-profile'),
+    path('delete_staff_profile/<uuid:pk>/', views.delete_staff_profile, name='delete-staff-profile'),
 ]
