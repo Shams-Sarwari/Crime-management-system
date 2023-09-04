@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Engine Number: {{ car.engine_num }}, Plate Number: {{ car.plate_number | default:None }}</h1>
+    <h2>Car driver: {{ car.driver }}</h2>
+    <h2>Car owner: {{ car.owner }}</h2>
+    <h3>Color: {{ car.color }}</h3>
+    <a href="{% url 'cars:edit-car' car.id %}">Edit</a><br>
+    <a href="{% url 'cars:delete-car' car.id %}">Delete</a>
+{% endblock content %}

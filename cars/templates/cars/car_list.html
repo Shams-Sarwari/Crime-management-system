@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <h1>This is car list page.</h1>
+    {% for car in cars %}
+        <div>
+            <a href="{% url 'cars:car-detail' car.id %}"><h2>Engine Number:{{ car.engine_num }} | Plate Number:{{ car.plate_number|default:'None' }}</h2></a>
+        </div>
+    {% endfor %}
+{% endblock content %}

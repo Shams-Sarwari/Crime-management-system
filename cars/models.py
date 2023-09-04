@@ -45,8 +45,7 @@ class Car(models.Model):
         max_length=255, null=True, blank=True, help_text='وزن مجموعی مجاز')
     weight_on_axle = models.CharField(
         max_length=255, null=True, blank=True, help_text='وزن بالای اکسل')
-    number_of_rider = models.CharField(
-        max_length=255, help_text='تعداد راکبین')
+    number_of_rider = models.PositiveIntegerField(help_text='تعداد راکبین')
     
     def __str__(self) -> str:
         return f'car with plate: {self.plate_number} and engine num: {self.engine_num}'

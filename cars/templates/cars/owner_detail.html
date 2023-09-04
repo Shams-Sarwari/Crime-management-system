@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Owner detail page.</h1>
+    <h2>{{ owner.first_name }} {{ owner.last_name }}</h2>
+
+    <p>Owner license: {{ owner.tazkira_number }}</p>
+    <p>Owner phone: {{ owner.phone_number }}</p>
+    <a href="{% url 'cars:update-owner' owner.id %}">Edit</a><br>
+    <a href="">Delete</a>
+{% endblock content %}
