@@ -72,3 +72,14 @@ class JawazSayr(models.Model):
     def __str__(self) -> str:
         return f'Jawaz Sayr of {self.driver.first_name}'
     
+
+
+class CarHistory(models.Model):
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    driver = models.ForeignKey(DriverProfile, on_delete=models.CASCADE, blank=True, null=True)
+    owner = models.ForeignKey(CarOwner, on_delete=models.CASCADE, blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f'History for car with plate: {self.car.plate_number} engine number: {self.car.engine_num}'
+

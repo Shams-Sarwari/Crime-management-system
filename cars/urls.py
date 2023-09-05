@@ -13,4 +13,5 @@ urlpatterns = [
     path('update_owner/<int:pk>/', views.update_owner, name='update-owner'),
     path('owner_list/', views.owner_list, name='owner-list'),
     path('owner_detail/<int:pk>/', views.owner_detail, name='owner-detail'),
+    path('delete_owner/<int:pk>/', views.delete_owner, name='delete-owner'),
 ]

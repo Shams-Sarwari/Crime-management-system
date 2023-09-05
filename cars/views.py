@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Car, CarOwner
+from .models import Car, CarOwner, CarHistory
 from .forms import CreateCarForm, EditCarForm, CreateOwnerForm
 from django.http import HttpResponse
 from accounts.models import DriverProfile
@@ -14,8 +14,10 @@ def car_list(request):
 
 def car_detail(request, pk):
     car = get_object_or_404(Car, id = pk)
+    car_history = car.carhistory_set.all()
     context = {
-        'car': car
+        'car': car, 
+        'history': car_history
     }
     return render(request, 'cars/car_detail.html', context)
 
@@ -37,11 +39,30 @@ def create_car(request):
 
 def edit_car(request, pk):
     car = get_object_or_404(Car, id=pk)
+
+    # to create car history
+    car_driver = car.driver
+    car_owner = car.owner
+
     form = EditCarForm(instance=car)
     if request.method=='POST':
         form = EditCarForm(request.POST, request.FILES, instance=car)
         if form.is_valid():
+            # create a history if driver or owner has been updated
+            if request.POST['driver_licence'] != '':
+                if car_driver != DriverProfile.objects.get(licence_num = request.POST['driver_licence']):
+                    CarHistory.objects.create(
+                        car = car,
+                        driver = DriverProfile.objects.get(licence_num = request.POST['driver_licence'])
+                    )
+            if request.POST['owner_tazkira'] != '':
+                if car_owner != CarOwner.objects.get(tazkira_number = request.POST['owner_tazkira']):
+                    CarHistory.objects.create(
+                        car = car, 
+                        owner = CarOwner.objects.get(tazkira_number = request.POST['owner_tazkira'])
+                    )
             form.save()
+            
             return redirect('cars:car-detail', car.id)
     context = {
         'form': form
@@ -103,3 +124,14 @@ def update_owner(request, pk):
         'form': form
     }
     return render(request, 'cars/update_owner.html', context)
+
+def delete_owner(request, pk):
+    owner = CarOwner.objects.get(id = pk)
+    if request.method == 'POST':
+        owner.delete()
+        return redirect('cars:owner-list')
+    
+    context = {
+        'owner': owner
+    }
+    return render(request, 'cars/delete_owner.html', context)

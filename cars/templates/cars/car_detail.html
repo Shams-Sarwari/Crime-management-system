@@ -7,4 +7,15 @@
     <h3>Color: {{ car.color }}</h3>
     <a href="{% url 'cars:edit-car' car.id %}">Edit</a><br>
     <a href="{% url 'cars:delete-car' car.id %}">Delete</a>
+    <hr>
+    <h2>History of this car:</h2>
+    {% for item in history %}
+        <h3>
+            {% if item.driver %}
+                {{ item.driver.first_name}}
+            {% else %}
+                {{ item.owner.first_name}}
+            {% endif %}
+        </h3>
+    {% endfor %}
 {% endblock content %}
