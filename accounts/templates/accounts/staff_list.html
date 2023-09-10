@@ -5,7 +5,7 @@
     <h1>Staff list page</h1>
     {% for staff in staff_list %}
         <div>
-            <a href="{% url 'accounts:staff-detail' staff.id %}"><h1>{{ staff.first_name }} {{ staff.last_name }}</h1></a>
+            <a href="{% url 'staff-detail' staff.id %}"><h1>{{ staff.first_name }} {{ staff.last_name }}</h1></a>
         </div>
     {% endfor %}
 {% endblock content %}

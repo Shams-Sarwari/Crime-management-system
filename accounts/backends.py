@@ -16,7 +16,8 @@ class CustomAuth(ModelBackend):
                 return None
 
         if user is not None:
-            if user.password == password:
+            #if user.password == password:
+            if user.check_password(password):
                 return user
         
         

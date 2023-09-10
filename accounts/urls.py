@@ -1,7 +1,8 @@
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
 
-app_name='accounts'
+
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -17,4 +18,12 @@ urlpatterns = [
     path('edit_staff_profile/<uuid:pk>/', views.edit_staff_profile, name='edit-staff-profile'),
     path('delete_driver_profile/<uuid:pk>/', views.delete_driver_profile, name='delete-driver-profile'),
     path('delete_staff_profile/<uuid:pk>/', views.delete_staff_profile, name='delete-staff-profile'),
+    path('password_change_done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
+    path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
+    path('password_reset/', views.CustomPasswordResetView.as_view(), name='password_reset'), 
+    path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'), 
+    path('password_reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('password_reset/complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+
+    
 ]

@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts.apps.AccountsConfig',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Custom apps:
-    'accounts.apps.AccountsConfig',
+    
     'cars.apps.CarsConfig',
 ]
 AUTH_USER_MODEL = 'accounts.User'
@@ -131,3 +133,5 @@ AUTHENTICATION_BACKENDS = [
     'accounts.backends.CustomAuth',
     'django.contrib.auth.backends.ModelBackend'
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

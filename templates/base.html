@@ -9,11 +9,13 @@
     <h1>This is header</h1>
     {% if user.is_authenticated %}
     <h1>Welcome {{ user.username }}</h1>
+    <a href="{% url 'logout' %}">Logout</a> 
+    <a href="{% url 'password_change' %}">Change password</a>
     {% if messages %}
         {% for message in messages %}
-          <div class='alert alert--{{message.tags}}'>
-            <p class='alert__message'>{{ message }}</p>
-            <button class='alert__close'>x</button>
+          <div>
+            <p>{{ message|safe }}</p>
+            <button>x</button>
           </div>
         {% endfor %}
     {% endif %}

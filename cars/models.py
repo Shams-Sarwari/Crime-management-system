@@ -1,6 +1,7 @@
 from django.db import models
 from accounts.models import DriverProfile, StaffProfile
 
+
 class CarOwner(models.Model):
     GENDER = (
         ("آقا", "آقا"),
@@ -49,6 +50,8 @@ class Car(models.Model):
     
     def __str__(self) -> str:
         return f'car with plate: {self.plate_number} and engine num: {self.engine_num}'
+    
+    
     
 
 class JawazSayr(models.Model):
