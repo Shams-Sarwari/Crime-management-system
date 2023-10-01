@@ -11,7 +11,8 @@
     <a href="{% url 'create-staff-user' %}">Create user for staff</a><br>
     <a href="{% url 'cars:create-owner' %}">Create Car Owner</a><br>
     <a href="{% url 'cars:create-car' %}">Create new car</a><br>
-    <a href="{% url 'cars:owner-list' %}">See list of owners</a>
+    <a href="{% url 'cars:owner-list' %}">See list of owners</a><br>
+    <a href="{% url 'crimes:create-crime' %}">Create new Crime</a><br>
     <a href="{% url 'logout' %}">Logout</a>
     {% else %}
     <p>Please <a href="{% url 'login' %}">Login</a></p>

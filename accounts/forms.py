@@ -41,7 +41,7 @@ class CustomStaffCreationForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'is_active', 'is_superuser']
     
-    def cleaned_email(self):
+    def clean_email(self):
         data = self.cleaned_data['email']
         if User.objects.filter(email=data).exists():
             raise forms.ValidationError('این ایمیل قبلا در سیستم ثبت شده')
