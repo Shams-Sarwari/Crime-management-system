@@ -21,6 +21,19 @@ def create_driver_or_staff_profile(sender, instance, created, **kwargs):
             
         )
 
+@receiver(post_save, sender=DriverProfile)
+def update_driver_user(sender, instance, created, **kwargs):
+    user = instance.user
+    if user.licence_num != instance.licence_num:
+        user.licence_num = instance.licence_num
+        user.save()
+
+@receiver(post_save, sender=StaffProfile)
+def update_staff_user(sender, instance, created, **kwargs):
+    user = instance.user
+    if user.email != instance.email:
+        user.email = instance.email
+        user.save()
         
 def delete_driver_or_staff_user(sender, instance, **kwargs):
     user = instance.user
@@ -28,6 +41,6 @@ def delete_driver_or_staff_user(sender, instance, **kwargs):
 
 
 
-post_save.connect(create_driver_or_staff_profile, sender=get_user_model())
+
 post_delete.connect(delete_driver_or_staff_user, sender=DriverProfile)
 post_delete.connect(delete_driver_or_staff_user, sender=StaffProfile)
