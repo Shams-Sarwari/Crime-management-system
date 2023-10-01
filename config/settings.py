@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # Custom apps:
     
     'cars.apps.CarsConfig',
+    'crimes.apps.CrimesConfig',
 ]
 AUTH_USER_MODEL = 'accounts.User'
 
