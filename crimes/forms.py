@@ -1,5 +1,5 @@
 from django import forms
-from .models import Crime
+from .models import Crime, DriverCrime
 
 class CreateCrimeForm(forms.ModelForm):
     class Meta:
@@ -22,4 +22,10 @@ class CreateCrimeForm(forms.ModelForm):
         
         return cleaned_data
     
-    
+
+class CreateDriverCrimeForm(forms.ModelForm):
+    class Meta:
+        model = DriverCrime
+        fields = [
+            'driver','crime', 'location', 'description', 'paid', 'price', 'expiry_date'
+        ]

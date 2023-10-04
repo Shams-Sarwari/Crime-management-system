@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from .forms import CreateCrimeForm
-from .models import Crime
+from .forms import CreateCrimeForm, CreateDriverCrimeForm
+from .models import Crime, DriverCrime
+from accounts.models import StaffProfile
 # Create your views here.
 def create_crime(request):
     if request.method == 'POST':
@@ -49,3 +50,28 @@ def delete_crime(request, pk):
         'crime': crime
     }
     return render(request, 'crimes/delete_crime.html', context)
+
+
+def driver_crime_list(request):
+    crimes = DriverCrime.objects.all()
+    context = {
+        'crimes': crimes
+    }
+    return render(request, 'crimes/driver_crime_list.html', context)
+
+def create_driver_crime(request):
+    profile = StaffProfile.objects.get(user = request.user)
+    if request.method == 'POST':
+        form = CreateDriverCrimeForm(request.POST)
+        if form.is_valid():
+            crime = form.save(commit=False)
+            crime.stuff = profile
+            crime.save()
+            return redirect('crimes:driver-crime-list')
+    else: 
+        form = CreateDriverCrimeForm()
+
+    context = {
+        'form': form
+    }
+    return render(request, 'crimes/create_driver_crime.html', context)
