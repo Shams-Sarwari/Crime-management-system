@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <ul>
+    {% for item in crimes %}
+        <li>{{ item }}&nbsp;&nbsp;
+            <a href="{% url "crimes:edit-crime" item.pk %}">Edit</a>
+            <a href="{% url "crimes:delete-crime" item.pk %}">Delete</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock content %}
