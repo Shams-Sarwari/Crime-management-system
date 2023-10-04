@@ -10,7 +10,7 @@ class Crime(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
-        return self.title
+        return f'{self.min_price}-{self.max_price} {self.title}'
     
 class DriverCrime(models.Model):
     stuff = models.ForeignKey(StaffProfile, on_delete=models.CASCADE)
