@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TCMS | Admin | Drivers</title>
+  <link rel="stylesheet" href="./output.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="bg-gray-200">
+  <!-- mobile Nav  -->
+  <nav id="mobile-nav" class="hidden h-[100vh] w-64 bg-color-primary absolute z-50 text-white rounded-l-xl">
+    <!-- xmark -->
+    <div id="xmark" class="text-lg">
+      <i class="fa-solid fa-xmark py-2 px-4 cursor-pointer"></i>
+    </div>
+    <!-- photo and links  -->
+    <div class="p-6">
+      <!-- photo -->
+      <div class="flex flex-col gap-2 justify-center items-center">
+        <img src="../img/img2.jpg" alt="my image" class="inline-block h-16 rounded-full">
+        <div class="border-b-2 border-gray-500  text-center pb-3 px-3">
+          <p>محمد رضا قاسمی</p>
+        </div>
+      </div>
+      <!-- links menu -->
+      <ul class="mt-4 text-sm">
+        <li>
+          <a href="#" class="sidebar-link-mobile">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="18" height="18" viewBox="0,0,256,256">
+              <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                style="mix-blend-mode: normal">
+                <g transform="scale(10.66667,10.66667)">
+                  <path
+                    d="M12,2.09961l-11,9.90039h3v9h7v-6h2v6h7v-9h3zM12,4.79102l6,5.40039v0.80859v8h-3v-6h-6v6h-3v-8.80859z">
+                  </path>
+                </g>
+              </g>
+            </svg><span class="sidebar-list-text">داشبورد</span></a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link-mobile bg-color-primary-light"><i class="fa-regular fa-user py-1"></i><span
+              class="sidebar-list-text">راننده ها</span></a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link-mobile"><i class="fa-solid fa-user py-1"></i><span
+              class="sidebar-list-text">کارمندان</span></a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link-mobile"><i class="fa-solid fa-car py-1"></i><span
+              class="sidebar-list-text">موتر ها</span></a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link-mobile"><i class="fa-solid fa-key py-1"></i><span
+              class="sidebar-list-text">مالکان موتر</span></a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link-mobile">
+            <?xml version="1.0" ?><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="w-[18px]">
+              <defs>
+                <style>
+                  .cls-1 {
+                    fill: none;
+                    stroke: #fff;
+                    stroke-linejoin: round;
+                    stroke-width: 2px;
+                  }
+                </style>
+              </defs>
+              <title />
+              <g data-name="207-User" id="_207-User">
+                <circle class="cls-1" cx="16" cy="8" r="7" />
+                <path class="cls-1" d="M23.55,18A11,11,0,0,0,5,26v5H18" />
+                <line class="cls-1" x1="24" x2="24" y1="21" y2="31" />
+                <line class="cls-1" x1="29" x2="19" y1="26" y2="26" />
+              </g>
+            </svg><span class="sidebar-list-text">ایجاد راننده
+              جدید</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link-mobile"><i class="fa-solid fa-person-circle-plus py-1"></i><span
+              class="sidebar-list-text">ایجاد کارمند جدید</span></a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link-mobile">
+            <?xml version="1.0" ?><svg class="feather feather-user-plus w-[18px]" fill="none" height="24"
+              stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+              width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="8.5" cy="7" r="4" />
+              <line x1="20" x2="20" y1="8" y2="14" />
+              <line x1="23" x2="17" y1="11" y2="11" />
+            </svg></i><span class="sidebar-list-text">ایجاد مالک موتر</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#" class="sidebar-link-mobile">            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="31"
+            height="25"
+            viewBox="0 0 31 25"
+            class="w-5"
+          >
+            <g
+              id="_6646160_add_and_car_plus_transport_icon"
+              data-name="6646160_add_and_car_plus_transport_icon"
+              transform="translate(-0.5 -5.5)"
+            >
+              <path
+                id="Path_19"
+                data-name="Path 19"
+                d="M24,13H4L6,8.4A3.951,3.951,0,0,1,9.6,6h8.7A4.208,4.208,0,0,1,22,8.4Z"
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                stroke-width="1"
+              />
+              <path
+                id="Path_20"
+                data-name="Path 20"
+                d="M8,23H2v2a2.006,2.006,0,0,0,2,2H6a2.006,2.006,0,0,0,2-2Z"
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                stroke-width="1"
+              />
+              <line
+                id="Line_3"
+                data-name="Line 3"
+                x2="3.4"
+                transform="translate(1 12)"
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                stroke-width="1"
+              />
+              <line
+                id="Line_4"
+                data-name="Line 4"
+                x2="3"
+                transform="translate(24 12)"
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                stroke-width="1"
+              />
+              <line
+                id="Line_5"
+                data-name="Line 5"
+                x2="3"
+                transform="translate(4 18)"
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                stroke-width="1"
+              />
+              <circle
+                id="Ellipse_3"
+                data-name="Ellipse 3"
+                cx="7"
+                cy="7"
+                r="7"
+                transform="translate(17 16)"
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                stroke-width="1"
+              />
+              <line
+                id="Line_6"
+                data-name="Line 6"
+                y2="6"
+                transform="translate(24 20)"
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                stroke-width="1"
+              />
+              <line
+                id="Line_7"
+                data-name="Line 7"
+                x2="6"
+                transform="translate(21 23)"
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                stroke-width="1"
+              />
+              <path
+                id="Path_21"
+                data-name="Path 21"
+                d="M17.6,20.1A1.889,1.889,0,0,0,15.8,19H12.3a1.889,1.889,0,0,0-1.8,1.1L9,23"
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                stroke-width="1"
+              />
+              <path
+                id="Path_22"
+                data-name="Path 22"
+                d="M17,23H3a2.006,2.006,0,0,1-2-2V17a4.012,4.012,0,0,1,4-4H23a4.026,4.026,0,0,1,4,3.7"
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                stroke-width="1"
+              />
+            </g>
+          </svg><span
+              class="sidebar-list-text">ثبت موتر جدید</span></a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link-mobile"><i class="fa-solid fa-arrow-right-from-bracket py-1"></i><span
+              class="sidebar-list-text">خروج</span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- container -->
+  <div id="container" class="md:grid grid-cols-[200px,1fr]">
+    <!-- sidebar -->
+    <section class="hidden md:flex flex-col h-full text-white bg-color-primary ">
+      <!-- sidebar large -->
+      <!-- photo -->
+      <div id="img-div-large" class="flex flex-col gap-2 justify-center items-center mt-8 mb-4">
+        <img src="../img/img2.jpg" alt="my image" class="inline-block h-16 rounded-full">
+        <div class="border-b-2 border-gray-500  text-center pb-3 px-3">
+          <p>محمد رضا قاسمی</p>
+        </div>
+      </div>
+      <!-- links menu  -->
+      <ul id="ul-large" class="text-sm flex flex-col gap-1">
+        <li>
+          <a href="#" class="sidebar-link"> <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="18"
+              height="18" viewBox="0,0,256,256">
+              <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                style="mix-blend-mode: normal">
+                <g transform="scale(10.66667,10.66667)">
+                  <path
+                    d="M12,2.09961l-11,9.90039h3v9h7v-6h2v6h7v-9h3zM12,4.79102l6,5.40039v0.80859v8h-3v-6h-6v6h-3v-8.80859z">
+                  </path>
+                </g>
+              </g>
+            </svg><span class="sidebar-list-text">داشبورد</span></a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link bg-color-primary-light"><i class="fa-regular fa-user py-1"></i><span
+              class="sidebar-list-text">راننده ها</span></a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link"><i class="fa-solid fa-user py-1"></i><span
+              class="sidebar-list-text">کارمندان</span></a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link"><i class="fa-solid fa-car py-1"></i><span class="sidebar-list-text">موتر
+              ها</span></a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link"><i class="fa-solid fa-key py-1"></i><span class="sidebar-list-text">مالکان
+              موتر</span></a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link">
+            <?xml version="1.0" ?><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="w-[18px]">
+              <defs>
+                <style>
+                  .cls-1 {
+                    fill: none;
+                    stroke: #fff;
+                    stroke-linejoin: round;
+                    stroke-width: 2px;
+                  }
+                </style>
+              </defs>
+              <title />
+              <g data-name="207-User" id="_207-User">
+                <circle class="cls-1" cx="16" cy="8" r="7" />
+                <path class="cls-1" d="M23.55,18A11,11,0,0,0,5,26v5H18" />
+                <line class="cls-1" x1="24" x2="24" y1="21" y2="31" />
+                <line class="cls-1" x1="29" x2="19" y1="26" y2="26" />
+              </g>
+            </svg>
+            <span class="sidebar-list-text">ایجاد راننده
+              جدید</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link"><i class="fa-solid fa-person-circle-plus py-1"></i><span
+              class="sidebar-list-text">ایجاد کارمند جدید</span></a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link">
+            <?xml version="1.0" ?><svg class="feather feather-user-plus w-[18px]" fill="none" height="24"
+              stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+              width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="8.5" cy="7" r="4" />
+              <line x1="20" x2="20" y1="8" y2="14" />
+              <line x1="23" x2="17" y1="11" y2="11" />
+            </svg><span class="sidebar-list-text">ایجاد
+              مالک موتر</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link">            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="31"
+              height="25"
+              viewBox="0 0 31 25"
+              class="w-5"
+            >
+              <g
+                id="_6646160_add_and_car_plus_transport_icon"
+                data-name="6646160_add_and_car_plus_transport_icon"
+                transform="translate(-0.5 -5.5)"
+              >
+                <path
+                  id="Path_19"
+                  data-name="Path 19"
+                  d="M24,13H4L6,8.4A3.951,3.951,0,0,1,9.6,6h8.7A4.208,4.208,0,0,1,22,8.4Z"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="10"
+                  stroke-width="1"
+                />
+                <path
+                  id="Path_20"
+                  data-name="Path 20"
+                  d="M8,23H2v2a2.006,2.006,0,0,0,2,2H6a2.006,2.006,0,0,0,2-2Z"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="10"
+                  stroke-width="1"
+                />
+                <line
+                  id="Line_3"
+                  data-name="Line 3"
+                  x2="3.4"
+                  transform="translate(1 12)"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="10"
+                  stroke-width="1"
+                />
+                <line
+                  id="Line_4"
+                  data-name="Line 4"
+                  x2="3"
+                  transform="translate(24 12)"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="10"
+                  stroke-width="1"
+                />
+                <line
+                  id="Line_5"
+                  data-name="Line 5"
+                  x2="3"
+                  transform="translate(4 18)"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="10"
+                  stroke-width="1"
+                />
+                <circle
+                  id="Ellipse_3"
+                  data-name="Ellipse 3"
+                  cx="7"
+                  cy="7"
+                  r="7"
+                  transform="translate(17 16)"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="10"
+                  stroke-width="1"
+                />
+                <line
+                  id="Line_6"
+                  data-name="Line 6"
+                  y2="6"
+                  transform="translate(24 20)"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="10"
+                  stroke-width="1"
+                />
+                <line
+                  id="Line_7"
+                  data-name="Line 7"
+                  x2="6"
+                  transform="translate(21 23)"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="10"
+                  stroke-width="1"
+                />
+                <path
+                  id="Path_21"
+                  data-name="Path 21"
+                  d="M17.6,20.1A1.889,1.889,0,0,0,15.8,19H12.3a1.889,1.889,0,0,0-1.8,1.1L9,23"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="10"
+                  stroke-width="1"
+                />
+                <path
+                  id="Path_22"
+                  data-name="Path 22"
+                  d="M17,23H3a2.006,2.006,0,0,1-2-2V17a4.012,4.012,0,0,1,4-4H23a4.026,4.026,0,0,1,4,3.7"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="10"
+                  stroke-width="1"
+                />
+              </g>
+            </svg><span class="sidebar-list-text">ثبت
+              موتر جدید</span></a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link"><i class="fa-solid fa-arrow-right-from-bracket py-1"></i><span
+              class="sidebar-list-text pr-1">خروج</span></a>
+        </li>
+      </ul>
+    </section>
+    <!-- sidebar finishes and main starts -->
+    <section id="main">
+      <div class="bg-white h-10 md:12 flex items-center pr-4 justify-start shadow-sm">
+        <div id="large-humgurgar" class="hidden md:block">
+          <i class="fa-solid fa-bars px-4 py-2 cursor-pointer text-lg  text-gray-600"></i>
+        </div>
+
+        <div id="mobile-humburgar" class=" md:hidden">
+          <i class="fa-solid fa-bars px-4 py-2 cursor-pointer text-lg  text-gray-600"></i>
+        </div>
+
+      </div>
+
+      <!-- search box and table -->
+      <div class="w-full pt-4 pl-3 pb-4 pr-3 md:pt-10 md:pr-16 md:pb-6 md:pl-20">
+        <!-- search and button -->
+        <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between mb-2 md:mb-4">
+          <div class="relative">
+            <input type="text" placeholder="جستجو"
+              class="h-9 w-full md:w-72 shadow-sm rounded-md outline-none pr-9 pb-1 text-gray-400" />
+            <i class="fa-solid fa-magnifying-glass absolute right-4 top-3 text-gray-300"></i>
+          </div>
+
+          <a href="#">
+            <button
+              class="h-9 w-full md:w-44 text-sm text-white pt-1 md:pt-0 shadow-sm rounded-md bg-color-primary cursor-pointer hover:bg-color-primary-lighter ease-in duration-200 tracking-wide pb-2">
+              ایجاد راننده جدید
+            </button>
+          </a>
+        </div>
+        <!-- Table -->
+        <table class="w-full bg-white text-right shadow-md text-sm">
+          <thead class="text-sm font-semibold text-color-primary">
+            <tr class="h-10 border-b-2">
+              <th class="w-12 text-center text-lg hidden md:table-cell">#</th>
+              <th class="border-r-2 pr-4 w-16">عکس</th>
+              <th class="border-r-2 pr-4 w-44">نام</th>
+              <th class="border-r-2 pr-4 w-44">تخلص</th>
+              <th class="border-r-2 pr-4">نمبر لایسنس</th>
+              <th id="tazkira-column" class="border-r-2 pr-4 w-72 hidden md:table-cell">
+                نمبر تذکره
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr class="h-10 border-b-2">
+              <td class="text-center text-lg hidden md:table-cell">1</td>
+              <td class="border-r-2">
+                <div class="flex justify-center">
+                  <img src="../img/img2.jpg" alt="my image" class="w-8 rounded-full" />
+              </td>
+              <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
+              <td class="border-r-2 pr-4 pl-2">قاسمی</td>
+              <td class="border-r-2 pr-4 pl-2">8788765332</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">
+                99384893493
+              </td>
+            </tr>
+
+            <tr class="h-10 border-b-2">
+              <td class="text-center text-lg hidden md:table-cell">1</td>
+              <td class="border-r-2">
+                <div class="flex justify-center">
+                  <img src="../img/img2.jpg" alt="my image" class="w-8 rounded-full" />
+              </td>
+              <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
+              <td class="border-r-2 pr-4 pl-2">قاسمی</td>
+              <td class="border-r-2 pr-4 pl-2">8788765332</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">
+                99384893493
+              </td>
+            </tr>
+
+            <tr class="h-10 border-b-2">
+              <td class="text-center text-lg hidden md:table-cell">1</td>
+              <td class="border-r-2">
+                <div class="flex justify-center">
+                  <img src="../img/img2.jpg" alt="my image" class="w-8 rounded-full" />
+              </td>
+              <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
+              <td class="border-r-2 pr-4 pl-2">قاسمی</td>
+              <td class="border-r-2 pr-4 pl-2">8788765332</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">
+                99384893493
+              </td>
+            </tr>
+
+            <tr class="h-10 border-b-2">
+              <td class="text-center text-lg hidden md:table-cell">1</td>
+              <td class="border-r-2">
+                <div class="flex justify-center">
+                  <img src="../img/img2.jpg" alt="my image" class="w-8 rounded-full" />
+              </td>
+              <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
+              <td class="border-r-2 pr-4 pl-2">قاسمی</td>
+              <td class="border-r-2 pr-4 pl-2">8788765332</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">
+                99384893493
+              </td>
+            </tr>
+
+            <tr class="h-10 border-b-2">
+              <td class="text-center text-lg hidden md:table-cell">1</td>
+              <td class="border-r-2">
+                <div class="flex justify-center">
+                  <img src="../img/img2.jpg" alt="my image" class="w-8 rounded-full" />
+              </td>
+              <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
+              <td class="border-r-2 pr-4 pl-2">قاسمی</td>
+              <td class="border-r-2 pr-4 pl-2">8788765332</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">
+                99384893493
+              </td>
+            </tr>
+
+            <tr class="h-10 border-b-2">
+              <td class="text-center text-lg hidden md:table-cell">1</td>
+              <td class="border-r-2">
+                <div class="flex justify-center">
+                  <img src="../img/img2.jpg" alt="my image" class="w-8 rounded-full" />
+              </td>
+              <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
+              <td class="border-r-2 pr-4 pl-2">قاسمی</td>
+              <td class="border-r-2 pr-4 pl-2">8788765332</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">
+                99384893493
+              </td>
+            </tr>
+
+            <tr class="h-10 border-b-2">
+              <td class="text-center text-lg hidden md:table-cell">1</td>
+              <td class="border-r-2">
+                <div class="flex justify-center">
+                  <img src="../img/img2.jpg" alt="my image" class="w-8 rounded-full" />
+              </td>
+              <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
+              <td class="border-r-2 pr-4 pl-2">قاسمی</td>
+              <td class="border-r-2 pr-4 pl-2">8788765332</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">
+                99384893493
+              </td>
+            </tr>
+
+            <tr class="h-10 border-b-2">
+              <td class="text-center text-lg hidden md:table-cell">1</td>
+              <td class="border-r-2">
+                <div class="flex justify-center">
+                  <img src="../img/img2.jpg" alt="my image" class="w-8 rounded-full" />
+              </td>
+              <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
+              <td class="border-r-2 pr-4 pl-2">قاسمی</td>
+              <td class="border-r-2 pr-4 pl-2">8788765332</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">
+                99384893493
+              </td>
+            </tr>
+
+            <tr class="h-10">
+              <td class="text-center text-lg hidden md:table-cell">1</td>
+              <td class="border-r-2">
+                <div class="flex justify-center">
+                  <img src="../img/img2.jpg" alt="my image" class="w-8 rounded-full" />
+              </td>
+              <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
+              <td class="border-r-2 pr-4 pl-2">قاسمی</td>
+              <td class="border-r-2 pr-4 pl-2">8788765332</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">
+                99384893493
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Pagination -->
+        <div class="mt-8 md:mt-10 flex gap-2 md:gap-1 justify-center md:justify-end text-sm">
+          <a href="#" class="pagination-item"><i class="fa-solid fa-angles-right text-xs"></i><span
+              class="md:pb-1">قبلی</span></a>
+          <a href="#" class="active-item pagination-item "><span>1</span></a>
+          <a href="#" class="pagination-item "><span>2</span></a>
+          <a href="#" class="pagination-item "><span>3</span></a>
+          <div class="pb-3">. . . </div>
+          <a href="#" class="pagination-item "><span class="md:pb-1">بعدی</span><i
+              class="fa-solid fa-angles-left text-xs"></i></a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+
+  <script>
+    // Large humburgar menu
+    const container = document.getElementById("container");
+    const large_humgurgar = document.getElementById("large-humgurgar");
+    let sidebar_list_text =
+      document.getElementsByClassName("sidebar-list-text");
+    const tazkira_column = document.getElementById("tazkira-column");
+    const img_div_large = document.getElementById("img-div-large"); // the photo div
+    const ul_large = document.getElementById("ul-large"); // Large ul 
+
+    large_humgurgar.addEventListener("click", function () {
+      if (container.classList.contains("grid-cols-[200px,1fr]")) {
+        container.classList.remove("grid-cols-[200px,1fr]");
+        container.classList.add("grid-cols-[70px,1fr]");
+        // chamge table width
+        tazkira_column.classList.remove("w-72");
+        tazkira_column.classList.add("w-80");
+        // hide image 
+        img_div_large.classList.add("hidden")
+        ul_large.classList.add("mt-12")
+      } else if (container.classList.contains("grid-cols-[70px,1fr]")) {
+        container.classList.remove("grid-cols-[70px,1fr]");
+        container.classList.add("grid-cols-[200px,1fr]");
+        // chamge table width
+        tazkira_column.classList.remove("w-80");
+        tazkira_column.classList.add("w-72");
+        // show image 
+        img_div_large.classList.remove("hidden");
+        ul_large.classList.remove("mt-12");
+      }
+      // remove/add sidebar text
+      for (let i = 0; i < sidebar_list_text.length; i++) {
+        sidebar_list_text[i].classList.toggle("hidden");
+      }
+    });// end large-humburgar event listener
+
+    // *********************************************************
+    // ********* Mobile humburgar menu ***********************
+    const mobile_humburgar = document.getElementById("mobile-humburgar");
+    const mobile_nav = document.getElementById("mobile-nav");
+    const x_mark = document.getElementById("xmark");
+    mobile_humburgar.addEventListener("click", function () {
+      mobile_nav.classList.remove("hidden");
+      container.classList.add("opacity-40");
+    });
+    x_mark.addEventListener("click", function () {
+      mobile_nav.classList.add("hidden");
+      container.classList.remove("opacity-40");
+    });
+  </script>
+</body>
+
+</html>
