@@ -1,1 +1,13 @@
 Reza/node_modules/
+/env/
+/accounts/__pycache__
+/accounts/migrations
+/cars/__pycache__
+/cars/migrations
+/config/__pycache__
+/crimes/__pycache__
+crimes/migrations
+db.sqlite3
+
+
+
