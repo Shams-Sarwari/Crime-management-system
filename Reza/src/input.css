@@ -14,3 +14,7 @@
 .active-item {
   @apply bg-color-primary text-white;
 }
+/* tables */
+.mytable-row {
+  @apply h-10 border-b-2 hover:cursor-pointer  hover:bg-gray-100;
+}

@@ -48,6 +48,7 @@
           </div>
         </button>
         <form action="" method="post">
+          <input id="hidden-input" type="hidden" name="type" value="" />
           <input
             id="email-or-license"
             type="email"
@@ -76,6 +77,7 @@
       const select_button = document.querySelector(".select-button");
       const select_options = document.querySelector(".select-options");
       const btn_text = document.querySelector(".btn-text");
+      const hidden_input = document.getElementById("hidden-input");
 
       select_button.addEventListener("click", function () {
         select_options.classList.toggle("hidden");
@@ -90,12 +92,18 @@
         btn_text.textContent = "کارمند";
         email_or_license.placeholder = "ایمیل آدرس";
         email_or_license.type = "email";
+        // change the hidden input value
+        hidden_input.value = "staff";
       });
       driver.addEventListener("click", function () {
         btn_text.textContent = "راننده";
         email_or_license.placeholder = "نمبر لیسنس";
         email_or_license.type = "text";
+        // change the hidden input value
+        hidden_input.value = "driver";
       });
+
+      console.log(hidden_input.value);
     </script>
   </body>
 </html>
