@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import DriverProfile, StaffProfile
+from cars.models import Car
 # Create your models here.
 class Crime(models.Model):
     title = models.CharField(max_length=300)
@@ -12,9 +13,9 @@ class Crime(models.Model):
     def __str__(self) -> str:
         return f'{self.min_price}-{self.max_price} {self.title}'
     
-class DriverCrime(models.Model):
+class CarCrime(models.Model):
     stuff = models.ForeignKey(StaffProfile, on_delete=models.CASCADE)
-    driver = models.ForeignKey(DriverProfile, on_delete=models.CASCADE)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
     crime = models.ForeignKey(Crime, on_delete=models.CASCADE, null=True)
     location = models.CharField(max_length=300, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
@@ -25,4 +26,4 @@ class DriverCrime(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
-        return f'driver: {self.driver.first_name} licence: {self.driver.licence_num} price: {self.price}'
+        return f'plate: {self.car.plate_number} price: {self.price} {self.crime.title[:50]}'
