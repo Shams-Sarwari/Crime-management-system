@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% comment %} {% extends 'base.html' %}
 
 
 {% block content %}
@@ -19,4 +19,117 @@
     {% endif %}
     <a href="{% url 'password_reset' %}">Fogotten Password?</a>
     
-{% endblock content %}
+{% endblock content %} {% endcomment %}
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TCMS | Login</title>
+    <link rel="stylesheet" href="{% static "css/output.css" %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body class="bg-gray-200">
+    <div
+      class="text-color-primary md:h-[100vh] flex justify-center items-center px-4 pt-4"
+    >
+      <div
+        class="bg-white max-w-[360px] px-8 py-8 md:max-w-[420px] rounded-md shadow-lg"
+      >
+        <h1 class="text-center text-2xl font-bold mb-8">ورود به حساب</h1>
+        <!-- drop down select menu -->
+        <button
+          class="select-button relative w-full h-9 md:h-10 mb-8 rounded-md flex items-center justify-center text-sm md:text-lg text-white bg-color-primary outline-none hover:bg-color-primary-light ease-in duration-200"
+        >
+          <p class="btn-text px-4">کارمند</p>
+          <span class="absolute left-4 text-sm">
+            <i class="fa-solid fa-chevron-down"></i>
+          </span>
+          <!-- options -->
+          <div
+            class="select-options hidden absolute top-full mt-1 min-w-full w-max"
+          >
+            <ul class="">
+              <li
+                class="employee px-4 h-8 rounded-sm block bg-color-primary-light hover:bg-color-primary border-b"
+              >
+                کارمند
+              </li>
+              <li
+                class="driver px-4 h-8 rounded-sm block bg-color-primary-light hover:bg-color-primary"
+              >
+                راننده
+              </li>
+            </ul>
+          </div>
+        </button>
+
+        <form action="" method="POST">
+          {% csrf_token %}
+          <input id="hidden-input" type="hidden" value='staff' name='type'>
+          <input
+            id="email-or-license"
+            type="email"
+            name="license_or_email"
+            class="w-full border px-4 pb-1 h-9 md:h-10 rounded-md bg-gray-200 outline-none mb-8 placeholder:text-color-primary-light"
+            placeholder="ایمیل آدرس"
+          />
+          <input
+            type="password"
+            name="password"
+            class="focus:ltr w-full border px-4 pb-1 h-9 md:h-10 rounded-md bg-gray-200 outline-none mb-8 placeholder:text-color-primary-light"
+            placeholder="رمز عبور"
+          />
+          <input
+            type="submit"
+            value="ورود"
+            class="text-sm md:text-lg text-white w-full h-9 md:h-10 rounded-md bg-color-primary cursor-pointer hover:bg-color-primary-light ease-in duration-200 pb-2"
+          />
+        </form>
+        <div class="mt-6 text-color-primary text-center pb-4">
+          <a href="#"><span> رمز عبور تان را فراموش کرده اید؟</span></a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      //  drop down list
+      const select_button = document.querySelector(".select-button");
+      const select_options = document.querySelector(".select-options");
+      const btn_text = document.querySelector(".btn-text");
+      const hidden_input = document.getElementById('hidden-input');
+
+      select_button.addEventListener("click", function () {
+        select_options.classList.toggle("hidden");
+      });
+
+      // change palceholder according to user
+      const employee = document.querySelector(".employee");
+      const driver = document.querySelector(".driver");
+      const email_or_license = document.getElementById("email-or-license");
+
+      employee.addEventListener("click", function () {
+        btn_text.textContent = "کارمند";
+        email_or_license.placeholder = "ایمیل آدرس";
+        email_or_license.type = "email";
+        hidden_input.value = 'staff';
+        
+      });
+      driver.addEventListener("click", function () {
+        btn_text.textContent = "راننده";
+        email_or_license.placeholder = "نمبر لیسنس";
+        email_or_license.type = "text";
+        hidden_input.value = 'driver';
+        
+      });
+    </script>
+  </body>
+</html>

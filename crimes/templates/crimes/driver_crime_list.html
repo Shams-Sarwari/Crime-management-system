@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <ul>
+    {% for crime in crimes %}
+        {% if not crime.paid %}
+        <li>{{ crime }} {{ crime.crime.title }}</li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+{% endblock content %}

@@ -61,11 +61,11 @@ class StaffProfile(models.Model):
     father_name = models.CharField(max_length=200)
     gender = models.CharField(max_length=5, choices=GENDER, default='آقا')
     tazkira_num = models.CharField(max_length=255)
-    current_address = models.OneToOneField('Address', on_delete=models.CASCADE, null=True)
+    current_address = models.ForeignKey('Address', on_delete=models.CASCADE, null=True)
     work_place = models.ForeignKey('WorkPlace', on_delete=models.SET_NULL, null=True)
     phone_num = models.CharField(max_length=14,unique=True, null=True, blank=True)
-    tazkira_img = models.ImageField(upload_to="media/staff/id_images")
-    avatar = models.ImageField(upload_to="media/staff/profile_images", default="media/staff.jpg", null=True, blank=True)
+    tazkira_img = models.ImageField(upload_to="staff/id_images")
+    avatar = models.ImageField(upload_to="staff/profile_images", default="staff.jpg", null=True, blank=True)
    
 
     def __str__(self) -> str:
@@ -100,10 +100,10 @@ class DriverProfile(models.Model):
     gender = models.CharField(max_length=5, choices=GENDER, default='آقا')
     blood_group = models.CharField(max_length=10, blank=True, null=True)
     tazkira_num = models.CharField(max_length=255)
-    current_address = models.OneToOneField('Address', on_delete=models.CASCADE, blank=True, null=True)
+    current_address = models.ForeignKey('Address', on_delete=models.CASCADE, blank=True, null=True)
     phone_num = models.CharField(max_length=14,unique=True, null=True, blank=True)
-    tazkira_img = models.ImageField(upload_to="media/driver/id_images", default="media/driver_id.jpg", null=True, blank=True)
-    avatar = models.ImageField(upload_to="media/driver/profile_images", default="media/driver.jpg", null=True, blank=True)
+    tazkira_img = models.ImageField(upload_to="driver/id_images", default="driver_id.jpg", null=True, blank=True)
+    avatar = models.ImageField(upload_to="driver/profile_images", default="driver.jpg", null=True, blank=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
 
     def __str__(self) -> str:
