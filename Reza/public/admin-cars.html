@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TCMS | Admin | Drivers</title>
+  <title>TCMS | Admin | Cars</title>
   <link rel="stylesheet" href="./output.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -46,7 +46,7 @@
             </svg><span class="sidebar-list-text">داشبورد</span></a>
         </li>
         <li>
-          <a href="#" class="sidebar-link-mobile bg-color-primary-light">
+          <a href="admin-dashboard-drivers.html" class="sidebar-link-mobile">
             <?xml version="1.0" ?><svg fill="none" height="15" viewBox="0 0 15 15" class="w-5"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -56,7 +56,7 @@
           </a>
         </li>
         <li>
-          <a href="#" class="sidebar-link-mobile">
+          <a href="#" class="sidebar-link-mobile ">
             <?xml version="1.0" ?><svg id="Layer_1" style="enable-background: new 0 0 128 128" version="1.1"
               viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink" fill="#fff" class="w-5">
@@ -76,7 +76,7 @@
           </a>
         </li>
         <li>
-          <a href="#" class="sidebar-link-mobile"><svg xmlns="http://www.w3.org/2000/svg" width="38" height="25"
+          <a href="#" class="sidebar-link-mobile bg-color-primary-light"><svg xmlns="http://www.w3.org/2000/svg" width="38" height="25"
               viewBox="0 0 38 25" class="w-6">
               <g id="_172580_cars_icon" data-name="172580_cars_icon" transform="translate(0 0.333)">
                 <rect id="Rectangle_3" data-name="Rectangle 3" width="38" height="25" transform="translate(0 -0.333)"
@@ -102,7 +102,7 @@
               ها</span></a>
         </li>
         <li>
-          <a href="#" class="sidebar-link-mobile"><svg xmlns="http://www.w3.org/2000/svg" width="21.383" height="21.383"
+          <a href="#" class="sidebar-link-mobile "><svg xmlns="http://www.w3.org/2000/svg" width="21.383" height="21.383"
               viewBox="0 0 21.383 21.383" class="w-5">
               <g id="_172487_key_icon" data-name="172487_key_icon" transform="translate(0.075 0.068)">
                 <rect id="Rectangle_4" data-name="Rectangle 4" width="21" height="21" transform="translate(0 0.24)"
@@ -255,7 +255,7 @@
             </svg><span class="sidebar-list-text">داشبورد</span></a>
         </li>
         <li>
-          <a href="#" class="sidebar-link bg-color-primary-light">
+          <a href="admin-dashboard-drivers.html" class="sidebar-link">
             <?xml version="1.0" ?><svg fill="none" height="15" viewBox="0 0 15 15" class="w-5"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -285,7 +285,7 @@
           </a>
         </li>
         <li>
-          <a href="#" class="sidebar-link"><svg xmlns="http://www.w3.org/2000/svg" width="38" height="25"
+          <a href="#" class="sidebar-link bg-color-primary-light"><svg xmlns="http://www.w3.org/2000/svg" width="38" height="25"
               viewBox="0 0 38 25" class="w-6">
               <g id="_172580_cars_icon" data-name="172580_cars_icon" transform="translate(0 0.333)">
                 <rect id="Rectangle_3" data-name="Rectangle 3" width="38" height="25" transform="translate(0 -0.333)"
@@ -311,7 +311,7 @@
               ها</span></a>
         </li>
         <li>
-          <a href="#" class="sidebar-link"><svg xmlns="http://www.w3.org/2000/svg" width="21.383" height="21.383"
+          <a href="#" class="sidebar-link "><svg xmlns="http://www.w3.org/2000/svg" width="21.383" height="21.383"
               viewBox="0 0 21.383 21.383" class="w-5">
               <g id="_172487_key_icon" data-name="172487_key_icon" transform="translate(0.075 0.068)">
                 <rect id="Rectangle_4" data-name="Rectangle 4" width="21" height="21" transform="translate(0 0.24)"
@@ -457,7 +457,7 @@
           <a href="#">
             <button
               class="h-9 w-full md:w-44 text-sm text-white pt-1 md:pt-0 shadow-sm rounded-md bg-color-primary cursor-pointer hover:bg-color-primary-lighter ease-in duration-200 tracking-wide pb-2">
-              ایجاد راننده جدید
+              ثبت موتر جدید
             </button>
           </a>
         </div>
@@ -466,142 +466,106 @@
           <thead class="text-sm font-semibold text-color-primary">
             <tr class="h-10 border-b-2">
               <th class="w-12 text-center text-lg hidden md:table-cell">#</th>
-              <th class="border-r-2 pr-4 w-16">عکس</th>
-              <th class="border-r-2 pr-4 w-44">نام</th>
-              <th class="border-r-2 pr-4 w-44">تخلص</th>
-              <th class="border-r-2 pr-4">نمبر لایسنس</th>
-              <th id="tazkira-column" class="border-r-2 pr-4 md:w-72 hidden md:table-cell">
-                نمبر تذکره
-              </th>
+              <th class="border-r-2 pr-4 w-40">مالک</th>
+              <th class="border-r-2 pr-4 w-40">راننده</th>
+              <th class="border-r-2 pr-4 w-44">نمبر پلیت</th>
+              <th class="border-r-2 pr-4 hidden md:table-cell">مودل</th>
+              <th class="border-r-2 pr-4 hidden md:table-cell">نمبر انجن</th>
+              <th class="border-r-2 pr-4 hidden md:table-cell">نمبر شاسی</th>
             </tr>
           </thead>
 
           <tbody>
             <tr class="mytable-row" onclick="window.open('test.html', '_blank');">
               <td class="text-center text-lg hidden md:table-cell">1</td>
-              <td class="border-r-2">
-                <div class="flex justify-center">
-                  <img src="../img/img2.jpg" alt="my image" class="w-8 rounded-full" />
-              </td>
               <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
-              <td class="border-r-2 pr-4 pl-2">قاسمی</td>
-              <td class="border-r-2 pr-4 pl-2">8788765332</td>
-              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">
-                99384893493
-              </td>
+              <td class="border-r-2 pr-4 pl-2">عبدالواحد</td>
+              <td class="border-r-2 pr-4 pl-2">1235469</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">Benz 2023</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">13336798</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">56565889</td>
             </tr>
 
             <tr class="mytable-row" onclick="window.open('test.html', '_blank');">
               <td class="text-center text-lg hidden md:table-cell">1</td>
-              <td class="border-r-2">
-                <div class="flex justify-center">
-                  <img src="../img/img2.jpg" alt="my image" class="w-8 rounded-full" />
-              </td>
               <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
-              <td class="border-r-2 pr-4 pl-2">قاسمی</td>
-              <td class="border-r-2 pr-4 pl-2">8788765332</td>
-              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">
-                99384893493
-              </td>
-            </tr>
-
-            <tr class="mytable-row" onclick="window.open('test.html', '_blank');"">
-              <td class="text-center text-lg hidden md:table-cell">1</td>
-              <td class="border-r-2">
-                <div class="flex justify-center">
-                  <img src="../img/img2.jpg" alt="my image" class="w-8 rounded-full" />
-              </td>
-              <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
-              <td class="border-r-2 pr-4 pl-2">قاسمی</td>
-              <td class="border-r-2 pr-4 pl-2">8788765332</td>
-              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">
-                99384893493
-              </td>
-            </tr>
-
-            <tr class="mytable-row" onclick="window.open('test.html', '_blank');"">
-              <td class="text-center text-lg hidden md:table-cell">1</td>
-              <td class="border-r-2">
-                <div class="flex justify-center">
-                  <img src="../img/img2.jpg" alt="my image" class="w-8 rounded-full" />
-              </td>
-              <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
-              <td class="border-r-2 pr-4 pl-2">قاسمی</td>
-              <td class="border-r-2 pr-4 pl-2">8788765332</td>
-              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">
-                99384893493
-              </td>
+              <td class="border-r-2 pr-4 pl-2">عبدالواحد</td>
+              <td class="border-r-2 pr-4 pl-2">1235469</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">Benz 2023</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">13336798</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">56565889</td>
             </tr>
 
             <tr class="mytable-row" onclick="window.open('test.html', '_blank');">
               <td class="text-center text-lg hidden md:table-cell">1</td>
-              <td class="border-r-2">
-                <div class="flex justify-center">
-                  <img src="../img/img2.jpg" alt="my image" class="w-8 rounded-full" />
-              </td>
               <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
-              <td class="border-r-2 pr-4 pl-2">قاسمی</td>
-              <td class="border-r-2 pr-4 pl-2">8788765332</td>
-              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">
-                99384893493
-              </td>
+              <td class="border-r-2 pr-4 pl-2">عبدالواحد</td>
+              <td class="border-r-2 pr-4 pl-2">1235469</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">Benz 2023</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">13336798</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">56565889</td>
             </tr>
 
             <tr class="mytable-row" onclick="window.open('test.html', '_blank');">
               <td class="text-center text-lg hidden md:table-cell">1</td>
-              <td class="border-r-2">
-                <div class="flex justify-center">
-                  <img src="../img/img2.jpg" alt="my image" class="w-8 rounded-full" />
-              </td>
               <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
-              <td class="border-r-2 pr-4 pl-2">قاسمی</td>
-              <td class="border-r-2 pr-4 pl-2">8788765332</td>
-              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">
-                99384893493
-              </td>
+              <td class="border-r-2 pr-4 pl-2">عبدالواحد</td>
+              <td class="border-r-2 pr-4 pl-2">1235469</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">Benz 2023</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">13336798</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">56565889</td>
             </tr>
 
             <tr class="mytable-row" onclick="window.open('test.html', '_blank');">
               <td class="text-center text-lg hidden md:table-cell">1</td>
-              <td class="border-r-2">
-                <div class="flex justify-center">
-                  <img src="../img/img2.jpg" alt="my image" class="w-8 rounded-full" />
-              </td>
               <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
-              <td class="border-r-2 pr-4 pl-2">قاسمی</td>
-              <td class="border-r-2 pr-4 pl-2">8788765332</td>
-              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">
-                99384893493
-              </td>
+              <td class="border-r-2 pr-4 pl-2">عبدالواحد</td>
+              <td class="border-r-2 pr-4 pl-2">1235469</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">Benz 2023</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">13336798</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">56565889</td>
             </tr>
 
             <tr class="mytable-row" onclick="window.open('test.html', '_blank');">
               <td class="text-center text-lg hidden md:table-cell">1</td>
-              <td class="border-r-2">
-                <div class="flex justify-center">
-                  <img src="../img/img2.jpg" alt="my image" class="w-8 rounded-full" />
-              </td>
               <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
-              <td class="border-r-2 pr-4 pl-2">قاسمی</td>
-              <td class="border-r-2 pr-4 pl-2">8788765332</td>
-              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">
-                99384893493
-              </td>
+              <td class="border-r-2 pr-4 pl-2">عبدالواحد</td>
+              <td class="border-r-2 pr-4 pl-2">1235469</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">Benz 2023</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">13336798</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">56565889</td>
             </tr>
 
             <tr class="mytable-row" onclick="window.open('test.html', '_blank');">
               <td class="text-center text-lg hidden md:table-cell">1</td>
-              <td class="border-r-2">
-                <div class="flex justify-center">
-                  <img src="../img/img2.jpg" alt="my image" class="w-8 rounded-full" />
-              </td>
               <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
-              <td class="border-r-2 pr-4 pl-2">قاسمی</td>
-              <td class="border-r-2 pr-4 pl-2">8788765332</td>
-              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">
-                99384893493
-              </td>
+              <td class="border-r-2 pr-4 pl-2">عبدالواحد</td>
+              <td class="border-r-2 pr-4 pl-2">1235469</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">Benz 2023</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">13336798</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">56565889</td>
             </tr>
+
+            <tr class="mytable-row" onclick="window.open('test.html', '_blank');">
+              <td class="text-center text-lg hidden md:table-cell">1</td>
+              <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
+              <td class="border-r-2 pr-4 pl-2">عبدالواحد</td>
+              <td class="border-r-2 pr-4 pl-2">1235469</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">Benz 2023</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">13336798</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">56565889</td>
+            </tr>
+
+            <tr class="mytable-row" onclick="window.open('test.html', '_blank');">
+              <td class="text-center text-lg hidden md:table-cell">1</td>
+              <td class="border-r-2 pr-4 pl-2">محمد رضا</td>
+              <td class="border-r-2 pr-4 pl-2">عبدالواحد</td>
+              <td class="border-r-2 pr-4 pl-2">1235469</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">Benz 2023</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">13336798</td>
+              <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">56565889</td>
+            </tr>
+
           </tbody>
         </table>
         <!-- Pagination -->
@@ -620,8 +584,7 @@
   </div>
 
 
-
-<script src="./adminScript.js"></script>
+  <script src="./adminScript.js"></script>
 </body>
 
 </html>
