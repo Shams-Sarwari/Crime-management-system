@@ -444,21 +444,40 @@
 
       <!-- div that contains forms -->
       <div class="w-full pt-4 pl-3 pb-4 pr-3 md:pt-10 md:pr-16 md:pb-6 md:pl-20">
-        <div class="max-w-sm mx-auto bg-white  rounded-md shadow-md overflow-hidden h-[500px] ">
+
+        <div class="max-w-sm mx-auto bg-white  rounded-md shadow-md overflow-hidden">
           <h1 class="text-center text-[16px] text-white bg-color-primary py-3 shadow-md">ایجاد راننده جدید</h1>
-          <form action="" class="py-7 px-5 md:px-7 text-sm text-gray-600">
-            <label for="">نام کاربری</label>
-            <input type="text"
-              class="w-full border px-4 pb-1 h-8 rounded-md bg-gray-200 outline-none" />
-            <label for="">نمبر لایسنس</label>
-            <input type="text"
-              class="w-full border px-4 pb-1 h-8 rounded-md bg-gray-200 outline-none" />
-            <label for="">رمز عبور</label>
-            <input type="text"
-              class="w-full border px-4 pb-1 h-8 rounded-md bg-gray-200 outline-none" />
-            <label for="">تایید رمز عبور</label>
-            <input type="text"
-              class="w-full border px-4 pb-1 h-8 rounded-md bg-gray-200 outline-none" />
+
+          <form action="" class="flex flex-col gap-4 py-7 px-5 md:px-6 text-sm text-gray-600">
+            <div class="flex flex-col gap-2">
+              <label for="" class="mr-2">نام کاربری</label>
+              <input type="text" class="driver-form-input" />
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label for="" class="mr-2">نمبر لایسنس</label>
+              <input type="text" class="driver-form-input" />
+            </div>
+
+
+            <div class="flex flex-col gap-2">
+              <label for="" class="mr-2">رمز عبور</label>
+              <input type="text" class="driver-form-input" />
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label for="" class="mr-2">تایید رمز عبور</label>
+              <input type="text" class="driver-form-input" />
+            </div>
+
+            <div class="flex items-center justify-between mt-4">
+              <div class="pr-2">
+                <input type="checkbox" id="myCheckbox" name="myCheckbox" value="" checked>
+                <label for="myCheckbox">فعال</label>
+              </div>
+
+              <input type="submit" value="بعدی" class="h-8 w-24 text-white shadow-sm rounded-md bg-color-primary cursor-pointer hover:bg-color-primary-lighter ease-in duration-200 tracking-wide">
+            </div>
           </form>
         </div>
       </div>
