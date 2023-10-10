@@ -596,6 +596,11 @@ video {
   z-index: 50;
 }
 
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -668,8 +673,16 @@ video {
   height: 100vh;
 }
 
+.h-\[500px\] {
+  height: 500px;
+}
+
 .h-full {
   height: 100%;
+}
+
+.h-7 {
+  height: 1.75rem;
 }
 
 .w-12 {
@@ -678,6 +691,10 @@ video {
 
 .w-16 {
   width: 4rem;
+}
+
+.w-40 {
+  width: 10rem;
 }
 
 .w-44 {
@@ -696,16 +713,8 @@ video {
   width: 16rem;
 }
 
-.w-72 {
-  width: 18rem;
-}
-
 .w-8 {
   width: 2rem;
-}
-
-.w-80 {
-  width: 20rem;
 }
 
 .w-\[18px\] {
@@ -721,16 +730,16 @@ video {
   width: max-content;
 }
 
-.w-40 {
-  width: 10rem;
-}
-
 .min-w-full {
   min-width: 100%;
 }
 
 .max-w-\[360px\] {
   max-width: 360px;
+}
+
+.max-w-sm {
+  max-width: 24rem;
 }
 
 .transform {
@@ -773,6 +782,10 @@ video {
   gap: 0.5rem;
 }
 
+.overflow-hidden {
+  overflow: hidden;
+}
+
 .rounded-full {
   border-radius: 9999px;
 }
@@ -806,18 +819,9 @@ video {
   border-right-width: 2px;
 }
 
-.border-b-0 {
-  border-bottom-width: 0px;
-}
-
 .border-gray-500 {
   --tw-border-opacity: 1;
   border-color: rgb(107 114 128 / var(--tw-border-opacity));
-}
-
-.bg-blue-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
 }
 
 .bg-color-primary {
@@ -835,28 +839,13 @@ video {
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
-.bg-green-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
-}
-
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-gray-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-}
-
 .p-6 {
   padding: 1.5rem;
-}
-
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
 }
 
 .px-3 {
@@ -889,9 +878,29 @@ video {
   padding-bottom: 2rem;
 }
 
-.py-\[2px\] {
-  padding-top: 2px;
-  padding-bottom: 2px;
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.px-7 {
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+}
+
+.py-7 {
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
+}
+
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
 }
 
 .pb-1 {
@@ -908,10 +917,6 @@ video {
 
 .pb-4 {
   padding-bottom: 1rem;
-}
-
-.pb-\[3px\] {
-  padding-bottom: 3px;
 }
 
 .pl-2 {
@@ -958,6 +963,10 @@ video {
   text-align: right;
 }
 
+.font-IRANSans {
+  font-family: IRANSans, sans-serif;
+}
+
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -976,6 +985,10 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-\[16px\] {
+  font-size: 16px;
 }
 
 .font-bold {
@@ -1013,6 +1026,11 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-gray-700 {
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity));
 }
 
 .opacity-40 {
@@ -1144,10 +1162,6 @@ video {
   color: rgb(60 71 97 / var(--tw-text-opacity));
 }
 
-.hover\:cursor-pointer:hover {
-  cursor: pointer;
-}
-
 .hover\:bg-color-primary:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(38 50 79 / var(--tw-bg-opacity));
@@ -1161,11 +1175,6 @@ video {
 .hover\:bg-color-primary-lighter:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(81 91 114 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-gray-100:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
 @media (min-width: 768px) {
@@ -1205,6 +1214,10 @@ video {
     height: 100vh;
   }
 
+  .md\:h-8 {
+    height: 2rem;
+  }
+
   .md\:w-44 {
     width: 11rem;
   }
@@ -1219,10 +1232,6 @@ video {
 
   .md\:max-w-\[420px\] {
     max-width: 420px;
-  }
-
-  .md\:table-fixed {
-    table-layout: fixed;
   }
 
   .md\:flex-row {
@@ -1245,9 +1254,9 @@ video {
     gap: 0.25rem;
   }
 
-  .md\:px-4 {
-    padding-left: 1rem;
-    padding-right: 1rem;
+  .md\:px-7 {
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
   }
 
   .md\:pb-1 {
@@ -1281,5 +1290,10 @@ video {
   .md\:text-lg {
     font-size: 1.125rem;
     line-height: 1.75rem;
+  }
+
+  .md\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
   }
 }
