@@ -1,11 +1,91 @@
 {% extends 'base.html' %}
+{% load static %}
 
 
-{% block content %}
+{% comment %} {% block content %}
     <h1>This is owner list page.</h1>
     {% for owner in owners %}
         <div>
             <a href="{% url 'cars:owner-detail' owner.id %}"><h2>{{ owner.first_name }} {{ owner.last_name }}</h2></a>
         </div>
     {% endfor %}
-{% endblock content %}v
+{% endblock content %} {% endcomment %}
+
+{% block content %}
+<section id="main">
+    <div class="bg-white h-10 md:12 flex items-center pr-4 justify-start shadow-sm">
+      <div id="large-humgurgar" class="hidden md:block">
+        <i class="fa-solid fa-bars px-4 py-2 cursor-pointer text-lg  text-gray-600"></i>
+      </div>
+
+      <div id="mobile-humburgar" class=" md:hidden">
+        <i class="fa-solid fa-bars px-4 py-2 cursor-pointer text-lg  text-gray-600"></i>
+      </div>
+
+    </div>
+
+    <!-- search box and table -->
+    <div class="w-full pt-4 pl-3 pb-4 pr-3 md:pt-10 md:pr-16 md:pb-6 md:pl-20">
+      <!-- search and button -->
+      <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between mb-2 md:mb-4">
+        <div class="relative">
+          <input type="text" placeholder="جستجو"
+            class="h-9 w-full md:w-72 shadow-sm rounded-md outline-none pr-9 pb-1 text-gray-400" />
+          <i class="fa-solid fa-magnifying-glass absolute right-4 top-3 text-gray-300"></i>
+        </div>
+
+        <a href="#">
+          <button
+            class="h-9 w-full md:w-44 text-sm text-white pt-1 md:pt-0 shadow-sm rounded-md bg-color-primary cursor-pointer hover:bg-color-primary-lighter ease-in duration-200 tracking-wide pb-2">
+            ایجاد مالک موتر
+          </button>
+        </a>
+      </div>
+      <!-- Table -->
+      <table class="w-full bg-white text-right shadow-md text-sm">
+        <thead class="text-sm font-semibold text-color-primary">
+          <tr class="h-10 border-b-2">
+            <th class="w-12 text-center text-lg hidden md:table-cell">#</th>
+            <th class="border-r-2 pr-4 w-16">عکس</th>
+            <th class="border-r-2 pr-4 w-44">نام</th>
+            <th class="border-r-2 pr-4 w-44">تخلص</th>
+            <th class="border-r-2 pr-4 hidden md:table-cell">نمبر تماس</th>
+            <th id="tazkira-column" class="border-r-2 pr-4 md:w-72">
+              نمبر تذکره
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for owner in owners %}
+          <tr class="mytable-row" onclick="window.open('test.html', '_blank');">
+            <td class="text-center text-lg hidden md:table-cell">{{ forloop.counter }}</td>
+            <td class="border-r-2">
+              <div class="flex justify-center">
+                <img src="{{ owner.image.url }}" alt="my image" class="w-8 rounded-full" />
+            </td>
+            <td class="border-r-2 pr-2 md:pr-4 pl-2">{{ owner.first_name }}</td>
+            <td class="border-r-2 pr-2 md:pr-4 pl-2">{{ owner.last_name }}</td>
+            <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">{{ owner.phone_number }}</td>
+            <td class="border-r-2 pr-2 md:pr-4 pl-2">
+              {{ owner.tazkira_number }}
+            </td>
+          </tr>
+        {% endfor %}
+          
+        </tbody>
+      </table>
+      <!-- Pagination -->
+      <div class="mt-8 md:mt-10 flex gap-2 md:gap-1 justify-center md:justify-end text-sm">
+        <a href="#" class="pagination-item"><i class="fa-solid fa-angles-right text-xs"></i><span
+            class="md:pb-1">قبلی</span></a>
+        <a href="#" class="active-item pagination-item "><span>1</span></a>
+        <a href="#" class="pagination-item "><span>2</span></a>
+        <a href="#" class="pagination-item "><span>3</span></a>
+        <div class="pb-3">. . . </div>
+        <a href="#" class="pagination-item "><span class="md:pb-1">بعدی</span><i
+            class="fa-solid fa-angles-left text-xs"></i></a>
+      </div>
+    </div>
+  </section>
+{% endblock content %}

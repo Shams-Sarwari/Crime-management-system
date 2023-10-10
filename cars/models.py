@@ -17,7 +17,7 @@ class CarOwner(models.Model):
     place_of_work = models.CharField(max_length=200, null=True, blank=True)
     main_address = models.CharField(max_length=200, blank=True, null=True)
     current_address = models.CharField(max_length=200, blank=True, null=True)
-    image = models.ImageField(upload_to='Carowner/image', null=True, blank=True)
+    image = models.ImageField(upload_to='Carowner/image', default="owner.jpg")
     id_image_front = models.ImageField(upload_to='id/image', null=True, blank=True)
     id_image_back = models.ImageField(upload_to='id/image', null=True, blank=True)
     
