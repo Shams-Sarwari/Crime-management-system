@@ -3,12 +3,16 @@ from .models import Car, CarOwner, CarHistory
 from .forms import CreateCarForm, EditCarForm, CreateOwnerForm
 from django.http import HttpResponse
 from accounts.models import DriverProfile
+from accounts.utils import pagination_items
 # Create your views here.
 
 def car_list(request):
     cars = Car.objects.all()
+    custom_range, cars = pagination_items(request, cars, 10)
+
     context = {
-        'cars': cars
+        'cars': cars,
+        'custom_range': custom_range,
     }
     return render(request, 'cars/car_list.html', context)
 
@@ -82,8 +86,11 @@ def delete_car(request, pk):
 
 def owner_list(request):
     owners = CarOwner.objects.all()
+    custom_range, owners = pagination_items(request, owners, 10)
+
     context = {
-        'owners': owners
+        'owners': owners, 
+        'custom_range': custom_range,
     }
     return render(request, 'cars/owner_list.html', context)
 

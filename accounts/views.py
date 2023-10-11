@@ -14,6 +14,7 @@ from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from twilio.rest import Client
 from django.core.mail import send_mail
+from .utils import pagination_items
 
 # Create your views here.
 def home(request):
@@ -22,8 +23,10 @@ def home(request):
 
 def driver_list(request):
     drivers = DriverProfile.objects.all()
+    custom_range, drivers = pagination_items(request, drivers, 5)
     context = {
         'drivers': drivers,
+        'custom_range': custom_range, 
     }
     return render(request, 'accounts/driver_list.html', context)
 
@@ -37,8 +40,10 @@ def driver_detail(request, pk):
 
 def staff_list(request):
     staff_list = StaffProfile.objects.all()
+    custom_range, staff_list = pagination_items(request, staff_list, 10)
     context = {
         'staff_list': staff_list,
+        'custom_range': custom_range,
     }
     return render(request, 'accounts/staff_list.html', context)
 

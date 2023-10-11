@@ -66,16 +66,7 @@
         </tbody>
       </table>
       <!-- Pagination -->
-      <div class="mt-8 md:mt-10 flex gap-2 md:gap-1 justify-center md:justify-end text-sm">
-        <a href="#" class="pagination-item"><i class="fa-solid fa-angles-right text-xs"></i><span
-            class="md:pb-1">قبلی</span></a>
-        <a href="#" class="active-item pagination-item "><span>1</span></a>
-        <a href="#" class="pagination-item "><span>2</span></a>
-        <a href="#" class="pagination-item "><span>3</span></a>
-        <div class="pb-3">. . . </div>
-        <a href="#" class="pagination-item "><span class="md:pb-1">بعدی</span><i
-            class="fa-solid fa-angles-left text-xs"></i></a>
-      </div>
+      {% include "paginations.html" with queryset=owners %}
     </div>
   </section>
 {% endblock content %}
