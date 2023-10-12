@@ -18,7 +18,16 @@
 .mytable-row {
   @apply h-10 border-b-2 hover:cursor-pointer  hover:bg-gray-100;
 }
-/* create driver form */
+/* create driver form  */
 .driver-form-input {
-  @apply w-full h-8 border px-4 text-xs rounded-md bg-gray-200 outline-none active:outline-none;
+  @apply w-full h-8 border px-4 text-xs rounded bg-gray-200 outline-none;
+}
+.input-file {
+  @apply absolute inset-0 w-full h-full opacity-0 cursor-pointer;
+}
+.input-file-label {
+  @apply relative flex items-center justify-center w-28 h-7 text-white text-xs bg-color-primary rounded cursor-pointer;
+}
+.form-submit-btn {
+  @apply h-8 w-32 text-white shadow-sm rounded bg-color-primary cursor-pointer hover:bg-color-primary-lighter ease-in duration-200 tracking-wide;
 }
