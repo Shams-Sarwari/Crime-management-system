@@ -639,6 +639,10 @@ video {
   inset-inline-end: 0.25rem;
 }
 
+.left-1\/2 {
+  left: 50%;
+}
+
 .left-4 {
   left: 1rem;
 }
@@ -722,6 +726,10 @@ video {
 
 .mr-2 {
   margin-right: 0.5rem;
+}
+
+.mr-\[2px\] {
+  margin-right: 2px;
 }
 
 .mt-1 {
@@ -855,6 +863,10 @@ video {
   height: 4rem;
 }
 
+.h-7 {
+  height: 1.75rem;
+}
+
 .h-8 {
   height: 2rem;
 }
@@ -881,6 +893,10 @@ video {
 
 .w-24 {
   width: 6rem;
+}
+
+.w-28 {
+  width: 7rem;
 }
 
 .w-40 {
@@ -932,6 +948,10 @@ video {
   min-width: 100%;
 }
 
+.max-w-3xl {
+  max-width: 48rem;
+}
+
 .max-w-\[360px\] {
   max-width: 360px;
 }
@@ -978,6 +998,16 @@ video {
 
 .border-separate {
   border-collapse: separate;
+}
+
+.-translate-x-1\/2 {
+  --tw-translate-x: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.-translate-y-1\/2 {
+  --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .\!transform {
@@ -1476,6 +1506,10 @@ video {
   gap: 1rem;
 }
 
+.gap-y-4 {
+  row-gap: 1rem;
+}
+
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.5rem * var(--tw-space-x-reverse));
@@ -1911,6 +1945,10 @@ video {
   border-top-width: 1px;
 }
 
+.border-t-2 {
+  border-top-width: 2px;
+}
+
 .border-solid {
   border-style: solid;
 }
@@ -2114,6 +2152,11 @@ video {
   padding-bottom: 0.75rem;
 }
 
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
 .py-7 {
   padding-top: 1.75rem;
   padding-bottom: 1.75rem;
@@ -2126,6 +2169,10 @@ video {
 
 .pb-1 {
   padding-bottom: 0.25rem;
+}
+
+.pb-10 {
+  padding-bottom: 2.5rem;
 }
 
 .pb-2 {
@@ -2176,8 +2223,16 @@ video {
   padding-top: 0.25rem;
 }
 
+.pt-2 {
+  padding-top: 0.5rem;
+}
+
 .pt-4 {
   padding-top: 1rem;
+}
+
+.pt-8 {
+  padding-top: 2rem;
 }
 
 .text-left {
@@ -2805,12 +2860,12 @@ video {
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
-/* create driver form */
+/* create driver form  */
 
 .driver-form-input {
   height: 2rem;
   width: 100%;
-  border-radius: 0.375rem;
+  border-radius: 0.25rem;
   border-width: 1px;
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
@@ -2822,9 +2877,52 @@ video {
   outline-offset: 2px;
 }
 
-.driver-form-input:active {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
+.input-file {
+  position: absolute;
+  inset: 0px;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.input-file-label {
+  position: relative;
+  display: flex;
+  height: 1.75rem;
+  width: 7rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(38 50 79 / var(--tw-bg-opacity));
+  font-size: 0.75rem;
+  line-height: 1rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.form-submit-btn {
+  height: 2rem;
+  width: 8rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(38 50 79 / var(--tw-bg-opacity));
+  letter-spacing: 0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+
+.form-submit-btn:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(81 91 114 / var(--tw-bg-opacity));
 }
 
 @media (min-width: 640px) {
@@ -2969,6 +3067,10 @@ video {
     max-width: 420px;
   }
 
+  .md\:grid-cols-\[1fr\2c 1fr\] {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .md\:flex-row {
     flex-direction: row;
   }
@@ -2989,9 +3091,19 @@ video {
     gap: 0.25rem;
   }
 
+  .md\:gap-x-10 {
+    -moz-column-gap: 2.5rem;
+         column-gap: 2.5rem;
+  }
+
   .md\:px-6 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+  }
+
+  .md\:py-7 {
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
   }
 
   .md\:pb-1 {
