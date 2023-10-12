@@ -8,7 +8,21 @@ from django.core.exceptions import ValidationError
 class CustomDriverUserCreationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'licence_num', 'is_active']
+        fields = ['username', 'licence_num', 'is_active', 'password1', 'password2']
+        
+        
+    def __init__(self, *args, **kwargs):
+        super(CustomDriverUserCreationForm, self).__init__(*args, **kwargs)
+        
+        for k, v in self.fields.items():
+            if k != 'is_active':
+                v.widget.attrs.update(
+                    {'class':'driver-form-input'}
+                )
+            else: 
+                v.widget.attrs.update(
+                    {'id': 'myCheckbox', 'checked': 'checked'}
+                )
 
     def clean_licence_num(self):
         data = self.cleaned_data['licence_num']
