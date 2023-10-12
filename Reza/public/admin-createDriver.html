@@ -5,13 +5,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TCMS | Admin | Create Driver</title>
-  <link rel="stylesheet" href="./output.css" />
+  <link rel="stylesheet" href="output.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body class="bg-gray-200 ">
+<body class="bg-gray-200 font-IRANSans">
   <!-- mobile Nav  -->
   <nav id="mobile-nav" class="hidden h-[100vh] w-64 bg-color-primary absolute z-50 text-white rounded-l-xl">
     <!-- xmark -->
@@ -226,7 +226,7 @@
   <!-- container -->
   <div id="container" class="md:grid grid-cols-[200px,1fr]">
     <!-- sidebar -->
-    <section class="hidden md:flex flex-col h-full text-white bg-color-primary ">
+    <section class="hidden md:flex flex-col h-[100vh] text-white bg-color-primary sticky top-0">
       <!-- sidebar large -->
       <!-- photo -->
       <div id="img-div-large" class="flex flex-col gap-2 justify-center items-center mt-8 mb-4">
@@ -431,7 +431,8 @@
     </section>
     <!-- sidebar finishes and main starts -->
     <section id="main">
-      <div class="bg-white h-10 md:12 flex items-center pr-4 justify-start shadow-sm">
+      <!-- navbar -->
+      <div class="bg-white h-10 md:12 flex items-center pr-4 justify-start shadow-sm sticky top-0">
         <div id="large-humgurgar" class="hidden md:block">
           <i class="fa-solid fa-bars px-4 py-2 cursor-pointer text-lg  text-gray-600"></i>
         </div>
@@ -444,23 +445,43 @@
 
       <!-- div that contains forms -->
       <div class="w-full pt-4 pl-3 pb-4 pr-3 md:pt-10 md:pr-16 md:pb-6 md:pl-20">
-        <div class="max-w-sm mx-auto bg-white  rounded-md shadow-md overflow-hidden h-[500px] ">
+        <!-- first form -->
+        <div id="first-form" class="max-w-sm mx-auto bg-white  rounded-md shadow-md overflow-hidden">
           <h1 class="text-center text-[16px] text-white bg-color-primary py-3 shadow-md">ایجاد راننده جدید</h1>
-          <form action="" class="py-7 px-5 md:px-7 text-sm text-gray-600">
-            <label for="">نام کاربری</label>
-            <input type="text" class="w-full border px-4 pb-1 h-8 rounded-md bg-gray-200 outline-none" />
-            <label for="">نمبر لایسنس</label>
-            <input type="text" class="w-full border px-4 pb-1 h-8 rounded-md bg-gray-200 outline-none" />
-            <div>
-              <input type="checkbox" id="myCheckbox" name="isactive" value="" class="active:bg-color-primary">
-              <label for="myCheckbox">فعال</label>
+
+          <form action="" class="flex flex-col gap-4 py-7 px-5 md:px-6 text-sm text-gray-600">
+            <div class="flex flex-col gap-2">
+              <label for="" class="mr-2">نام کاربری</label>
+              <input type="text" class="driver-form-input" />
             </div>
-            <label for="">رمز عبور</label>
-            <input type="text" class="w-full border px-4 pb-1 h-8 rounded-md bg-gray-200 outline-none" />
-            <label for="">تایید رمز عبور</label>
-            <input type="text" class="w-full border px-4 pb-1 h-8 rounded-md bg-gray-200 outline-none" />
+
+            <div class="flex flex-col gap-2">
+              <label for="" class="mr-2">نمبر لایسنس</label>
+              <input type="text" class="driver-form-input" />
+            </div>
+
+
+            <div class="flex flex-col gap-2">
+              <label for="" class="mr-2">رمز عبور</label>
+              <input type="password" class="driver-form-input" />
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label for="" class="mr-2">تایید رمز عبور</label>
+              <input type="password" class="driver-form-input" />
+            </div>
+
+            <div class="flex items-center justify-between mt-4">
+              <div class="pr-2">
+                <input type="checkbox" id="myCheckbox" name="myCheckbox" value="" checked>
+                <label for="myCheckbox">فعال</label>
+              </div>
+
+              <input type="submit" value="بعدی" class="h-8 w-24 text-white shadow-sm rounded-md bg-color-primary cursor-pointer hover:bg-color-primary-lighter ease-in duration-200 tracking-wide">
+            </div>
           </form>
         </div>
+        
       </div>
     </section>
   </div>

@@ -42,7 +42,7 @@
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body class="bg-gray-200">
+<body class="bg-gray-200 font-IRANSans">
   <nav id="mobile-nav" class="hidden h-[100vh] w-64 bg-color-primary absolute z-50 text-white rounded-l-xl">
     <!-- xmark -->
     <div id="xmark" class="text-lg">
@@ -257,11 +257,11 @@
   <!-- container -->
   <div id="container" class="md:grid grid-cols-[200px,1fr]">
     <!-- sidebar -->
-    <section class="hidden md:flex flex-col h-full text-white bg-color-primary ">
+    <section class="hidden md:flex flex-col h-[100vh] text-white bg-color-primary sticky top-0">
       <!-- sidebar large -->
       <!-- photo -->
       <div id="img-div-large" class="flex flex-col gap-2 justify-center items-center mt-8 mb-4">
-        <img src="{{request.user.staffprofile.avatar.url}}" alt="my image" class="inline-block h-16 rounded-full">
+        <img src="{{request.user.staffprofile.avatar.url}}" alt="my image" class="inline-block h-16 w-16 rounded-full">
         <div class="border-b-2 border-gray-500  text-center pb-3 px-3">
           <p>{{ request.user.staffprofile.first_name }}</p>
         </div>
@@ -462,7 +462,7 @@
       </ul>
     </section>
     <section id="main">
-      <div class="bg-white h-10 md:12 flex items-center pr-4 justify-start shadow-sm">
+      <div class="bg-white h-10 md:12 flex items-center pr-4 justify-start shadow-sm sticky top-0">
         <div id="large-humgurgar" class="hidden md:block">
           <i class="fa-solid fa-bars px-4 py-2 cursor-pointer text-lg  text-gray-600"></i>
         </div>

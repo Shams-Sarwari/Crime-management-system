@@ -18,3 +18,7 @@
 .mytable-row {
   @apply h-10 border-b-2 hover:cursor-pointer  hover:bg-gray-100;
 }
+/* create driver form */
+.driver-form-input {
+  @apply w-full h-8 border px-4 text-xs rounded-md bg-gray-200 outline-none active:outline-none;
+}
