@@ -22,11 +22,19 @@ def home(request):
 
 
 def driver_list(request):
-    drivers = DriverProfile.objects.all()
+    search_text = ''
+    if request.GET.get('search_text'):
+        search_text = request.GET.get('search_text')
+    drivers = DriverProfile.objects.distinct().filter(
+        Q(first_name__icontains=search_text)|
+        Q(licence_num=search_text) | 
+        Q(tazkira_num=search_text)
+    )
     custom_range, drivers = pagination_items(request, drivers, 5)
     context = {
         'drivers': drivers,
         'custom_range': custom_range, 
+        'search_text': search_text,
     }
     return render(request, 'accounts/driver_list.html', context)
 
@@ -39,11 +47,20 @@ def driver_detail(request, pk):
     return render(request, 'accounts/driver_detail.html', context)
 
 def staff_list(request):
-    staff_list = StaffProfile.objects.all()
+    search_text = ''
+    if request.GET.get('search_text'):
+        search_text = request.GET.get('search_text')
+
+    staff_list = StaffProfile.objects.distinct().filter(
+            Q(first_name__icontains=search_text)|
+            Q(email=search_text) | 
+            Q(tazkira_num=search_text)        
+    )
     custom_range, staff_list = pagination_items(request, staff_list, 10)
     context = {
         'staff_list': staff_list,
         'custom_range': custom_range,
+        'search_text': search_text,
     }
     return render(request, 'accounts/staff_list.html', context)
 
