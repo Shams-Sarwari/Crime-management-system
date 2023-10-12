@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
+
 def pagination_items(request, items, result):
     page = request.GET.get('page')
     paginator = Paginator(items, result)

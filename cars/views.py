@@ -4,15 +4,25 @@ from .forms import CreateCarForm, EditCarForm, CreateOwnerForm
 from django.http import HttpResponse
 from accounts.models import DriverProfile
 from accounts.utils import pagination_items
+from django.db.models import Q
 # Create your views here.
 
 def car_list(request):
-    cars = Car.objects.all()
+    search_text = ''
+    if request.GET.get('search_text'):
+        search_text = request.GET.get('search_text')
+        cars = Car.objects.distinct().filter(
+            Q(plate_number=search_text) |
+            Q(engine_num=search_text)
+        )
+    else:
+        cars = Car.objects.all()
     custom_range, cars = pagination_items(request, cars, 10)
 
     context = {
         'cars': cars,
         'custom_range': custom_range,
+        'search_text': search_text,
     }
     return render(request, 'cars/car_list.html', context)
 
@@ -85,12 +95,21 @@ def delete_car(request, pk):
 
 
 def owner_list(request):
-    owners = CarOwner.objects.all()
+    search_text=''
+    if request.GET.get('search_text'):
+        search_text = request.GET.get('search_text')
+        owners = CarOwner.objects.distinct().filter(
+            Q(tazkira_number=search_text)|
+            Q(phone_number=search_text)
+        )
+    else:
+        owners = CarOwner.objects.all()
     custom_range, owners = pagination_items(request, owners, 10)
 
     context = {
         'owners': owners, 
         'custom_range': custom_range,
+        'search_text': search_text,
     }
     return render(request, 'cars/owner_list.html', context)
 

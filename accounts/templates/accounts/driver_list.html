@@ -17,9 +17,9 @@
     <div class="w-full pt-4 pl-3 pb-4 pr-3 md:pt-10 md:pr-16 md:pb-6 md:pl-20">
       <!-- search and button -->
       <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between mb-2 md:mb-4">
-        <form action="" class="w-full md:w-72 flex">
+        <form action="" class="w-full md:w-72 flex" method='get'>
           <div class="relative flex-grow">
-            <input type="text" placeholder="جستجو"
+            <input type="text" placeholder="جستجو" name='search_text' value="{{search_text}}"
               class="h-9 w-full shadow-sm rounded-r-md outline-none pr-10  text-gray-600 text-sm" />
             <i class="fa-solid fa-magnifying-glass absolute right-4 top-3 text-gray-300"></i>
           </div>
