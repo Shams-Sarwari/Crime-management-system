@@ -1,10 +1,91 @@
 {% extends 'base.html' %}
 
 
-{% block content %}
+{% comment %} {% block content %}
     <form action="" method='POST'>
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value='Add'>
     </form>
+{% endblock content %} {% endcomment %}
+
+{% block content %}
+<div class="w-full pt-4 pl-3 pb-4 pr-3 md:pt-10 md:pr-16 md:pb-6 md:pl-20">
+    <div class="max-w-3xl mx-auto bg-white  rounded-md shadow-md overflow-hidden">
+      <h1 class="form-heading">ثبت موتر جدید</h1>
+
+      <form action="" class="py-5 md:py-7 px-5 md:px-6 text-sm text-gray-600" method="POST">
+        {% csrf_token %}
+        <!-- div 1 -->
+        <div class="w-full grid md:grid-cols-[1fr,1fr] md:gap-x-10 gap-y-4">
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">نمبر پلیت</label>
+            {{ form.plate_number }}
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">مودل</label>
+            {{ form.model }}
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">رنگ</label>
+            {{ form.color }}
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">نوع ماشین</label>
+            {{ form.engine_type }}
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">نمبر ماشین</label>
+            {{ form.engine_num }}
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">نمبر شاسی</label>
+            {{ form.chassis_num }}
+          </div>
+
+          <div class="flex items-center gap-4">
+            <label for="" class="mr-2">نوع اشترینگ</label>
+            {% comment %} <select name="" id="" class="h-7 w-28 bg-color-primary text-white text-center rounded  outline-none">
+              <option value="راسته">راسته</option>
+              <option value="چپه">چپه</option>
+            </select> {% endcomment %}
+            {{ form.steering }}
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">تعداد سلندر</label>
+            {{ form.number_of_cylinder }}
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">وزن مجاز</label>
+            {{ form.legal_weight }}
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">وزن بالای اکسل</label>
+            {{form.weight_on_axle }}
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">تعداد راکبین</label>
+            {{ form.number_of_rider}}
+          </div>
+
+        </div>
+
+        <!-- div submit -->
+        <div class="flex items-center justify-end mt-6">
+          <input type="submit" value="ثبت اطلاعات" class="form-submit-btn text-xs">
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
 {% endblock content %}

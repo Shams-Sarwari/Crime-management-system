@@ -9,6 +9,22 @@ class CreateCarForm(forms.ModelForm):
         fields = '__all__'
         exclude = ['driver', 'owner',]
     
+    def __init__(self, *args, **kwargs):
+        super(CreateCarForm, self).__init__(*args, **kwargs)
+        
+        for k, v in self.fields.items():
+            if k=='steering':
+                v.widget.attrs.update(
+                    {'class':'h-7 w-28 bg-color-primary text-white text-center rounded  outline-none'}
+            )
+            
+            else:
+                v.widget.attrs.update(
+                    {'class':'driver-form-input'}
+            )
+            
+
+    
 class EditCarForm(forms.ModelForm):
     driver_licence = forms.CharField(required=False)
     owner_tazkira = forms.CharField(required=False)
