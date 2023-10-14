@@ -36,20 +36,47 @@ class DriverEditForm(forms.ModelForm):
         model = DriverProfile
         fields = "__all__"
         exclude = ['user', 'id', 'current_address']
+    
+    def __init__(self, *args, **kwargs):
+        super(DriverEditForm, self).__init__(*args, **kwargs)
+        
+        for k, v in self.fields.items():
+            if k=='gender':
+                v.widget.attrs.update(
+                    {'class':'h-7 w-28 bg-color-primary text-white text-xs text-center rounded  outline-none'}
+            )
+            elif k=='tazkira_img' or k=='avatar':
+                v.widget.attrs.update(
+                    {'class':'input-file'}
+            )
+            else:
+                v.widget.attrs.update(
+                    {'class':'driver-form-input'}
+            )
+            
 
-    def clean_licence_num(self):
-        data = self.cleaned_data['licence_num']
-        if data != self.instance.licence_num:
-            qs = User.objects.filter(licence_num = data)
-            if qs.exists():
-                raise forms.ValidationError('این لایسنس نمبر قبلا وارد سیستم گردیده.')
-            return data
+
+    # def clean_licence_num(self):
+    #     data = self.cleaned_data['licence_num']
+    #     if data != self.instance.licence_num:
+    #         qs = User.objects.filter(licence_num = data)
+    #         if qs.exists():
+    #             raise forms.ValidationError('این لایسنس نمبر قبلا وارد سیستم گردیده.')
+    #         return data
 
 class AddressForm(forms.ModelForm):
     class Meta:
         model = Address
         fields = "__all__"
 
+    def __init__(self, *args, **kwargs):
+        super(AddressForm, self).__init__(*args, **kwargs)
+        
+        for k, v in self.fields.items():
+            v.widget.attrs.update(
+                    {'class':'driver-form-input'}
+            )
+    
 class CustomStaffCreationForm(UserCreationForm):
     class Meta:
         model = User

@@ -171,10 +171,13 @@ def edit_driver_profile(request, pk):
     if request.method == 'POST':
         form = DriverEditForm(request.POST, request.FILES, instance=profile)
         add_form = AddressForm(request.POST)
+        
         if form.is_valid() and add_form.is_valid():
             address = add_form.save()
             profile = form.save(commit=False)
             profile.current_address = address
+            profile.avatar = request.FILES['prof_pic']
+            profile.tazkira_img = request.FILES['tazkira_pic']
             profile.save()
             return redirect('driver-detail', profile.id)
 
