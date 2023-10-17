@@ -1,26 +1,3 @@
-{% comment %} {% extends 'base.html' %}
-
-
-{% block content %}
-    {% if noexist_message %}
-    
-        <h3>{{ noexist_message }}</h3>
-
-    {% elif wrong_message %}
-        <h3>{{ wrong_message }}</h3>
-    {% else %}
-    <form action="" method='POST'>
-        {% csrf_token %}
-        <input type="text" name='type' placeholder='Enter driver or staff'><br>
-        <input type="text" name='license_or_email' placeholder="Enter your license number"><br>
-        <input type="password" name='password'><br>
-        <input type="submit" value='submit'>
-    </form>
-    {% endif %}
-    <a href="{% url 'password_reset' %}">Fogotten Password?</a>
-    
-{% endblock content %} {% endcomment %}
-
 <!DOCTYPE html>
 {% load static %}
 <html lang="fa" dir="rtl">

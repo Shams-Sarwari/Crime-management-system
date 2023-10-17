@@ -4,7 +4,7 @@ from .models import DriverProfile, StaffProfile, User
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.views import PasswordResetView
 from django.contrib import messages
-from .forms import CustomDriverUserCreationForm, DriverEditForm, AddressForm, CustomStaffCreationForm, StaffEditForm, WorkPlaceForm, CustomPasswordResetForm
+from .forms import CustomDriverUserCreationForm, DriverEditForm, AddressForm, CustomStaffCreationForm, StaffEditForm, WorkPlaceForm, CustomPasswordResetForm, CustomPasswordChangeForm
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib import messages
@@ -307,5 +307,8 @@ class CustomPasswordResetView(PasswordResetView):
 
         return super().form_valid(form)
         
+class CustomPasswordChangeView(PasswordChangeView):
+    form_class = CustomPasswordChangeForm
+
             
 
