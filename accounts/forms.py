@@ -1,4 +1,5 @@
 from typing import Any, Dict
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.forms import UserCreationForm
 from .models import User, DriverProfile, Address, StaffProfile, WorkPlace
 from django import forms
@@ -139,3 +140,26 @@ class CustomPasswordResetForm(forms.Form):
     
     def save(self, **kwargs):
         pass
+
+
+class CustomPasswordChangeForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super(CustomPasswordChangeForm, self).__init__(*args, **kwargs)
+        
+        
+        for k, v in self.fields.items():
+            if k == 'old_password':
+                v.widget.attrs.update(
+                        {'class':'driver-form-input tracking-widest', 
+                        'id': 'current-pass-input'}
+                )
+            elif k == 'new_password1': 
+                v.widget.attrs.update(
+                        {'class':'driver-form-input tracking-widest', 
+                        'id': 'new-pass-input'}
+                )
+            elif k == 'new_password2':
+                v.widget.attrs.update(
+                        {'class':'driver-form-input tracking-widest', 
+                        'id': 'confirm-pass-input'}
+                )
