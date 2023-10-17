@@ -125,7 +125,7 @@ def owner_detail(request, pk):
 def create_owner(request):
     
     if request.method == 'POST':
-        form = CreateOwnerForm(request.POST)
+        form = CreateOwnerForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('cars:owner-list')
