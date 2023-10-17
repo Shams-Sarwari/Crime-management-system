@@ -228,6 +228,7 @@ def edit_staff_profile(request, pk):
         work_form = WorkPlaceForm()
 
     if request.method == 'POST':
+        avatar = request.FILES.get('prof_pic', None)
         form = StaffEditForm(request.POST, request.FILES, instance=profile)
         add_form = AddressForm(request.POST)
         work_form = WorkPlaceForm(request.POST)
@@ -238,6 +239,8 @@ def edit_staff_profile(request, pk):
             profile = form.save(commit=False)
             profile.current_address = address
             profile.work_place = work_place
+            if avatar:
+                profile.avatar = request.FILES['prof_pic']
             profile.save()
             return redirect('staff-detail', profile.id)
 
