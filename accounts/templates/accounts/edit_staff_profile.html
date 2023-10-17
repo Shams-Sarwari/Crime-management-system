@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% comment %} {% block content %}
     <form action="" method="POST" enctype='multipart/form-data'>
         {% csrf_token %}
         {{ form.as_p }}
@@ -9,4 +9,127 @@
         <input type="submit" value="Submit">
     </form>
     
+{% endblock content %} {% endcomment %}
+
+
+{% block content %}
+<div class="w-full pt-4 pl-3 pb-4 pr-3 md:pt-10 md:pr-16 md:pb-6 md:pl-20">
+    <!-- Second form -->
+    <div class="max-w-3xl mx-auto bg-white  rounded-md shadow-md overflow-hidden">
+      <h1 class="form-heading">ایجاد کارمند جدید</h1>
+
+      <form action="" class="py-5 md:py-7 px-5 md:px-6 text-sm text-gray-600" method="POST">
+        {% csrf_token %}
+        <!-- div 1 -->
+        <div class="w-full grid md:grid-cols-[1fr,1fr] md:gap-x-10 gap-y-4">
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">نام</label>
+            <input type="text" class="driver-form-input" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">تخلص</label>
+            <input type="text" class="driver-form-input" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">نام پدر</label>
+            <input type="text" class="driver-form-input" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">ایمیل آدرس</label>
+            <input type="email" class="driver-form-input" />
+          </div>
+          
+          <div class="flex items-center gap-4">
+            <label for="" class="mr-2">جنسیت</label>
+            <select name="" id="" class="h-7 w-28 bg-color-primary text-white text-xs text-center rounded  outline-none">
+              <option value="آقا">آقا</option>
+              <option value="خانم">خانم</option>
+            </select>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">گروپ خون</label>
+            <input type="text" class="driver-form-input" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">نمبر تذکره</label>
+            <input type="text" class="driver-form-input" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">شماره تماس</label>
+            <input type="text" class="driver-form-input" />
+          </div>
+
+          <div class="flex flex-col gap-4 pt-2">
+            <!-- tazkira photo -->
+            <div class="flex items-center gap-4">
+              <label for="" class="mr-2">عکس تذکره</label>
+              <label for="" class="input-file-label">
+                <span>انتخاب عکس</span>
+                <input type="file" id="" class="input-file">
+              </label>
+            </div>
+            <!-- profile photo -->
+            <div class="flex items-center gap-4">
+              <label for="" class="mr-2">عکس نمایه</label>
+              <label for="" class="input-file-label mr-[2px]">
+                <span>انتخاب عکس</span>
+                <input type="file" id="" class="input-file">
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- div 2 -->
+        <div class="relative w-full grid md:grid-cols-[1fr,1fr] md:gap-x-10 gap-y-4 border-t-2 pt-8 mt-10">
+          <span class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[16px] bg-white px-4 ">محل کار</span>
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">ولایت</label>
+            <input type="text" class="driver-form-input" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">ولسوالی / ناحیه</label>
+            <input type="text" class="driver-form-input" />
+          </div>
+
+        </div>
+
+        <!-- div 3 -->
+        <div class="relative w-full grid md:grid-cols-[1fr,1fr] md:gap-x-10 gap-y-4 border-t-2 pt-8 mt-10">
+          <span class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[16px] bg-white px-4 ">آدرس</span>
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">ولایت</label>
+            <input type="text" class="driver-form-input" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">ولسوالی / ناحیه</label>
+            <input type="text" class="driver-form-input" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">سرک</label>
+            <input type="text" class="driver-form-input" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">نمبر خانه</label>
+            <input type="text" class="driver-form-input" />
+          </div>
+        </div>
+        <!-- div 3 submit -->
+        <div class="flex items-center justify-end mt-6">
+          <input type="submit" value="ثبت اطلاعات" class="form-submit-btn text-xs">
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
 {% endblock content %}

@@ -81,6 +81,25 @@ class CustomStaffCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'is_active', 'is_superuser']
+
+    def __init__(self, *args, **kwargs):
+        super(CustomStaffCreationForm, self).__init__(*args, **kwargs)
+        
+        for k, v in self.fields.items():
+            if k == 'is_active':
+                v.widget.attrs.update(
+                    {'id': 'myCheckbox', 'checked': 'checked'}
+                    
+                )
+            elif k == 'is_superuser':
+                v.widget.attrs.update(
+                    {'id': 'myCheckbox'}
+                )
+            else: 
+                v.widget.attrs.update(
+                    {'class':'driver-form-input'}
+                )
+
     
     def clean_email(self):
         data = self.cleaned_data['email']
