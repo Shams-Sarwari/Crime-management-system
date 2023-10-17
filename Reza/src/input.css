@@ -34,3 +34,7 @@
 .form-submit-btn {
   @apply h-8 w-32 text-white shadow-sm rounded bg-color-primary cursor-pointer hover:bg-color-primary-lighter ease-in duration-200 tracking-wide;
 }
+/* Change password */
+.eye {
+  @apply cursor-pointer absolute left-3 top-1/2 transform -translate-y-1/2;
+}
