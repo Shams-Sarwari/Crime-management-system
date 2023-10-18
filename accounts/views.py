@@ -15,6 +15,7 @@ from django.contrib.auth.tokens import default_token_generator
 from twilio.rest import Client
 from django.core.mail import send_mail
 from .utils import pagination_items
+from django.contrib import messages
 
 # Create your views here.
 def home(request):
@@ -149,6 +150,7 @@ def register_driver(request):
             user.is_driver = True
             user.save()
             driver = DriverProfile.objects.get(user=user)
+            messages.success(request,'راننده با موفقیت ثبت شد.')
             return redirect('edit-driver-profile', driver.id)
 
             

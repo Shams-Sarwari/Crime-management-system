@@ -1,34 +1,3 @@
-{% comment %} <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>This is header</h1>
-    {% if user.is_authenticated %}
-    <h1>Welcome {{ user.username }}</h1>
-    <a href="{% url 'logout' %}">Logout</a> 
-    <a href="{% url 'password_change' %}">Change password</a>
-    {% if messages %}
-        {% for message in messages %}
-          <div>
-            <p>{{ message|safe }}</p>
-            <button>x</button>
-          </div>
-        {% endfor %}
-    {% endif %}
-    {% endif %}
-    
-    <hr>
-    {% block content %}
-    
-    {% endblock content %}
-</body>
-</html> {% endcomment %}
-
-
 <!DOCTYPE html>
 {% load static %}
 <html lang="fa" dir="rtl">
@@ -253,6 +222,85 @@
       </ul>
     </div>
   </nav>
+  {% if messages %}
+    {% for message in messages %}
+      {% if message.tags == 'success' %}
+        <!-- success notification  -->
+        <div id="toast-success"
+        class="fixed z-50 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow" role="alert">
+        <div
+          class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+          viewBox="0 0 20 20">
+          <path
+        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+        </svg>
+        <span class="sr-only">Check icon</span>
+        </div>
+        <div class="mr-3 text-sm font-normal">{{ message }}</div>
+        <button id="success-close-btn" type="button"
+        class="mr-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8"
+        data-dismiss-target="#toast-success" aria-label="Close">
+        <span class="sr-only">Close</span>
+         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+        </button>
+        </div>
+        <!-- end success notification -->
+      {% elif message.tags == 'info' %}
+        <!-- info Notification -->
+        <div id="toast-warning" class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow"
+        role="alert">
+          <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-orange-500 bg-orange-100 rounded-lg">
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+            viewBox="0 0 20 20">
+            <path
+              d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z" />
+            </svg>
+            <span class="sr-only">Warning icon</span>
+          </div>
+          <div class="mr-3 text-sm font-normal">{{ message }}</div>
+          <button id="warning-close-btn" type="button"
+          class="mr-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8"
+          data-dismiss-target="#toast-warning" aria-label="Close">
+          <span class="sr-only">Close</span>
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+          </svg>
+          </button>
+        </div>
+        <!-- End info Notification -->
+      {% elif message.tags == 'error' %}
+        <!-- danger Notification -->
+        <div id="toast-danger" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500      bg-white rounded-lg shadow"
+        role="alert">
+          <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg">
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+            viewBox="0 0 20 20">
+            <path
+              d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+            </svg>
+            <span class="sr-only">Error icon</span>
+          </div>
+          <div class="mr-3 text-sm font-normal">{{ message }}</div>
+            <button id="danger-close-btn" type="button"
+              class="mr-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+              data-dismiss-target="#toast-danger" aria-label="Close">
+              <span class="sr-only">Close</span>
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+              </svg>
+            </button>
+        </div>
+        <!-- End danger Notification -->
+      {% endif %}
+      
+    {% endfor %}
+  {% endif %}
 
   <!-- container -->
   <div id="container" class="md:grid grid-cols-[200px,1fr]">
@@ -481,5 +529,34 @@
   {% endblock jscript %}
   <!-- end container -->
   <script src="{% static "js/adminScript.js" %}"></script>
+  <script>
+    // *********************************************************
+    // ************** Success toast ****************************
+    const success_close_btn = document.getElementById('success-close-btn');
+    const toast_success = document.getElementById('toast-success');
+
+    success_close_btn.addEventListener("click", function () {
+      toast_success.classList.add('hidden');
+    });
+
+    // *********************************************************
+    // ************** danger toast ****************************
+    const danger_close_btn = document.getElementById('danger-close-btn');
+    const toast_danger = document.getElementById('toast-danger');
+
+    danger_close_btn.addEventListener("click", function () {
+      toast_danger.classList.add('hidden');
+    });
+
+    // *********************************************************
+    // ************** warning toast ****************************
+    const warning_close_btn = document.getElementById('warning-close-btn');
+    const toast_warning = document.getElementById('toast-warning');
+
+    warning_close_btn.addEventListener("click", function () {
+      toast_warning.classList.add('hidden');
+    });
+  </script>
+
 </body>
 </html>
