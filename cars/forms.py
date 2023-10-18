@@ -68,3 +68,24 @@ class CreateOwnerForm(forms.ModelForm):
     class Meta:
         model = CarOwner
         fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super(CreateOwnerForm, self).__init__(*args, **kwargs)
+        
+        for k, v in self.fields.items():
+            if k=='gender':
+                v.widget.attrs.update(
+                    {'class':'h-7 w-28 bg-color-primary text-white text-center rounded  outline-none'}
+            )
+            elif k=='id_image_front':
+                v.widget.attrs.update(
+                    {'class': 'input-file'}
+                )
+            elif k=='image':
+                v.widget.attrs.update(
+                    {'class': 'input-file'}
+                )
+            else:
+                v.widget.attrs.update(
+                    {'class':'driver-form-input'}
+            )

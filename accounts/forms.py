@@ -114,19 +114,45 @@ class StaffEditForm(forms.ModelForm):
         fields = "__all__"
         exclude = ['user', 'id', 'current_address', 'work_place']
     
-    def clean_email(self):
-        data = self.cleaned_data['email']
-        if data != self.instance.email:
-            qs = User.objects.filter(email=data)
-            if qs.exists():
-                raise forms.ValidationError('این ایمیل قبلا در سیستم ثبت شده')
-            return data
+    def __init__(self, *args, **kwargs):
+        super(StaffEditForm, self).__init__(*args, **kwargs)
+        
+        for k, v in self.fields.items():
+            if k == 'gender':
+                v.widget.attrs.update(
+                    {'class': 'h-7 w-28 bg-color-primary text-white text-xs text-center rounded  outline-none'}
+                )
+            elif k=='tazkira_img':
+                v.widget.attrs.update(
+                    {'class': 'input-file'}
+                )
+            else: 
+                v.widget.attrs.update(
+                        {'class':'driver-form-input'}
+                )
+
+    
+    # def clean_email(self):
+    #     data = self.cleaned_data['email']
+    #     if data != self.instance.email:
+    #         qs = User.objects.filter(email=data)
+    #         if qs.exists():
+    #             raise forms.ValidationError('این ایمیل قبلا در سیستم ثبت شده')
+    #         return data
 
 
 class WorkPlaceForm(forms.ModelForm):
     class Meta:
         model = WorkPlace
         fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super(WorkPlaceForm, self).__init__(*args, **kwargs)
+        
+        for k, v in self.fields.items():
+            v.widget.attrs.update(
+                    {'class':'driver-form-input'}
+            )
     
 
 class CustomPasswordResetForm(forms.Form):
