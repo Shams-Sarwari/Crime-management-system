@@ -52,7 +52,7 @@
         <tbody>
           
           {% for driver in drivers %}
-          <tr class="mytable-row" onclick="window.open('{% url "driver-detail" driver.id %}', '_blank');">
+          <tr class="mytable-row" onclick="window.open('{% url "driver-detail" driver.id %}', '_self');">
             <td class="text-center text-lg hidden md:table-cell">1</td>
             <td class="border-r-2">
               <div class="flex justify-center">
