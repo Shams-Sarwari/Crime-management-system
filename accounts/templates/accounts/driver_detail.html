@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% if delete == 'true' %}
+        {% include 'delete.html' with driver=driver %}
+    {% endif %}
     <h1>Driver detail page.</h1>
     <h2>{{ driver.first_name }} {{ driver.last_name }}</h2>
 
@@ -9,3 +12,4 @@
     <a href="{% url 'edit-driver-profile' driver.id %}">Edit</a><br>
     <a href="{% url 'delete-driver-profile' driver.id %}">Delete</a>
 {% endblock content %}
+

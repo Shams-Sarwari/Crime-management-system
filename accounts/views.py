@@ -259,11 +259,12 @@ def delete_driver_profile(request, pk):
     if request.method == 'POST':
         profile.delete()
         return redirect('driver-list')
-
+    delete = 'true'
     context = {
-        'profile': profile,
+        'driver': profile,
+        'delete': delete
     }
-    return render(request, 'accounts/delete_driver_profile.html', context)
+    return render(request, 'accounts/driver_detail.html', context)
 
 def delete_staff_profile(request, pk):
     profile = StaffProfile.objects.get(id=pk)
@@ -271,8 +272,10 @@ def delete_staff_profile(request, pk):
         profile.delete()
         return redirect('staff-list')
 
+    delete = 'true'
     context = {
         'profile': profile,
+        'delete': delete
     }
     return render(request, 'accounts/delete_staff_profile.html', context)
 
