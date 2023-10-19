@@ -42,3 +42,7 @@
 .center-div {
   @apply relative mt-20 md:mt-0 md:absolute md:top-1/2 md:left-1/2 transform md:-translate-x-1/2 md:-translate-y-1/2;
 }
+.popup {
+  @apply fixed top-16 left-1/2 -translate-x-1/2 transition-opacity duration-500 opacity-100;
+}
+

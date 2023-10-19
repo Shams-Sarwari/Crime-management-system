@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TCMS | danger notification</title>
+  <title>TCMS | warning notification</title>
   <link rel="stylesheet" href="output.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -13,8 +13,7 @@
 
 <body class="bg-gray-200 font-IRANSans p-4">
   <!-- Warning Notification -->
-  <div id="toast-warning"
-    class="fixed top-16 left-1/2 -translate-x-1/2 flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow"
+  <div id="toast-warning" class="popup flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow"
     role="alert">
     <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-orange-500 bg-orange-100 rounded-lg">
       <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -48,6 +47,11 @@
       toast_warning.classList.add('hidden');
     });
 
+    function hideDiv() {
+      toast_warning.style.opacity = '0';  // Set opacity to 0 (hidden)
+    }
+
+    setTimeout(hideDiv, 3000);
   </script>
 </body>
 
