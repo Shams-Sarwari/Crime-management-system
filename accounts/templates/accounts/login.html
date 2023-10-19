@@ -15,6 +15,13 @@
     />
   </head>
   <body class="bg-gray-200">
+    {% if messages %}
+    {% for message in messages %}
+      {% if message.tags == 'error' %}
+        {% include "error.html" with message=message %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
     <div
       class="text-color-primary md:h-[100vh] flex justify-center items-center px-4 pt-4"
     >

@@ -73,8 +73,6 @@ def staff_detail(request, pk):
     return render(request, 'accounts/staff_detail.html', context)
 
 def login_user(request):
-    noexist_message = None
-    wrong_message = None
     check_user = None
 
     if request.user.is_authenticated:
@@ -90,20 +88,20 @@ def login_user(request):
                 driver = DriverProfile.objects.get(licence_num = licence_or_email)
                 
             except:
-                noexist_message = 'Username does not exist'
+                messages.error(request, 'اکانت با لایسنس نمبر وارد شده موجود نیست')
                 
-                return render(request, 'accounts/login.html', {
-                    'noexist_message': noexist_message,
-                })
+                
                
             check_user = authenticate(request, username=licence_or_email, password=password)
 
             if check_user is not None:
                 login(request, check_user)
+                messages.success(request, 'شما موفقانه وارد سیستم شدید')
                 return redirect('home')
                 
             else: 
-                wrong_message = 'Username or password is incorrect'
+                messages.error(request, 'لایسنس نمبر یا رمز عبور وارد شده اشتباه است')
+               
         
         elif request.POST['type'] == 'staff':
 
@@ -113,23 +111,22 @@ def login_user(request):
             try:
                 staff = get_user_model().objects.get(email = licence_or_email)
             except:    
-                noexist_message = 'User does not exist'
-                return render(request, 'accounts/login.html', {
-                    'noexist_message': noexist_message,
-                })           
+                messages.error(request, 'ایمیل وارد شده در سیستم موجود نیست')
+                
+
             check_user = authenticate(request, username=licence_or_email, password=password)
             
             if check_user is not None:
                 login(request, check_user)
-                messages.success(request, 'You are logged in')
+                messages.success(request, 'شما موفقانه وارد سیستم شدید')
                 return redirect('home')
             else: 
-                wrong_message = 'Username or password is incorrect'
+                messages.error(request, 'ایمیل و یا رمز عبور وارد شده اشتباه است')
+                
 
 
     context = {
-        'noexist_message': noexist_message,
-        'wrong_message': wrong_message,
+    
     }
     return render(request, 'accounts/login.html', context)
 
