@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-{% load static %}
 <html lang="fa" dir="rtl">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TCMS | Admin | Drivers</title>
-  <link rel="stylesheet" href="{% static "css/output.css" %}" />
+  <title>TCMS | Admin | Driver details</title>
+  <link rel="stylesheet" href="output.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body class="bg-gray-200 font-IRANSans">
+  <!-- mobile Nav  -->
   <nav id="mobile-nav" class="hidden h-[100vh] w-64 bg-color-primary absolute z-50 text-white rounded-l-xl">
     <!-- xmark -->
     <div id="xmark" class="text-lg">
@@ -21,7 +22,7 @@
     <div class="p-6">
       <!-- photo -->
       <div class="flex flex-col gap-2 justify-center items-center">
-        <img src="{{request.user.staffprofile.avatar.url}}" alt="my image" class="inline-block h-16 rounded-full">
+        <img src="../img/img2.jpg" alt="my image" class="inline-block h-16 rounded-full">
         <div class="border-b-2 border-gray-500  text-center pb-3 px-3">
           <p>محمد رضا قاسمی</p>
         </div>
@@ -29,9 +30,8 @@
       <!-- links menu -->
       <ul class="mt-4 text-sm">
         <li>
-          <a href="#" class="sidebar-link-mobile"> 
-            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20"
-              height="18" viewBox="0,0,256,256">
+          <a href="#" class="sidebar-link-mobile">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="18" viewBox="0,0,256,256">
               <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
                 stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
                 font-family="none" font-weight="none" font-size="none" text-anchor="none"
@@ -45,7 +45,7 @@
             </svg><span class="sidebar-list-text">داشبورد</span></a>
         </li>
         <li>
-          <a href="{% url 'driver-list' %}" class="sidebar-link-mobile bg-color-primary-light">
+          <a href="admin-dashboard-drivers.html" class="sidebar-link-mobile">
             <?xml version="1.0" ?><svg fill="none" height="15" viewBox="0 0 15 15" class="w-5"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -55,7 +55,7 @@
           </a>
         </li>
         <li>
-          <a href="{% url 'staff-list' %}" class="sidebar-link-mobile">
+          <a href="#" class="sidebar-link-mobile ">
             <?xml version="1.0" ?><svg id="Layer_1" style="enable-background: new 0 0 128 128" version="1.1"
               viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink" fill="#fff" class="w-5">
@@ -75,7 +75,7 @@
           </a>
         </li>
         <li>
-          <a href="{% url 'cars:car-list' %}" class="sidebar-link-mobile"><svg xmlns="http://www.w3.org/2000/svg" width="38" height="25"
+          <a href="#" class="sidebar-link-mobile"><svg xmlns="http://www.w3.org/2000/svg" width="38" height="25"
               viewBox="0 0 38 25" class="w-6">
               <g id="_172580_cars_icon" data-name="172580_cars_icon" transform="translate(0 0.333)">
                 <rect id="Rectangle_3" data-name="Rectangle 3" width="38" height="25" transform="translate(0 -0.333)"
@@ -101,8 +101,8 @@
               ها</span></a>
         </li>
         <li>
-          <a href="{% url 'cars:owner-list' %}" class="sidebar-link-mobile"><svg xmlns="http://www.w3.org/2000/svg" width="21.383" height="21.383"
-              viewBox="0 0 21.383 21.383" class="w-5">
+          <a href="#" class="sidebar-link-mobile "><svg xmlns="http://www.w3.org/2000/svg" width="21.383"
+              height="21.383" viewBox="0 0 21.383 21.383" class="w-5">
               <g id="_172487_key_icon" data-name="172487_key_icon" transform="translate(0.075 0.068)">
                 <rect id="Rectangle_4" data-name="Rectangle 4" width="21" height="21" transform="translate(0 0.24)"
                   fill="none" />
@@ -124,7 +124,7 @@
               موتر</span></a>
         </li>
         <li>
-          <a href="{% url "register-driver" %}" class="sidebar-link-mobile">
+          <a href="#" class="sidebar-link-mobile">
             <?xml version="1.0" ?><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="w-[18px]">
               <defs>
                 <style>
@@ -149,7 +149,7 @@
           </a>
         </li>
         <li>
-          <a href="#" class="sidebar-link-mobile">
+          <a href="#" class="sidebar-link-mobile ">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 41.64 34.873" class="w-5">
               <g id="_1471085_add_user_business_man_employee_general_human_icon"
                 data-name="1471085_add user_business man_employee_general_human_icon"
@@ -168,7 +168,7 @@
             <span class="sidebar-list-text">ایجاد کارمند جدید</span></a>
         </li>
         <li>
-          <a href="{% url 'cars:owner-list' %}" class="sidebar-link-mobile">
+          <a href="#" class="sidebar-link-mobile bg-color-primary-light">
             <?xml version="1.0" ?><svg class="feather feather-user-plus w-[18px]" fill="none" height="24"
               stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
               width="24" xmlns="http://www.w3.org/2000/svg">
@@ -216,24 +216,12 @@
               موتر جدید</span></a>
         </li>
         <li>
-          <a href="{% url "logout" %}" class="sidebar-link-mobile"><i class="fa-solid fa-arrow-right-from-bracket py-1 pr-1"></i><span
+          <a href="#" class="sidebar-link-mobile"><i class="fa-solid fa-arrow-right-from-bracket py-1 pr-1"></i><span
               class="sidebar-list-text pr-1">خروج</span></a>
         </li>
       </ul>
     </div>
   </nav>
-  {% if messages %}
-    {% for message in messages %}
-      {% if message.tags == 'success' %}
-        {% include "success.html" with message=message%}
-      {% elif message.tags == 'info' %}
-        {% include "info.html" with message=message%}
-      {% elif message.tags == 'error' %}
-        {% include "error.html" with message=message %}
-      {% endif %}
-      
-    {% endfor %}
-  {% endif %}
 
   <!-- container -->
   <div id="container" class="md:grid grid-cols-[200px,1fr]">
@@ -242,17 +230,16 @@
       <!-- sidebar large -->
       <!-- photo -->
       <div id="img-div-large" class="flex flex-col gap-2 justify-center items-center mt-8 mb-4">
-        <img src="{{request.user.staffprofile.avatar.url}}" alt="my image" class="inline-block h-16 w-16 rounded-full">
+        <img src="../img/img2.jpg" alt="my image" class="inline-block h-16 rounded-full">
         <div class="border-b-2 border-gray-500  text-center pb-3 px-3">
-          <p>{{ request.user.staffprofile.first_name }}</p>
+          <p>محمد رضا قاسمی</p>
         </div>
       </div>
       <!-- links menu  -->
       <ul id="ul-large" class="text-sm flex flex-col gap-1">
         <li>
-          <a href="#" class="sidebar-link"> 
-            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20"
-              height="18" viewBox="0,0,256,256">
+          <a href="#" class="sidebar-link">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="18" viewBox="0,0,256,256">
               <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
                 stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
                 font-family="none" font-weight="none" font-size="none" text-anchor="none"
@@ -266,7 +253,7 @@
             </svg><span class="sidebar-list-text">داشبورد</span></a>
         </li>
         <li>
-          <a href="{% url 'driver-list' %}" class="sidebar-link bg-color-primary-light">
+          <a href="admin-dashboard-drivers.html" class="sidebar-link">
             <?xml version="1.0" ?><svg fill="none" height="15" viewBox="0 0 15 15" class="w-5"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -276,7 +263,7 @@
           </a>
         </li>
         <li>
-          <a href="{% url 'staff-list' %}" class="sidebar-link">
+          <a href="#" class="sidebar-link">
             <?xml version="1.0" ?><svg id="Layer_1" style="enable-background: new 0 0 128 128" version="1.1"
               viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink" fill="#fff" class="w-5">
@@ -296,7 +283,7 @@
           </a>
         </li>
         <li>
-          <a href="{% url 'cars:car-list' %}" class="sidebar-link"><svg xmlns="http://www.w3.org/2000/svg" width="38" height="25"
+          <a href="#" class="sidebar-link"><svg xmlns="http://www.w3.org/2000/svg" width="38" height="25"
               viewBox="0 0 38 25" class="w-6">
               <g id="_172580_cars_icon" data-name="172580_cars_icon" transform="translate(0 0.333)">
                 <rect id="Rectangle_3" data-name="Rectangle 3" width="38" height="25" transform="translate(0 -0.333)"
@@ -322,7 +309,7 @@
               ها</span></a>
         </li>
         <li>
-          <a href="{% url 'cars:owner-list' %}" class="sidebar-link"><svg xmlns="http://www.w3.org/2000/svg" width="21.383" height="21.383"
+          <a href="#" class="sidebar-link "><svg xmlns="http://www.w3.org/2000/svg" width="21.383" height="21.383"
               viewBox="0 0 21.383 21.383" class="w-5">
               <g id="_172487_key_icon" data-name="172487_key_icon" transform="translate(0.075 0.068)">
                 <rect id="Rectangle_4" data-name="Rectangle 4" width="21" height="21" transform="translate(0 0.24)"
@@ -345,7 +332,7 @@
               موتر</span></a>
         </li>
         <li>
-          <a href="{% url "register-driver" %}" class="sidebar-link">
+          <a href="#" class="sidebar-link">
             <?xml version="1.0" ?><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="w-[18px]">
               <defs>
                 <style>
@@ -370,7 +357,7 @@
           </a>
         </li>
         <li>
-          <a href="#" class="sidebar-link">
+          <a href="#" class="sidebar-link ">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 41.64 34.873" class="w-5">
               <g id="_1471085_add_user_business_man_employee_general_human_icon"
                 data-name="1471085_add user_business man_employee_general_human_icon"
@@ -389,7 +376,7 @@
             <span class="sidebar-list-text">ایجاد کارمند جدید</span></a>
         </li>
         <li>
-          <a href="#" class="sidebar-link">
+          <a href="#" class="sidebar-link bg-color-primary-light">
             <?xml version="1.0" ?><svg class="feather feather-user-plus w-[18px]" fill="none" height="24"
               stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
               width="24" xmlns="http://www.w3.org/2000/svg">
@@ -437,30 +424,283 @@
               موتر جدید</span></a>
         </li>
         <li>
-          <a href="{% url "logout" %}" class="sidebar-link"><i class="fa-solid fa-arrow-right-from-bracket py-1 pr-1"></i><span
+          <a href="#" class="sidebar-link"><i class="fa-solid fa-arrow-right-from-bracket py-1 pr-1"></i><span
               class="sidebar-list-text pr-1">خروج</span></a>
         </li>
       </ul>
     </section>
+    <!-- sidebar finishes and main starts -->
     <section id="main">
-      <div class="bg-white h-10 md:12 flex items-center pr-4 justify-start shadow-sm sticky top-0">
+      <!-- navbar -->
+      <div class="bg-white h-10 md:12 flex items-center pr-4 justify-start shadow-sm sticky top-0 z-50">
         <div id="large-humgurgar" class="hidden md:block">
           <i class="fa-solid fa-bars px-4 py-2 cursor-pointer text-lg  text-gray-600"></i>
         </div>
-  
+
         <div id="mobile-humburgar" class=" md:hidden">
           <i class="fa-solid fa-bars px-4 py-2 cursor-pointer text-lg  text-gray-600"></i>
         </div>
-  
-      </div>
-    {% block content %}
 
-    {% endblock content %}
+      </div>
+
+      <div class="w-full pt-4 pl-3 pb-4 pr-3 md:pt-10 md:pr-16 md:pb-6 md:pl-20">
+        <!-- driver detatil -->
+        <!-- profile and jawazsair cards -->
+        <div class="flex flex-col gap-y-2 md:flex-row md:justify-center gap-x-10 ">
+          <!-- profile card -->
+          <div
+            class="relative w-full max-w-md px-4 pt-4 pb-6 bg-white border border-gray-200 text-gray-500 rounded-lg shadow">
+            <!-- dropdown -->
+            <div class="absolute left-6 top-2">
+              <button onclick="toggleProfileDropdown()"
+                class="inline-block text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5"
+                type="button">
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                  viewBox="0 0 16 3">
+                  <path
+                    d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
+                </svg>
+              </button>
+              <!-- Dropdown menu -->
+              <div id="profile-dropdown"
+                class="hidden absolute -left-2 top-10 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-36">
+                <ul class="py-2 text-xs">
+                  <li>
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">ویرایش</a>
+                  </li>
+                  <li>
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">چاپ اطلاعات</a>
+                  </li>
+                  <li>
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">تبدیل رمز عبور</a>
+                  </li>
+                  <li>
+                    <a href="#" class="block px-4 py-2 text-red-600 hover:bg-gray-100  ">حذف</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="flex flex-col items-center gap-2 mt-6">
+              <div class="w-20 h-20 md:w-24 md:h-24 overflow-hidden">
+                <img src="../img/img2.jpg" alt="Image" class="object-contain h-auto rounded-full">
+              </div>
+              <div class="flex flex-col gap-1">
+                <h2 class="text-xl text-color-primary font-semibold">محمد رضا قاسمی</h2>
+                <p class="text-sm">نمبر لایسنس: <span>9870240</span></p>
+              </div>
+            </div>
+            <!-- table and btns-->
+            <div class="px-6 mt-4">
+              <table class="text-[13px] text-gray-600 w-full">
+                <tr class="bg-gray-200  h-7">
+                  <td class="pr-4 w-36 ">نام</td>
+                  <td>محمدرضا</td>
+                </tr>
+                <tr class=" h-7">
+                  <td class="pr-4  ">تخلص</td>
+                  <td>قاسمی</td>
+                </tr>
+                <tr class="bg-gray-200 h-7">
+                  <td class="pr-4  ">نام پدر</td>
+                  <td>محمد جمعه</td>
+                </tr>
+                <tr class=" h-7">
+                  <td class="pr-4  ">جنسیت</td>
+                  <td>آقا</td>
+                </tr>
+                <tr class="bg-gray-200 h-7">
+                  <td class="pr-4  ">گروپ خون</td>
+                  <td class="text-sm">B+</td>
+                </tr>
+                <tr class=" h-7">
+                  <td class="pr-4  ">نمبر لایسنس</td>
+                  <td class="text-sm">569430</td>
+                </tr>
+                <tr class="bg-gray-200 h-7">
+                  <td class="pr-4  ">نمبر تذکره</td>
+                  <td class="text-sm">11915400</td>
+                </tr>
+                <tr class=" h-7">
+                  <td class="pr-4  ">شماره تماس</td>
+                  <td>0773022427</td>
+                </tr>
+                <tr class="bg-gray-200 h-7">
+                  <td class="pr-4  ">آدرس فعلی</td>
+                  <td>کابل، دشت برچی</td>
+                </tr>
+              </table>
+              <!-- btns -->
+              <div class="flex justify-center gap-6 mt-8">
+                <button type="button"
+                  class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 py-1 text-center">
+                  اپدیت
+                </button>
+                <button type="button" onclick="showDeleteNotification()"
+                  class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 py-1 text-center">
+                  حذف
+                </button>
+              </div>
+            </div>
+
+          </div>
+          <!-- End profile card -->
+          <!-- jawazsair card -->
+          <div
+            class="relative w-full max-w-md px-10 pt-8 pb-6 bg-white border border-gray-200 text-gray-600 rounded-lg shadow">
+            <!-- dropdown -->
+            <div class="absolute left-6 top-2">
+              <button onclick="toggleJawazDropdown()"
+                class="inline-block text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5"
+                type="button">
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                  viewBox="0 0 16 3">
+                  <path
+                    d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
+                </svg>
+              </button>
+              <!-- Dropdown menu -->
+              <div id="jawaz-dropdown"
+                class="hidden absolute -left-2 top-10 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-36">
+                <ul class="py-2 text-xs">
+                  <li>
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">ایجاد جواز سیر</a>
+                  </li>
+                  <li>
+                    <a href="#" class="block px-4 py-2 text-green-600 hover:bg-gray-100  ">ویرایش جواز سیر</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <h2 class="mr-2 pb-2 text-lg text-color-primary font-semibold">مشخصات جواز سیر</h2>
+            <table class="w-full text-[13px] border-t-2 border-b-2 border-gray-400">
+              <tr class="border-b h-8">
+                <td class="pr-4 w-36 ">نمبر جواز</td>
+                <td class="text-sm">48547584</td>
+              </tr>
+              <tr class="border-b h-8">
+                <td class="pr-4 w-36 ">نمبر کارت</td>
+                <td class="text-sm">87485845</td>
+              </tr>
+              <tr class="border-b h-8">
+                <td class="pr-4 w-36 ">نمبر احصاییه</td>
+                <td class="text-sm">84588832</td>
+              </tr>
+              <tr class="border-b h-8">
+                <td class="pr-4 w-36 ">نمبر داکومنت</td>
+                <td class="text-sm">88758475</td>
+              </tr>
+              <tr class="border-b h-8">
+                <td class="pr-4 w-36 ">تاریخ داکومنت</td>
+                <td>۱۱ حمل ۱۴۰۲</td>
+              </tr>
+              <tr class="border-b h-8">
+                <td class="pr-4 w-36 ">نمبر نیوز</td>
+                <td class="text-sm">84583475</td>
+              </tr>
+              <tr class="border-b h-8">
+                <td class="pr-4 w-36 ">تاریخ نیوز</td>
+                <td>۱۱ حمل ۱۴۰۲</td>
+              </tr>
+              <tr class="border-b h-8">
+                <td class="pr-4 w-36 ">نمبر بانک رنج</td>
+                <td class="text-sm">84372945</td>
+              </tr>
+              <tr class="border-b h-8">
+                <td class="pr-4 w-36 ">تاریخ بانک رنج</td>
+                <td>محمدرضا</td>
+              </tr>
+              <tr class="border-b h-8">
+                <td class="pr-4 w-36 ">سایز</td>
+                <td class="text-sm">283457205</td>
+              </tr>
+              <tr class="border-b h-8">
+                <td class="pr-4 w-36 ">ریست اشورد</td>
+                <td>محمدرضا</td>
+              </tr>
+              <tr class="border-b h-8">
+                <td class="pr-4 w-36 ">وریفاید بای</td>
+                <td>ذکی احمدی</td>
+              </tr>
+              <tr class="border-b h-8">
+                <td class="pr-4 w-36 ">کیریتید</td>
+                <td>محمد علی</td>
+              </tr>
+              <tr class="h-8">
+                <td class="pr-4 w-36 ">تاریخ انقضا</td>
+                <td>۱۱ حمل ۱۴۰۲</td>
+              </tr>
+            </table>
+          </div>
+
+        </div>
+        <!-- End profile and jawazsair cards -->
+
+
+      </div>
+    </section>
   </div>
-  {% block jscript %}
-  
-  {% endblock jscript %}
-  <!-- end container -->
-  <script src="{% static "js/adminScript.js" %}"></script>
+
+
+  <!-- *************************************** -->
+  <!-- ********* Delete Notification **************** -->
+  <!-- Confirm Delete with blur functionality -->
+  <div id="confirm-delete-container" class="hidden absolute top-0 bottom-0 right-0 left-0  backdrop-blur-sm p-2">
+    <div class="center-div w-full max-w-sm max-h-full bg-white rounded-lg shadow">
+      <button type="button" onclick="hideDeleteNotification()"
+        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+      </button>
+      <div class="p-6 text-center">
+        <svg class="mx-auto mb-2 text-red-400 w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+          viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+        <h3 class="mb-4 text-sm font-normal text-gray-500 leading-7">
+          آیا مطمئن هستید که میخواهید این مورد را حذف کنید؟
+        </h3>
+        <form action="">
+          <input type="submit" value="بله مطمئنم"
+            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg text-sm inline-flex items-center px-5 py-1 text-center ml-2 cursor-pointer">
+          <a href="#"
+            class="inline-block w-28 text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm px-5 py-1 focus:z-10">لغو</a>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- End confirm delete -->
+
+
+  <script>
+    // ****************************************
+    // ********* profile card ****************
+    const profile_dropdown = document.getElementById("profile-dropdown");
+    function toggleProfileDropdown() {
+      profile_dropdown.classList.toggle("hidden");
+    }
+    // ****************************************
+    // ********* jawazsair card ****************
+    const jawaz_dropdown = document.getElementById("jawaz-dropdown");
+    function toggleJawazDropdown() {
+      jawaz_dropdown.classList.toggle("hidden");
+    }
+
+    // *********************************************************
+    // ************** Confirm Delete ****************************
+    const confirm_delete_container = document.getElementById('confirm-delete-container');
+    function showDeleteNotification() {
+      confirm_delete_container.classList.remove("hidden");
+    };
+    function hideDeleteNotification() {
+      confirm_delete_container.classList.add("hidden");
+    };
+
+  </script>
+  <script src="./adminScript.js"></script>
 </body>
+
 </html>

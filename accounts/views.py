@@ -73,8 +73,6 @@ def staff_detail(request, pk):
     return render(request, 'accounts/staff_detail.html', context)
 
 def login_user(request):
-    noexist_message = None
-    wrong_message = None
     check_user = None
 
     if request.user.is_authenticated:
@@ -90,17 +88,21 @@ def login_user(request):
                 driver = DriverProfile.objects.get(licence_num = licence_or_email)
                 
             except:
-                messages.error(request, 'لایسنس نمبر وارد شده اشتباه است')
+
+                messages.error(request, 'اکانت با لایسنس نمبر وارد شده موجود نیست')
 
                
             check_user = authenticate(request, username=licence_or_email, password=password)
 
             if check_user is not None:
                 login(request, check_user)
+                messages.success(request, 'شما موفقانه وارد سیستم شدید')
                 return redirect('home')
                 
             else: 
-                messages.error(request, 'لایسنس نمبر یا پسورد وارد شده اشتباه است ')
+
+                messages.error(request, 'لایسنس نمبر یا رمز عبور وارد شده اشتباه است')
+
         
         elif request.POST['type'] == 'staff':
 
@@ -109,9 +111,10 @@ def login_user(request):
 
             try:
                 staff = get_user_model().objects.get(email = licence_or_email)
-            except:
-                messages.error(request, 'ایمیل وارد شده اشتباه است')    
-                          
+
+            except:    
+                messages.error(request, 'ایمیل وارد شده در سیستم موجود نیست')
+
             check_user = authenticate(request, username=licence_or_email, password=password)
             
             if check_user is not None:
@@ -119,12 +122,13 @@ def login_user(request):
                 messages.success(request, 'شما موفقانه وارد سیستم شدید')
                 return redirect('home')
             else: 
-                messages.error(request, 'ایمیل و یا پسورد وارد شده اشتباه است')
-                
+
+                messages.error(request, 'ایمیل و یا رمز عبور وارد شده اشتباه است')
+  
 
 
     context = {
-        
+
     }
     return render(request, 'accounts/login.html', context)
 
