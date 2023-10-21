@@ -14,7 +14,8 @@
       referrerpolicy="no-referrer"
     />
   </head>
-  <body class="bg-gray-200">
+
+  <body class="bg-gray-200 font-IRANSans">
     {% if messages %}
     {% for message in messages %}
       {% if message.tags == 'error' %}
@@ -22,9 +23,21 @@
       {% endif %}
     {% endfor %}
   {% endif %}
+
     <div
       class="text-color-primary md:h-[100vh] flex justify-center items-center px-4 pt-4"
     >
+  {% if messages %}
+    {% for message in messages %}
+      {% if message.tags == 'success' %}
+        {% include "success.html" with message=message %}
+      {% elif message.tags == 'info' %}
+        {% include "info.html" with message=message%}
+      {% elif message.tags == 'error' %}
+        {% include "error.html" with message=message%}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
       <div
         class="bg-white max-w-[360px] px-8 py-8 md:max-w-[420px] rounded-md shadow-lg"
       >
@@ -79,7 +92,7 @@
           />
         </form>
         <div class="mt-6 text-color-primary text-center pb-4">
-          <a href="#"><span> رمز عبور تان را فراموش کرده اید؟</span></a>
+          <a href="{% url "password_reset" %}"><span> رمز عبور تان را فراموش کرده اید؟</span></a>
         </div>
       </div>
     </div>
