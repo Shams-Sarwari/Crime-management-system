@@ -4,9 +4,9 @@ from .models import DriverProfile, StaffProfile, User
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.views import PasswordResetView
 from django.contrib import messages
-from .forms import CustomDriverUserCreationForm, DriverEditForm, AddressForm, CustomStaffCreationForm, StaffEditForm, WorkPlaceForm, CustomPasswordResetForm, CustomPasswordChangeForm
+from .forms import CustomDriverUserCreationForm, DriverEditForm, AddressForm, CustomStaffCreationForm, StaffEditForm, WorkPlaceForm, CustomPasswordResetForm, CustomPasswordChangeForm, CustomSetPasswordForm
 from django.urls import reverse_lazy
-from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.views import PasswordChangeView, PasswordResetConfirmView
 from django.contrib import messages
 # imports for custom password reset:
 from django.utils.http import urlsafe_base64_encode
@@ -90,11 +90,8 @@ def login_user(request):
                 driver = DriverProfile.objects.get(licence_num = licence_or_email)
                 
             except:
-                noexist_message = 'Username does not exist'
-                
-                return render(request, 'accounts/login.html', {
-                    'noexist_message': noexist_message,
-                })
+                messages.error(request, 'لایسنس نمبر وارد شده اشتباه است')
+
                
             check_user = authenticate(request, username=licence_or_email, password=password)
 
@@ -103,7 +100,7 @@ def login_user(request):
                 return redirect('home')
                 
             else: 
-                wrong_message = 'Username or password is incorrect'
+                messages.error(request, 'لایسنس نمبر یا پسورد وارد شده اشتباه است ')
         
         elif request.POST['type'] == 'staff':
 
@@ -112,30 +109,29 @@ def login_user(request):
 
             try:
                 staff = get_user_model().objects.get(email = licence_or_email)
-            except:    
-                noexist_message = 'User does not exist'
-                return render(request, 'accounts/login.html', {
-                    'noexist_message': noexist_message,
-                })           
+            except:
+                messages.error(request, 'ایمیل وارد شده اشتباه است')    
+                          
             check_user = authenticate(request, username=licence_or_email, password=password)
             
             if check_user is not None:
                 login(request, check_user)
-                messages.success(request, 'You are logged in')
+                messages.success(request, 'شما موفقانه وارد سیستم شدید')
                 return redirect('home')
             else: 
-                wrong_message = 'Username or password is incorrect'
+                messages.error(request, 'ایمیل و یا پسورد وارد شده اشتباه است')
+                
 
 
     context = {
-        'noexist_message': noexist_message,
-        'wrong_message': wrong_message,
+        
     }
     return render(request, 'accounts/login.html', context)
 
 
 def logout_user(request):
     logout(request)
+    messages.success(request, 'شما موفقانه از سیستم خارج شدید')
     return redirect('login')
 
 
@@ -312,6 +308,8 @@ class CustomPasswordResetView(PasswordResetView):
                 message = f'شما برای بازیابی رمز عبور خود در وبسایت رسمی ریاست ترافیک این پیام را دریافت میکنید. برای بازیابی رمز خو لینک زیر را دنبال کنید. \n {reset_url}'
                 email = user.email
                 send_mail('بازیابی رمز عبوز', message, 'traffic@gmail.com', [email],fail_silently=False)
+        
+        
 
         return super().form_valid(form)
         
@@ -319,4 +317,6 @@ class CustomPasswordChangeView(PasswordChangeView):
     form_class = CustomPasswordChangeForm
 
             
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    form_class = CustomSetPasswordForm
 

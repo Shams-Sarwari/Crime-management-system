@@ -3,7 +3,7 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.forms import UserCreationForm
 from .models import User, DriverProfile, Address, StaffProfile, WorkPlace
 from django import forms
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm, SetPasswordForm
 from django.core.exceptions import ValidationError
 
 class CustomDriverUserCreationForm(UserCreationForm):
@@ -158,10 +158,23 @@ class WorkPlaceForm(forms.ModelForm):
 class CustomPasswordResetForm(forms.Form):
     email_or_licence = forms.CharField(label='ایمیل یا لایسنس نمبر خود را وارد کنید')
 
+    def __init__(self, *args, **kwargs):
+        super(CustomPasswordResetForm, self).__init__(*args, **kwargs)
+        
+        
+        for k, v in self.fields.items():
+            
+            v.widget.attrs.update(
+                {'class':'w-full h-7 mb-5 px-4 bg-gray-50 rounded outline-none placeholder:text-xs placeholder:text-gray-400',
+                'placeholder':"ایمیل یا لایسنس",
+                }
+            )
+    
+
     def clean_email_or_licence(self):
         email_or_licence = self.cleaned_data.get('email_or_licence')
         if not email_or_licence:
-            raise ValidationError('لطفا ایمیل یا لایسنس نمبر خود را وارد کنید')
+            raise ValidationError('ایمیل یا لایسنس وارد شده در سیستم موجود نمی باشد')
         return email_or_licence
     
     def save(self, **kwargs):
@@ -189,3 +202,15 @@ class CustomPasswordChangeForm(PasswordChangeForm):
                         {'class':'driver-form-input tracking-widest', 
                         'id': 'confirm-pass-input'}
                 )
+
+class CustomSetPasswordForm(SetPasswordForm):
+    
+    def __init__(self, *args, **kwargs):
+        super(CustomSetPasswordForm, self).__init__(*args, **kwargs)
+        for k, v in self.fields.items():
+            
+            v.widget.attrs.update(
+                {'class':'bg-gray-50 border border-gray-300  outline-none text-gray-900 sm:text-sm tracking-widest rounded-lg focus:border-gray-400 focus:ring-primary-600  block w-full p-2.5',
+                'placeholder':"••••••••",
+                }
+            )

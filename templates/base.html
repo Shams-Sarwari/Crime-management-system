@@ -225,11 +225,11 @@
   {% if messages %}
     {% for message in messages %}
       {% if message.tags == 'success' %}
-        {% include "success.html" %}
+        {% include "success.html" with message=message %}
       {% elif message.tags == 'info' %}
-        {% include "info.html" %}
+        {% include "info.html" with message=message %}
       {% elif message.tags == 'error' %}
-        {% include "error.html" %}
+        {% include "error.html" with message=message %}
       {% endif %}
       
     {% endfor %}
