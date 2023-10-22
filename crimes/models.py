@@ -14,7 +14,7 @@ class Crime(models.Model):
         return f'{self.min_price}-{self.max_price} {self.title}'
     
 class CarCrime(models.Model):
-    stuff = models.ForeignKey(StaffProfile, on_delete=models.CASCADE)
+    stuff = models.ForeignKey(StaffProfile, on_delete=models.CASCADE, null=True)
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     crime = models.ForeignKey(Crime, on_delete=models.CASCADE, null=True)
     location = models.CharField(max_length=300, blank=True, null=True)
@@ -31,3 +31,5 @@ class CarCrime(models.Model):
 
     def get_total(self):
         return self.price + self.expiry_fine
+    
+

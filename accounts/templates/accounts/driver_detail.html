@@ -25,7 +25,7 @@
                 <a href="{% url "edit-driver-profile" driver.id %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">ویرایش</a>
               </li>
               <li>
-                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">چاپ اطلاعات</a>
+                <a href="#" onclick="printPage(); return false;" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">چاپ اطلاعات</a>
               </li>
               {% if jawaz_sayr == None %}
               <li>
@@ -388,5 +388,10 @@
       confirm_delete_container.classList.add("hidden");
     };
 
+  </script>
+  <script>
+    function printPage() {
+        window.print();
+    }
   </script>
 {% endblock jscript %}

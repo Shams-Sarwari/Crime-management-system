@@ -2,6 +2,7 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import DriverProfile, StaffProfile, User
 from cars.models import JawazSayr
+from crimes.models import CarCrime,Crime
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.views import PasswordResetView
 from django.contrib import messages
@@ -45,9 +46,23 @@ def driver_list(request):
 def driver_detail(request, pk):
     driver = get_object_or_404(DriverProfile, id=pk)
     try:
-        jawaz_sayr = JawazSayr.objects.get(driver=driver)
+        jawaz_sayr = JawazSayr.objects.filter(driver=driver)
     except:
         jawaz_sayr = None
+    
+    if jawaz_sayr:
+        for item in jawaz_sayr:
+            if date.today() > item.expiry_date:
+                crime = CarCrime.objects.create(
+                    car = item.car,
+                    crime = Crime.objects.get(title='گذشتن تاریخ اعتبار جواز سیر'),
+                    price = 500, 
+                    expiry_date = item.expiry_date + timedelta(days=60)
+
+                )
+                crime.save()
+                item.expiry_date += timedelta(days=90)
+                item.save()
 
     cars = driver.car_set.all()
     for car in cars:
@@ -72,7 +87,7 @@ def driver_detail(request, pk):
 
     context = {
         'driver': driver, 
-        'jawaz_sayr': jawaz_sayr,
+        'jawaz_sayr': jawaz_sayr[0],
         'cars': cars, 
     }
     return render(request, 'accounts/driver_detail.html', context)

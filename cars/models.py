@@ -57,7 +57,7 @@ class Car(models.Model):
 class JawazSayr(models.Model):
     jawaz_num = models.CharField(max_length=200, primary_key=True, unique=True)
     card_num = models.CharField(max_length=200, unique=True, blank=True, null=True)
-    driver = models.OneToOneField(DriverProfile, on_delete=models.CASCADE)
+    driver = models.ForeignKey(DriverProfile, on_delete=models.CASCADE)
     car = models.OneToOneField(Car, on_delete=models.CASCADE)
     statistic_num = models.CharField(max_length=200, blank=True, null=True)
     document_num = models.CharField(max_length=200, blank=True, null=True)
