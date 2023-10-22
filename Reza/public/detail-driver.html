@@ -11,7 +11,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body class="bg-gray-200 font-IRANSans">
+<body class="bg-gray-50 font-IRANSans">
   <!-- mobile Nav  -->
   <nav id="mobile-nav" class="hidden h-[100vh] w-64 bg-color-primary absolute z-50 text-white rounded-l-xl">
     <!-- xmark -->
@@ -443,201 +443,293 @@
 
       </div>
 
-      <div class="w-full pt-4 pl-3 pb-4 pr-3 md:pt-10 md:pr-16 md:pb-6 md:pl-20">
-        <!-- driver detatil -->
-        <!-- profile and jawazsair cards -->
-        <div class="flex flex-col gap-y-2 md:flex-row md:justify-center gap-x-10 ">
-          <!-- profile card -->
-          <div
-            class="relative w-full max-w-md px-4 pt-4 pb-6 bg-white border border-gray-200 text-gray-500 rounded-lg shadow">
-            <!-- dropdown -->
-            <div class="absolute left-6 top-2">
-              <button onclick="toggleProfileDropdown()"
-                class="inline-block text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5"
-                type="button">
-                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                  viewBox="0 0 16 3">
-                  <path
-                    d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-                </svg>
-              </button>
-              <!-- Dropdown menu -->
-              <div id="profile-dropdown"
-                class="hidden absolute -left-2 top-10 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-36">
-                <ul class="py-2 text-xs">
-                  <li>
-                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">ویرایش</a>
-                  </li>
-                  <li>
-                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">چاپ اطلاعات</a>
-                  </li>
-                  <li>
-                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">تبدیل رمز عبور</a>
-                  </li>
-                  <li>
-                    <a href="#" class="block px-4 py-2 text-red-600 hover:bg-gray-100  ">حذف</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="flex flex-col items-center gap-2 mt-6">
-              <div class="w-20 h-20 md:w-24 md:h-24 overflow-hidden">
-                <img src="../img/img2.jpg" alt="Image" class="object-contain h-auto rounded-full">
-              </div>
-              <div class="flex flex-col gap-1">
-                <h2 class="text-xl text-color-primary font-semibold">محمد رضا قاسمی</h2>
-                <p class="text-sm">نمبر لایسنس: <span>9870240</span></p>
-              </div>
-            </div>
-            <!-- table and btns-->
-            <div class="px-6 mt-4">
-              <table class="text-[13px] text-gray-600 w-full">
-                <tr class="bg-gray-200  h-7">
-                  <td class="pr-4 w-36 ">نام</td>
-                  <td>محمدرضا</td>
-                </tr>
-                <tr class=" h-7">
-                  <td class="pr-4  ">تخلص</td>
-                  <td>قاسمی</td>
-                </tr>
-                <tr class="bg-gray-200 h-7">
-                  <td class="pr-4  ">نام پدر</td>
-                  <td>محمد جمعه</td>
-                </tr>
-                <tr class=" h-7">
-                  <td class="pr-4  ">جنسیت</td>
-                  <td>آقا</td>
-                </tr>
-                <tr class="bg-gray-200 h-7">
-                  <td class="pr-4  ">گروپ خون</td>
-                  <td class="text-sm">B+</td>
-                </tr>
-                <tr class=" h-7">
-                  <td class="pr-4  ">نمبر لایسنس</td>
-                  <td class="text-sm">569430</td>
-                </tr>
-                <tr class="bg-gray-200 h-7">
-                  <td class="pr-4  ">نمبر تذکره</td>
-                  <td class="text-sm">11915400</td>
-                </tr>
-                <tr class=" h-7">
-                  <td class="pr-4  ">شماره تماس</td>
-                  <td>0773022427</td>
-                </tr>
-                <tr class="bg-gray-200 h-7">
-                  <td class="pr-4  ">آدرس فعلی</td>
-                  <td>کابل، دشت برچی</td>
-                </tr>
-              </table>
-              <!-- btns -->
-              <div class="flex justify-center gap-6 mt-8">
-                <button type="button"
-                  class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 py-1 text-center">
-                  اپدیت
-                </button>
-                <button type="button" onclick="showDeleteNotification()"
-                  class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 py-1 text-center">
-                  حذف
-                </button>
-              </div>
-            </div>
-
+      <!-- driver detatil -->
+      <!-- profile and jawazsair -->
+      <div
+        class="relative flex flex-col gap-y-4 gap-x-8 md:flex-row md:max-w-[960px] mx-2 md:mx-auto mt-2 md:mt-4 pb-6 pt-4 bg-white text-gray-500 rounded-lg shadow">
+        <!-- dropdown -->
+        <div class="absolute right-6 top-2">
+          <button onclick="toggleProfileDropdown()"
+            class="inline-block text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5"
+            type="button">
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+              viewBox="0 0 16 3">
+              <path
+                d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
+            </svg>
+          </button>
+          <!-- Dropdown menu -->
+          <div id="profile-dropdown"
+            class="hidden absolute -right-2 top-10 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-36">
+            <ul class="py-2 text-xs">
+              <li>
+                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">ویرایش</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">چاپ اطلاعات</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">ایجاد جواز سیر</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 text-green-600 hover:bg-gray-100  ">ویرایش جواز سیر</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">تبدیل رمز عبور</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 text-red-600 hover:bg-gray-100  ">حذف</a>
+              </li>
+            </ul>
           </div>
-          <!-- End profile card -->
-          <!-- jawazsair card -->
-          <div
-            class="relative w-full max-w-md px-10 pt-8 pb-6 bg-white border border-gray-200 text-gray-600 rounded-lg shadow">
-            <!-- dropdown -->
-            <div class="absolute left-6 top-2">
-              <button onclick="toggleJawazDropdown()"
-                class="inline-block text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5"
-                type="button">
-                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                  viewBox="0 0 16 3">
-                  <path
-                    d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-                </svg>
-              </button>
-              <!-- Dropdown menu -->
-              <div id="jawaz-dropdown"
-                class="hidden absolute -left-2 top-10 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-36">
-                <ul class="py-2 text-xs">
-                  <li>
-                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">ایجاد جواز سیر</a>
-                  </li>
-                  <li>
-                    <a href="#" class="block px-4 py-2 text-green-600 hover:bg-gray-100  ">ویرایش جواز سیر</a>
-                  </li>
-                </ul>
-              </div>
+        </div>
+        <!-- profile card -->
+        <div class="w-full max-w-md px-4">
+          <div class="flex flex-col items-center gap-2 mt-6">
+            <div class="w-20 h-20 md:w-24 md:h-24 overflow-hidden">
+              <img src="../img/img2.jpg" alt="Image" class="object-contain h-auto rounded-full">
             </div>
-            <h2 class="mr-2 pb-2 text-lg text-color-primary font-semibold">مشخصات جواز سیر</h2>
-            <table class="w-full text-[13px] border-t-2 border-b-2 border-gray-400">
-              <tr class="border-b h-8">
-                <td class="pr-4 w-36 ">نمبر جواز</td>
-                <td class="text-sm">48547584</td>
-              </tr>
-              <tr class="border-b h-8">
-                <td class="pr-4 w-36 ">نمبر کارت</td>
-                <td class="text-sm">87485845</td>
-              </tr>
-              <tr class="border-b h-8">
-                <td class="pr-4 w-36 ">نمبر احصاییه</td>
-                <td class="text-sm">84588832</td>
-              </tr>
-              <tr class="border-b h-8">
-                <td class="pr-4 w-36 ">نمبر داکومنت</td>
-                <td class="text-sm">88758475</td>
-              </tr>
-              <tr class="border-b h-8">
-                <td class="pr-4 w-36 ">تاریخ داکومنت</td>
-                <td>۱۱ حمل ۱۴۰۲</td>
-              </tr>
-              <tr class="border-b h-8">
-                <td class="pr-4 w-36 ">نمبر نیوز</td>
-                <td class="text-sm">84583475</td>
-              </tr>
-              <tr class="border-b h-8">
-                <td class="pr-4 w-36 ">تاریخ نیوز</td>
-                <td>۱۱ حمل ۱۴۰۲</td>
-              </tr>
-              <tr class="border-b h-8">
-                <td class="pr-4 w-36 ">نمبر بانک رنج</td>
-                <td class="text-sm">84372945</td>
-              </tr>
-              <tr class="border-b h-8">
-                <td class="pr-4 w-36 ">تاریخ بانک رنج</td>
+            <div class="flex flex-col gap-1">
+              <h2 class="text-xl text-color-primary font-semibold">محمد رضا قاسمی</h2>
+              <p class="text-sm">نمبر لایسنس: <span>9870240</span></p>
+            </div>
+          </div>
+          <!-- table and btns-->
+          <div class="px-6 mt-4">
+            <table class="text-[13px] text-gray-600 w-full">
+              <tr class="bg-gray-200  h-7">
+                <td class="pr-4 w-36 ">نام</td>
                 <td>محمدرضا</td>
               </tr>
-              <tr class="border-b h-8">
-                <td class="pr-4 w-36 ">سایز</td>
-                <td class="text-sm">283457205</td>
+              <tr class=" h-7">
+                <td class="pr-4  ">تخلص</td>
+                <td>قاسمی</td>
               </tr>
-              <tr class="border-b h-8">
-                <td class="pr-4 w-36 ">ریست اشورد</td>
-                <td>محمدرضا</td>
+              <tr class="bg-gray-200 h-7">
+                <td class="pr-4  ">نام پدر</td>
+                <td>محمد جمعه</td>
               </tr>
-              <tr class="border-b h-8">
-                <td class="pr-4 w-36 ">وریفاید بای</td>
-                <td>ذکی احمدی</td>
+              <tr class=" h-7">
+                <td class="pr-4  ">جنسیت</td>
+                <td>آقا</td>
               </tr>
-              <tr class="border-b h-8">
-                <td class="pr-4 w-36 ">کیریتید</td>
-                <td>محمد علی</td>
+              <tr class="bg-gray-200 h-7">
+                <td class="pr-4  ">گروپ خون</td>
+                <td class="text-sm">B+</td>
               </tr>
-              <tr class="h-8">
-                <td class="pr-4 w-36 ">تاریخ انقضا</td>
-                <td>۱۱ حمل ۱۴۰۲</td>
+              <tr class=" h-7">
+                <td class="pr-4  ">نمبر لایسنس</td>
+                <td class="text-sm">569430</td>
+              </tr>
+              <tr class="bg-gray-200 h-7">
+                <td class="pr-4  ">نمبر تذکره</td>
+                <td class="text-sm">11915400</td>
+              </tr>
+              <tr class=" h-7">
+                <td class="pr-4  ">شماره تماس</td>
+                <td>0773022427</td>
+              </tr>
+              <tr class="bg-gray-200 h-7">
+                <td class="pr-4  ">آدرس فعلی</td>
+                <td>کابل، دشت برچی</td>
               </tr>
             </table>
+            <!-- btns -->
+            <div class="flex justify-center gap-6 mt-8">
+              <button type="button"
+                class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 py-1 text-center">
+                اپدیت
+              </button>
+              <button type="button" onclick="showDeleteNotification()"
+                class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 py-1 text-center">
+                حذف
+              </button>
+            </div>
           </div>
 
         </div>
-        <!-- End profile and jawazsair cards -->
-
+        <!-- jawazsair card -->
+        <div class="w-full max-w-md px-10 md:pr-14 mt-4 text-gray-600 md:border-r">
+          <h2 class="mr-2 pb-2 text-lg text-color-primary font-semibold">مشخصات جواز سیر</h2>
+          <table class="w-full text-[13px] border-t-2 border-b-2 border-gray-400">
+            <tr class="border-b h-8">
+              <td class="pr-4 w-36 ">نمبر جواز</td>
+              <td class="text-sm">48547584</td>
+            </tr>
+            <tr class="border-b h-8">
+              <td class="pr-4 w-36 ">نمبر کارت</td>
+              <td class="text-sm">87485845</td>
+            </tr>
+            <tr class="border-b h-8">
+              <td class="pr-4 w-36 ">نمبر احصاییه</td>
+              <td class="text-sm">84588832</td>
+            </tr>
+            <tr class="border-b h-8">
+              <td class="pr-4 w-36 ">نمبر داکومنت</td>
+              <td class="text-sm">88758475</td>
+            </tr>
+            <tr class="border-b h-8">
+              <td class="pr-4 w-36 ">تاریخ داکومنت</td>
+              <td>۱۱ حمل ۱۴۰۲</td>
+            </tr>
+            <tr class="border-b h-8">
+              <td class="pr-4 w-36 ">نمبر نیوز</td>
+              <td class="text-sm">84583475</td>
+            </tr>
+            <tr class="border-b h-8">
+              <td class="pr-4 w-36 ">تاریخ نیوز</td>
+              <td>۱۱ حمل ۱۴۰۲</td>
+            </tr>
+            <tr class="border-b h-8">
+              <td class="pr-4 w-36 ">نمبر بانک رنج</td>
+              <td class="text-sm">84372945</td>
+            </tr>
+            <tr class="border-b h-8">
+              <td class="pr-4 w-36 ">تاریخ بانک رنج</td>
+              <td>محمدرضا</td>
+            </tr>
+            <tr class="border-b h-8">
+              <td class="pr-4 w-36 ">سایز</td>
+              <td class="text-sm">283457205</td>
+            </tr>
+            <tr class="border-b h-8">
+              <td class="pr-4 w-36 ">ریست اشورد</td>
+              <td>محمدرضا</td>
+            </tr>
+            <tr class="border-b h-8">
+              <td class="pr-4 w-36 ">وریفاید بای</td>
+              <td>ذکی احمدی</td>
+            </tr>
+            <tr class="border-b h-8">
+              <td class="pr-4 w-36 ">کیریتید</td>
+              <td>محمد علی</td>
+            </tr>
+            <tr class="h-8">
+              <td class="pr-4 w-36 ">تاریخ انقضا</td>
+              <td>۱۱ حمل ۱۴۰۲</td>
+            </tr>
+          </table>
+        </div>
 
       </div>
+      <!-- End profile and jawazsair -->
+
+      <!-- car and payment -->
+      <div
+        class="max-w-md md:max-w-[960px] mx-2 md:mx-auto mt-4 mb-4 md:mb-10 bg-white text-gray-600 rounded-lg shadow overflow-hidden">
+        <!-- car name and plateNO -->
+        <div class="flex justify-between bg-color-primary text-white py-4 px-2 md:px-10">
+          <div class="flex gap-x-4 md:gap-x-10 text-lg">
+            <span>1</span>
+            <span>Toyota 2003</span>
+            <span>K-13634</span>
+          </div>
+          <div onclick="toggleCarInfo()" class="flex items-center cursor-pointer text-xs md:text-sm">
+            <span class="ml-2">جزییات موتر</span><i class="fa-solid fa-angle-down inline-block "></i>
+          </div>
+        </div>
+        <!-- car info -->
+        <div id="car-info" class="max-w-md md:max-w-full px-10 pb-4 border-b hidden">
+          <h3 class="my-4 text-lg text-center text-color-primary font-semibold">مشخصات موتر</h3>
+          <div class="flex flex-col md:flex-row">
+            <table class="text-[13px] text-gray-600 w-full ">
+              <tr class="bg-gray-200  h-7">
+                <td class="pr-4 w-36 ">مالک</td>
+                <td>محمدرضا قاسمی</td>
+              </tr>
+              <tr class=" h-7">
+                <td class="pr-4  ">راننده</td>
+                <td>ذکی احمدی</td>
+              </tr>
+              <tr class="bg-gray-200  h-7">
+                <td class="pr-4 w-36 ">نمبر پلیت</td>
+                <td>K 12345</td>
+              </tr>
+              <tr class=" h-7">
+                <td class="pr-4  ">مودل</td>
+                <td>Toyota 2003</td>
+              </tr>
+              <tr class="bg-gray-200  h-7">
+                <td class="pr-4  ">وزن مجاز</td>
+                <td>۲۶ کیلوگرام</td>
+              </tr>
+              <tr class=" h-7">
+                <td class="pr-4  ">تعداد راکبین</td>
+                <td>۶ نفر</td>
+              </tr>
+            </table>
+
+            <table class="text-[13px] text-gray-600 w-full md:mr-10">
+              <tr class="bg-gray-200  h-7">
+                <td class="pr-4 w-36 ">رنگ</td>
+                <td>نقره یی</td>
+              </tr>
+              <tr class=" h-7">
+                <td class="pr-4  ">نوع اشترینگ</td>
+                <td>راسته</td>
+              </tr>
+              <tr class="bg-gray-200  h-7">
+                <td class="pr-4 w-36 "> نوع ماشین</td>
+                <td>نمیدانم</td>
+              </tr>
+              <tr class=" h-7">
+                <td class="pr-4  ">نمبر ماشین</td>
+                <td>35346777</td>
+              </tr>
+              <tr class="bg-gray-200  h-7">
+                <td class="pr-4  ">نمبر شاسی</td>
+                <td>35346777</td>
+              </tr>
+              <tr class=" h-7">
+                <td class="pr-4  ">تعداد سلندر</td>
+                <td>۴ سلندر</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!-- punishment -->
+        <form class="px-2 md:px-10 py-6 relative">
+          <input type="checkbox" name="" id="masterCheckbox"
+            class="absolute top-10 right-6 md:right-[54px] cursor-pointer">
+          <table id="fineTable">
+            <tr class="h-12 text-center text-gray-600 text-[13px] font-semibold border-b border-gray-500">
+              <td class="w-10 h-12 flex justify-center items-center">
+              </td>
+              <td class=" w-72">نوع جریمه</td>
+              <td class="w-32">مقدار جریمه</td>
+              <td class=" w-40">جریمه عدم پرداخت</td>
+              <td class="w-32">مقدار کُل</td>
+              <td class=" w-32">تاریخ انقضا</td>
+            </tr>
+            <tr class="h-12 text-center text-gray-600 border-b border-gray-300">
+              <td class="w-10 h-12 flex justify-center items-center"><input type="checkbox" name=""
+                  class=" cursor-pointer">
+              </td>
+              <td class="text-[13px]">رد شدن از چراغ سرخ</td>
+              <td>200</td>
+              <td>30</td>
+              <td>230</td>
+              <td>1402/10/25</td>
+            </tr>
+            <tr class="h-12 text-center text-gray-600 border-b border-gray-300">
+              <td class="w-10 h-12 flex justify-center items-center"><input type="checkbox" class=" cursor-pointer">
+              </td>
+              <td class="text-[13px]">رد شدن از چراغ سرخ</td>
+              <td>200</td>
+              <td>30</td>
+              <td>150</td>
+              <td>1402/10/25</td>
+            </tr>
+          </table>
+          <div class="flex justify-between mt-16">
+            <label class="font-semibold pr-4">مقدار کُل : <span id="total" class="text-lg">00</span></label>
+            <input type="submit" value="پرداخت"
+              class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none rounded text-sm w-36 py-2 text-center cursor-pointer">
+          </div>
+        </form>
+      </div>
+      <!-- end car and plateNo -->
+
     </section>
   </div>
 
@@ -666,7 +758,7 @@
         <form action="">
           <input type="submit" value="بله مطمئنم"
             class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg text-sm inline-flex items-center px-5 py-1 text-center ml-2 cursor-pointer">
-          <a href="#"
+          <a href="#" onclick="hideDeleteNotification()"
             class="inline-block w-28 text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm px-5 py-1 focus:z-10">لغو</a>
         </form>
       </div>
@@ -677,16 +769,55 @@
 
   <script>
     // ****************************************
-    // ********* profile card ****************
+    // ********* profile details ****************
     const profile_dropdown = document.getElementById("profile-dropdown");
     function toggleProfileDropdown() {
       profile_dropdown.classList.toggle("hidden");
     }
     // ****************************************
-    // ********* jawazsair card ****************
-    const jawaz_dropdown = document.getElementById("jawaz-dropdown");
-    function toggleJawazDropdown() {
-      jawaz_dropdown.classList.toggle("hidden");
+    // ********* car info *****************
+    const car_info = document.getElementById("car-info");
+    function toggleCarInfo() {
+      car_info.classList.toggle("hidden");
+    }
+
+    // ****************************************
+    // ********* fine payment ****************
+    const masterCheckbox = document.getElementById('masterCheckbox');
+    const checkboxes = document.querySelectorAll('#fineTable input[type="checkbox"]');
+    let sum = 0;
+
+    masterCheckbox.addEventListener('change', function () {
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = this.checked;
+      });
+
+      calculateSum();
+    });
+
+    checkboxes.forEach((checkbox) => {
+      checkbox.addEventListener('change', function () {
+        calculateSum();
+        synchronizeMasterCheckbox();
+      });
+    });
+
+    function calculateSum() {
+      sum = 0;
+      checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+          const row = checkbox.parentNode.parentNode;
+          const value = row.querySelector('td:nth-child(5)').textContent;
+          sum += parseInt(value);
+        }
+      });
+
+      document.getElementById('total').textContent = sum;
+    }
+
+    function synchronizeMasterCheckbox() {
+      const allChecked = Array.from(checkboxes).every((checkbox) => checkbox.checked);
+      masterCheckbox.checked = allChecked;
     }
 
     // *********************************************************
