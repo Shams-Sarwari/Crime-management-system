@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import DriverProfile, StaffProfile, User
+from cars.models import JawazSayr
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.views import PasswordResetView
 from django.contrib import messages
@@ -16,6 +17,7 @@ from twilio.rest import Client
 from django.core.mail import send_mail
 from .utils import pagination_items
 from django.contrib import messages
+from datetime import date, timedelta
 
 # Create your views here.
 def home(request):
@@ -42,8 +44,36 @@ def driver_list(request):
 
 def driver_detail(request, pk):
     driver = get_object_or_404(DriverProfile, id=pk)
+    try:
+        jawaz_sayr = JawazSayr.objects.get(driver=driver)
+    except:
+        jawaz_sayr = None
+
+    cars = driver.car_set.all()
+    for car in cars:
+        for crime in car.carcrime_set.all():
+            if (date.today() > crime.expiry_date) and (crime.paid == False):
+                crime.expiry_fine += crime.price/2
+                crime.expiry_date += timedelta(days=60)
+                crime.save()
+                # send message to client when date has been expired
+                account_sid = 'AC11dd7aa2c922d4e3e4e72c3e48169fbb'
+                auth_token = 'f0f1895b25bce73792f22d93861c0f0f'
+                uid = driver.id
+                pay_url = reverse_lazy('driver-detail', kwargs={'uidb64': uid}) 
+                client = Client(account_sid, auth_token)
+
+                message = client.messages.create(
+                     body=f'کاربر گرامی {driver.first_name} {driver.last_name} جریمه شما بخاطر پرداخت نکردن به موقع افزایش یافت. لطفا از طریق لینک زیر وارد حساب خود شده و جریمه خود را پرداخت کنید. {pay_url}\n  ',
+                     from_='+13088729493',
+                     to='+93776423768'
+                 )
+    
+
     context = {
-        'driver': driver
+        'driver': driver, 
+        'jawaz_sayr': jawaz_sayr,
+        'cars': cars, 
     }
     return render(request, 'accounts/driver_detail.html', context)
 

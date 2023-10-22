@@ -21,9 +21,13 @@ class CarCrime(models.Model):
     description = models.TextField(blank=True, null=True)
     paid = models.BooleanField(default=False)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    expiry_fine = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     expiry_date = models.DateField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
         return f'plate: {self.car.plate_number} price: {self.price} {self.crime.title[:50]}'
+
+    def get_total(self):
+        return self.price + self.expiry_fine
