@@ -23,6 +23,7 @@ def car_list(request):
         'cars': cars,
         'custom_range': custom_range,
         'search_text': search_text,
+        'section': 'cars',
     }
     return render(request, 'cars/car_list.html', context)
 
@@ -31,7 +32,8 @@ def car_detail(request, pk):
     car_history = car.carhistory_set.all()
     context = {
         'car': car, 
-        'history': car_history
+        'history': car_history,
+        'section': 'cars'
     }
     return render(request, 'cars/car_detail.html', context)
 
@@ -55,7 +57,8 @@ def create_car(request, pk=None):
         form = CreateCarForm()
 
     context = {
-        'form': form
+        'form': form, 
+        'section': 'cars',
     }
     return render(request, 'cars/create_car.html', context)
 
@@ -87,7 +90,8 @@ def edit_car(request, pk):
             
             return redirect('cars:car-detail', car.id)
     context = {
-        'form': form
+        'form': form, 
+        'section': 'cars',
     }
     return render(request, 'cars/edit_car.html', context)
 
@@ -97,7 +101,8 @@ def delete_car(request, pk):
         car.delete()
         return redirect('cars:car-list')
     context = {
-        'car': car
+        'car': car, 
+        'section': 'cars',
     }
     return render(request, 'cars/delete_car.html', context)
 
@@ -118,6 +123,7 @@ def owner_list(request):
         'owners': owners, 
         'custom_range': custom_range,
         'search_text': search_text,
+        'section': 'owners',
     }
     return render(request, 'cars/owner_list.html', context)
 
@@ -125,7 +131,8 @@ def owner_list(request):
 def owner_detail(request, pk):
     owner = get_object_or_404(CarOwner, id=pk)
     context = {
-        'owner': owner
+        'owner': owner, 
+        'section': 'owners',
     }
     return render(request, 'cars/owner_detail.html', context)
 
@@ -141,7 +148,8 @@ def create_owner(request):
         form = CreateOwnerForm()
     
     context = {
-        'form': form
+        'form': form, 
+        'section': 'owners',
     }
     return render(request, 'cars/create_owner.html', context)
 
@@ -155,7 +163,8 @@ def update_owner(request, pk):
             return redirect('cars:owner-detail', owner.id)
 
     context = {
-        'form': form
+        'form': form, 
+        'section': 'owners',
     }
     return render(request, 'cars/update_owner.html', context)
 
@@ -166,7 +175,8 @@ def delete_owner(request, pk):
         return redirect('cars:owner-list')
     
     context = {
-        'owner': owner
+        'owner': owner, 
+        'section': 'owners',
     }
     return render(request, 'cars/delete_owner.html', context)
 

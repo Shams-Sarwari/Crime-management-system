@@ -19,12 +19,14 @@ from django.core.mail import send_mail
 from .utils import pagination_items
 from django.contrib import messages
 from datetime import date, timedelta
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required(login_url='login')
 def home(request):
     return render(request, 'home.html')
 
-
+@login_required(login_url='login')
 def driver_list(request):
     search_text = ''
     if request.GET.get('search_text'):
@@ -34,15 +36,16 @@ def driver_list(request):
         Q(licence_num=search_text) | 
         Q(tazkira_num=search_text)
     )
-    custom_range, drivers = pagination_items(request, drivers, 5)
+    custom_range, drivers = pagination_items(request, drivers, 10)
     context = {
         'drivers': drivers,
         'custom_range': custom_range, 
         'search_text': search_text,
+        'section': 'drivers'
     }
     return render(request, 'accounts/driver_list.html', context)
 
-
+@login_required(login_url='login')
 def driver_detail(request, pk):
     driver = get_object_or_404(DriverProfile, id=pk)
     try:
@@ -90,10 +93,12 @@ def driver_detail(request, pk):
     context = {
         'driver': driver, 
         'jawaz_sayr': jawaz,
-        'cars': cars, 
+        'cars': cars,
+        'section': 'drivers', 
     }
     return render(request, 'accounts/driver_detail.html', context)
 
+@login_required(login_url='login')
 def staff_list(request):
     search_text = ''
     if request.GET.get('search_text'):
@@ -109,13 +114,16 @@ def staff_list(request):
         'staff_list': staff_list,
         'custom_range': custom_range,
         'search_text': search_text,
+        'section': 'staffs',
     }
     return render(request, 'accounts/staff_list.html', context)
 
+@login_required(login_url='login')
 def staff_detail(request, pk):
     staff = get_object_or_404(StaffProfile, id=pk)
     context = {
         'staff': staff,
+        'section': 'staffs',
     }
     return render(request, 'accounts/staff_detail.html', context)
 
@@ -179,14 +187,14 @@ def login_user(request):
     }
     return render(request, 'accounts/login.html', context)
 
-
+@login_required(login_url='login')
 def logout_user(request):
     logout(request)
     messages.success(request, 'شما موفقانه از سیستم خارج شدید')
     return redirect('login')
 
 
-
+@login_required(login_url='login')
 def register_driver(request):
     
     if request.method == 'POST':
@@ -205,10 +213,11 @@ def register_driver(request):
         form = CustomDriverUserCreationForm()
     context = {
         'form': form,
+        'section': 'drivers',
     }
     return render(request, 'accounts/register_driver.html', context)
 
-
+@login_required(login_url='login')
 def edit_driver_profile(request, pk):
     profile = DriverProfile.objects.get(id = pk)
     form = DriverEditForm(instance=profile)
@@ -238,10 +247,11 @@ def edit_driver_profile(request, pk):
     context = {
         'form': form, 
         'add_form': add_form,
+        'section': 'drivers'
     }
     return render(request, 'accounts/edit_driver_profile.html', context)
 
-
+@login_required(login_url='login')
 def create_staff_user(request):
 
     if request.method == 'POST':
@@ -259,9 +269,11 @@ def create_staff_user(request):
     
     context = {
         'form': form,
+        'section': 'staffs',
     }
     return render(request, 'accounts/create_staff_user.html', context)
 
+@login_required(login_url='login')
 def edit_staff_profile(request, pk):
     profile = StaffProfile.objects.get(id = pk)
     form = StaffEditForm(instance=profile)
@@ -298,9 +310,11 @@ def edit_staff_profile(request, pk):
         'form': form, 
         'add_form': add_form,
         'work_place_form': work_form,
+        'section': 'staffs',
     }
     return render(request, 'accounts/edit_staff_profile.html', context)
 
+@login_required(login_url='login')
 def delete_driver_profile(request, pk):
     profile = DriverProfile.objects.get(id=pk)
     if request.method == 'POST':
@@ -309,10 +323,12 @@ def delete_driver_profile(request, pk):
     delete = 'true'
     context = {
         'driver': profile,
-        'delete': delete
+        'delete': delete, 
+        'section': 'drivers',
     }
     return render(request, 'accounts/driver_detail.html', context)
 
+@login_required(login_url='login')
 def delete_staff_profile(request, pk):
     profile = StaffProfile.objects.get(id=pk)
     if request.method == 'POST':
@@ -322,7 +338,8 @@ def delete_staff_profile(request, pk):
     delete = 'true'
     context = {
         'profile': profile,
-        'delete': delete
+        'delete': delete, 
+        'section': 'staffs'
     }
     return render(request, 'accounts/delete_staff_profile.html', context)
 
@@ -363,7 +380,8 @@ class CustomPasswordResetView(PasswordResetView):
         
 
         return super().form_valid(form)
-        
+
+
 class CustomPasswordChangeView(PasswordChangeView):
     form_class = CustomPasswordChangeForm
 
