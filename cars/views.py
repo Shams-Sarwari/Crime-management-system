@@ -35,13 +35,21 @@ def car_detail(request, pk):
     }
     return render(request, 'cars/car_detail.html', context)
 
-def create_car(request):
+def create_car(request, pk=None):
     
     if request.method == 'POST':
         form = CreateCarForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('cars:car-list')
+            if pk:
+                driver = DriverProfile.objects.get(id=pk)
+                car = form.save(commit=False)
+                car.driver = driver
+                car.save()
+                return redirect('driver-detail', driver.id)
+            
+            else:
+                form.save()
+                return redirect('cars:car-list')
     
     else:
         form = CreateCarForm()

@@ -6,6 +6,7 @@ app_name = 'cars'
 urlpatterns = [
     path('', views.car_list, name='car-list'),
     path('create_car/', views.create_car, name='create-car'),
+    path('create_car/<uuid:pk>/', views.create_car, name='create-car-with-driver'),
     path('car_detail/<int:pk>/', views.car_detail, name='car-detail'),
     path('car_edit/<int:pk>/', views.edit_car, name = 'edit-car'),
     path('car_delete/<int:pk>/', views.delete_car, name='delete-car'),
