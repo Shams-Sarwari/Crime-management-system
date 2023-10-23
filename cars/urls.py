@@ -6,6 +6,7 @@ app_name = 'cars'
 urlpatterns = [
     path('', views.car_list, name='car-list'),
     path('create_car/', views.create_car, name='create-car'),
+    path('create_car/<uuid:pk>/', views.create_car, name='create-car-with-driver'),
     path('car_detail/<int:pk>/', views.car_detail, name='car-detail'),
     path('car_edit/<int:pk>/', views.edit_car, name = 'edit-car'),
     path('car_delete/<int:pk>/', views.delete_car, name='delete-car'),
@@ -14,4 +15,8 @@ urlpatterns = [
     path('owner_list/', views.owner_list, name='owner-list'),
     path('owner_detail/<int:pk>/', views.owner_detail, name='owner-detail'),
     path('delete_owner/<int:pk>/', views.delete_owner, name='delete-owner'),
+    path('create_jawaz/', views.create_jawaz, name='create-jawaz'),
+    path('update_jawaz/<uuid:pk>/', views.update_jawaz, name='update-jawaz'), 
+    path('jawaz_list/', views.jawaz_list, name='jawaz-list'),
+    path('jawaz_detail/<uuid:pk>/', views.jawaz_detail, name='jawaz-detail'),
 ]

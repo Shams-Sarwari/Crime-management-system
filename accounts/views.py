@@ -50,7 +50,9 @@ def driver_detail(request, pk):
     except:
         jawaz_sayr = None
     
+    jawaz = None
     if jawaz_sayr:
+        jawaz = jawaz_sayr[0]
         for item in jawaz_sayr:
             if date.today() > item.expiry_date:
                 crime = CarCrime.objects.create(
@@ -75,7 +77,7 @@ def driver_detail(request, pk):
                 account_sid = 'AC11dd7aa2c922d4e3e4e72c3e48169fbb'
                 auth_token = 'f0f1895b25bce73792f22d93861c0f0f'
                 uid = driver.id
-                pay_url = reverse_lazy('driver-detail', kwargs={'uidb64': uid}) 
+                pay_url = reverse_lazy('driver-detail', kwargs=uid) 
                 client = Client(account_sid, auth_token)
 
                 message = client.messages.create(
@@ -87,7 +89,7 @@ def driver_detail(request, pk):
 
     context = {
         'driver': driver, 
-        'jawaz_sayr': jawaz_sayr[0],
+        'jawaz_sayr': jawaz,
         'cars': cars, 
     }
     return render(request, 'accounts/driver_detail.html', context)

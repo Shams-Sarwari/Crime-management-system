@@ -1,5 +1,5 @@
 from django import forms 
-from .models import Car, CarOwner
+from .models import Car, CarOwner, JawazSayr
 from accounts.models import DriverProfile
 
 
@@ -87,5 +87,18 @@ class CreateOwnerForm(forms.ModelForm):
                 )
             else:
                 v.widget.attrs.update(
+                    {'class':'driver-form-input'}
+            )
+
+class JawazForm(forms.ModelForm):
+    class Meta: 
+        model = JawazSayr
+        fields = '__all__'
+    
+    def __init__(self, *args, **kwargs):
+        super(JawazForm, self).__init__(*args, **kwargs)
+        
+        for k, v in self.fields.items():
+            v.widget.attrs.update(
                     {'class':'driver-form-input'}
             )
