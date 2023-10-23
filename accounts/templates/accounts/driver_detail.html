@@ -25,15 +25,18 @@
                 <a href="{% url "edit-driver-profile" driver.id %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">ویرایش</a>
               </li>
               <li>
+                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">نمایش عکس تذکره</a>
+              </li>
+              <li>
                 <a href="#" onclick="printPage(); return false;" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">چاپ اطلاعات</a>
               </li>
-              {% if jawaz_sayr == None %}
+              
               <li>
                 <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">ایجاد جواز سیر</a>
               </li>
-              {% else %}
+              {% if jawaz_sayr %}
               <li>
-                <a href="#" class="block px-4 py-2 text-green-600 hover:bg-gray-100  ">ویرایش جواز سیر</a>
+                <a href="{% url "cars:update-jawaz" jawaz_sayr.id %}" class="block px-4 py-2 text-green-600 hover:bg-gray-100  ">ویرایش جواز سیر</a>
               </li>
               {% endif %}
               

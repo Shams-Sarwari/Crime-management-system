@@ -14,4 +14,8 @@ urlpatterns = [
     path('owner_list/', views.owner_list, name='owner-list'),
     path('owner_detail/<int:pk>/', views.owner_detail, name='owner-detail'),
     path('delete_owner/<int:pk>/', views.delete_owner, name='delete-owner'),
+    path('create_jawaz/', views.create_jawaz, name='create-jawaz'),
+    path('update_jawaz/<uuid:pk>/', views.update_jawaz, name='update-jawaz'), 
+    path('jawaz_list/', views.jawaz_list, name='jawaz-list'),
+    path('jawaz_detail/<uuid:pk>/', views.jawaz_detail, name='jawaz-detail'),
 ]

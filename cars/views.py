@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Car, CarOwner, CarHistory
-from .forms import CreateCarForm, EditCarForm, CreateOwnerForm
+from .models import Car, CarOwner, CarHistory, JawazSayr
+from .forms import CreateCarForm, EditCarForm, CreateOwnerForm, JawazForm
 from django.http import HttpResponse
 from accounts.models import DriverProfile
 from accounts.utils import pagination_items
@@ -161,3 +161,47 @@ def delete_owner(request, pk):
         'owner': owner
     }
     return render(request, 'cars/delete_owner.html', context)
+
+def create_jawaz(request):
+    if request.method == 'POST':
+        form = JawazForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cars:car-list')
+
+    else:
+        form = JawazForm()
+    
+    context = {
+        'form': form
+    }
+    return render(request, 'cars/create_jawaz.html', context)
+
+def jawaz_list(request):
+    jawazs = JawazSayr.objects.all()
+    context = {
+        'jawazs': jawazs
+    }
+    return render(request, 'cars/jawaz_list.html', context)
+
+def jawaz_detail(request, pk):
+    jawaz = JawazSayr.objects.get(id=pk)
+    context = {
+        'jawaz': jawaz
+    }
+    return render(request, 'cars/jawaz_detail.html', context)
+
+
+def update_jawaz(request, pk):
+    jawaz = get_object_or_404(JawazSayr, id=pk)
+    form = JawazForm(instance=jawaz)
+    if request.method == 'POST':
+        form = JawazForm(request.POST, instance=jawaz)
+        if form.is_valid():
+            form.save()
+            return redirect('driver-detail', jawaz.driver.id)
+    
+    context = {
+        'form': form
+    }
+    return render(request, 'cars/create_jawaz.html', context)

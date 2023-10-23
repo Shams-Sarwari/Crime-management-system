@@ -5,9 +5,9 @@
 {% block content %}
     <h1>Welcome to Traffic Crime Management System</h1>
     {% if user.is_authenticated %}
-    <a href="{% url 'driver-list' %}">See All Drivers</a>
-    <a href="{% url 'staff-list' %}">See All Staff</a><br>
-    <a href="{% url 'cars:car-list' %}">See All Cars</a>
+    <a href="{% url 'cars:create-jawaz' %}">create jawaz</a>
+    
+    <a href="{% url 'cars:jawaz-list' %}">Jawaz List</a>
     <a href="{% url 'register-driver' %}">Create user for driver</a><br>
     <a href="{% url 'create-staff-user' %}">Create user for staff</a><br>
     <a href="{% url 'cars:create-owner' %}">Create Car Owner</a><br>
@@ -19,7 +19,7 @@
     <a href="{% url "crimes:driver-crime-list" %}">Commited crimes</a><br>
     <a href="{% url "crimes:fine-driver" %}">Fine a Driver</a><br>
 
-    <a href="{% url 'logout' %}">Logout</a>
+    
     {% else %}
     <p>Please <a href="{% url 'login' %}">Login</a></p>
     {% endif %}
