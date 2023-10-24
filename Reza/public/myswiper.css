@@ -1,0 +1,31 @@
+/* swiper button css */
+.nav-btn {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: 0.2s;
+}
+.nav-btn:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.nav-btn::after,
+.nav-btn::before {
+  font-size: 16px;
+  color: #fff;
+}
+.swiper-button-prev {
+  transform: translateX(-5px);
+}
+.swiper-button-next {
+  transform: translateX(-10px);
+}
+.swiper-pagination {
+  transform: translateY(15px);
+}
+
+@media screen and (max-width: 768px) {
+  .nav-btn {
+    display: none;
+  }
+}
