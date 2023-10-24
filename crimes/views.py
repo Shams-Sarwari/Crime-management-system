@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CreateCrimeForm, CreateCarCrimeForm
-from .models import Crime, CarCrime
+from .models import Crime, CarCrime, Payment
+from accounts.models import DriverProfile
 from cars.models import Car
 from accounts.models import StaffProfile
+from django.contrib import messages
+
 
 # Create your views here.
 def create_crime(request):
@@ -80,3 +83,32 @@ def create_car_crime(request):
         'form': form
     }
     return render(request, 'crimes/create_driver_crime.html', context)
+
+def log_payment(request, pk):
+    driver = DriverProfile.objects.get(id=pk)
+    total = 0
+    if request.method == 'POST':
+        paid_crimes = request.POST.getlist('paid_crimes')
+        car_crimes = []
+        for i in paid_crimes:
+            crime = CarCrime.objects.get(id=int(i))
+            total += crime.price + crime.expiry_fine
+            crime.paid = True
+            crime.save()
+            car_crimes.append(crime)
+        
+        messages.success(request, 'جرایم موفقانه پرداخت گردید')
+        
+    # first create the log and then add car crimes to this log
+    log = Payment.objects.create(
+        staff = request.user.staffprofile,
+        driver = driver,
+        price = total,
+    )
+    log.save()
+
+    for item in car_crimes:
+        item.payment = log
+        item.save()
+    
+    return redirect('driver-detail', driver.id)

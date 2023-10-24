@@ -70,30 +70,21 @@ def driver_detail(request, pk):
                 item.save()
 
     cars = driver.car_set.all()
+    num_of_cars = len(cars)
     for car in cars:
         for crime in car.carcrime_set.all():
             if (date.today() > crime.expiry_date) and (crime.paid == False):
                 crime.expiry_fine += crime.price/2
                 crime.expiry_date += timedelta(days=60)
                 crime.save()
-                # send message to client when date has been expired
-                account_sid = 'AC11dd7aa2c922d4e3e4e72c3e48169fbb'
-                auth_token = 'f0f1895b25bce73792f22d93861c0f0f'
-                uid = driver.id
-                pay_url = reverse_lazy('driver-detail', kwargs=uid) 
-                client = Client(account_sid, auth_token)
-
-                message = client.messages.create(
-                     body=f'کاربر گرامی {driver.first_name} {driver.last_name} جریمه شما بخاطر پرداخت نکردن به موقع افزایش یافت. لطفا از طریق لینک زیر وارد حساب خود شده و جریمه خود را پرداخت کنید. {pay_url}\n  ',
-                     from_='+13088729493',
-                     to='+93776423768'
-                 )
+                
     
 
     context = {
         'driver': driver, 
         'jawaz_sayr': jawaz,
         'cars': cars,
+        'num_of_cars': num_of_cars,
         'section': 'drivers', 
     }
     return render(request, 'accounts/driver_detail.html', context)
@@ -319,6 +310,7 @@ def delete_driver_profile(request, pk):
     profile = DriverProfile.objects.get(id=pk)
     if request.method == 'POST':
         profile.delete()
+        messages.success(request, 'راننده با موفقیت حذف گردید')
         return redirect('driver-list')
     delete = 'true'
     context = {
@@ -326,6 +318,7 @@ def delete_driver_profile(request, pk):
         'delete': delete, 
         'section': 'drivers',
     }
+    
     return render(request, 'accounts/driver_detail.html', context)
 
 @login_required(login_url='login')
@@ -333,6 +326,7 @@ def delete_staff_profile(request, pk):
     profile = StaffProfile.objects.get(id=pk)
     if request.method == 'POST':
         profile.delete()
+        messages.success(request, 'کارمند موفقانه حذف شد')
         return redirect('staff-list')
 
     delete = 'true'

@@ -8,6 +8,9 @@ class Payment(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=0)
     created = models.DateField(auto_now_add=True)
 
+    def __str__(self) -> str:
+        return f'staff {self.staff} recieved {self.price} from {self.driver.first_name} on {self.created}'
+
 
 class Crime(models.Model):
     title = models.CharField(max_length=300)
