@@ -2,6 +2,13 @@ from django.db import models
 from accounts.models import DriverProfile, StaffProfile
 from cars.models import Car
 # Create your models here.
+class Payment(models.Model):
+    staff = models.ForeignKey(StaffProfile, on_delete=models.CASCADE)
+    driver = models.ForeignKey(DriverProfile, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=5, decimal_places=0)
+    created = models.DateField(auto_now_add=True)
+
+
 class Crime(models.Model):
     title = models.CharField(max_length=300)
     description = models.TextField(blank=True, null=True)
@@ -23,6 +30,7 @@ class CarCrime(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     expiry_fine = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     expiry_date = models.DateField()
+    payment = models.ForeignKey(Payment, on_delete=models.SET_NULL, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -31,5 +39,9 @@ class CarCrime(models.Model):
 
     def get_total(self):
         return self.price + self.expiry_fine
+    
+
+
+
     
 

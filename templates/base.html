@@ -23,7 +23,7 @@
       <div class="flex flex-col gap-2 justify-center items-center">
         <img src="{{request.user.staffprofile.avatar.url}}" alt="my image" class="inline-block h-16 rounded-full">
         <div class="border-b-2 border-gray-500  text-center pb-3 px-3">
-          <p>محمد رضا قاسمی</p>
+          <p>{{ request.user.staffprofile.first_name }}{{ request.user.staffprofile.last_name }}</p>
         </div>
       </div>
       <!-- links menu -->
@@ -45,7 +45,7 @@
             </svg><span class="sidebar-list-text">داشبورد</span></a>
         </li>
         <li>
-          <a href="{% url 'driver-list' %}" class="sidebar-link-mobile bg-color-primary-light">
+          <a href="{% url 'driver-list' %}" class="sidebar-link-mobile {% if section == 'drivers' %}bg-color-primary-light{% endif %} ">
             <?xml version="1.0" ?><svg fill="none" height="15" viewBox="0 0 15 15" class="w-5"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -55,7 +55,7 @@
           </a>
         </li>
         <li>
-          <a href="{% url 'staff-list' %}" class="sidebar-link-mobile">
+          <a href="{% url 'staff-list' %}" class="sidebar-link-mobile {% if section == 'staffs' %}bg-color-primary-light{% endif %}">
             <?xml version="1.0" ?><svg id="Layer_1" style="enable-background: new 0 0 128 128" version="1.1"
               viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink" fill="#fff" class="w-5">
@@ -75,7 +75,7 @@
           </a>
         </li>
         <li>
-          <a href="{% url 'cars:car-list' %}" class="sidebar-link-mobile"><svg xmlns="http://www.w3.org/2000/svg" width="38" height="25"
+          <a href="{% url 'cars:car-list' %}" class="sidebar-link-mobile {% if section == 'cars' %}bg-color-primary-light{% endif %}"><svg xmlns="http://www.w3.org/2000/svg" width="38" height="25"
               viewBox="0 0 38 25" class="w-6">
               <g id="_172580_cars_icon" data-name="172580_cars_icon" transform="translate(0 0.333)">
                 <rect id="Rectangle_3" data-name="Rectangle 3" width="38" height="25" transform="translate(0 -0.333)"
@@ -101,7 +101,7 @@
               ها</span></a>
         </li>
         <li>
-          <a href="{% url 'cars:owner-list' %}" class="sidebar-link-mobile"><svg xmlns="http://www.w3.org/2000/svg" width="21.383" height="21.383"
+          <a href="{% url 'cars:owner-list' %}" class="sidebar-link-mobile {% if section == 'owners' %}bg-color-primary-light{% endif %}"><svg xmlns="http://www.w3.org/2000/svg" width="21.383" height="21.383"
               viewBox="0 0 21.383 21.383" class="w-5">
               <g id="_172487_key_icon" data-name="172487_key_icon" transform="translate(0.075 0.068)">
                 <rect id="Rectangle_4" data-name="Rectangle 4" width="21" height="21" transform="translate(0 0.24)"
@@ -244,7 +244,7 @@
       <div id="img-div-large" class="flex flex-col gap-2 justify-center items-center mt-8 mb-4">
         <img src="{{request.user.staffprofile.avatar.url}}" alt="my image" class="inline-block h-16 w-16 rounded-full">
         <div class="border-b-2 border-gray-500  text-center pb-3 px-3">
-          <p>{{ request.user.staffprofile.first_name }}</p>
+          <p>{{ request.user.staffprofile.first_name }} {{ request.user.staffprofile.last_name }}</p>
         </div>
       </div>
       <!-- links menu  -->
@@ -266,7 +266,7 @@
             </svg><span class="sidebar-list-text">داشبورد</span></a>
         </li>
         <li>
-          <a href="{% url 'driver-list' %}" class="sidebar-link bg-color-primary-light">
+          <a href="{% url 'driver-list' %}" class="sidebar-link {% if section == 'drivers' %}bg-color-primary-light{% endif %}">
             <?xml version="1.0" ?><svg fill="none" height="15" viewBox="0 0 15 15" class="w-5"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -276,7 +276,7 @@
           </a>
         </li>
         <li>
-          <a href="{% url 'staff-list' %}" class="sidebar-link">
+          <a href="{% url 'staff-list' %}" class="sidebar-link {% if section == 'staffs' %}bg-color-primary-light {% endif %}">
             <?xml version="1.0" ?><svg id="Layer_1" style="enable-background: new 0 0 128 128" version="1.1"
               viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink" fill="#fff" class="w-5">
@@ -296,7 +296,7 @@
           </a>
         </li>
         <li>
-          <a href="{% url 'cars:car-list' %}" class="sidebar-link"><svg xmlns="http://www.w3.org/2000/svg" width="38" height="25"
+          <a href="{% url 'cars:car-list' %}" class="sidebar-link {% if section == 'cars' %}bg-color-primary-light{% endif %}"><svg xmlns="http://www.w3.org/2000/svg" width="38" height="25"
               viewBox="0 0 38 25" class="w-6">
               <g id="_172580_cars_icon" data-name="172580_cars_icon" transform="translate(0 0.333)">
                 <rect id="Rectangle_3" data-name="Rectangle 3" width="38" height="25" transform="translate(0 -0.333)"
@@ -322,7 +322,7 @@
               ها</span></a>
         </li>
         <li>
-          <a href="{% url 'cars:owner-list' %}" class="sidebar-link"><svg xmlns="http://www.w3.org/2000/svg" width="21.383" height="21.383"
+          <a href="{% url 'cars:owner-list' %}" class="sidebar-link {% if section == 'owners' %}bg-color-primary-light{% endif %}"><svg xmlns="http://www.w3.org/2000/svg" width="21.383" height="21.383"
               viewBox="0 0 21.383 21.383" class="w-5">
               <g id="_172487_key_icon" data-name="172487_key_icon" transform="translate(0.075 0.068)">
                 <rect id="Rectangle_4" data-name="Rectangle 4" width="21" height="21" transform="translate(0 0.24)"
