@@ -112,9 +112,13 @@ def staff_list(request):
 @login_required(login_url='login')
 def staff_detail(request, pk):
     staff = get_object_or_404(StaffProfile, id=pk)
+    has_tazkira = False
+    if staff.tazkira_img:
+        has_tazkira = True
     context = {
         'staff': staff,
         'section': 'staffs',
+        'has_tazkira': has_tazkira,
     }
     return render(request, 'accounts/staff_detail.html', context)
 
@@ -336,6 +340,42 @@ def delete_staff_profile(request, pk):
         'section': 'staffs'
     }
     return render(request, 'accounts/delete_staff_profile.html', context)
+
+@login_required(login_url='login')
+def change_staff_avatar(request, pk):
+    staff = StaffProfile.objects.get(id=pk)
+    if request.method == 'POST' and request.FILES.get('photo'):
+        image = request.FILES.get('photo')
+        staff.avatar = image
+        staff.save()
+    messages.success(request, 'پروفایل موفقانه تبدیل گردید')
+    return redirect('staff-detail', staff.id)
+@login_required(login_url='login')
+def change_staff_to_admin(request, pk):
+    staff = StaffProfile.objects.get(id=pk)
+    if request.method == 'POST' and request.POST.get('admin'):
+        staff.user.is_superuser = True
+        staff.user.save()
+        messages.success(request, 'کارمند مذکور به ادمین تبدیل گردید')
+        
+    return redirect('staff-detail', staff.id)
+
+def deactive_staff(request, pk):
+    staff = StaffProfile.objects.get(id=pk)
+    if request.method == 'POST' and request.POST.get('deactive'):
+        staff.user.is_active = False
+        staff.user.save()
+        messages.success(request, 'کارمند موفقانه غیرفعال گردید')
+        
+    
+    elif request.method == 'POST':
+        staff.user.is_active = True
+        staff.user.save()
+        messages.success(request, 'کارمند موفقانه فعال گردید')
+        
+    return redirect('staff-detail', staff.id)
+
+    return redirect
 
 
 class CustomPasswordResetView(PasswordResetView):

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% comment %} {% block content %}
     <h1>Staff Detail Page</h1>
     <br>
     <h1>{{ staff.first_name }} {{ staff.last_name }}</h1>
@@ -8,5 +8,321 @@
     <p>phone: {{ staff.phone_num }}</p>
     <a href="{% url 'edit-staff-profile' staff.id %}">Edit</a><br>
     <a href="{% url 'delete-staff-profile' staff.id %}">Delete</a>
+{% endblock content %} {% endcomment %}
+
+{% block content %}
+    <!-- staff detatil -->
+    <div class="mt-4 mx-2 md:mx-4 flex flex-col md:flex-row gap-4">
+        <!-- right side cards -->
+        <div class="flex-shrink-0">
+          <!-- profile card -->
+          <div
+            class="max-w-full md:max-w-xs px-4 pt-12 pb-10 flex flex-col items-center gap-4 bg-white rounded shadow-sm  text-gray-600">
+            <div class="w-24 h-24 md:w-28 md:h-28 overflow-hidden">
+              <img src="{{staff.avatar.url}}" alt="Image" class="object-contain h-auto rounded-full">
+            </div>
+            <div class="flex flex-col gap-2 text-center">
+              <h2 class="text-xl text-color-primary font-semibold">{{ staff.first_name }} {{ staff.last_name }}</h2>
+              <p class="text-sm font-semibold">{% if staff.user.is_superuser %}
+                ادمین
+                {% elif staff.user.is_staff %}
+                کارمند
+                {% endif %}</p>
+              <p class="text-sm">{{ staff.email }}</p>
+              <p class="text-[13px] mt-2">این یوزر در تاریخ {{staff.user.joined_date}} وارد سیستم گردید.</p>
+            </div>
+            <!-- btns -->
+            <div class="flex justify-center gap-6 mt-8">
+              <button type="button" onclick="window.open('{% url "edit-staff-profile" staff.id %}', '_self');"
+                class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 py-1 text-center">
+                اپدیت
+              </button>
+              <button type="button" onclick="showDeleteNotification()"
+                class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 py-1 text-center">
+                حذف
+              </button>
+            </div>
+          </div>
+          <!-- end profile card -->
+          <!-- Change profile photo card -->
+          <form action="{% url "change-staff-avatar" staff.id %}" method='POST' enctype='multipart/form-data'
+            class="max-w-full md:max-w-xs  px-8 md:px-6 pb-4 bg-white rounded shadow-sm  text-gray-600 mt-4">
+            {% csrf_token %}
+            <h3 class="text-sm font-semibold text-color-primary pt-3 pb-1.5">تبدیل عکس پروفایل</h3>
+            <!-- choose photo -->
+            <label for="photo" class="flex items-center gap-3 cursor-pointer my-2 md:my-5 xl:my-2">
+              <span>
+                <i class="fa-solid fa-paperclip text-2xl"></i>
+              </span>
+              <div class="flex flex-col gap-0.5">
+                <span class="text-xs font-semibold text-gray-500">انتخاب عکس</span>
+                <span id="file-name" class="text-xs text-gray-500">هیج عکسی انتخاب نشده</span>
+              </div>
+              <input type="file" id="photo" name="photo" accept="image/*" class="hidden"
+                onchange="updateFileName(this)">
+            </label>
+            <div class="flex justify-end mt-2.5">
+              <input type="submit" value="انجام"
+                class="w-24 text-gray-500 bg-white cursor-pointer hover:bg-gray-100 hover:text-gray-900 focus:outline-none rounded-lg border border-gray-200 text-xs py-1 focus:z-10">
+            </div>
+          </form>
+        </div>
+        <!-- left side card -->
+        <div class=" lg:flex-grow flex flex-col">
+          <!-- general-info, address, tazkira -->
+          <div
+            class="order-2 md:order-1 bg-white rounded shadow-sm px-4 md:px-6 pt-4 pb-4 md:pb-7 w-full grid md:grid-cols-[1fr,1fr] md:gap-x-10 gap-y-4 ">
+            <div>
+              <table class="text-[13px] text-gray-600 w-full border-b">
+                <h2 class="mr-2 mb-2 text-lg text-color-primary font-semibold">معلومات عمومی</h2>
+                <tr class="bg-gray-200  h-7">
+                  <td class="pr-4 w-36 ">نام</td>
+                  <td>{{ staff.first_name }}</td>
+                </tr>
+                <tr class=" h-7">
+                  <td class="pr-4  ">تخلص</td>
+                  <td>{{ staff.last_name }}</td>
+                </tr>
+                <tr class="bg-gray-200 h-7">
+                  <td class="pr-4  ">نام پدر</td>
+                  <td>{{ staff.father_name }}</td>
+                </tr>
+                <tr class=" h-7">
+                  <td class="pr-4  ">جنسیت</td>
+                  <td>{{ staff.gender }}</td>
+                </tr>
+                <tr class="bg-gray-200 h-7">
+                  <td class="pr-4  ">ایمیل</td>
+                  <td class="text-sm">{{ staff.email }}</td>
+                </tr>
+                <tr class="h-7">
+                  <td class="pr-4  ">نمبر تذکره</td>
+                  <td class="text-sm">{{ staff.tazkira_num }}</td>
+                </tr>
+                <tr class="bg-gray-200 h-7">
+                  <td class="pr-4  ">شماره تماس</td>
+                  <td>{{ staff.phone_num }}</td>
+                </tr>
+                <tr class=" h-7">
+                  <td class="pr-4  ">نوع</td>
+                  {% if staff.user.is_superuser %}
+                  <td>ادمین</td>
+                  {% elif staff.user.is_staff %}
+                  <td>کارمند</td>
+                  {% endif %}
+                </tr>
+              </table>
+
+              <!-- place of work -->
+              <table class="text-[13px] text-gray-600 w-full border-b">
+                <h2 class="mr-2 mb-2 mt-4 text-lg text-color-primary font-semibold">محل کار</h2>
+                <tr class="bg-gray-200  h-7">
+                  <td class="pr-4 w-36 ">ولایت </td>
+                  <td>{{ staff.work_place.province }}</td>
+                </tr>
+                <tr class=" h-7">
+                  <td class="pr-4  ">ولسوالی</td>
+                  <td>{{ staff.work_place.district }}</td>
+                </tr>
+              </table>
+            </div>
+            <div>
+              <table class="text-[13px] text-gray-600 w-full border-b">
+                <h2 class="mr-2 mb-2 text-lg text-color-primary font-semibold">آدرس</h2>
+                <tr class="bg-gray-200  h-7">
+                  <td class="pr-4 w-36 ">ولایت </td>
+                  <td>{{ staff.current_address.province }}</td>
+                </tr>
+                <tr class=" h-7">
+                  <td class="pr-4  ">ولسوالی / ناحیه</td>
+                  <td>{{ staff.current_address.district }}</td>
+                </tr>
+                <tr class="bg-gray-200  h-7">
+                  <td class="pr-4 w-36 ">سرک</td>
+                  <td>{{ staff.current_address.street }}</td>
+                </tr>
+                <tr class=" h-7">
+                  <td class="pr-4  ">نمبر خانه</td>
+                  <td>{{ staff.current_address.house_number }}</td>
+                </tr>
+              </table>
+              <!-- tazkira img -->
+              <div class="w-full h-48 overflow-hidden rounded border  mt-7 flex justify-center items-center">
+                <img src="{% if has_tazkira %}{{ staff.tazkira_img.url }}{% endif %}" alt="tazkira image" class="h-full w-auto">
+              </div>
+            </div>
+          </div>
+          <!-- End general-info, address, tazkira ***** start superuser and active div-->
+          <div class="order:1 md:order-2 w-full mb-4 md:mt-4 flex flex-col md:flex-row gap-4">
+            <!-- make admin -->
+            <form action="{% url "change-to-admin" staff.id %}" id="makeAdminForm" method='POST'
+              class="max-w-full md:max-w-[410px] px-8 md:px-10 pb-4 bg-white rounded shadow-sm  text-gray-600 ">
+              {% csrf_token %}
+              <h3 class="text-sm font-semibold text-color-primary pt-3 pb-1.5">تبدیل کردن به ادمین</h3>
+              <p class="mb-3 text-[13px] font-normal text-gray-500 leading-5">
+                برای تبدیل کردن این کارمند به ادمین، لطفا چک باکس را فعال کرده و روی دکمه انجام کلیک کنید.
+              </p>
+              <div class="flex justify-between items-center px-2 md:px-1">
+                <div class="flex gap-2 items-center">
+                  <input type="checkbox" name="admin" id="" class="cursor-pointer" {% if staff.user.is_superuser %}checked{% endif %}>
+                  <span class="text-[13px] font-semibold">ادمین</span>
+                </div>
+                <input type="submit" value="انجام"
+                  class="w-24 text-gray-500 bg-white cursor-pointer hover:bg-gray-100 hover:text-gray-900 focus:outline-none rounded-lg border border-gray-200 text-xs py-1 focus:z-10">
+              </div>
+            </form>
+            <!-- deactivate -->
+            <form action="{% url "deactive-staff" staff.id %}" id="deactivateForm" method='POST'
+              class="max-w-full md:max-w-[410px] px-8 md:px-10 pb-4 bg-white rounded shadow-sm  text-gray-600">
+              {% csrf_token %}
+              <h3 class="text-sm font-semibold text-color-primary pt-3 pb-1.5">غیر فعال کردن</h3>
+              <p class="mb-3 text-[13px] font-normal text-gray-500 leading-5">
+                برای فعال یا غیر فعال کردن این کارمند، لطفا چک باکس غیر فعال را تیک مارک کرده و روی دکمه انجام کلیک کنید.
+              </p>
+              <div class="flex justify-between items-center px-2 md:px-1">
+                <div class="flex gap-2 items-center">
+                  <input type="checkbox" name="deactive" id="" class="cursor-pointer" {% if not staff.user.is_active %}checked{% endif %}>
+                  <span class="text-[13px] font-semibold">  غیر فعال</span>
+                </div>
+                <input type="submit" value="انجام"
+                  class="w-24 text-gray-500 bg-white cursor-pointer hover:bg-gray-100 hover:text-gray-900 focus:outline-none rounded-lg border border-gray-200 text-xs py-1 focus:z-10">
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- end left side card -->
+      </div>
+      <!-- end staff detail -->
+
+    </section>
 {% endblock content %}
+
+{% block jscript %}
+
+  <!-- *************************************** -->
+  <!-- ********* Confirm  Notification **************** -->
+  <!--  Confirm  with blur functionality -->
+  <div id="confirm" class="hidden fixed inset-0 z-50 backdrop-blur-sm p-2">
+    <div class="center-div w-full max-w-sm max-h-full bg-white rounded-lg shadow">
+      <button type="button" onclick="hideConfim()"
+        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+      </button>
+      <div class="p-6 pt-4 text-center">
+        <h3 id="confirmHeading" class="text-sm font-semibold text-color-primary mb-2">تایید عملکرد</h3>
+        <p id="confirmMessage" class="mb-4 text-sm font-normal text-gray-500 leading-7">
+          آیا این عمل را تایید میکنید؟
+        </p>
+        <button id="confirmBtn"
+          class="w-28 text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg text-sm  py-1 text-center ml-2 cursor-pointer">تایید</button>
+        <button onclick="hideConfim()"
+          class="inline-block w-28 text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm px-5 py-1 focus:z-10">لغو</button>
+      </div>
+    </div>
+  </div>
+  <!-- End confirm notification -->
+
+
+  <!-- *************************************** -->
+  <!-- ********* Delete Notification **************** -->
+  <!-- Confirm Delete with blur functionality -->
+  <div id="confirm-delete-container" class="hidden fixed inset-0 z-50 backdrop-blur-sm p-2">
+    <div class="center-div w-full max-w-sm max-h-full bg-white rounded-lg shadow">
+      <button type="button" onclick="hideDeleteNotification()"
+        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+      </button>
+      <div class="p-6 text-center">
+        <svg class="mx-auto mb-2 text-red-400 w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+          viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+        <h3 class="mb-4 text-sm font-normal text-gray-500 leading-7">
+          آیا مطمئن هستید که میخواهید این مورد را حذف کنید؟
+        </h3>
+        <form action="{% url "delete-staff-profile" staff.id %}" method='POST'>
+            {% csrf_token %}
+          <input type="submit" value="بله مطمئنم"
+            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg text-sm inline-flex items-center px-5 py-1 text-center ml-2 cursor-pointer">
+          <button type="button" onclick="hideDeleteNotification()"
+            class="inline-block w-28 text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm px-5 py-1 focus:z-10">لغو</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- End confirm delete -->
+
+  <script>
+    // *************************************************
+    // *************** file name **********************
+    function updateFileName(input) {
+      const fileNameElement = document.getElementById('file-name');
+      fileNameElement.textContent = input.files[0] ? input.files[0].name : 'No file chosen';
+    }
+    // *********************************************************
+    // ************** Confirm Delete ****************************
+    const confirm_delete_container = document.getElementById('confirm-delete-container');
+    function showDeleteNotification() {
+      confirm_delete_container.classList.remove("hidden");
+    };
+    function hideDeleteNotification() {
+      confirm_delete_container.classList.add("hidden");
+    };
+    // *********************************************************
+    // ************** Confirm message ****************************
+    const confirm = document.getElementById('confirm');
+    function showConfirm() {
+      confirm.classList.remove("hidden");
+    };
+    function hideConfim() {
+      confirm.classList.add("hidden");
+    };
+    // *********************************************************
+    // ************** Confirm form submission ****************************
+
+    function confirmFormSubmission(formId, heading, message) {
+      const form = document.querySelector(`#${formId}`);
+      const confirm = document.querySelector('#confirm');
+      const confirmHeading = document.querySelector('#confirmHeading');
+      const confirmMessage = document.querySelector('#confirmMessage');
+      const confirmBtn = document.querySelector('#confirmBtn');
+      const checkbox = document.querySelector(`#${formId} input[type="checkbox"]`);
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+        // set the message based on checkbox
+        if (checkbox.checked) {
+          confirmHeading.textContent = heading;
+          confirmMessage.textContent = message;
+        } else {
+          confirmHeading.textContent = "انتخاب نکرده اید.";
+          confirmMessage.textContent = "لطفا ابتدا چک باکس را تیک مارک کنید بعد دکمه انجام را بزنید.";
+        }
+        confirm.classList.remove("hidden");  // Show the confirmation message
+
+        confirmBtn.addEventListener('click', function () {
+          confirm.classList.add("hidden"); // Hide the confirmation message
+          if (checkbox.checked) {
+            form.submit(); // Manually submit the form
+          }
+        });
+      });
+    }// End confirmFormSubmission
+
+    let deactivateHeading = "غیر فعال کردن";
+    let deactivateMessage = "آیا میخواهید این کارمند را غیر فعال سازید؟";
+    let adminHeading = "تبدیل کردین به ادمین";
+    let adminMessage = "آیا میخواهید این کارمند را ادمین بسازید؟";
+    // call funciton
+    confirmFormSubmission('deactivateForm', deactivateHeading, deactivateMessage);
+    confirmFormSubmission('makeAdminForm', adminHeading, adminMessage); 
+  </script>
+{% endblock jscript %}
 

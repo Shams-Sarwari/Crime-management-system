@@ -44,7 +44,7 @@
 
         <tbody>
             {% for staff in staff_list %}
-            <tr class="mytable-row" onclick="window.open('test.html', '_blank');">
+            <tr class="mytable-row" onclick="window.open('{% url "staff-detail" staff.id %}', '_self');">
             <td class="text-center text-lg hidden md:table-cell">{{ forloop.counter }}</td>
             <td class="border-r-2">
               <div class="flex justify-center">
