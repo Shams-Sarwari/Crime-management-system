@@ -443,7 +443,8 @@
 
       </div>
 
-      <!-- detail car -->
+      <!-- ********************************************** -->
+      <!--**************** detail car **********************-->
       <!-- car and jawazsair -->
       <div class="mx-2 md:mx-4 my-2 md:my-4 flex flex-col md:flex-row gap-2 md:gap-4">
         <!-- car -->
@@ -476,7 +477,8 @@
                   <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">چاپ اطلاعات </a>
                 </li>
                 <li>
-                  <a href="#" class="block px-4 py-2 text-red-600 hover:bg-gray-100  ">حذف</a>
+                  <button type="button" onclick="showDeleteNotification(); toggleCarDropdown();"
+                    class="w-full px-4 py-2 text-right text-red-600 hover:bg-gray-100  ">حذف</button>
                 </li>
               </ul>
             </div>
@@ -640,7 +642,6 @@
       </div>
       <!-- End car and jawazsair -->
       <!-- Car history -->
-
       <div class=" relative mx-2 mb-4 md:mx-4 rounded overflow-x-auto">
         <table class="w-full text-sm text-right text-gray-500 ">
           <thead class="text-[13px] text-gray-700 bg-gray-50">
@@ -707,16 +708,218 @@
       </div>
       <!-- End car history -->
 
+      <!--*************** fine payment *******************-->
+      <div id="fine" class="my-2 md:my-4 mx-2 md:mx-4 overflow-hidden bg-white text-gray-600 rounded-lg shadow ">
+        <!-- car name, plateNO -->
+        <div class="bg-gray-50 text-gray-700 text-sm font-bold py-3 px-6 md:px-10">
+          <div class="flex gap-x-4 md:gap-x-10">
+            <span>Toyota 2003</span>
+            <span>K-13634</span>
+          </div>
+        </div>
+        <!-- punishment -->
+        <form class="px-2 md:px-10 py-6 relative">
+          <input type="checkbox" name="" class="masterCheckbox absolute top-10 right-6 md:right-[54px] cursor-pointer">
+          <!-- line below: fineTable class is for js -->
+          <table class="fineTable w-full">
+            <tr class="h-12 text-center text-gray-600 text-[13px] font-semibold border-b border-gray-500">
+              <td class="h-12 flex justify-center items-center">
+              </td>
+              <td>نوع جریمه</td>
+              <td>مقدار جریمه</td>
+              <td>جریمه عدم پرداخت</td>
+              <td>مقدار کُل</td>
+              <td>تاریخ انقضا</td>
+            </tr>
+            <tr class="h-12 text-center text-gray-600 border-b border-gray-300">
+              <td class="w-10 h-12 flex justify-center items-center"><input type="checkbox" name=""
+                  class=" cursor-pointer">
+              </td>
+              <td class="text-[13px]">رد شدن از چراغ سرخ</td>
+              <td>200</td>
+              <td>30</td>
+              <td>330</td>
+              <td>1402/10/25</td>
+            </tr>
+            <tr class="h-12 text-center text-gray-600 border-b border-gray-300">
+              <td class="w-10 h-12 flex justify-center items-center"><input type="checkbox" class=" cursor-pointer">
+              </td>
+              <td class="text-[13px]">رد شدن از چراغ سرخ</td>
+              <td>200</td>
+              <td>30</td>
+              <td>100</td>
+              <td>1402/10/25</td>
+            </tr>
+          </table>
+          <div class="flex justify-between mt-16">
+            <label class="font-semibold pr-4">مقدار کُل : <span class="total text-lg">00</span></label>
+            <input type="submit" value="پرداخت آنلاین"
+              class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none rounded text-xs tracking-widest w-36 py-2 text-center cursor-pointer">
+          </div>
+        </form>
+      </div>
+      <!-- End fine and payment -->
+
     </section>
   </div>
 
+
+
+
+  <!-- *************************************** -->
+  <!-- ********* Confirm Pyament Notification **************** -->
+  <!--  Confirm Pyament with blur functionality -->
+  <div id="confirmPayment" class="hidden fixed inset-0 z-50 backdrop-blur-sm p-2">
+    <div class="center-div w-full max-w-sm max-h-full bg-white rounded-lg shadow">
+      <button type="button" onclick="hideConfimPayment()"
+        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+      </button>
+      <div class="p-6 pt-4 text-center">
+        <h3 class="text-sm font-semibold text-color-primary mb-2">تایید مبلغ پرداخت شده</h3>
+        <p id="confirmPaymentMessage" class="mb-4 text-sm font-normal text-gray-500 leading-7">
+          آیا مبلغ ۴۵۰ افغانی را دریافت کرده اید؟
+        </p>
+        <button id="confirmPaymentBtn"
+          class="w-28 text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg text-sm  py-1 text-center ml-2 cursor-pointer">بلی</button>
+        <button onclick="hideConfimPayment()"
+          class="inline-block w-28 text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm px-5 py-1 focus:z-10">نخیر</button>
+      </div>
+    </div>
+  </div>
+  <!-- End confirm payment -->
+
+
+  <!-- *************************************** -->
+  <!-- ********* Delete Notification **************** -->
+  <!-- Confirm Delete with blur functionality -->
+  <div id="confirm-delete-container" class="hidden fixed inset-0 z-50 backdrop-blur-sm p-2">
+    <div class="center-div w-full max-w-sm max-h-full bg-white rounded-lg shadow">
+      <button type="button" onclick="hideDeleteNotification()"
+        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+      </button>
+      <div class="p-6 text-center">
+        <svg class="mx-auto mb-2 text-red-400 w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+          viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+        <h3 class="mb-4 text-sm font-normal text-gray-500 leading-7">
+          آیا مطمئن هستید که میخواهید این مورد را حذف کنید؟
+        </h3>
+        <form action="">
+          <input type="submit" value="بله مطمئنم"
+            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg text-sm inline-flex items-center px-5 py-1 text-center ml-2 cursor-pointer">
+          <button type="button" onclick="hideDeleteNotification()"
+            class="inline-block w-28 text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm px-5 py-1 focus:z-10">لغو</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- End confirm delete -->
+
+
+
+
   <script>
     // ****************************************
-    // ********* profile details ****************
+    // ********* car dropdown ****************
     const car_dropdown = document.getElementById("car-dropdown");
     function toggleCarDropdown() {
       car_dropdown.classList.toggle("hidden");
     }
+    // *********************************************************
+    // ************** Confirm Delete ****************************
+    const confirm_delete_container = document.getElementById('confirm-delete-container');
+    function showDeleteNotification() {
+      confirm_delete_container.classList.remove("hidden");
+    };
+    function hideDeleteNotification() {
+      confirm_delete_container.classList.add("hidden");
+    };
+
+    // ****************************************
+    // ********* fine payemnt*****************
+    function initializeFinePayment(divId) {
+      const masterCheckbox = document.querySelector(`#${divId} .masterCheckbox`);
+      const checkboxes = document.querySelectorAll(`#${divId} .fineTable input[type="checkbox"]`);
+
+      let sum = 0;
+
+      // checkboxes
+      masterCheckbox.addEventListener('change', function () {
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = this.checked;
+        });
+
+        calculateSum();
+      });
+
+      checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', function () {
+          calculateSum();
+          synchronizeMasterCheckbox();
+        });
+      });
+
+      function calculateSum() {
+        sum = 0;
+        checkboxes.forEach((checkbox) => {
+
+          if (checkbox.checked) {
+            const row = checkbox.parentNode.parentNode;
+            const value = row.querySelector('td:nth-child(5)').textContent;
+            sum += parseInt(value);
+          }
+        });
+
+        document.querySelector(`#${divId} .total`).textContent = sum;
+      }
+
+      function synchronizeMasterCheckbox() {
+        const allChecked = Array.from(checkboxes).every((checkbox) => checkbox.checked);
+        masterCheckbox.checked = allChecked;
+      }
+
+      // form submit confirm ***********************
+      const form = document.querySelector(`#${divId} form`);
+      const confirmPayment = document.querySelector('#confirmPayment');
+      const confirmPaymentMessage = document.querySelector('#confirmPaymentMessage');
+      const confirmPaymentBtn = document.querySelector('#confirmPaymentBtn');
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+        confirmPaymentMessage.textContent = `آیا مبلغ ${document.querySelector(`#${divId} .total`).textContent} افغانی را دریافت کرده اید؟`;
+        confirmPayment.classList.remove("hidden");  // Show the confirmation message
+
+        confirmPaymentBtn.addEventListener('click', function () {
+          confirmPayment.classList.add("hidden"); // Hide the confirmation message
+          form.submit(); // Manually submit the form
+        });
+      });
+      // ***************************
+    }
+    // end function initializeFinePayment(divId) 
+
+    // call function
+    initializeFinePayment(`fine`);
+
+    // *********************************************************
+    // ************** Confirm Payment ****************************
+    const confirmPayment = document.getElementById('confirmPayment');
+    function showConfirmPayment() {
+      confirmPayment.classList.remove("hidden");
+    };
+    function hideConfimPayment() {
+      confirmPayment.classList.add("hidden");
+    };
   </script>
   <script src="./adminScript.js"></script>
 </body>
