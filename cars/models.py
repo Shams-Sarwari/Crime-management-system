@@ -55,7 +55,7 @@ class Car(models.Model):
     
 
 class JawazSayr(models.Model):
-    id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     jawaz_num = models.CharField(max_length=200, primary_key=False, unique=True)
     card_num = models.CharField(max_length=200, unique=True, blank=True, null=True)
     driver = models.ForeignKey(DriverProfile, on_delete=models.CASCADE)

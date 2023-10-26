@@ -180,12 +180,21 @@ def delete_owner(request, pk):
     }
     return render(request, 'cars/delete_owner.html', context)
 
-def create_jawaz(request):
+def create_jawaz(request, pk):
+    car = get_object_or_404(Car, id=pk)
+    try:
+        driver = car.driver
+    except: 
+        driver = None
     if request.method == 'POST':
         form = JawazForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('cars:car-list')
+            jawaz = form.save(commit=False)
+            jawaz.car = car
+            jawaz.driver = driver
+            jawaz.verified_by = request.user.staffprofile
+            jawaz.save()
+            return redirect('cars:car-detail', car.id)
 
     else:
         form = JawazForm()

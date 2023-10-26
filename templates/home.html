@@ -5,7 +5,6 @@
 {% block content %}
     <h1>Welcome to Traffic Crime Management System</h1>
     {% if user.is_authenticated %}
-    <a href="{% url 'cars:create-jawaz' %}">create jawaz</a>
     
     <a href="{% url 'cars:jawaz-list' %}">Jawaz List</a>
     <a href="{% url 'register-driver' %}">Create user for driver</a><br>

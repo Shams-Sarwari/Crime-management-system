@@ -1,10 +1,85 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% comment %} {% block content %}
     <h2>create jawaz</h2>
     <form action="" method='POST'>
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Create">
     </form>
+{% endblock content %} {% endcomment %}
+
+{% block content %}
+    <div class="w-full pt-4 pl-3 pb-4 pr-3 md:pt-10 md:pr-16 md:pb-6 md:pl-20">
+        <div class="max-w-3xl mx-auto bg-white  rounded-md shadow-md overflow-hidden">
+          <h1 class="form-heading">ثبت جواز سیر جدید</h1>
+
+          <form action="" class="py-5 md:py-7 px-5 md:px-6 text-sm text-gray-600">
+            <!-- div 1 -->
+            <div class="w-full grid md:grid-cols-[1fr,1fr] md:gap-x-10 gap-y-4">
+              <div class="flex flex-col gap-2">
+                <label for="" class="mr-2">نمبر جواز</label>
+                {{ form.jawaz_num }}
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label for="" class="mr-2">نمبر احصاییه</label>
+                {{ form.statistic_num }}
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label for="" class="mr-2">نمبر مکتوب</label>
+                {{ form.document_num }}
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label for="" class="mr-2">تاریخ مکتوب</label>
+                {{ form.document_date }}
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label for="" class="mr-2">نمبر علم و خبر</label>
+                {{ form.news_num }}
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label for="" class="mr-2">تاریخ علم و خبر</label>
+                {{ form.news_date }}
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label for="" class="mr-2">نمبر تعرفه بانک</label>
+                {{ form.bank_reg_num }}
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label for="" class="mr-2">تاریخ تعرفه بانک</label>
+                {{ form.bank_reg_date }}
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label for="" class="mr-2">سایز</label>
+                {{ form.size }}
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label for="" class="mr-2">اطمینانه مستوفیت</label>
+                {{ form.rest_assured }}
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label for="" class="mr-2">تاریخ انقضا</label>
+                {{ form.expiry_date }}
+              </div>
+
+            </div>
+
+            <!-- div submit -->
+            <div class="flex items-center justify-end mt-6">
+              <input type="submit" value="ثبت اطلاعات" class="form-submit-btn text-xs">
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
 {% endblock content %}
