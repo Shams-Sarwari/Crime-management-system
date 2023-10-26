@@ -18,7 +18,7 @@
           <!-- profile card -->
           <div
             class="max-w-full md:max-w-xs px-4 pt-12 pb-10 flex flex-col items-center gap-4 bg-white rounded shadow-sm  text-gray-600">
-            <div class="w-24 h-24 md:w-28 md:h-28 overflow-hidden">
+            <div class="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden">
               <img src="{{staff.avatar.url}}" alt="Image" class="object-contain h-auto rounded-full">
             </div>
             <div class="flex flex-col gap-2 text-center">
@@ -264,7 +264,7 @@
     // *************** file name **********************
     function updateFileName(input) {
       const fileNameElement = document.getElementById('file-name');
-      fileNameElement.textContent = input.files[0] ? input.files[0].name : 'No file chosen';
+      fileNameElement.textContent = input.files[0] ? input.files[0].name : 'هیچ عکسی انتخاب نشده';
     }
     // *********************************************************
     // ************** Confirm Delete ****************************
@@ -293,31 +293,25 @@
       const confirmHeading = document.querySelector('#confirmHeading');
       const confirmMessage = document.querySelector('#confirmMessage');
       const confirmBtn = document.querySelector('#confirmBtn');
-      const checkbox = document.querySelector(`#${formId} input[type="checkbox"]`);
 
       form.addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent the default form submission
         // set the message based on checkbox
-        if (checkbox.checked) {
-          confirmHeading.textContent = heading;
-          confirmMessage.textContent = message;
-        } else {
-          confirmHeading.textContent = "انتخاب نکرده اید.";
-          confirmMessage.textContent = "لطفا ابتدا چک باکس را تیک مارک کنید بعد دکمه انجام را بزنید.";
-        }
+        
+        confirmHeading.textContent = heading;
+        confirmMessage.textContent = message;
+        
         confirm.classList.remove("hidden");  // Show the confirmation message
 
         confirmBtn.addEventListener('click', function () {
           confirm.classList.add("hidden"); // Hide the confirmation message
-          if (checkbox.checked) {
-            form.submit(); // Manually submit the form
-          }
+          form.submit(); // Manually submit the form
         });
       });
     }// End confirmFormSubmission
 
     let deactivateHeading = "غیر فعال کردن";
-    let deactivateMessage = "آیا میخواهید این کارمند را غیر فعال سازید؟";
+    let deactivateMessage = "آیا میخواهید این تغییرات اعمال شود؟";
     let adminHeading = "تبدیل کردین به ادمین";
     let adminMessage = "آیا میخواهید این کارمند را ادمین بسازید؟";
     // call funciton
