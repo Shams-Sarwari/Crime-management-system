@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from accounts.models import DriverProfile
 from accounts.utils import pagination_items
 from django.db.models import Q
+from datetime import date
 # Create your views here.
 
 def car_list(request):
@@ -193,8 +194,11 @@ def create_jawaz(request, pk):
             jawaz.car = car
             jawaz.driver = driver
             jawaz.verified_by = request.user.staffprofile
+            jawaz.created = date.today()
             jawaz.save()
             return redirect('cars:car-detail', car.id)
+        else: 
+            print(form.errors)
 
     else:
         form = JawazForm()
