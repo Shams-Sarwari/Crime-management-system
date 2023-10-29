@@ -91,14 +91,35 @@ class CreateOwnerForm(forms.ModelForm):
             )
 
 class JawazForm(forms.ModelForm):
+    jawaz_num = forms.IntegerField()
+    statistic_num = forms.IntegerField()
+    card_num = forms.IntegerField()
+    document_num = forms.IntegerField()
+    news_num = forms.IntegerField()
+    bank_reg_num = forms.IntegerField()
+    size = forms.IntegerField()
+    rest_assured = forms.IntegerField()
+    
+    
+
     class Meta: 
         model = JawazSayr
         fields = '__all__'
+        exclude = ['driver', 'car', 'verified_by', 'created']
+        widgets = {
+            'expiry_date': forms.DateInput(attrs={'type': 'date'}),
+            'bank_reg_date': forms.DateInput(attrs={'type': 'date'}),
+            'news_date': forms.DateInput(attrs={'type': 'date'}),
+            'document_date': forms.DateInput(attrs={'type': 'date'}),
+        }
+        
     
     def __init__(self, *args, **kwargs):
         super(JawazForm, self).__init__(*args, **kwargs)
         
         for k, v in self.fields.items():
             v.widget.attrs.update(
-                    {'class':'driver-form-input'}
-            )
+                {'class':'input2', 
+                }
+                    )
+            

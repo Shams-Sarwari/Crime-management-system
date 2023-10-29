@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from accounts.models import DriverProfile
 from accounts.utils import pagination_items
 from django.db.models import Q
+from datetime import date
 # Create your views here.
 
 def car_list(request):
@@ -180,12 +181,24 @@ def delete_owner(request, pk):
     }
     return render(request, 'cars/delete_owner.html', context)
 
-def create_jawaz(request):
+def create_jawaz(request, pk):
+    car = get_object_or_404(Car, id=pk)
+    try:
+        driver = car.driver
+    except: 
+        driver = None
     if request.method == 'POST':
         form = JawazForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('cars:car-list')
+            jawaz = form.save(commit=False)
+            jawaz.car = car
+            jawaz.driver = driver
+            jawaz.verified_by = request.user.staffprofile
+            jawaz.created = date.today()
+            jawaz.save()
+            return redirect('cars:car-detail', car.id)
+        else: 
+            print(form.errors)
 
     else:
         form = JawazForm()

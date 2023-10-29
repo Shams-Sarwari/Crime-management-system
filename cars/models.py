@@ -55,16 +55,16 @@ class Car(models.Model):
     
 
 class JawazSayr(models.Model):
-    id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     jawaz_num = models.CharField(max_length=200, primary_key=False, unique=True)
     card_num = models.CharField(max_length=200, unique=True, blank=True, null=True)
     driver = models.ForeignKey(DriverProfile, on_delete=models.CASCADE)
     car = models.OneToOneField(Car, on_delete=models.CASCADE)
     statistic_num = models.CharField(max_length=200, blank=True, null=True)
     document_num = models.CharField(max_length=200, blank=True, null=True)
-    document_date = models.DateField(blank=True, null=True)
+    document_date = models.DateField(null=True)
     news_num = models.CharField(max_length=200, blank=True, null=True)
-    news_date = models.DateField(blank=True, null=True)
+    news_date = models.DateField( null=True)
     bank_reg_num = models.CharField(max_length=200)
     bank_reg_date = models.DateField()
     size = models.CharField(max_length=200, blank=True, null=True)
