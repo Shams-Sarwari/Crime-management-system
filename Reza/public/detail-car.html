@@ -540,7 +540,7 @@
           </table>
           <!-- btns -->
           <div class="flex justify-center gap-6 mt-6">
-            <button type="button"
+            <button type="button" onclick="showUpdateCar();"
               class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 py-1 text-center">
               اپدیت
             </button>
@@ -767,6 +767,49 @@
 
 
   <!-- *************************************** -->
+  <!-- ********* Update car  **************** -->
+  <div id="updateCar" class="hidden fixed inset-0 z-50 backdrop-blur-sm p-2">
+    <div class="center-div w-full max-w-sm max-h-full bg-white rounded-lg shadow">
+      <button type="button" onclick="hideUpdateCar()"
+        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+      </button>
+      <div class="p-6 pt-4">
+        <h3 class="text-lg text-center font-semibold text-color-primary mb-4">ویرایش موتر</h3>
+
+        <form action="" class="flex flex-col gap-4 text-[13px] text-gray-600 px-2 py-2">
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">لایسنس راننده</label>
+            <input type="number" class="input2" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">تذکره مالک</label>
+            <input type="number" class="input2" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">نمبر پلیت</label>
+            <input type="number" class="input2" />
+          </div>
+
+          <div class="mt-4 flex justify-center gap-8">
+            <button id="confirmPaymentBtn"
+              class="w-28 text-white bg-blue-800 hover:bg-blue-900 focus:outline-none rounded-lg text-sm  py-1 text-center cursor-pointer">ذخیره</button>
+            <button onclick="hideUpdateCar()"
+              class="w-28 text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-900 focus:outline-none rounded-lg border border-gray-200 text-sm py-1 focus:z-10">لغو</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- End update car  -->
+
+
+  <!-- *************************************** -->
   <!-- ********* Confirm Pyament Notification **************** -->
   <!--  Confirm Pyament with blur functionality -->
   <div id="confirmPayment" class="hidden fixed inset-0 z-50 backdrop-blur-sm p-2">
@@ -919,6 +962,16 @@
     };
     function hideConfimPayment() {
       confirmPayment.classList.add("hidden");
+    };
+
+    // *********************************************************
+    // ************** Update Car ****************************
+    const updateCar = document.getElementById('updateCar');
+    function showUpdateCar() {
+      updateCar.classList.remove("hidden");
+    };
+    function hideUpdateCar() {
+      updateCar.classList.add("hidden");
     };
   </script>
   <script src="./adminScript.js"></script>
