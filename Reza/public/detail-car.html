@@ -641,70 +641,85 @@
         <!-- end Jawazsair -->
       </div>
       <!-- End car and jawazsair -->
+
       <!-- Car history -->
       <div class=" relative mx-2 mb-4 md:mx-4 rounded overflow-x-auto">
-        <table class="w-full text-sm text-right text-gray-500 ">
-          <thead class="text-[13px] text-gray-700 bg-gray-50">
-            <tr>
-              <th scope="col" class="px-6 py-3">
-                شماره
-              </th>
-              <th scope="col" class="px-6 py-3">
-                تاریخ شروع
-              </th>
-              <th scope="col" class="px-6 py-3">
-                تاریخ پایان
-              </th>
-              <th scope="col" class="px-6 py-3">
-                اسم راننده
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="bg-white border-b">
-              <td class="px-6 py-4">
-                1
-              </td>
-              <td class="px-6 py-4">
-                2012/01/30
-              </td>
-              <td class="px-6 py-4">
-                2015/09/12
-              </td>
-              <th scope="row" class="px-6 py-4 font-medium text-gray-800 whitespace-nowrap">
-                ذکی احمدی
-              </th>
-            </tr>
-            <tr class="bg-white border-b">
-              <td class="px-6 py-4">
-                2
-              </td>
-              <td class="px-6 py-4">
-                2015/09/12
-              </td>
-              <td class="px-6 py-4">
-                2020/07/11
-              </td>
-              <th scope="row" class="px-6 py-4 font-medium text-gray-800 whitespace-nowrap">
-                محمد علی انصاری
-              </th>
-            </tr>
-            <tr class="bg-white border-b">
-              <td class="px-6 py-4">
-                3
-              </td>
-              <td class="px-6 py-4">
-                2020/07/11
-              </td>
-              <td class="px-6 py-4">
-                2022/05/25
-              </td>
-              <th scope="row" class="px-6 py-4 font-medium text-gray-800 whitespace-nowrap">
-                علی مدد نفس
-              </th>
-            </tr>
-          </tbody>
-        </table>
+        <h3 class="py-3 text-sm md:text-[16px] text-center font-semibold text-gray-700 bg-gray-50">
+          تاریخچه موتر</h3>
+        <div class="px-2 md:px-10 bg-white max-h-52 overflow-y-scroll">
+          <table class="w-full text-sm text-right text-gray-500 ">
+            <thead class="text-[13px] md:text-sm text-gray-700 border-b border-gray-500">
+              <tr>
+                <th scope="col" class="px-6 py-3">
+                  شماره
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  توضیحات
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  تاریخ
+                </th>
+              </tr>
+            </thead>
+            <tbody class="h-4 overflow-y-scroll">
+              <tr class="border-b">
+                <td class="px-6 py-4 text-[16px]">
+                  1
+                </td>
+                <td class="px-6 py-4">
+                  رانندهٔ موتر از احمد به محمود تغییر کرد.
+                </td>
+                <td class="px-6 py-4 text-[16px]">
+                  2015/09/12
+                </td>
+              </tr>
+              <tr class="border-b">
+                <td class="px-6 py-4 text-[16px]">
+                  2
+                </td>
+                <td class="px-6 py-4">
+                  کلینر موتر از عبدلواحد به ذکی تغییر کرد.
+                </td>
+                <td class="px-6 py-4 text-[16px]">
+                  2015/09/12
+                </td>
+              </tr>
+              <tr class="border-b">
+                <td class="px-6 py-4 text-[16px]">
+                  3
+                </td>
+                <td class="px-6 py-4">
+                  مالک موتر از جمال الدین به ممدلی تغییر کرد.
+                </td>
+                <td class="px-6 py-4 text-[16px]">
+                  2015/09/12
+                </td>
+              </tr>
+              <tr class="border-b">
+                <td class="px-6 py-4 text-[16px]">
+                  4
+                </td>
+                <td class="px-6 py-4">
+                  مستری موتر از بسم الله به علی مدد تغییر کرد.
+                </td>
+                <td class="px-6 py-4 text-[16px]">
+                  2015/09/12
+                </td>
+              </tr>
+              <tr class="border-b">
+                <td class="px-6 py-4 text-[16px]">
+                  5
+                </td>
+                <td class="px-6 py-4">
+                  تاجر موتر از محمد رضا به شمس الله تغییر کرد.
+                </td>
+                <td class="px-6 py-4 text-[16px]">
+                  2015/09/12
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <!-- End car history -->
 
@@ -797,9 +812,9 @@
           </div>
 
           <div class="mt-4 flex justify-center gap-8">
-            <button id="confirmPaymentBtn"
-              class="w-28 text-white bg-blue-800 hover:bg-blue-900 focus:outline-none rounded-lg text-sm  py-1 text-center cursor-pointer">ذخیره</button>
-            <button onclick="hideUpdateCar()"
+            <input type="submit" value="ذخیره"
+              class="w-28 text-white bg-blue-800 hover:bg-blue-900 focus:outline-none rounded-lg text-sm  py-1 text-center cursor-pointer">
+            <button onclick="hideUpdateCar()" type="button"
               class="w-28 text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-900 focus:outline-none rounded-lg border border-gray-200 text-sm py-1 focus:z-10">لغو</button>
           </div>
         </form>
