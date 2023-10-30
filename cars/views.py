@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Car, CarOwner, CarHistory, JawazSayr
+from .models import Car, CarOwner, CarHistory, JawazSayr, OldHistory
+from crimes.models import CarCrime, Crime
 from .forms import CreateCarForm, EditCarForm, CreateOwnerForm, JawazForm
 from django.http import HttpResponse
 from accounts.models import DriverProfile
 from accounts.utils import pagination_items
 from django.db.models import Q
-from datetime import date
+from datetime import date, timedelta
+from django.contrib import messages
 # Create your views here.
 
 def car_list(request):
@@ -31,9 +33,37 @@ def car_list(request):
 def car_detail(request, pk):
     car = get_object_or_404(Car, id = pk)
     car_history = car.carhistory_set.all()
+    crimes = car.carcrime_set.filter(paid=False)
+    
+    # check if the jawazsayr expiry date is passed. if so fine the driver
+    try:
+        jawaz_sayr = JawazSayr.objects.get(car=car)
+    except:
+        jawaz_sayr = None
+    
+    if jawaz_sayr:
+        if date.today() > jawaz_sayr.expiry_date:
+                crime = CarCrime.objects.create(
+                    car = car,
+                    crime = Crime.objects.get(title='گذشتن تاریخ اعتبار جواز سیر'),
+                    price = 500, 
+                    expiry_date = jawaz_sayr.expiry_date + timedelta(days=60)
+
+                )
+                crime.save()
+                jawaz_sayr.expiry_date += timedelta(days=90)
+                jawaz_sayr.save()
+                
+    for item in crimes:
+        if (date.today() > item.expiry_date) and (item.paid == False):
+            item.expiry_fine += item.price/2
+            item.expiry_date += timedelta(days=60)
+            item.save()
+
     context = {
         'car': car, 
         'history': car_history,
+        'crimes': crimes,
         'section': 'cars'
     }
     return render(request, 'cars/car_detail.html', context)
@@ -69,32 +99,69 @@ def edit_car(request, pk):
     # to create car history
     car_driver = car.driver
     car_owner = car.owner
+    new_driver = None
+    new_owner = None
+    
 
-    form = EditCarForm(instance=car)
+    
     if request.method=='POST':
-        form = EditCarForm(request.POST, request.FILES, instance=car)
-        if form.is_valid():
-            # create a history if driver or owner has been updated
-            if request.POST['driver_licence'] != '':
-                if car_driver != DriverProfile.objects.get(licence_num = request.POST['driver_licence']):
-                    CarHistory.objects.create(
-                        car = car,
-                        driver = DriverProfile.objects.get(licence_num = request.POST['driver_licence'])
-                    )
-            if request.POST['owner_tazkira'] != '':
-                if car_owner != CarOwner.objects.get(tazkira_number = request.POST['owner_tazkira']):
-                    CarHistory.objects.create(
-                        car = car, 
-                        owner = CarOwner.objects.get(tazkira_number = request.POST['owner_tazkira'])
-                    )
-            form.save()
+        
+        # create a history if driver or owner has been updated
+        if request.POST['driver_licence'] != '':
+            try: 
+                new_driver = DriverProfile.objects.get(licence_num = request.POST['driver_licence'])
+            except:
+                messages.error(request, 'راننده با این لایسنس در سیستم وجود ندارد')
+                return redirect('cars:car-detail', car.id)
+            if car_driver != new_driver:
+                driver_history = CarHistory.objects.create(
+                    car = car,
+                    driver = new_driver
+                )
+                driver_history.save()
+                OldHistory.objects.create(
+                    car_history = driver_history,
+                    old_driver = car_driver, 
+                )
+
+
+                car.driver = new_driver
+                car.save()
+
+        if request.POST['owner_tazkira'] != '':
+            try: 
+                new_owner = CarOwner.objects.get(tazkira_number = request.POST['owner_tazkira'])
+            except:
+                messages.error(request, 'مالک با این مشخضات در سیستم وجود ندارد')
+                return redirect('cars:car-detail', car.id)
             
-            return redirect('cars:car-detail', car.id)
-    context = {
-        'form': form, 
-        'section': 'cars',
-    }
-    return render(request, 'cars/edit_car.html', context)
+            if car_owner != new_owner:
+                owner_history = CarHistory.objects.create(
+                    car = car, 
+                    owner = new_owner
+                )
+                owner_history.save()
+                OldHistory.objects.create(
+                    car_history = owner_history, 
+                    old_owner = car_owner,
+                )
+
+
+                car.owner = new_owner
+                car.save()
+        if request.POST['plate_num'] != '':
+            plates = Car.objects.values_list('plate_number', flat=True)
+            if request.POST['plate_num'] in plates:
+                messages.error(request, 'این پلیت نمبر در موتر دیگری ثبت است')
+                return redirect('cars:car-detail', car.id)
+            car.plate_number = request.POST['plate_num']
+            car.save()
+            
+        
+        messages.success(request, 'تغییرات با موفقیت اعمال شد')
+        
+    return redirect('cars:car-detail', car.id)
+    
 
 def delete_car(request, pk):
     car = get_object_or_404(Car, id=pk)
@@ -183,10 +250,11 @@ def delete_owner(request, pk):
 
 def create_jawaz(request, pk):
     car = get_object_or_404(Car, id=pk)
-    try:
-        driver = car.driver
-    except: 
-        driver = None
+    
+    driver = car.driver
+    if driver == None: 
+        messages.info(request, 'لطفا ابتدا برای این موتر راننده اضافه کنید')
+        return redirect('cars:car-detail', car.id)
     if request.method == 'POST':
         form = JawazForm(request.POST)
         if form.is_valid():
@@ -236,3 +304,11 @@ def update_jawaz(request, pk):
         'form': form
     }
     return render(request, 'cars/create_jawaz.html', context)
+
+def delete_jawaz(request, pk):
+    jawaz = get_object_or_404(JawazSayr, id=pk)
+    car = jawaz.car
+    if request.method == 'POST':
+        jawaz.delete()
+    
+    return redirect('cars:car-detail', car.id)

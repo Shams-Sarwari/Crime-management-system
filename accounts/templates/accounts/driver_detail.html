@@ -115,12 +115,12 @@
               <!-- Slides -->
               <!-- slide1 Jawazsair card **** You can loop**** -->
               {% for car in cars %}
-              <div class="swiper-slide">
+              <div class="swiper-slide" id="jawaz{{forloop.counter}}"> 
                 <div class="px-10 md:pl-12 md:pr-16">
                   <!-- jawaz dropdown -->
                   <div class="absolute left-10 top-0">
-                    <button onclick="toggleJawazDropdown()"
-                      class="inline-block text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5"
+                    <button 
+                      class="jawazBtn inline-block text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5"
                       type="button">
                       <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                         viewBox="0 0 16 3">
@@ -129,8 +129,8 @@
                       </svg>
                     </button>
                     <!-- Dropdown menu -->
-                    <div id="jawaz-dropdown"
-                      class="hidden absolute -left-2 top-9 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-36">
+                    <div
+                      class="jawazDropdown hidden absolute -left-2 top-9 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-36">
                       <ul class="py-2 text-xs">
                         <li>
                           <a href="#" class="block px-4 py-2 text-green-600 hover:bg-gray-100  ">ویرایش جواز سیر</a>
@@ -307,8 +307,7 @@
           </div>
         </div>
         <!-- punishment -->
-        <form class="px-2 md:px-10 py-6 relative" action="{% url 'crimes:log-payment' driver.id %}" method="POST">
-          {% csrf_token %}
+        <form class="px-2 md:px-10 py-6 relative" action="">
           <input type="checkbox" name="" class="masterCheckbox absolute top-10 right-6 md:right-[54px] cursor-pointer">
           <!-- line below: fineTable class is for js -->
           <table class="fineTable">
@@ -418,9 +417,16 @@
     }
     // ****************************************
     // ********* jawaz details ****************
-    const jawaz_dropdown = document.getElementById("jawaz-dropdown");
-    function toggleJawazDropdown() {
-      jawaz_dropdown.classList.toggle("hidden");
+    function initializeJawaz(divId) {
+      const jawazBtn = document.querySelector(`#${divId} .jawazBtn`);
+      const jawazDropdown = document.querySelector(`#${divId} .jawazDropdown`);
+      jawazBtn.addEventListener("click", function () {
+        jawazDropdown.classList.toggle("hidden");
+      });
+    }
+
+    for (let i = 1; i <= {{num_of_cars}}; i++) {
+      initializeJawaz(`jawaz${i}`);
     }
     // ****************************************
     // ********* car and fine payemnt*****************
@@ -540,6 +546,7 @@
       },
     });
   </script>
+
   <script>
     function printPage(){
       window.print()

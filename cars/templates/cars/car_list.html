@@ -40,7 +40,7 @@
 
         <tbody>
         {% for car in cars %}
-          <tr class="mytable-row" onclick="window.open('test.html', '_blank');">
+          <tr class="mytable-row" onclick="window.open('{% url "cars:car-detail" car.id %}', '_self');">
             <td class="text-center text-lg hidden md:table-cell">{{ forloop.counter }}</td>
             <td class="border-r-2 pr-4 pl-2">{{ car.owner.first_name }}</td>
             <td class="border-r-2 pr-4 pl-2">{{ car.driver.first_name }}</td>

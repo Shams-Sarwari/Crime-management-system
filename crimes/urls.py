@@ -10,6 +10,6 @@ urlpatterns = [
     path('delete-crime/<int:pk>/', views.delete_crime, name='delete-crime'),
     path('driver-crime-list/', views.driver_crime_list, name='driver-crime-list'),
     path('fine-driver/', views.create_car_crime, name='fine-driver'),
-    path('log-payment/<uuid:pk>/', views.log_payment, name='log-payment'),
+    path('log-payment/<int:pk>/', views.log_payment, name='log-payment'),
 
 ]

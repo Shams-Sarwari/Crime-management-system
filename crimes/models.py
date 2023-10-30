@@ -4,7 +4,7 @@ from cars.models import Car
 # Create your models here.
 class Payment(models.Model):
     staff = models.ForeignKey(StaffProfile, on_delete=models.CASCADE)
-    driver = models.ForeignKey(DriverProfile, on_delete=models.CASCADE)
+    driver = models.ForeignKey(DriverProfile, on_delete=models.CASCADE, null=True, blank=True)
     price = models.DecimalField(max_digits=5, decimal_places=0)
     created = models.DateField(auto_now_add=True)
 

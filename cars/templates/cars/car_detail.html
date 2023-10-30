@@ -1,21 +1,551 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Engine Number: {{ car.engine_num }}, Plate Number: {{ car.plate_number | default:None }}</h1>
-    <h2>Car driver: {{ car.driver }}</h2>
-    <h2>Car owner: {{ car.owner }}</h2>
-    <h3>Color: {{ car.color }}</h3>
-    <a href="{% url 'cars:edit-car' car.id %}">Edit</a><br>
-    <a href="{% url 'cars:delete-car' car.id %}">Delete</a>
-    <hr>
-    <h2>History of this car:</h2>
-    {% for item in history %}
-        <h3>
-            {% if item.driver %}
-                {{ item.driver.first_name}}
-            {% else %}
-                {{ item.owner.first_name}}
+        <!-- ********************************************** -->
+      <!--**************** detail car **********************-->
+      <!-- car and jawazsair -->
+      <div class="mx-2 md:mx-4 my-2 md:my-4 flex flex-col md:flex-row gap-2 md:gap-4">
+        <!-- car -->
+        <div class="relative max-w-full md:max-w-sm px-6 xl:px-8 py-4 flex-grow bg-white rounded">
+          <!-- dropdown -->
+          <div class="absolute right-6 top-2">
+            <button onclick="toggleCarDropdown()"
+              class="inline-block text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5"
+              type="button">
+              <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                viewBox="0 0 16 3">
+                <path
+                  d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
+              </svg>
+            </button>
+            <!-- Dropdown menu -->
+            <div id="car-dropdown"
+              class="hidden absolute -right-2 top-10 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-36">
+              <ul class="py-2 text-xs">
+                {% if car.jawazsayr %}
+                {% else %}
+                <li>
+                  <a href="{% url 'cars:create-jawaz' car.id %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">اضافه کردن جواز سیر </a>
+                </li>
+                {% endif %}
+                <li>
+                  <a href="#" onclick="toggleCarDropdown(); printPage(); return false; " class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">چاپ اطلاعات</a>
+                </li>
+                <li>
+                  <button type="button" onclick="showDeleteNotification(); toggleCarDropdown();"
+                    class="w-full px-4 py-2 text-right text-red-600 hover:bg-gray-100  ">حذف</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <h3 class="mb-4 text-lg text-center text-color-primary font-semibold">مشخصات موتر</h3>
+          <table class="text-[13px] text-gray-600 w-full ">
+            <tr class="bg-gray-200  h-6">
+              <td class="pr-4 max-w-36 ">مالک</td>
+              <td>{{ car.owner.first_name }} {{ car.owner.last_name }} </td>
+            </tr>
+            <tr class=" h-6">
+              <td class="pr-4  ">راننده</td>
+              <td>{{ car.driver.first_name }} {{ car.driver.last_name }}</td>
+            </tr>
+            <tr class="bg-gray-200  h-6">
+              <td class="pr-4 ">نمبر پلیت</td>
+              <td>{{ car.plate_number }}</td>
+            </tr>
+            <tr class=" h-6">
+              <td class="pr-4  ">مودل</td>
+              <td>{{ car.model }}</td>
+            </tr>
+            <tr class="bg-gray-200  h-6">
+              <td class="pr-4 ">رنگ</td>
+              <td>{{ car.color }}</td>
+            </tr>
+            <tr class=" h-6">
+              <td class="pr-4  ">نوع اشترینگ</td>
+              <td>{{ car.steering }}</td>
+            </tr>
+            <tr class="bg-gray-200  h-6">
+              <td class="pr-4 "> نوع ماشین</td>
+              <td>{{ car.engine_type }}</td>
+            </tr>
+            <tr class=" h-6">
+              <td class="pr-4  ">نمبر ماشین</td>
+              <td>{{ car.engine_num }}</td>
+            </tr>
+            <tr class="bg-gray-200  h-6">
+              <td class="pr-4  ">نمبر شاسی</td>
+              <td>{{ car.chassis_num }}</td>
+            </tr>
+            <tr class=" h-6">
+              <td class="pr-4  ">تعداد سلندر</td>
+              <td>{{ car.number_of_cylinder }} سلندر</td>
+            </tr>
+            <tr class="bg-gray-200  h-6">
+              <td class="pr-4  ">وزن مجاز</td>
+              <td>{{ car.legal_weight }} کیلوگرام</td>
+            </tr>
+            <tr class=" h-6">
+              <td class="pr-4  ">وزن بالای اکسل</td>
+              <td>{{ car.weight_on_axle }} کیلوگرام</td>
+            </tr>
+            <tr class="bg-gray-200 h-6">
+              <td class="pr-4  ">تعداد راکبین</td>
+              <td>{{ car.number_of_rider }} نفر</td>
+            </tr>
+          </table>
+          <!-- btns -->
+          <div class="flex justify-center gap-6 mt-6">
+            <button type="button" onclick="showUpdateCar()"
+              class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 py-1 text-center">
+              اپدیت
+            </button>
+            <button type="button" onclick="showDeleteNotification()"
+              class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 py-1 text-center">
+              حذف
+            </button>
+          </div>
+        </div>
+        <!-- Jawazsair -->
+        <div class="max-w-full md:max-w-3xl flex-grow px-6 py-4 bg-white rounded shadow-sm">
+          <h3 class="mb-4 text-lg text-center text-color-primary font-semibold">مشخصات جواز سیر</h3>
+          <div class="grid md:grid-cols-2 gap-x-8">
+            <table class="text-[13px] text-gray-600 w-full">
+              <tr class="bg-gray-200  h-7">
+                <td class="pr-4 max-w-36 ">نمبر جواز</td>
+                <td>{{ car.jawazsayr.jawaz_num }}</td>
+              </tr>
+              <tr class=" h-7">
+                <td class="pr-4  ">موتر</td>
+                <td>{{ car.model }}</td>
+              </tr>
+              <tr class="bg-gray-200  h-7">
+                <td class="pr-4 ">نمبر احصاییه</td>
+                <td>{{ car.jawazsayr.statistic_num }}</td>
+              </tr>
+              <tr class=" h-7">
+                <td class="pr-4  ">نمبر مکتوب</td>
+                <td>{{ car.jawazsayr.document_num }}</td>
+              </tr>
+              <tr class="bg-gray-200  h-7">
+                <td class="pr-4  ">تاریخ مکتوب</td>
+                <td>{{ car.jawazsayr.document_date }}</td>
+              </tr>
+              <tr class=" h-7">
+                <td class="pr-4  ">نمبر علم و خبر</td>
+                <td>{{ car.jawazsayr.news_num }}</td>
+              </tr>
+              <tr class="bg-gray-200  h-7">
+                <td class="pr-4 ">تاریخ علم و خبر</td>
+                <td>{{ car.jawazsayr.news_date }}</td>
+              </tr>
+            </table>
+            <table class="text-[13px] text-gray-600 w-full">
+              <tr class="bg-white md:bg-gray-200  h-7">
+                <td class="pr-4 w-36 ">نمبر تعرفه بانک</td>
+                <td>{{ car.jawazsayr.bank_reg_num }}</td>
+              </tr>
+              <tr class="bg-gray-200 md:bg-white  h-7">
+                <td class="pr-4  ">تاریخ تعرفه بانک</td>
+                <td>{{ car.jawazsayr.bank_reg_date }} </td>
+              </tr>
+              <tr class="bg-white md:bg-gray-200  h-7">
+                <td class="pr-4  ">سایز</td>
+                <td>{{ car.jawazsayr.size }}</td>
+              </tr>
+              <tr class="bg-gray-200 md:bg-white  h-7">
+                <td class="pr-4  ">اطمینانه مستوفیت</td>
+                <td>{{ car.jawazsayr.rest_assured }}</td>
+              </tr>
+              <tr class="bg-white md:bg-gray-200  h-7">
+                <td class="pr-4  ">تایید کننده</td>
+                <td>{{ car.jawazsayr.verified_by }}</td>
+              </tr>
+              <tr class="bg-gray-200 md:bg-white  h-7">
+                <td class="pr-4  ">تاریخ صدور</td>
+                <td>{{ car.jawazsayr.created }}</td>
+              </tr>
+              <tr class="bg-white md:bg-gray-200  h-7">
+                <td class="pr-4  ">تاریخ انقضا</td>
+                <td>{{ car.jawazsayr.expiry_date }}</td>
+              </tr>
+            </table>
+          </div>
+          <!-- note -->
+          <div class="mt-2 md:mt-6 mx-4 md:mx-10">
+            <p><span class="text-red-500 text-lg">*</span><span class="text-gray-600 text-sm mr-1">نوت:</span></p>
+            <p class="text-gray-500 text-[13px]">
+              در
+              صورتی که شما ادمین
+              هستید،
+              می‌توانید اطلاعات را ویرایش یا حذف کنید،
+              در غیر اینصورت این امکان برای
+              شما فراهم نیست.</p>
+          </div>
+          <!-- btns -->
+          <div class="mt-6 md:mt-10 flex justify-center gap-6 ">
+            {% if car.jawazsayr %}
+            <button type="button" onclick="window.open('{% url "cars:update-jawaz" car.jawazsayr.id %}', '_self');"
+              class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-28 md:w-36 py-1 text-center">
+              اپدیت
+            </button>
+            
+            <button type="button" onclick="showDeleteJawaz()"
+              class="w-28 md:w-36 text-gray-600 bg-white hover:bg-gray-100 hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm px-5 py-1 focus:z-10">
+              حذف
+            </button>
             {% endif %}
-        </h3>
-    {% endfor %}
+          </div>
+        </div>
+        <!-- end Jawazsair -->
+      </div>
+      <!-- End car and jawazsair -->
+      <!-- Car history -->
+      <div class=" relative mx-2 mb-4 md:mx-4 rounded overflow-x-auto">
+        <h3 class="py-3 text-sm md:text-[16px] text-center font-semibold text-gray-700 bg-gray-50">
+          تاریخچه موتر</h3>
+        <div class="px-2 md:px-10 bg-white max-h-52 overflow-y-scroll">
+          <table class="w-full text-sm text-right text-gray-500 ">
+            <thead class="text-[13px] md:text-sm text-gray-700 border-b border-gray-500">
+              <tr>
+                <th scope="col" class="px-6 py-3">
+                  شماره
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  توضیحات
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  تاریخ
+                </th>
+              </tr>
+            </thead>
+            <tbody class="h-4 overflow-y-scroll">
+              {% for history in car.carhistory_set.all %}
+              <tr class="border-b">
+                <td class="px-6 py-4 text-[16px]">
+                  {{ forloop.counter }}
+                </td>
+                {% if history.driver %}
+                <td class="px-6 py-4">
+                  {% if history.oldhistory.old_driver %}
+                  رانندهٔ موتر از <a class="text-blue-600 font-semibold" href="{% url "driver-detail" history.oldhistory.old_driver.id %}">{{history.oldhistory.old_driver.first_name }} {{ history.oldhistory.old_driver.last_name}}</a> به <a class="text-blue-600 font-semibold" href="{% url "driver-detail" history.driver.id %}">{{history.driver.first_name}} {{history.driver.last_name}}</a> تغییر کرد.
+                  {% else %}
+                <a class="text-blue-600 font-semibold" href="{% url "driver-detail" driver.id %}">{{history.driver.first_name }}{{history.driver.last_name}}</a>تبدیل به راننده موتر شد
+                  {% endif %}
+                </td>
+                {% endif %}
+                {% if history.owner %}
+                <td class="px-6 py-4">
+                  {% if history.oldhistory.old_owner %}
+                  صاحب موتر از <a class="text-blue-600 font-semibold" href="{% url "cars:owner-detail" history.oldhistory.old_owner.id %}">{{history.oldhistory.old_owner}}</a> به <a class="text-blue-600 font-semibold" href="{% url "cars:owner-detail" history.owner.id %}">{{history.owner}}</a> تغییر کرد.
+                  {% else %}
+                <a class="text-blue-600 font-semibold" href="{% url "cars:owner-detail" history.owner.id %}">{{history.owner}}</a> تبدیل به صاحب موتر شد
+                  {% endif %}
+                </td>
+                {% endif %}
+                <td class="px-6 py-4 text-[16px]">
+                  2015/09/12
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- End car history -->
+
+      <!--*************** fine payment *******************-->
+      <div id="fine" class="my-2 md:my-4 mx-2 md:mx-4 overflow-hidden bg-white text-gray-600 rounded-lg shadow ">
+        <!-- car name, plateNO -->
+        <div class="bg-gray-50 text-color-primary text-center text-lg font-bold py-3 ">
+          لیست جریمه ها
+        </div>
+        <!-- punishment -->
+        <form class="px-2 md:px-10 py-6 relative" action="{% url 'crimes:log-payment' car.id %}" method="POST">
+          {% csrf_token %}
+          <input type="checkbox" name="" class="masterCheckbox absolute top-10 right-6 md:right-[54px] cursor-pointer">
+          <!-- line below: fineTable class is for js -->
+          <table class="fineTable w-full">
+            <tr class="h-12 text-center text-gray-600 text-[13px] font-semibold border-b border-gray-500">
+              <td class="h-12 flex justify-center items-center">
+              </td>
+              <td>نوع جریمه</td>
+              <td>مقدار جریمه</td>
+              <td>جریمه عدم پرداخت</td>
+              <td>مقدار کُل</td>
+              <td>تاریخ انقضا</td>
+            </tr>
+            {% for crime in crimes %}
+            <tr class="h-12 text-center text-gray-600 border-b border-gray-300">
+              <td class="w-10 h-12 flex justify-center items-center"><input type="checkbox" name="paid_crimes" value="{{crime.id}}" 
+                  class=" cursor-pointer">
+              </td>
+              <td class="text-[13px]">{{ crime.crime.title }}</td>
+              <td>{{ crime.price }}</td>
+              <td>{{ crime.expiry_fine }}</td>
+              <td>{{ crime.get_total }}</td>
+              <td>{{ crime.expiry_date }}</td>
+            </tr>
+            {% endfor %}
+          </table>
+          <div class="flex justify-between mt-16">
+            <label class="font-semibold pr-4">مقدار کُل : <span class="total text-lg">00</span></label>
+            <input type="submit" value="پرداخت حضوری"
+              class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none rounded text-xs tracking-widest w-36 py-2 text-center cursor-pointer">
+          </div>
+        </form>
+      </div>
+      <!-- End fine and payment -->
+    </section>
 {% endblock content %}
+
+{% block jscript %}
+
+  <!-- *************************************** -->
+  <!-- ********* Update car  **************** -->
+  <div id="updateCar" class="hidden fixed inset-0 z-50 backdrop-blur-sm p-2">
+    <div class="center-div w-full max-w-sm max-h-full bg-white rounded-lg shadow">
+      <button type="button" onclick="hideUpdateCar()"
+        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+      </button>
+      <div class="p-6 pt-4">
+        <h3 class="text-lg text-center font-semibold text-color-primary mb-4">ویرایش موتر</h3>
+
+        <form action="{% url "cars:edit-car" car.id %}" method="POST" class="flex flex-col gap-4 text-[13px] text-gray-600 px-2 py-2">
+          {% csrf_token %}
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">لایسنس راننده</label>
+            <input type="number" class="input2" name="driver_licence" {% if car.driver %}placeholder="{{car.driver.licence_num}}"{% endif %}/>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">تذکره مالک</label>
+            <input type="number" class="input2" name="owner_tazkira" {% if car.owner %}placeholder="{{car.owner.tazkira_number}}"{% endif %}/>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">نمبر پلیت</label>
+            <input type="number" class="input2" name="plate_num" {% if car.plate_number %}placeholder="{{car.plate_number}}"{% endif %}/>
+          </div>
+
+          <div class="mt-4 flex justify-center gap-8">
+            <input type="submit" value="ذخیره" class="w-28 text-white bg-blue-800 hover:bg-blue-900 focus:outline-none rounded-lg text-sm  py-1 text-center cursor-pointer">  
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- End update car  -->
+    
+  <!-- *************************************** -->
+  <!-- ********* Confirm Pyament Notification **************** -->
+  <div id="confirmPayment" class="hidden fixed inset-0 z-50 backdrop-blur-sm p-2">
+    <div class="center-div w-full max-w-sm max-h-full bg-white rounded-lg shadow">
+      <button type="button" onclick="hideConfimPayment()"
+        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+      </button>
+      <div class="p-6 pt-4 text-center">
+        <h3 class="text-sm font-semibold text-color-primary mb-2">تایید مبلغ پرداخت شده</h3>
+        <p id="confirmPaymentMessage" class="mb-4 text-sm font-normal text-gray-500 leading-7">
+          آیا مبلغ ۴۵۰ افغانی را دریافت کرده اید؟
+        </p>
+        <button id="confirmPaymentBtn"
+          class="w-28 text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg text-sm  py-1 text-center ml-2 cursor-pointer">بلی</button>
+        <button onclick="hideConfimPayment()"
+          class="inline-block w-28 text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm px-5 py-1 focus:z-10">نخیر</button>
+      </div>
+    </div>
+  </div>
+  <!-- End confirm payment -->
+
+
+  <!-- *************************************** -->
+  <!-- ********* Delete car Notification **************** -->
+
+  <div id="confirm-delete-container" class="hidden fixed inset-0 z-50 backdrop-blur-sm p-2">
+    <div class="center-div w-full max-w-sm max-h-full bg-white rounded-lg shadow">
+      <button type="button" onclick="hideDeleteNotification()"
+        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+      </button>
+      <div class="p-6 text-center">
+        <svg class="mx-auto mb-2 text-red-400 w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+          viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+        <h3 class="mb-4 text-sm font-normal text-gray-500 leading-7">
+          آیا مطمئن هستید که میخواهید این موتر را حذف کنید؟
+        </h3>
+        <form action="{% url 'cars:delete-car' car.id %}" method="POST">
+          {% csrf_token %}
+          <input type="submit" value="بله مطمئنم"
+            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg text-sm inline-flex items-center px-5 py-1 text-center ml-2 cursor-pointer">
+          <button type="button" onclick="hideDeleteNotification()"
+            class="inline-block w-28 text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm px-5 py-1 focus:z-10">لغو</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- End car delete -->
+
+
+  <!-- *************************************** -->
+  <!-- ********* Delete jawaz Notification **************** -->
+  <div id="jawaz-delete-container" class="hidden fixed inset-0 z-50 backdrop-blur-sm p-2">
+    <div class="center-div w-full max-w-sm max-h-full bg-white rounded-lg shadow">
+      <button type="button" onclick="hideDeleteJawaz()"
+        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+      </button>
+      <div class="p-6 text-center">
+        <svg class="mx-auto mb-2 text-red-400 w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+          viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+        <h3 class="mb-4 text-sm font-normal text-gray-500 leading-7">
+          آیا مطمئن هستید که میخواهید جواز سیر را حذف کنید؟
+        </h3>
+        <form {% if car.jawazsayr %}action="{% url 'cars:delete-jawaz' car.jawazsayr.id %}"{% endif %} method="POST">
+          {% csrf_token %}
+          <input type="submit" value="بله مطمئنم"
+            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg text-sm inline-flex items-center px-5 py-1 text-center ml-2 cursor-pointer">
+          <button type="button" onclick="hideDeleteJawaz()"
+            class="inline-block w-28 text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm px-5 py-1 focus:z-10">لغو</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- End car delete -->
+
+  <script>
+    // ****************************************
+    // ********* car dropdown ****************
+    const car_dropdown = document.getElementById("car-dropdown");
+    function toggleCarDropdown() {
+      car_dropdown.classList.toggle("hidden");
+    }
+    // *********************************************************
+    // ************** Confirm car Delete ****************************
+    const confirm_delete_container = document.getElementById('confirm-delete-container');
+    function showDeleteNotification() {
+      confirm_delete_container.classList.remove("hidden");
+    };
+    function hideDeleteNotification() {
+      confirm_delete_container.classList.add("hidden");
+    };
+    // *********************************************************
+    // ************** jawaz Delete ****************************
+    const jawaz_delete_container = document.getElementById('jawaz-delete-container');
+    function showDeleteJawaz() {
+      jawaz_delete_container.classList.remove("hidden");
+    };
+    function hideDeleteJawaz() {
+      jawaz_delete_container.classList.add("hidden");
+    };
+
+    // ****************************************
+    // ********* fine payemnt*****************
+    function initializeFinePayment(divId) {
+      const masterCheckbox = document.querySelector(`#${divId} .masterCheckbox`);
+      const checkboxes = document.querySelectorAll(`#${divId} .fineTable input[type="checkbox"]`);
+
+      let sum = 0;
+
+      // checkboxes
+      masterCheckbox.addEventListener('change', function () {
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = this.checked;
+        });
+
+        calculateSum();
+      });
+
+      checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', function () {
+          calculateSum();
+          synchronizeMasterCheckbox();
+        });
+      });
+
+      function calculateSum() {
+        sum = 0;
+        checkboxes.forEach((checkbox) => {
+
+          if (checkbox.checked) {
+            const row = checkbox.parentNode.parentNode;
+            const value = row.querySelector('td:nth-child(5)').textContent;
+            sum += parseInt(value);
+          }
+        });
+
+        document.querySelector(`#${divId} .total`).textContent = sum;
+      }
+
+      function synchronizeMasterCheckbox() {
+        const allChecked = Array.from(checkboxes).every((checkbox) => checkbox.checked);
+        masterCheckbox.checked = allChecked;
+      }
+
+      // form submit confirm ***********************
+      const form = document.querySelector(`#${divId} form`);
+      const confirmPayment = document.querySelector('#confirmPayment');
+      const confirmPaymentMessage = document.querySelector('#confirmPaymentMessage');
+      const confirmPaymentBtn = document.querySelector('#confirmPaymentBtn');
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+        confirmPaymentMessage.textContent = `آیا مبلغ ${document.querySelector(`#${divId} .total`).textContent} افغانی را دریافت کرده اید؟`;
+        confirmPayment.classList.remove("hidden");  // Show the confirmation message
+
+        confirmPaymentBtn.addEventListener('click', function () {
+          confirmPayment.classList.add("hidden"); // Hide the confirmation message
+          form.submit(); // Manually submit the form
+        });
+      });
+      // ***************************
+    }
+    // end function initializeFinePayment(divId) 
+
+    // call function
+    initializeFinePayment(`fine`);
+
+    // *********************************************************
+    // ************** Confirm Payment ****************************
+    const confirmPayment = document.getElementById('confirmPayment');
+    function showConfirmPayment() {
+      confirmPayment.classList.remove("hidden");
+    };
+    function hideConfimPayment() {
+      confirmPayment.classList.add("hidden");
+    };
+    // *********************************************************
+    // ************** Update Car ****************************
+    const updateCar = document.getElementById('updateCar');
+    function showUpdateCar() {
+      updateCar.classList.remove("hidden");
+    };
+    function hideUpdateCar() {
+      updateCar.classList.add("hidden");
+    };
+  </script>
+  <script>
+    function printPage(){
+      window.print()
+    }
+  </script>
+{% endblock jscript %}
