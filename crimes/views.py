@@ -85,7 +85,8 @@ def create_car_crime(request):
     return render(request, 'crimes/create_driver_crime.html', context)
 
 def log_payment(request, pk):
-    driver = DriverProfile.objects.get(id=pk)
+    # driver = DriverProfile.objects.get(id=pk)
+    car = Car.objects.get(id=pk)
     total = 0
     if request.method == 'POST':
         paid_crimes = request.POST.getlist('paid_crimes')
@@ -96,13 +97,14 @@ def log_payment(request, pk):
             crime.paid = True
             crime.save()
             car_crimes.append(crime)
+            
         
         messages.success(request, 'جرایم موفقانه پرداخت گردید')
         
     # first create the log and then add car crimes to this log
     log = Payment.objects.create(
         staff = request.user.staffprofile,
-        driver = driver,
+        driver = car.driver,
         price = total,
     )
     log.save()
@@ -111,4 +113,4 @@ def log_payment(request, pk):
         item.payment = log
         item.save()
     
-    return redirect('driver-detail', driver.id)
+    return redirect('cars:car-detail', car.id)

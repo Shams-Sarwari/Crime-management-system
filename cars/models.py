@@ -49,7 +49,10 @@ class Car(models.Model):
     number_of_rider = models.PositiveIntegerField(help_text='تعداد راکبین')
     
     def __str__(self) -> str:
-        return f'car with plate: {self.plate_number} and engine num: {self.engine_num}'
+        driver = None
+        if self.driver: 
+            driver = self.driver.first_name + self.driver.last_name
+        return f'car with plate: {self.plate_number} and engine num: {self.engine_num} driver: {driver}'
     
     
     
@@ -87,3 +90,10 @@ class CarHistory(models.Model):
     def __str__(self) -> str:
         return f'History for car with plate: {self.car.plate_number} engine number: {self.car.engine_num}'
 
+
+class OldHistory(models.Model):
+    car_history = models.OneToOneField(CarHistory, on_delete=models.CASCADE)
+    old_driver = models.ForeignKey(DriverProfile, on_delete=models.SET_NULL, null=True, blank=True)
+    old_owner = models.ForeignKey(CarOwner, on_delete=models.SET_NULL, null=True, blank=True)
+    
+    

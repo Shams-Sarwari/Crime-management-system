@@ -53,9 +53,8 @@ def driver_detail(request, pk):
     except:
         jawaz_sayr = None
     
-    jawaz = None
+    
     if jawaz_sayr:
-        jawaz = jawaz_sayr[0]
         for item in jawaz_sayr:
             if date.today() > item.expiry_date:
                 crime = CarCrime.objects.create(
@@ -82,7 +81,6 @@ def driver_detail(request, pk):
 
     context = {
         'driver': driver, 
-        'jawaz_sayr': jawaz,
         'cars': cars,
         'num_of_cars': num_of_cars,
         'section': 'drivers', 
