@@ -446,11 +446,11 @@
       <!-- ********************************************** -->
       <!--**************** dashboard **********************-->
       <!-- cards -->
-      <div
+      <div id="cards"
         class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr,1fr] gap-2 md:gap-4 mx-2 md:mx-4 mt-2 md:mt-4 text-gray-500">
         <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
           <div class="flex flex-col gap-2">
-            <span class="text-3xl text-orange-500  font-semibold">2500</span>
+            <span id="onlinePayment" class="text-3xl text-orange-500  font-semibold">2500</span>
             <span class="text-[13px] font-semibold">پرداختی حضوری</span>
           </div>
           <span class="text-3xl text-blue-800 font-semibold"><i class="fa-solid fa-receipt"></i></span>
@@ -458,7 +458,7 @@
 
         <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
           <div class="flex flex-col gap-2">
-            <span class="text-3xl text-orange-500  font-semibold">4000</span>
+            <span id="offlinePayment" class="text-3xl text-orange-500  font-semibold">4000</span>
             <span class="text-[13px] font-semibold">پرداختی آنلاین</span>
           </div>
           <span class="text-3xl text-blue-800 font-semibold"><i class="fa-brands fa-cc-amazon-pay"></i></span>
@@ -466,7 +466,7 @@
 
         <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
           <div class="flex flex-col gap-2">
-            <span class="text-3xl text-orange-500  font-semibold">120</span>
+            <span id="todayCrime" class="text-3xl text-orange-500  font-semibold">120</span>
             <span class="text-[13px] font-semibold">جرایم امروز</span>
           </div>
           <span class="text-3xl text-blue-800 font-semibold"><i class="fa-solid fa-ban"></i></span>
@@ -474,7 +474,7 @@
 
         <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
           <div class="flex flex-col gap-2">
-            <span class="text-3xl text-orange-500  font-semibold">55600</span>
+            <span id="monthlyIncome" class="text-3xl text-orange-500  font-semibold">55600</span>
             <span class="text-[13px] font-semibold">درامد ماهانه</span>
           </div>
           <span class="text-3xl text-blue-800 font-semibold"><i class="fa-solid fa-money-check-dollar"></i>
@@ -583,154 +583,263 @@
 
       <!-- notifications -->
       <div class="max-w-full mx-2 md:mx-4 my-2 md:my-4 bg-white rounded overflow-hidden text-gray-500 text-[13px]">
-        <div class="bg-gray-50 py-2 px-12 flex items-center gap-4">
-          <div
-            class="relative inline-flex items-center p-1 text-3xl font-medium text-center text-blue-800 rounded-lg focus:outline-none">
-            <i class="fa-solid fa-bell"></i>
+        <div class="bg-gray-50 py-2 px-6 md:px-12 flex items-center justify-between">
+          <div class="flex items-center gap-4">
             <div
-              class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1.5 -right-1 ">
-              20</div>
+              class="relative inline-flex items-center p-1 text-3xl font-medium text-center text-blue-800 rounded-lg focus:outline-none">
+              <i class="fa-solid fa-bell"></i>
+              <div
+                class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1.5 -right-1 ">
+                20</div>
+            </div>
+            <span class="font-semibold text-[16px] text-gray-600">اعلان ها</span>
           </div>
-          <span class="font-semibold text-[16px] text-gray-600">اعلان ها</span>
+          <button id="moreNotifications" type="button"
+            class="flex items-center gap-2 hover:text-blue-700 ease-in duration-200">
+            <span class="font-semibold text-xs">اعلانات بیشتر</span>
+            <i class="fa-solid fa-chevron-down fa-beat"></i>
+          </button>
+          <button id="lessNotifications" type="button"
+            class="hidden flex items-center gap-2 hover:text-blue-700 ease-in duration-200">
+            <span class="font-semibold text-xs">اعلانات کمتر</span>
+            <i class="fa-solid fa-chevron-up fa-beat"></i>
+          </button>
         </div>
-        <!-- nitification 1  loop here-->
-        <div id="notification1"
-          class="border-t border-gray-100 px-2 md:px-4 xl:px-8 py-4 flex flex-col md:flex-row md:gap-4 lg:gap-16 xl:gap-20">
-          <!-- photo and report -->
-          <div class="max-w-md flex  gap-3">
-            <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
-              <img src="../img/img2.jpg" alt="my image" class="h-full w-auto object-cover rounded-full">
+
+        <div id="notificationContainer" class="max-h-52 md:max-h-[340px]">
+          <!-- nitification 1  loop here-->
+          <div id="notification1"
+            class="border-t border-gray-100 px-2 md:px-4 xl:px-8 py-4 flex flex-col md:flex-row md:gap-4 lg:gap-16 xl:gap-20">
+            <!-- photo and report -->
+            <div class="max-w-md flex  gap-3">
+              <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
+                <img src="../img/img2.jpg" alt="my image" class="h-full w-auto object-cover rounded-full">
+              </div>
+              <div class="expandableText flex flex-col h-20">
+                <span class="font-semibold">محمد رضا قاسمی</span>
+                <span class="overflow-hidden text-justify h-auto">
+                  این جرم ممکن است
+                  شامل تخطی از سرعت مجاز، نقض قوانین راهنمایی و رانندگی، عبور از چراغ‌های راهنما و دیگر خطوط ایمنی، عدم
+                  رعایت نشانه‌ها و علائم راهنمایی، استفاده از تلفن همراه بدون استفاده از دستگاه های مناسب، و بسیاری
+                  موارد دیگر می‌باشد.
+                </span>
+                <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
+                <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
+              </div>
             </div>
-            <div class="expandableText flex flex-col h-20">
-              <span class="font-semibold">محمد رضا قاسمی</span>
-              <span class="overflow-hidden text-justify h-auto">
-                این جرم ممکن است
-                شامل تخطی از سرعت مجاز، نقض قوانین راهنمایی و رانندگی، عبور از چراغ‌های راهنما و دیگر خطوط ایمنی، عدم
-                رعایت نشانه‌ها و علائم راهنمایی، استفاده از تلفن همراه بدون استفاده از دستگاه های مناسب، و بسیاری
-                موارد دیگر می‌باشد.
-              </span>
-              <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
-              <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
+            <!-- driver and car -->
+            <div
+              class="max-w-full  flex-grow pt-2 md:pt-0 mt-2 md:mt-0  px-2 sm:pl-4 sm:pr-8 md:px-0 flex justify-between border-t md:border-none text-xs md:text-[13px]">
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">راننده</span>
+                <span>محمد علی انصاری</span>
+                <span>لایسنس: 355660</span>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">موتر</span>
+                <span>Benz 2023</span>
+                <span>پلیت: 355660</span>
+              </div>
+
+              <form action="" class="flex flex-col gap-2">
+                <span class="font-semibold">تعیین جریمه</span>
+                <input type="number"
+                  class="w-20 sm:w-24 h-6 px-2  border border-gray-300 rounded outline-none focus:border-gray-400 focus:text-gray-700 tracking-wide">
+                <input type="submit" value="تایید"
+                  class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-300 outline-none hover:border-gray-400 hover:text-gray-700 rounded focus:border-gray-400 cursor-pointer">
+              </form>
             </div>
+
           </div>
-          <!-- driver and car -->
-          <div
-            class="max-w-full  flex-grow pt-2 md:pt-0 mt-2 md:mt-0  px-2 sm:pl-4 sm:pr-8 md:px-0 flex justify-between border-t md:border-none text-xs md:text-[13px]">
-            <div class="flex flex-col gap-2">
-              <span class="font-semibold">راننده</span>
-              <span>محمد علی انصاری</span>
-              <span>لایسنس: 355660</span>
+          <!-- nitification 2  loop here-->
+          <div id="notification2"
+            class="border-t border-gray-100 px-2 md:px-4 xl:px-8 py-4 flex flex-col md:flex-row md:gap-4 lg:gap-16 xl:gap-20">
+            <!-- photo and report -->
+            <div class="max-w-md flex  gap-3">
+              <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
+                <img src="../img/img2.jpg" alt="my image" class="h-full w-auto object-cover rounded-full">
+              </div>
+              <div class="expandableText flex flex-col h-20">
+                <span class="font-semibold">محمد رضا قاسمی</span>
+                <span class="overflow-hidden text-justify h-auto">
+                  این جرم ممکن است
+                  شامل تخطی از سرعت مجاز، نقض قوانین راهنمایی و رانندگی، عبور از چراغ‌های راهنما و دیگر خطوط ایمنی، عدم
+                  رعایت نشانه‌ها و علائم راهنمایی، استفاده از تلفن همراه بدون استفاده از دستگاه های مناسب، و بسیاری
+                  موارد دیگر می‌باشد.
+                </span>
+                <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
+                <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
+              </div>
+            </div>
+            <!-- driver and car -->
+            <div
+              class="max-w-full  flex-grow pt-2 md:pt-0 mt-2 md:mt-0  px-2 sm:pl-4 sm:pr-8 md:px-0 flex justify-between border-t md:border-none text-xs md:text-[13px]">
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">راننده</span>
+                <span>محمد علی انصاری</span>
+                <span>لایسنس: 355660</span>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">موتر</span>
+                <span>Benz 2023</span>
+                <span>پلیت: 355660</span>
+              </div>
+
+              <form action="" class="flex flex-col gap-2">
+                <span class="font-semibold">تعیین جریمه</span>
+                <input type="number"
+                  class="w-20 sm:w-24 h-6 px-2  border border-gray-300 rounded outline-none focus:border-gray-400 focus:text-gray-700 tracking-wide">
+                <input type="submit" value="تایید"
+                  class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-300 outline-none hover:border-gray-400 hover:text-gray-700 rounded focus:border-gray-400 cursor-pointer">
+              </form>
             </div>
 
-            <div class="flex flex-col gap-2">
-              <span class="font-semibold">موتر</span>
-              <span>Benz 2023</span>
-              <span>پلیت: 355660</span>
+          </div>
+          <!-- nitification 3  loop here-->
+          <div id="notification3"
+            class="border-t border-gray-100 px-2 md:px-4 xl:px-8 py-4 flex flex-col md:flex-row md:gap-4 lg:gap-16 xl:gap-20">
+            <!-- photo and report -->
+            <div class="max-w-md flex  gap-3">
+              <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
+                <img src="../img/img2.jpg" alt="my image" class="h-full w-auto object-cover rounded-full">
+              </div>
+              <div class="expandableText flex flex-col h-20">
+                <span class="font-semibold">محمد رضا قاسمی</span>
+                <span class="overflow-hidden text-justify h-auto">
+                  این جرم ممکن است
+                  شامل تخطی از سرعت مجاز، نقض قوانین راهنمایی و رانندگی، عبور از چراغ‌های راهنما و دیگر خطوط ایمنی، عدم
+                  رعایت نشانه‌ها و علائم راهنمایی، استفاده از تلفن همراه بدون استفاده از دستگاه های مناسب، و بسیاری
+                  موارد دیگر می‌باشد.
+                </span>
+                <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
+                <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
+              </div>
+            </div>
+            <!-- driver and car -->
+            <div
+              class="max-w-full  flex-grow pt-2 md:pt-0 mt-2 md:mt-0  px-2 sm:pl-4 sm:pr-8 md:px-0 flex justify-between border-t md:border-none text-xs md:text-[13px]">
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">راننده</span>
+                <span>محمد علی انصاری</span>
+                <span>لایسنس: 355660</span>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">موتر</span>
+                <span>Benz 2023</span>
+                <span>پلیت: 355660</span>
+              </div>
+
+              <form action="" class="flex flex-col gap-2">
+                <span class="font-semibold">تعیین جریمه</span>
+                <input type="number"
+                  class="w-20 sm:w-24 h-6 px-2  border border-gray-300 rounded outline-none focus:border-gray-400 focus:text-gray-700 tracking-wide">
+                <input type="submit" value="تایید"
+                  class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-300 outline-none hover:border-gray-400 hover:text-gray-700 rounded focus:border-gray-400 cursor-pointer">
+              </form>
             </div>
 
-            <form action="" class="flex flex-col gap-2">
-              <span class="font-semibold">تعیین جریمه</span>
-              <input type="number"
-                class="w-20 sm:w-24 h-6 px-2  border border-gray-300 rounded outline-none focus:border-gray-400 focus:text-gray-700 tracking-wide">
-              <input type="submit" value="تایید"
-                class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-300 outline-none hover:border-gray-400 hover:text-gray-700 rounded focus:border-gray-400 cursor-pointer">
-            </form>
           </div>
 
-        </div>
-        <!-- nitification 2  loop here-->
-        <div id="notification2"
-          class="border-t border-gray-100 px-2 md:px-4 xl:px-8 py-4 flex flex-col md:flex-row md:gap-4 lg:gap-16 xl:gap-20">
-          <!-- photo and report -->
-          <div class="max-w-md flex  gap-3">
-            <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
-              <img src="../img/img2.jpg" alt="my image" class="h-full w-auto object-cover rounded-full">
+          <!-- nitification 4  loop here-->
+          <div id="notification4"
+            class="border-t border-gray-100 px-2 md:px-4 xl:px-8 py-4 flex flex-col md:flex-row md:gap-4 lg:gap-16 xl:gap-20">
+            <!-- photo and report -->
+            <div class="max-w-md flex  gap-3">
+              <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
+                <img src="../img/img2.jpg" alt="my image" class="h-full w-auto object-cover rounded-full">
+              </div>
+              <div class="expandableText flex flex-col h-20">
+                <span class="font-semibold">محمد رضا قاسمی</span>
+                <span class="overflow-hidden text-justify h-auto">
+                  این جرم ممکن است
+                  شامل تخطی از سرعت مجاز، نقض قوانین راهنمایی و رانندگی، عبور از چراغ‌های راهنما و دیگر خطوط ایمنی، عدم
+                  رعایت نشانه‌ها و علائم راهنمایی، استفاده از تلفن همراه بدون استفاده از دستگاه های مناسب، و بسیاری
+                  موارد دیگر می‌باشد.
+                </span>
+                <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
+                <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
+              </div>
             </div>
-            <div class="expandableText flex flex-col h-20">
-              <span class="font-semibold">محمد رضا قاسمی</span>
-              <span class="overflow-hidden text-justify h-auto">
-                این جرم ممکن است
-                شامل تخطی از سرعت مجاز، نقض قوانین راهنمایی و رانندگی، عبور از چراغ‌های راهنما و دیگر خطوط ایمنی، عدم
-                رعایت نشانه‌ها و علائم راهنمایی، استفاده از تلفن همراه بدون استفاده از دستگاه های مناسب، و بسیاری
-                موارد دیگر می‌باشد.
-              </span>
-              <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
-              <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
-            </div>
-          </div>
-          <!-- driver and car -->
-          <div
-            class="max-w-full  flex-grow pt-2 md:pt-0 mt-2 md:mt-0  px-2 sm:pl-4 sm:pr-8 md:px-0 flex justify-between border-t md:border-none text-xs md:text-[13px]">
-            <div class="flex flex-col gap-2">
-              <span class="font-semibold">راننده</span>
-              <span>محمد علی انصاری</span>
-              <span>لایسنس: 355660</span>
+            <!-- driver and car -->
+            <div
+              class="max-w-full  flex-grow pt-2 md:pt-0 mt-2 md:mt-0  px-2 sm:pl-4 sm:pr-8 md:px-0 flex justify-between border-t md:border-none text-xs md:text-[13px]">
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">راننده</span>
+                <span>محمد علی انصاری</span>
+                <span>لایسنس: 355660</span>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">موتر</span>
+                <span>Benz 2023</span>
+                <span>پلیت: 355660</span>
+              </div>
+
+              <form action="" class="flex flex-col gap-2">
+                <span class="font-semibold">تعیین جریمه</span>
+                <input type="number"
+                  class="w-20 sm:w-24 h-6 px-2  border border-gray-300 rounded outline-none focus:border-gray-400 focus:text-gray-700 tracking-wide">
+                <input type="submit" value="تایید"
+                  class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-300 outline-none hover:border-gray-400 hover:text-gray-700 rounded focus:border-gray-400 cursor-pointer">
+              </form>
             </div>
 
-            <div class="flex flex-col gap-2">
-              <span class="font-semibold">موتر</span>
-              <span>Benz 2023</span>
-              <span>پلیت: 355660</span>
-            </div>
-
-            <form action="" class="flex flex-col gap-2">
-              <span class="font-semibold">تعیین جریمه</span>
-              <input type="number"
-                class="w-20 sm:w-24 h-6 px-2  border border-gray-300 rounded outline-none focus:border-gray-400 focus:text-gray-700 tracking-wide">
-              <input type="submit" value="تایید"
-                class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-300 outline-none hover:border-gray-400 hover:text-gray-700 rounded focus:border-gray-400 cursor-pointer">
-            </form>
-          </div>
-
-        </div>
-        <!-- nitification 3  loop here-->
-        <div id="notification3"
-          class="border-t border-gray-100 px-2 md:px-4 xl:px-8 py-4 flex flex-col md:flex-row md:gap-4 lg:gap-16 xl:gap-20">
-          <!-- photo and report -->
-          <div class="max-w-md flex  gap-3">
-            <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
-              <img src="../img/img2.jpg" alt="my image" class="h-full w-auto object-cover rounded-full">
-            </div>
-            <div class="expandableText flex flex-col h-20">
-              <span class="font-semibold">محمد رضا قاسمی</span>
-              <span class="overflow-hidden text-justify h-auto">
-                این جرم ممکن است
-                شامل تخطی از سرعت مجاز، نقض قوانین راهنمایی و رانندگی، عبور از چراغ‌های راهنما و دیگر خطوط ایمنی، عدم
-                رعایت نشانه‌ها و علائم راهنمایی، استفاده از تلفن همراه بدون استفاده از دستگاه های مناسب، و بسیاری
-                موارد دیگر می‌باشد.
-              </span>
-              <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
-              <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
-            </div>
-          </div>
-          <!-- driver and car -->
-          <div
-            class="max-w-full  flex-grow pt-2 md:pt-0 mt-2 md:mt-0  px-2 sm:pl-4 sm:pr-8 md:px-0 flex justify-between border-t md:border-none text-xs md:text-[13px]">
-            <div class="flex flex-col gap-2">
-              <span class="font-semibold">راننده</span>
-              <span>محمد علی انصاری</span>
-              <span>لایسنس: 355660</span>
-            </div>
-
-            <div class="flex flex-col gap-2">
-              <span class="font-semibold">موتر</span>
-              <span>Benz 2023</span>
-              <span>پلیت: 355660</span>
-            </div>
-
-            <form action="" class="flex flex-col gap-2">
-              <span class="font-semibold">تعیین جریمه</span>
-              <input type="number"
-                class="w-20 sm:w-24 h-6 px-2  border border-gray-300 rounded outline-none focus:border-gray-400 focus:text-gray-700 tracking-wide">
-              <input type="submit" value="تایید"
-                class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-300 outline-none hover:border-gray-400 hover:text-gray-700 rounded focus:border-gray-400 cursor-pointer">
-            </form>
           </div>
 
+          <!-- nitification 5  loop here-->
+          <div id="notification5"
+            class="border-t border-gray-100 px-2 md:px-4 xl:px-8 py-4 flex flex-col md:flex-row md:gap-4 lg:gap-16 xl:gap-20">
+            <!-- photo and report -->
+            <div class="max-w-md flex  gap-3">
+              <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
+                <img src="../img/img2.jpg" alt="my image" class="h-full w-auto object-cover rounded-full">
+              </div>
+              <div class="expandableText flex flex-col h-20">
+                <span class="font-semibold">محمد رضا قاسمی</span>
+                <span class="overflow-hidden text-justify h-auto">
+                  این جرم ممکن است
+                  شامل تخطی از سرعت مجاز، نقض قوانین راهنمایی و رانندگی، عبور از چراغ‌های راهنما و دیگر خطوط ایمنی، عدم
+                  رعایت نشانه‌ها و علائم راهنمایی، استفاده از تلفن همراه بدون استفاده از دستگاه های مناسب، و بسیاری
+                  موارد دیگر می‌باشد.
+                </span>
+                <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
+                <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
+              </div>
+            </div>
+            <!-- driver and car -->
+            <div
+              class="max-w-full  flex-grow pt-2 md:pt-0 mt-2 md:mt-0  px-2 sm:pl-4 sm:pr-8 md:px-0 flex justify-between border-t md:border-none text-xs md:text-[13px]">
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">راننده</span>
+                <span>محمد علی انصاری</span>
+                <span>لایسنس: 355660</span>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">موتر</span>
+                <span>Benz 2023</span>
+                <span>پلیت: 355660</span>
+              </div>
+
+              <form action="" class="flex flex-col gap-2">
+                <span class="font-semibold">تعیین جریمه</span>
+                <input type="number"
+                  class="w-20 sm:w-24 h-6 px-2  border border-gray-300 rounded outline-none focus:border-gray-400 focus:text-gray-700 tracking-wide">
+                <input type="submit" value="تایید"
+                  class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-300 outline-none hover:border-gray-400 hover:text-gray-700 rounded focus:border-gray-400 cursor-pointer">
+              </form>
+            </div>
+
+          </div>
         </div>
 
       </div>
       <!-- End notifications -->
+
+
     </section>
   </div>
 
@@ -779,6 +888,18 @@
       },
       options: {
         responsive: true,
+        // new
+        animation: {
+          x: {
+            duration: 5000,
+            from: 0
+          },
+          y: {
+            duration: 4000,
+            from: 500
+          }
+        }
+        // end new
       }
     });
 
@@ -804,6 +925,9 @@
       },
       options: {
         responsive: true,
+        // new 
+
+        // end new 
       }
     });
 
@@ -868,9 +992,58 @@
     }// end initializeNotification()
 
     // call functions
-    for (let i = 1; i <= 3; i++) {
+    for (let i = 1; i <= 5; i++) {
       initializeNotification(`notification${i}`);
     }
+    // ******* more or less notifications ***********
+    const moreNotifications = document.getElementById("moreNotifications");
+    const lessNotifications = document.getElementById("lessNotifications");
+    const notificationContainer = document.getElementById("notificationContainer");
+
+    moreNotifications.addEventListener("click", function () {
+      notificationContainer.classList.remove("max-h-52");
+      notificationContainer.classList.remove("md:max-h-[340px]");
+      moreNotifications.classList.add("hidden");
+      lessNotifications.classList.remove("hidden");
+    });
+
+    lessNotifications.addEventListener("click", function () {
+      notificationContainer.classList.add("max-h-52");
+      notificationContainer.classList.add("md:max-h-[340px]")
+      lessNotifications.classList.add("hidden");
+      moreNotifications.classList.remove("hidden");
+    });
+
+
+    // ***********************************************************
+    // ********************** cards animations *******************
+    function animateNumber(numId) {
+      var countElement = document.getElementById(`${numId}`);
+      var targetNumber = parseInt(countElement.innerText);
+      var duration = 2000; // Animation duration in milliseconds
+      var frameRate = 30; // Number of frames per second
+
+      var increment = targetNumber / (duration / 1000) / frameRate;
+      var currentNumber = 0;
+
+      var interval = setInterval(function () {
+        currentNumber += increment;
+        countElement.innerText = Math.round(currentNumber);
+
+        if (Math.round(currentNumber) >= targetNumber) {
+          clearInterval(interval);
+          countElement.innerText = targetNumber;
+        }
+      }, 1000 / frameRate);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      animateNumber("onlinePayment");
+      animateNumber("offlinePayment");
+      animateNumber("todayCrime");
+      animateNumber("monthlyIncome");
+    });
+
 
   </script>
   <script src="./adminScript.js"></script>
