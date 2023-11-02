@@ -4,14 +4,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TCMS | Admin | dashboard</title>
+  <title>TCMS | Punishment</title>
+  <!-- swiper css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="myswiper.css">
   <link rel="stylesheet" href="output.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
-<body class="bg-gray-100 font-IRANSans">
+<body class="bg-gray-50 font-IRANSans">
   <!-- mobile Nav  -->
   <nav id="mobile-nav" class="hidden h-[100vh] w-64 bg-color-primary absolute z-50 text-white rounded-l-xl">
     <!-- xmark -->
@@ -168,7 +172,7 @@
             <span class="sidebar-list-text">ایجاد کارمند جدید</span></a>
         </li>
         <li>
-          <a href="#" class="sidebar-link-mobile">
+          <a href="#" class="sidebar-link-mobile bg-color-primary-light">
             <?xml version="1.0" ?><svg class="feather feather-user-plus w-[18px]" fill="none" height="24"
               stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
               width="24" xmlns="http://www.w3.org/2000/svg">
@@ -236,7 +240,7 @@
         </div>
       </div>
       <!-- links menu  -->
-      <ul id="ul-large" class="text-sm flex flex-col gap-2">
+      <ul id="ul-large" class="text-sm flex flex-col gap-1">
         <li>
           <a href="#" class="sidebar-link">
             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="18" viewBox="0,0,256,256">
@@ -357,7 +361,7 @@
           </a>
         </li>
         <li>
-          <a href="#" class="sidebar-link">
+          <a href="#" class="sidebar-link ">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 41.64 34.873" class="w-5">
               <g id="_1471085_add_user_business_man_employee_general_human_icon"
                 data-name="1471085_add user_business man_employee_general_human_icon"
@@ -376,7 +380,7 @@
             <span class="sidebar-list-text">ایجاد کارمند جدید</span></a>
         </li>
         <li>
-          <a href="#" class="sidebar-link">
+          <a href="#" class="sidebar-link bg-color-primary-light">
             <?xml version="1.0" ?><svg class="feather feather-user-plus w-[18px]" fill="none" height="24"
               stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
               width="24" xmlns="http://www.w3.org/2000/svg">
@@ -443,402 +447,69 @@
 
       </div>
 
-      <!-- ********************************************** -->
-      <!--**************** dashboard **********************-->
-      <!-- cards -->
-      <div id="cards"
-        class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr,1fr] gap-2 md:gap-4 mx-2 md:mx-4 mt-2 md:mt-4 text-gray-500">
-        <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
-          <div class="flex flex-col gap-2">
-            <span id="onlinePayment" class="text-3xl text-orange-500  font-semibold">2500</span>
-            <span class="text-[13px] font-semibold">پرداختی حضوری</span>
-          </div>
-          <span class="text-3xl text-blue-800 font-semibold"><i class="fa-solid fa-receipt"></i></span>
+      <!-- punishment  -->
+      <!-- title and image -->
+      <div
+        class="flex flex-col gap-y-4 md:flex-row md:max-w-full mx-2 md:mx-4 mt-2 md:mt-4 bg-[#cae7f5] text-gray-500 rounded-t shadow overflow-hidden">
+        <div class="flex-1 flex flex-col p-4 md:p-10 gap-4 justify-center items-center">
+          <h2 class="text-blue-900 font-semibold text-2xl sm:text-3xl">فورم تنظیم جرایم</h2>
+          <p class="text-blue-800 leading-7 text-justify md:text-center ">این فرم برای تنظیم جریمه‌ها در صورت نقض قوانین
+            ترافیک توسط
+            رانندگان طراحی
+            شده است. با
+            پرکردن این فرم و
+            ارسال آن، روند تنظیم جریمه به صورت موثر و سریع انجام می‌شود.</p>
         </div>
-
-        <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
-          <div class="flex flex-col gap-2">
-            <span id="offlinePayment" class="text-3xl text-orange-500  font-semibold">4000</span>
-            <span class="text-[13px] font-semibold">پرداختی آنلاین</span>
-          </div>
-          <span class="text-3xl text-blue-800 font-semibold"><i class="fa-brands fa-cc-amazon-pay"></i></span>
-        </div>
-
-        <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
-          <div class="flex flex-col gap-2">
-            <span id="todayCrime" class="text-3xl text-orange-500  font-semibold">120</span>
-            <span class="text-[13px] font-semibold">جرایم امروز</span>
-          </div>
-          <span class="text-3xl text-blue-800 font-semibold"><i class="fa-solid fa-ban"></i></span>
-        </div>
-
-        <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
-          <div class="flex flex-col gap-2">
-            <span id="monthlyIncome" class="text-3xl text-orange-500  font-semibold">55600</span>
-            <span class="text-[13px] font-semibold">درامد ماهانه</span>
-          </div>
-          <span class="text-3xl text-blue-800 font-semibold"><i class="fa-solid fa-money-check-dollar"></i>
-          </span>
-        </div>
-
-      </div>
-      <!-- end cards -->
-
-      <!-- charts -->
-      <div class="max-w-full mx-2 md:mx-4 my-2 md:my-4 flex flex-col lg:flex-row gap-x-4 gap-y-2">
-        <!-- chart 1 -->
-        <div class="max-w-2/3 flex-grow bg-white shadow-sm rounded">
-          <!-- year, province and hidden form -->
-          <div class="flex justify-center gap-2 md:gap-8 pb-2 pt-4">
-            <!-- Year dropdown -->
-            <div class="relative">
-              <button onclick="toggleYearDropdown()"
-                class="flex items-center justify-center gap-4 py-1 w-24 text-gray-500 text-center text-sm border hover:bg-gray-100 focus:outline-none rounded-lg "
-                type="button">
-                <span id="year">2018</span>
-                <i class="fa-solid fa-angle-down"></i>
-              </button>
-              <!-- Dropdown menu -->
-              <div id="yearDropdown"
-                class="hidden absolute right-0 top-8 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-24 overflow-hidden">
-                <ul class="py-1 text-sm max-h-36 overflow-y-auto">
-                  <li class="years block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2017
-                  </li>
-                  <li class="years block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2018
-                  </li>
-                  <li class="years block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2019
-                  </li>
-                  <li class="years block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2020
-                  </li>
-                  <li class="years block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2021
-                  </li>
-                  <li class="years block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2022
-                  </li>
-                  <li class="years block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2023
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <!-- province dropdown -->
-            <div class="relative">
-              <button onclick="toggleProvinceDropdown()"
-                class="flex items-center justify-center gap-4 py-1 w-24 md:w-28 text-gray-500 text-center text-[13px] border hover:bg-gray-100 focus:outline-none rounded-lg "
-                type="button">
-                <span id="province">کابل</span>
-                <i class="fa-solid fa-angle-down"></i>
-              </button>
-              <!-- Dropdown menu -->
-              <div id="provinceDropdown"
-                class="hidden absolute right-0 top-8 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-24 md:w-28 overflow-hidden">
-                <ul class="py-1 text-xs text-center max-h-36 overflow-y-auto">
-                  <li class="provinces block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    کابل
-                  </li>
-                  <li class="provinces block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    هرات
-                  </li>
-                  <li class="provinces block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    مزار شریف
-                  </li>
-                  <li class="provinces block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    بامیان
-                  </li>
-                  <li class="provinces block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    غزنی
-                  </li>
-                  <li class="provinces block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    هلمند
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <!-- hidden form -->
-            <form action="">
-              <input type="hidden" name="" id="yearInput">
-              <input type="hidden" name="" id="provinceInput">
-              <input type="submit" value="تایید"
-                class="w-24 py-1 text-gray-500 text-center text-[13px] border hover:bg-gray-100 focus:outline-none rounded-lg cursor-pointer">
-            </form>
-          </div>
-          <!-- chart -->
-          <div class="p-4 min-h-20">
-            <canvas id="crimeChart"></canvas>
-          </div>
-        </div>
-        <!-- chart 2 -->
-        <div class="max-w-1/3 flex-grow flex items-center justify-center md:block bg-white shadow-sm rounded">
-          <div class="p-4 min-h-16">
-            <canvas id="crimeChartThreeProvinces"></canvas>
-          </div>
+        <div class="flex-1 flex justify-center px-4">
+          <img src="../img/trafficrules.PNG" alt="traffic rules" class="max-w-full max-h-full object-cover">
         </div>
       </div>
-      <!-- end charts -->
-
-      <!-- notifications -->
-      <div class="max-w-full mx-2 md:mx-4 my-2 md:my-4 bg-white rounded overflow-hidden text-gray-500 text-[13px]">
-        <div class="bg-gray-50 py-2 px-6 md:px-12 flex items-center justify-between">
-          <div class="flex items-center gap-4">
-            <div
-              class="relative inline-flex items-center p-1 text-3xl font-medium text-center text-blue-800 rounded-lg focus:outline-none">
-              <i class="fa-solid fa-bell"></i>
-              <div
-                class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1.5 -right-1 ">
-                20</div>
-            </div>
-            <span class="font-semibold text-[16px] text-gray-600">اعلان ها</span>
-          </div>
-          <button id="moreNotifications" type="button"
-            class="flex items-center gap-2 hover:text-blue-700 ease-in duration-200">
-            <span class="font-semibold text-xs">اعلانات بیشتر</span>
-            <i class="fa-solid fa-chevron-down fa-beat"></i>
-          </button>
-          <button id="lessNotifications" type="button"
-            class="hidden flex items-center gap-2 hover:text-blue-700 ease-in duration-200">
-            <span class="font-semibold text-xs">اعلانات کمتر</span>
-            <i class="fa-solid fa-chevron-up fa-beat"></i>
-          </button>
-        </div>
-
-        <div id="notificationContainer" class="max-h-52 md:max-h-[340px]">
-          <!-- nitification 1  loop here-->
-          <div id="notification1"
-            class="border-t border-gray-100 px-2 md:px-4 xl:px-8 py-4 flex flex-col md:flex-row md:gap-4 lg:gap-16 xl:gap-20">
-            <!-- photo and report -->
-            <div class="max-w-md flex  gap-3">
-              <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
-                <img src="../img/img2.jpg" alt="my image" class="h-full w-auto object-cover rounded-full">
-              </div>
-              <div class="expandableText flex flex-col h-20">
-                <span class="font-semibold">محمد رضا قاسمی</span>
-                <span class="overflow-hidden text-justify h-auto">
-                  این جرم ممکن است
-                  شامل تخطی از سرعت مجاز، نقض قوانین راهنمایی و رانندگی، عبور از چراغ‌های راهنما و دیگر خطوط ایمنی، عدم
-                  رعایت نشانه‌ها و علائم راهنمایی، استفاده از تلفن همراه بدون استفاده از دستگاه های مناسب، و بسیاری
-                  موارد دیگر می‌باشد.
-                </span>
-                <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
-                <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
-              </div>
-            </div>
-            <!-- driver and car -->
-            <div
-              class="max-w-full  flex-grow pt-2 md:pt-0 mt-2 md:mt-0  px-2 sm:pl-4 sm:pr-8 md:px-0 flex justify-between border-t md:border-none text-xs md:text-[13px]">
-              <div class="flex flex-col gap-2">
-                <span class="font-semibold">راننده</span>
-                <span>محمد علی انصاری</span>
-                <span>لایسنس: 355660</span>
-              </div>
-
-              <div class="flex flex-col gap-2">
-                <span class="font-semibold">موتر</span>
-                <span>Benz 2023</span>
-                <span>پلیت: 355660</span>
-              </div>
-
-              <form action="" class="flex flex-col gap-2">
-                <span class="font-semibold">تعیین جریمه</span>
-                <input type="number"
-                  class="w-20 sm:w-24 h-6 px-2  border border-gray-300 rounded outline-none focus:border-gray-400 focus:text-gray-700 tracking-wide">
-                <input type="submit" value="تایید"
-                  class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-300 outline-none hover:border-gray-400 hover:text-gray-700 rounded focus:border-gray-400 cursor-pointer">
-              </form>
-            </div>
-
-          </div>
-          <!-- nitification 2  loop here-->
-          <div id="notification2"
-            class="border-t border-gray-100 px-2 md:px-4 xl:px-8 py-4 flex flex-col md:flex-row md:gap-4 lg:gap-16 xl:gap-20">
-            <!-- photo and report -->
-            <div class="max-w-md flex  gap-3">
-              <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
-                <img src="../img/img2.jpg" alt="my image" class="h-full w-auto object-cover rounded-full">
-              </div>
-              <div class="expandableText flex flex-col h-20">
-                <span class="font-semibold">محمد رضا قاسمی</span>
-                <span class="overflow-hidden text-justify h-auto">
-                  این جرم ممکن است
-                  شامل تخطی از سرعت مجاز، نقض قوانین راهنمایی و رانندگی، عبور از چراغ‌های راهنما و دیگر خطوط ایمنی، عدم
-                  رعایت نشانه‌ها و علائم راهنمایی، استفاده از تلفن همراه بدون استفاده از دستگاه های مناسب، و بسیاری
-                  موارد دیگر می‌باشد.
-                </span>
-                <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
-                <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
-              </div>
-            </div>
-            <!-- driver and car -->
-            <div
-              class="max-w-full  flex-grow pt-2 md:pt-0 mt-2 md:mt-0  px-2 sm:pl-4 sm:pr-8 md:px-0 flex justify-between border-t md:border-none text-xs md:text-[13px]">
-              <div class="flex flex-col gap-2">
-                <span class="font-semibold">راننده</span>
-                <span>محمد علی انصاری</span>
-                <span>لایسنس: 355660</span>
-              </div>
-
-              <div class="flex flex-col gap-2">
-                <span class="font-semibold">موتر</span>
-                <span>Benz 2023</span>
-                <span>پلیت: 355660</span>
-              </div>
-
-              <form action="" class="flex flex-col gap-2">
-                <span class="font-semibold">تعیین جریمه</span>
-                <input type="number"
-                  class="w-20 sm:w-24 h-6 px-2  border border-gray-300 rounded outline-none focus:border-gray-400 focus:text-gray-700 tracking-wide">
-                <input type="submit" value="تایید"
-                  class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-300 outline-none hover:border-gray-400 hover:text-gray-700 rounded focus:border-gray-400 cursor-pointer">
-              </form>
-            </div>
-
-          </div>
-          <!-- nitification 3  loop here-->
-          <div id="notification3"
-            class="border-t border-gray-100 px-2 md:px-4 xl:px-8 py-4 flex flex-col md:flex-row md:gap-4 lg:gap-16 xl:gap-20">
-            <!-- photo and report -->
-            <div class="max-w-md flex  gap-3">
-              <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
-                <img src="../img/img2.jpg" alt="my image" class="h-full w-auto object-cover rounded-full">
-              </div>
-              <div class="expandableText flex flex-col h-20">
-                <span class="font-semibold">محمد رضا قاسمی</span>
-                <span class="overflow-hidden text-justify h-auto">
-                  این جرم ممکن است
-                  شامل تخطی از سرعت مجاز، نقض قوانین راهنمایی و رانندگی، عبور از چراغ‌های راهنما و دیگر خطوط ایمنی، عدم
-                  رعایت نشانه‌ها و علائم راهنمایی، استفاده از تلفن همراه بدون استفاده از دستگاه های مناسب، و بسیاری
-                  موارد دیگر می‌باشد.
-                </span>
-                <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
-                <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
-              </div>
-            </div>
-            <!-- driver and car -->
-            <div
-              class="max-w-full  flex-grow pt-2 md:pt-0 mt-2 md:mt-0  px-2 sm:pl-4 sm:pr-8 md:px-0 flex justify-between border-t md:border-none text-xs md:text-[13px]">
-              <div class="flex flex-col gap-2">
-                <span class="font-semibold">راننده</span>
-                <span>محمد علی انصاری</span>
-                <span>لایسنس: 355660</span>
-              </div>
-
-              <div class="flex flex-col gap-2">
-                <span class="font-semibold">موتر</span>
-                <span>Benz 2023</span>
-                <span>پلیت: 355660</span>
-              </div>
-
-              <form action="" class="flex flex-col gap-2">
-                <span class="font-semibold">تعیین جریمه</span>
-                <input type="number"
-                  class="w-20 sm:w-24 h-6 px-2  border border-gray-300 rounded outline-none focus:border-gray-400 focus:text-gray-700 tracking-wide">
-                <input type="submit" value="تایید"
-                  class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-300 outline-none hover:border-gray-400 hover:text-gray-700 rounded focus:border-gray-400 cursor-pointer">
-              </form>
-            </div>
-
+      <!-- end title and img -->
+      <form action=""
+        class="max-w-full mb-2 md:mb-4 mx-2 md:mx-4 bg-[#eaf5fb] px-4 md:px-4 lg:px-6 xl:px-8 pt-4 pb-6 rounded-b">
+        <div
+          class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 text-blue-800 text-[13px]">
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2 font-semibold">نمبر پلیت</label>
+            <input type="number" class="punishment-input" />
           </div>
 
-          <!-- nitification 4  loop here-->
-          <div id="notification4"
-            class="border-t border-gray-100 px-2 md:px-4 xl:px-8 py-4 flex flex-col md:flex-row md:gap-4 lg:gap-16 xl:gap-20">
-            <!-- photo and report -->
-            <div class="max-w-md flex  gap-3">
-              <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
-                <img src="../img/img2.jpg" alt="my image" class="h-full w-auto object-cover rounded-full">
-              </div>
-              <div class="expandableText flex flex-col h-20">
-                <span class="font-semibold">محمد رضا قاسمی</span>
-                <span class="overflow-hidden text-justify h-auto">
-                  این جرم ممکن است
-                  شامل تخطی از سرعت مجاز، نقض قوانین راهنمایی و رانندگی، عبور از چراغ‌های راهنما و دیگر خطوط ایمنی، عدم
-                  رعایت نشانه‌ها و علائم راهنمایی، استفاده از تلفن همراه بدون استفاده از دستگاه های مناسب، و بسیاری
-                  موارد دیگر می‌باشد.
-                </span>
-                <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
-                <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
-              </div>
-            </div>
-            <!-- driver and car -->
-            <div
-              class="max-w-full  flex-grow pt-2 md:pt-0 mt-2 md:mt-0  px-2 sm:pl-4 sm:pr-8 md:px-0 flex justify-between border-t md:border-none text-xs md:text-[13px]">
-              <div class="flex flex-col gap-2">
-                <span class="font-semibold">راننده</span>
-                <span>محمد علی انصاری</span>
-                <span>لایسنس: 355660</span>
-              </div>
-
-              <div class="flex flex-col gap-2">
-                <span class="font-semibold">موتر</span>
-                <span>Benz 2023</span>
-                <span>پلیت: 355660</span>
-              </div>
-
-              <form action="" class="flex flex-col gap-2">
-                <span class="font-semibold">تعیین جریمه</span>
-                <input type="number"
-                  class="w-20 sm:w-24 h-6 px-2  border border-gray-300 rounded outline-none focus:border-gray-400 focus:text-gray-700 tracking-wide">
-                <input type="submit" value="تایید"
-                  class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-300 outline-none hover:border-gray-400 hover:text-gray-700 rounded focus:border-gray-400 cursor-pointer">
-              </form>
-            </div>
-
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2 font-semibold">نوع جرم</label>
+            <input type="text" class="punishment-input" />
           </div>
 
-          <!-- nitification 5  loop here-->
-          <div id="notification5"
-            class="border-t border-gray-100 px-2 md:px-4 xl:px-8 py-4 flex flex-col md:flex-row md:gap-4 lg:gap-16 xl:gap-20">
-            <!-- photo and report -->
-            <div class="max-w-md flex  gap-3">
-              <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
-                <img src="../img/img2.jpg" alt="my image" class="h-full w-auto object-cover rounded-full">
-              </div>
-              <div class="expandableText flex flex-col h-20">
-                <span class="font-semibold">محمد رضا قاسمی</span>
-                <span class="overflow-hidden text-justify h-auto">
-                  این جرم ممکن است
-                  شامل تخطی از سرعت مجاز، نقض قوانین راهنمایی و رانندگی، عبور از چراغ‌های راهنما و دیگر خطوط ایمنی، عدم
-                  رعایت نشانه‌ها و علائم راهنمایی، استفاده از تلفن همراه بدون استفاده از دستگاه های مناسب، و بسیاری
-                  موارد دیگر می‌باشد.
-                </span>
-                <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
-                <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
-              </div>
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2 font-semibold">مبلغ</label>
+            <input type="text" class="punishment-input" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2 font-semibold">موقعیت</label>
+            <input type="text" class="punishment-input" />
+          </div>
+
+          <div class="pr-2 flex items-end pb-2 mt-2 sm:mt-0">
+            <div class="flex gap-2">
+              <input type="checkbox" name="" value="" checked>
+              <label class="font-semibold">پرداخت شد.</label>
             </div>
-            <!-- driver and car -->
-            <div
-              class="max-w-full  flex-grow pt-2 md:pt-0 mt-2 md:mt-0  px-2 sm:pl-4 sm:pr-8 md:px-0 flex justify-between border-t md:border-none text-xs md:text-[13px]">
-              <div class="flex flex-col gap-2">
-                <span class="font-semibold">راننده</span>
-                <span>محمد علی انصاری</span>
-                <span>لایسنس: 355660</span>
-              </div>
-
-              <div class="flex flex-col gap-2">
-                <span class="font-semibold">موتر</span>
-                <span>Benz 2023</span>
-                <span>پلیت: 355660</span>
-              </div>
-
-              <form action="" class="flex flex-col gap-2">
-                <span class="font-semibold">تعیین جریمه</span>
-                <input type="number"
-                  class="w-20 sm:w-24 h-6 px-2  border border-gray-300 rounded outline-none focus:border-gray-400 focus:text-gray-700 tracking-wide">
-                <input type="submit" value="تایید"
-                  class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-300 outline-none hover:border-gray-400 hover:text-gray-700 rounded focus:border-gray-400 cursor-pointer">
-              </form>
-            </div>
-
           </div>
         </div>
-
-      </div>
-      <!-- End notifications -->
-
+        <!-- report text area -->
+        <div class="mt-2 md:mt-4">
+          <p class="pr-2 font-semibold text-[13px] text-blue-800">گذارش</p>
+          <textarea name="message" rows="6"
+            placeholder="در صورتیکه تخلف انجام شده در لیست موجود نیست، لطفاً گزارش تخلف را در اینجا وارد کنید..."
+            class="text-gray-500 text-[13px] px-2 py-2 mt-2 w-full bg-gray-50 border border-gray-200 outline-none rounded "></textarea>
+        </div>
+        <!-- submit  -->
+        <div class="mt-4 md:mt-6 flex justify-center  ">
+          <input type="submit" value="تایید"
+            class="w-32 sm:w-36 h-8 text-white text-[13px] rounded cursor-pointer bg-blue-500 hover:bg-blue-700 ease-in duration-200">
+        </div>
+      </form>
+      <!-- End punishment -->
 
     </section>
   </div>
@@ -848,204 +519,10 @@
 
 
 
-
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
   <script>
-    // ****************************************************
-    // ************** Charts ****************************
-    // crime chart 
-    const crimeChart = document.getElementById('crimeChart');
-    let crimes = [131, 95, 50, 66, 70, 100, 46, 110, 72, 90, 64, 40];
-
-    new Chart(crimeChart, {
-      type: 'bar',
-      data: {
-        labels: [
-          'January', 'February', 'March', 'April', 'May', 'June',
-          'July', 'August', 'September', 'October', 'November', 'December'
-        ],
-        datasets: [{
-          label: 'Traffic Crimes',
-          data: crimes,
-          backgroundColor: [
-            'rgba(255,99,132,1)',
-            'rgba(54,162,235,1)',
-            'rgba(255,206,86,1)',
-            'rgba(75,205,192,1)',
-            'rgba(255,159,64,1)',
-            'rgba(255,99,132,1)',
-            'rgba(54,162,235,1)',
-            'rgba(255,206,86,1)',
-            'rgba(75,205,192,1)',
-            'rgba(255,159,64,1)',
-            'rgba(255,99,132,1)',
-            'rgba(54,162,235,1)',
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        // new
-        animation: {
-          x: {
-            duration: 5000,
-            from: 0
-          },
-          y: {
-            duration: 4000,
-            from: 500
-          }
-        }
-        // end new
-      }
-    });
-
-    // three provinces chart
-    let threeProvinces = ['Kabul', 'Herat', 'Mazar'];
-    let provincesCrimes = [131, 95, 50];
-    const crimeChartThreeProvinces = document.getElementById('crimeChartThreeProvinces');
-
-    new Chart(crimeChartThreeProvinces, {
-      type: 'polarArea',
-      data: {
-        labels: threeProvinces,
-        datasets: [{
-          label: 'Traffic Crimes',
-          data: provincesCrimes,
-          backgroundColor: [
-            'rgba(255,99,132,0.9)',
-            'rgba(54,162,235,0.9)',
-            'rgba(255,206,86,0.9)',
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        // new 
-
-        // end new 
-      }
-    });
-
-
-    // ****************************************
-    // ********* year dropdown ****************
-    const yearDropdown = document.getElementById("yearDropdown");
-    function toggleYearDropdown() {
-      yearDropdown.classList.toggle("hidden");
-    }
-
-    const years = document.querySelectorAll(".years");
-    const year = document.getElementById("year");
-    const yearInput = document.getElementById("yearInput");
-
-    years.forEach((y) => {
-      y.addEventListener('click', function () {
-        toggleYearDropdown();
-        year.textContent = y.textContent;
-        yearInput.value = y.textContent;
-      });
-    });// end foreach
-
-    // ****************************************
-    // ********* province dropdown ****************
-    const provinceDropdown = document.getElementById("provinceDropdown");
-    function toggleProvinceDropdown() {
-      provinceDropdown.classList.toggle("hidden");
-    }
-
-    const provinces = document.querySelectorAll(".provinces");
-    const province = document.getElementById("province");
-    const provinceInput = document.getElementById("provinceInput");
-
-    provinces.forEach((p) => {
-      p.addEventListener('click', function () {
-        toggleProvinceDropdown();
-        province.textContent = p.textContent;
-        provinceInput.value = p.textContent;
-      });
-    });// end foreach
-
-    // *********************************************************
-    // ************** notifications ****************************
-    function initializeNotification(divId) {
-      const expandableText = document.querySelector(`#${divId} .expandableText`);
-      const seeMoreBtn = document.querySelector(`#${divId} .seeMoreBtn`);
-      const seeLessBtn = document.querySelector(`#${divId} .seeLessBtn`);
-
-      seeMoreBtn.addEventListener("click", function () {
-        expandableText.classList.remove("h-20");
-        seeMoreBtn.classList.add("hidden");
-        seeLessBtn.classList.remove("hidden");
-      });
-
-      seeLessBtn.addEventListener("click", function () {
-        expandableText.classList.add("h-20");
-        seeLessBtn.classList.add("hidden");
-        seeMoreBtn.classList.remove("hidden");
-      });
-
-    }// end initializeNotification()
-
-    // call functions
-    for (let i = 1; i <= 5; i++) {
-      initializeNotification(`notification${i}`);
-    }
-    // ******* more or less notifications ***********
-    const moreNotifications = document.getElementById("moreNotifications");
-    const lessNotifications = document.getElementById("lessNotifications");
-    const notificationContainer = document.getElementById("notificationContainer");
-
-    moreNotifications.addEventListener("click", function () {
-      notificationContainer.classList.remove("max-h-52");
-      notificationContainer.classList.remove("md:max-h-[340px]");
-      moreNotifications.classList.add("hidden");
-      lessNotifications.classList.remove("hidden");
-    });
-
-    lessNotifications.addEventListener("click", function () {
-      notificationContainer.classList.add("max-h-52");
-      notificationContainer.classList.add("md:max-h-[340px]")
-      lessNotifications.classList.add("hidden");
-      moreNotifications.classList.remove("hidden");
-    });
-
-
-    // ***********************************************************
-    // ********************** cards animations *******************
-    function animateNumber(numId) {
-      var countElement = document.getElementById(`${numId}`);
-      var targetNumber = parseInt(countElement.innerText);
-      var duration = 2000; // Animation duration in milliseconds
-      var frameRate = 30; // Number of frames per second
-
-      var increment = targetNumber / (duration / 1000) / frameRate;
-      var currentNumber = 0;
-
-      var interval = setInterval(function () {
-        currentNumber += increment;
-        countElement.innerText = Math.round(currentNumber);
-
-        if (Math.round(currentNumber) >= targetNumber) {
-          clearInterval(interval);
-          countElement.innerText = targetNumber;
-        }
-      }, 1000 / frameRate);
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      animateNumber("onlinePayment");
-      animateNumber("offlinePayment");
-      animateNumber("todayCrime");
-      animateNumber("monthlyIncome");
-    });
-
 
   </script>
+
   <script src="./adminScript.js"></script>
 </body>
 

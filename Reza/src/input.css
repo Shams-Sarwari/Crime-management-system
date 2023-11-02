@@ -48,3 +48,7 @@
 .popup {
   @apply fixed top-16 left-1/2 -translate-x-1/2 transition-opacity duration-500 opacity-100;
 }
+/* punishment form */
+.punishment-input {
+  @apply w-full h-8 px-2 bg-gray-50 border border-gray-200 outline-none text-gray-500 focus:text-gray-600 tracking-wide rounded focus:border-gray-300;
+}
