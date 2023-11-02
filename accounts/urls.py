@@ -7,7 +7,7 @@ from django.conf import settings
 
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('', views.dashboard, name='dashboard'),
     path('driver_list/', views.driver_list, name='driver-list'),
     path('driver/<uuid:pk>/', views.driver_detail, name='driver-detail'),
     path('staff_list/', views.staff_list, name='staff-list'),

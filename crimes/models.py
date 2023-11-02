@@ -28,6 +28,7 @@ class CarCrime(models.Model):
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     crime = models.ForeignKey(Crime, on_delete=models.CASCADE, null=True)
     location = models.CharField(max_length=300, blank=True, null=True)
+    province = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField(blank=True, null=True)
     paid = models.BooleanField(default=False)
     price = models.DecimalField(max_digits=10, decimal_places=2)

@@ -72,6 +72,7 @@ def create_car_crime(request):
             plate = form.cleaned_data['plate_num']
             car = get_object_or_404(Car, plate_number = plate)
             crime = form.save(commit=False)
+            crime.province = profile.work_place.province
             crime.stuff = profile
             crime.car = car
             crime.save()
