@@ -1,0 +1,590 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- ********************************************** -->
+      <!--**************** dashboard **********************-->
+      <!-- cards -->
+      <div id="cards"
+        class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr,1fr] gap-2 md:gap-4 mx-2 md:mx-4 mt-2 md:mt-4 text-gray-500">
+        <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
+          <div class="flex flex-col gap-2">
+            <span id="onlinePayment" class="text-3xl text-orange-500  font-semibold">{{ offline_total_price }}</span>
+            <span class="text-[13px] font-semibold">پرداختی حضوری</span>
+          </div>
+          <span class="text-3xl text-blue-800 font-semibold"><i class="fa-solid fa-receipt"></i></span>
+        </div>
+
+        <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
+          <div class="flex flex-col gap-2">
+            <span id="offlinePayment" class="text-3xl text-orange-500  font-semibold">4000</span>
+            <span class="text-[13px] font-semibold">پرداختی آنلاین</span>
+          </div>
+          <span class="text-3xl text-blue-800 font-semibold"><i class="fa-brands fa-cc-amazon-pay"></i></span>
+        </div>
+
+        <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
+          <div class="flex flex-col gap-2">
+            <span id="todayCrime" class="text-3xl text-orange-500  font-semibold">{{today_crimes}}</span>
+            <span class="text-[13px] font-semibold">جرایم امروز</span>
+          </div>
+          <span class="text-3xl text-blue-800 font-semibold"><i class="fa-solid fa-ban"></i></span>
+        </div>
+
+        <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
+          <div class="flex flex-col gap-2">
+            <span id="monthlyIncome" class="text-3xl text-orange-500  font-semibold">{{ monthly_total }}</span>
+            <span class="text-[13px] font-semibold">درامد ماهانه</span>
+          </div>
+          <span class="text-3xl text-blue-800 font-semibold"><i class="fa-solid fa-money-check-dollar"></i>
+          </span>
+        </div>
+
+      </div>
+      <!-- end cards -->
+
+      <!-- charts -->
+      <div class="max-w-full mx-2 md:mx-4 my-2 md:my-4 flex flex-col lg:flex-row gap-x-4 gap-y-2">
+        <!-- chart 1 -->
+        <div class="max-w-2/3 flex-grow bg-white shadow-sm rounded">
+          <!-- year, province and hidden form -->
+          <div class="flex justify-center gap-2 md:gap-8 pb-2 pt-4">
+            <!-- Year dropdown -->
+            <div class="relative">
+              <button onclick="toggleYearDropdown()"
+                class="flex items-center justify-center gap-4 py-1 w-24 text-gray-500 text-center text-sm border hover:bg-gray-100 focus:outline-none rounded-lg "
+                type="button">
+                {% if filter_year %}
+                <span id="year">{{filter_year}}</span>
+                {% else %}
+                <span id="year">{{years.last}}</span>
+                {% endif %}
+                
+                <i class="fa-solid fa-angle-down"></i>
+              </button>
+              <!-- Dropdown menu -->
+              <div id="yearDropdown"
+                class="hidden absolute right-0 top-8 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-24 overflow-hidden">
+                <ul class="py-1 text-sm max-h-36 overflow-y-auto">
+                  {% for year in years %}
+                  <li class="years block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                    {{year}}
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+            <!-- province dropdown -->
+            <div class="relative">
+              <button onclick="toggleProvinceDropdown()"
+                class="flex items-center justify-center gap-4 py-1 w-24 md:w-28 text-gray-500 text-center text-[13px] border hover:bg-gray-100 focus:outline-none rounded-lg "
+                type="button">
+                {% if filter_province %}
+                <span id="province">{{filter_province}}</span>
+                {% else %}
+                <span id="province">{{provinces.0}}</span>
+                {% endif %}
+                
+                
+                <i class="fa-solid fa-angle-down"></i>
+              </button>
+              <!-- Dropdown menu -->
+              <div id="provinceDropdown"
+                class="hidden absolute right-0 top-8 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-24 md:w-28 overflow-hidden">
+                <ul class="py-1 text-xs text-center max-h-36 overflow-y-auto">
+                  {% for province in provinces %}
+                  <li class="provinces block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                    {{ province }}
+                  </li>
+                  {% endfor %}
+                  
+                </ul>
+              </div>
+            </div>
+            <!-- hidden form -->
+            <form action="" method='POST'>
+              {% csrf_token %}
+              <input type="hidden" name="selected_year" id="yearInput">
+              <input type="hidden" name="selected_province" id="provinceInput">
+              <input type="submit" value="تایید"
+                class="w-24 py-1 text-gray-500 text-center text-[13px] border hover:bg-gray-100 focus:outline-none rounded-lg cursor-pointer">
+            </form>
+          </div>
+          <!-- chart -->
+          <div class="p-4 min-h-20">
+            <canvas id="crimeChart"></canvas>
+          </div>
+        </div>
+        <!-- chart 2 -->
+        <div class="max-w-1/3 flex-grow flex items-center justify-center md:block bg-white shadow-sm rounded">
+          <div class="p-4 min-h-16">
+            <canvas id="crimeChartThreeProvinces"></canvas>
+          </div>
+        </div>
+      </div>
+      <!-- end charts -->
+
+      <!-- notifications -->
+      <div class="max-w-full mx-2 md:mx-4 my-2 md:my-4 bg-white rounded overflow-hidden text-gray-500 text-[13px]">
+        <div class="bg-gray-50 py-2 px-6 md:px-12 flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <div
+              class="relative inline-flex items-center p-1 text-3xl font-medium text-center text-blue-800 rounded-lg focus:outline-none">
+              <i class="fa-solid fa-bell"></i>
+              <div
+                class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1.5 -right-1 ">
+                20</div>
+            </div>
+            <span class="font-semibold text-[16px] text-gray-600">اعلان ها</span>
+          </div>
+          <button id="moreNotifications" type="button"
+            class="flex items-center gap-2 hover:text-blue-700 ease-in duration-200">
+            <span class="font-semibold text-xs">اعلانات بیشتر</span>
+            <i class="fa-solid fa-chevron-down fa-beat"></i>
+          </button>
+          <button id="lessNotifications" type="button"
+            class="hidden flex items-center gap-2 hover:text-blue-700 ease-in duration-200">
+            <span class="font-semibold text-xs">اعلانات کمتر</span>
+            <i class="fa-solid fa-chevron-up fa-beat"></i>
+          </button>
+        </div>
+
+        <div id="notificationContainer" class="max-h-52 md:max-h-[340px]">
+          <!-- nitification 1  loop here-->
+          <div id="notification1"
+            class="border-t border-gray-100 px-2 md:px-4 xl:px-8 py-4 flex flex-col md:flex-row md:gap-4 lg:gap-16 xl:gap-20">
+            <!-- photo and report -->
+            <div class="max-w-md flex  gap-3">
+              <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
+                <img src="../img/img2.jpg" alt="my image" class="h-full w-auto object-cover rounded-full">
+              </div>
+              <div class="expandableText flex flex-col h-20">
+                <span class="font-semibold">محمد رضا قاسمی</span>
+                <span class="overflow-hidden text-justify h-auto">
+                  این جرم ممکن است
+                  شامل تخطی از سرعت مجاز، نقض قوانین راهنمایی و رانندگی، عبور از چراغ‌های راهنما و دیگر خطوط ایمنی، عدم
+                  رعایت نشانه‌ها و علائم راهنمایی، استفاده از تلفن همراه بدون استفاده از دستگاه های مناسب، و بسیاری
+                  موارد دیگر می‌باشد.
+                </span>
+                <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
+                <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
+              </div>
+            </div>
+            <!-- driver and car -->
+            <div
+              class="max-w-full  flex-grow pt-2 md:pt-0 mt-2 md:mt-0  px-2 sm:pl-4 sm:pr-8 md:px-0 flex justify-between border-t md:border-none text-xs md:text-[13px]">
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">راننده</span>
+                <span>محمد علی انصاری</span>
+                <span>لایسنس: 355660</span>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">موتر</span>
+                <span>Benz 2023</span>
+                <span>پلیت: 355660</span>
+              </div>
+
+              <form action="" class="flex flex-col gap-2">
+                <span class="font-semibold">تعیین جریمه</span>
+                <input type="number"
+                  class="w-20 sm:w-24 h-6 px-2  border border-gray-300 rounded outline-none focus:border-gray-400 focus:text-gray-700 tracking-wide">
+                <input type="submit" value="تایید"
+                  class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-300 outline-none hover:border-gray-400 hover:text-gray-700 rounded focus:border-gray-400 cursor-pointer">
+              </form>
+            </div>
+
+          </div>
+          <!-- nitification 2  loop here-->
+          <div id="notification2"
+            class="border-t border-gray-100 px-2 md:px-4 xl:px-8 py-4 flex flex-col md:flex-row md:gap-4 lg:gap-16 xl:gap-20">
+            <!-- photo and report -->
+            <div class="max-w-md flex  gap-3">
+              <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
+                <img src="../img/img2.jpg" alt="my image" class="h-full w-auto object-cover rounded-full">
+              </div>
+              <div class="expandableText flex flex-col h-20">
+                <span class="font-semibold">محمد رضا قاسمی</span>
+                <span class="overflow-hidden text-justify h-auto">
+                  این جرم ممکن است
+                  شامل تخطی از سرعت مجاز، نقض قوانین راهنمایی و رانندگی، عبور از چراغ‌های راهنما و دیگر خطوط ایمنی، عدم
+                  رعایت نشانه‌ها و علائم راهنمایی، استفاده از تلفن همراه بدون استفاده از دستگاه های مناسب، و بسیاری
+                  موارد دیگر می‌باشد.
+                </span>
+                <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
+                <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
+              </div>
+            </div>
+            <!-- driver and car -->
+            <div
+              class="max-w-full  flex-grow pt-2 md:pt-0 mt-2 md:mt-0  px-2 sm:pl-4 sm:pr-8 md:px-0 flex justify-between border-t md:border-none text-xs md:text-[13px]">
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">راننده</span>
+                <span>محمد علی انصاری</span>
+                <span>لایسنس: 355660</span>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">موتر</span>
+                <span>Benz 2023</span>
+                <span>پلیت: 355660</span>
+              </div>
+
+              <form action="" class="flex flex-col gap-2">
+                <span class="font-semibold">تعیین جریمه</span>
+                <input type="number"
+                  class="w-20 sm:w-24 h-6 px-2  border border-gray-300 rounded outline-none focus:border-gray-400 focus:text-gray-700 tracking-wide">
+                <input type="submit" value="تایید"
+                  class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-300 outline-none hover:border-gray-400 hover:text-gray-700 rounded focus:border-gray-400 cursor-pointer">
+              </form>
+            </div>
+
+          </div>
+          <!-- nitification 3  loop here-->
+          <div id="notification3"
+            class="border-t border-gray-100 px-2 md:px-4 xl:px-8 py-4 flex flex-col md:flex-row md:gap-4 lg:gap-16 xl:gap-20">
+            <!-- photo and report -->
+            <div class="max-w-md flex  gap-3">
+              <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
+                <img src="../img/img2.jpg" alt="my image" class="h-full w-auto object-cover rounded-full">
+              </div>
+              <div class="expandableText flex flex-col h-20">
+                <span class="font-semibold">محمد رضا قاسمی</span>
+                <span class="overflow-hidden text-justify h-auto">
+                  این جرم ممکن است
+                  شامل تخطی از سرعت مجاز، نقض قوانین راهنمایی و رانندگی، عبور از چراغ‌های راهنما و دیگر خطوط ایمنی، عدم
+                  رعایت نشانه‌ها و علائم راهنمایی، استفاده از تلفن همراه بدون استفاده از دستگاه های مناسب، و بسیاری
+                  موارد دیگر می‌باشد.
+                </span>
+                <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
+                <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
+              </div>
+            </div>
+            <!-- driver and car -->
+            <div
+              class="max-w-full  flex-grow pt-2 md:pt-0 mt-2 md:mt-0  px-2 sm:pl-4 sm:pr-8 md:px-0 flex justify-between border-t md:border-none text-xs md:text-[13px]">
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">راننده</span>
+                <span>محمد علی انصاری</span>
+                <span>لایسنس: 355660</span>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">موتر</span>
+                <span>Benz 2023</span>
+                <span>پلیت: 355660</span>
+              </div>
+
+              <form action="" class="flex flex-col gap-2">
+                <span class="font-semibold">تعیین جریمه</span>
+                <input type="number"
+                  class="w-20 sm:w-24 h-6 px-2  border border-gray-300 rounded outline-none focus:border-gray-400 focus:text-gray-700 tracking-wide">
+                <input type="submit" value="تایید"
+                  class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-300 outline-none hover:border-gray-400 hover:text-gray-700 rounded focus:border-gray-400 cursor-pointer">
+              </form>
+            </div>
+
+          </div>
+
+          <!-- nitification 4  loop here-->
+          <div id="notification4"
+            class="border-t border-gray-100 px-2 md:px-4 xl:px-8 py-4 flex flex-col md:flex-row md:gap-4 lg:gap-16 xl:gap-20">
+            <!-- photo and report -->
+            <div class="max-w-md flex  gap-3">
+              <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
+                <img src="../img/img2.jpg" alt="my image" class="h-full w-auto object-cover rounded-full">
+              </div>
+              <div class="expandableText flex flex-col h-20">
+                <span class="font-semibold">محمد رضا قاسمی</span>
+                <span class="overflow-hidden text-justify h-auto">
+                  این جرم ممکن است
+                  شامل تخطی از سرعت مجاز، نقض قوانین راهنمایی و رانندگی، عبور از چراغ‌های راهنما و دیگر خطوط ایمنی، عدم
+                  رعایت نشانه‌ها و علائم راهنمایی، استفاده از تلفن همراه بدون استفاده از دستگاه های مناسب، و بسیاری
+                  موارد دیگر می‌باشد.
+                </span>
+                <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
+                <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
+              </div>
+            </div>
+            <!-- driver and car -->
+            <div
+              class="max-w-full  flex-grow pt-2 md:pt-0 mt-2 md:mt-0  px-2 sm:pl-4 sm:pr-8 md:px-0 flex justify-between border-t md:border-none text-xs md:text-[13px]">
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">راننده</span>
+                <span>محمد علی انصاری</span>
+                <span>لایسنس: 355660</span>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">موتر</span>
+                <span>Benz 2023</span>
+                <span>پلیت: 355660</span>
+              </div>
+
+              <form action="" class="flex flex-col gap-2">
+                <span class="font-semibold">تعیین جریمه</span>
+                <input type="number"
+                  class="w-20 sm:w-24 h-6 px-2  border border-gray-300 rounded outline-none focus:border-gray-400 focus:text-gray-700 tracking-wide">
+                <input type="submit" value="تایید"
+                  class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-300 outline-none hover:border-gray-400 hover:text-gray-700 rounded focus:border-gray-400 cursor-pointer">
+              </form>
+            </div>
+
+          </div>
+
+          <!-- nitification 5  loop here-->
+          <div id="notification5"
+            class="border-t border-gray-100 px-2 md:px-4 xl:px-8 py-4 flex flex-col md:flex-row md:gap-4 lg:gap-16 xl:gap-20">
+            <!-- photo and report -->
+            <div class="max-w-md flex  gap-3">
+              <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
+                <img src="../img/img2.jpg" alt="my image" class="h-full w-auto object-cover rounded-full">
+              </div>
+              <div class="expandableText flex flex-col h-20">
+                <span class="font-semibold">محمد رضا قاسمی</span>
+                <span class="overflow-hidden text-justify h-auto">
+                  این جرم ممکن است
+                  شامل تخطی از سرعت مجاز، نقض قوانین راهنمایی و رانندگی، عبور از چراغ‌های راهنما و دیگر خطوط ایمنی، عدم
+                  رعایت نشانه‌ها و علائم راهنمایی، استفاده از تلفن همراه بدون استفاده از دستگاه های مناسب، و بسیاری
+                  موارد دیگر می‌باشد.
+                </span>
+                <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
+                <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
+              </div>
+            </div>
+            <!-- driver and car -->
+            <div
+              class="max-w-full  flex-grow pt-2 md:pt-0 mt-2 md:mt-0  px-2 sm:pl-4 sm:pr-8 md:px-0 flex justify-between border-t md:border-none text-xs md:text-[13px]">
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">راننده</span>
+                <span>محمد علی انصاری</span>
+                <span>لایسنس: 355660</span>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <span class="font-semibold">موتر</span>
+                <span>Benz 2023</span>
+                <span>پلیت: 355660</span>
+              </div>
+
+              <form action="" class="flex flex-col gap-2">
+                <span class="font-semibold">تعیین جریمه</span>
+                <input type="number"
+                  class="w-20 sm:w-24 h-6 px-2  border border-gray-300 rounded outline-none focus:border-gray-400 focus:text-gray-700 tracking-wide">
+                <input type="submit" value="تایید"
+                  class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-300 outline-none hover:border-gray-400 hover:text-gray-700 rounded focus:border-gray-400 cursor-pointer">
+              </form>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      <!-- End notifications -->
+
+
+    </section>
+{% endblock content %}
+
+
+{% block jscript %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // ****************************************************
+  // ************** Charts ****************************
+  // crime chart 
+  const crimeChart = document.getElementById('crimeChart');
+  // number of crimes in each month
+  let crimes = {{ crimes_in_months }};
+
+  new Chart(crimeChart, {
+    type: 'bar',
+    data: {
+      labels: [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+      ],
+      datasets: [{
+        label: 'Traffic Crimes',
+        data: crimes,
+        backgroundColor: [
+          'rgba(255,99,132,1)',
+          'rgba(54,162,235,1)',
+          'rgba(255,206,86,1)',
+          'rgba(75,205,192,1)',
+          'rgba(255,159,64,1)',
+          'rgba(255,99,132,1)',
+          'rgba(54,162,235,1)',
+          'rgba(255,206,86,1)',
+          'rgba(75,205,192,1)',
+          'rgba(255,159,64,1)',
+          'rgba(255,99,132,1)',
+          'rgba(54,162,235,1)',
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      // new
+      animation: {
+        x: {
+          duration: 5000,
+          from: 0
+        },
+        y: {
+          duration: 4000,
+          from: 500
+        }
+      }
+      // end new
+    }
+  });
+
+  // three provinces chart
+  {% autoescape off %}
+  let threeProvinces = {{ top_three_provinces|safe }};
+  {% endautoescape %}
+  
+  let provincesCrimes = {{ top_three_values }};
+  const crimeChartThreeProvinces = document.getElementById('crimeChartThreeProvinces');
+
+  new Chart(crimeChartThreeProvinces, {
+    type: 'polarArea',
+    data: {
+      labels: threeProvinces,
+      datasets: [{
+        label: 'Traffic Crimes',
+        data: provincesCrimes,
+        backgroundColor: [
+          'rgba(255,99,132,0.9)',
+          'rgba(54,162,235,0.9)',
+          'rgba(255,206,86,0.9)',
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      // new 
+
+      // end new 
+    }
+  });
+
+
+  // ****************************************
+  // ********* year dropdown ****************
+  const yearDropdown = document.getElementById("yearDropdown");
+  function toggleYearDropdown() {
+    yearDropdown.classList.toggle("hidden");
+  }
+
+  const years = document.querySelectorAll(".years");
+  const year = document.getElementById("year");
+  const yearInput = document.getElementById("yearInput");
+
+  years.forEach((y) => {
+    y.addEventListener('click', function () {
+      toggleYearDropdown();
+      year.textContent = y.textContent;
+      yearInput.value = y.textContent;
+    });
+  });// end foreach
+
+  // ****************************************
+  // ********* province dropdown ****************
+  const provinceDropdown = document.getElementById("provinceDropdown");
+  function toggleProvinceDropdown() {
+    provinceDropdown.classList.toggle("hidden");
+  }
+
+  const provinces = document.querySelectorAll(".provinces");
+  const province = document.getElementById("province");
+  const provinceInput = document.getElementById("provinceInput");
+
+  provinces.forEach((p) => {
+    p.addEventListener('click', function () {
+      toggleProvinceDropdown();
+      province.textContent = p.textContent;
+      provinceInput.value = p.textContent.trim();
+    });
+  });// end foreach
+
+  // *********************************************************
+  // ************** notifications ****************************
+  function initializeNotification(divId) {
+    const expandableText = document.querySelector(`#${divId} .expandableText`);
+    const seeMoreBtn = document.querySelector(`#${divId} .seeMoreBtn`);
+    const seeLessBtn = document.querySelector(`#${divId} .seeLessBtn`);
+
+    seeMoreBtn.addEventListener("click", function () {
+      expandableText.classList.remove("h-20");
+      seeMoreBtn.classList.add("hidden");
+      seeLessBtn.classList.remove("hidden");
+    });
+
+    seeLessBtn.addEventListener("click", function () {
+      expandableText.classList.add("h-20");
+      seeLessBtn.classList.add("hidden");
+      seeMoreBtn.classList.remove("hidden");
+    });
+
+  }// end initializeNotification()
+
+  // call functions
+  for (let i = 1; i <= 5; i++) {
+    initializeNotification(`notification${i}`);
+  }
+  // ******* more or less notifications ***********
+  const moreNotifications = document.getElementById("moreNotifications");
+  const lessNotifications = document.getElementById("lessNotifications");
+  const notificationContainer = document.getElementById("notificationContainer");
+
+  moreNotifications.addEventListener("click", function () {
+    notificationContainer.classList.remove("max-h-52");
+    notificationContainer.classList.remove("md:max-h-[340px]");
+    moreNotifications.classList.add("hidden");
+    lessNotifications.classList.remove("hidden");
+  });
+
+  lessNotifications.addEventListener("click", function () {
+    notificationContainer.classList.add("max-h-52");
+    notificationContainer.classList.add("md:max-h-[340px]")
+    lessNotifications.classList.add("hidden");
+    moreNotifications.classList.remove("hidden");
+  });
+
+
+  // ***********************************************************
+  // ********************** cards animations *******************
+  function animateNumber(numId) {
+    var countElement = document.getElementById(`${numId}`);
+    var targetNumber = parseInt(countElement.innerText);
+    var duration = 2000; // Animation duration in milliseconds
+    var frameRate = 30; // Number of frames per second
+
+    var increment = targetNumber / (duration / 1000) / frameRate;
+    var currentNumber = 0;
+
+    var interval = setInterval(function () {
+      currentNumber += increment;
+      countElement.innerText = Math.round(currentNumber);
+
+      if (Math.round(currentNumber) >= targetNumber) {
+        clearInterval(interval);
+        countElement.innerText = targetNumber;
+      }
+    }, 1000 / frameRate);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    animateNumber("onlinePayment");
+    animateNumber("offlinePayment");
+    animateNumber("todayCrime");
+    animateNumber("monthlyIncome");
+  });
+
+
+</script>
+{% endblock jscript %}

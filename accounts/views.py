@@ -1,8 +1,8 @@
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import DriverProfile, StaffProfile, User
+from .models import DriverProfile, StaffProfile, User, WorkPlace
 from cars.models import JawazSayr
-from crimes.models import CarCrime,Crime
+from crimes.models import CarCrime,Crime, Payment
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.views import PasswordResetView
 from django.contrib import messages
@@ -18,13 +18,120 @@ from twilio.rest import Client
 from django.core.mail import send_mail
 from .utils import pagination_items
 from django.contrib import messages
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+from django.db.models.functions import ExtractYear, ExtractMonth
+
 
 # Create your views here.
 @login_required(login_url='login')
-def home(request):
-    return render(request, 'home.html')
+def dashboard(request, city='کابل', year=datetime.now().year):
+    # offline payments section:
+    offline_payments = CarCrime.objects.filter(payment__created=date.today())
+    offline_total_price = 0
+    for item in offline_payments:
+        offline_total_price += item.price + item.expiry_fine
+
+    
+    # online payment section:
+
+    # number of todays crime:
+    current_date = timezone.now().date()
+    start_of_day = datetime.combine(current_date, datetime.min.time())
+    end_of_day = datetime.combine(current_date, datetime.max.time())
+    today_crimes_list = CarCrime.objects.filter(created__range=(start_of_day, end_of_day))
+    today_crimes = len(today_crimes_list)
+
+    # monthly payment:
+    monthly_total = 0
+    current_year = timezone.now().year
+    current_month = timezone.now().month
+    start_of_month = timezone.datetime(current_year, current_month, 1).date()
+    try:
+        end_of_month = start_of_month.replace(day=31)
+    except:
+        try:
+            end_of_month = start_of_month.replace(day=30)
+        except:
+            try:
+                end_of_month = start_of_month.replace(day=29)
+            except:
+                end_of_month = start_of_month.replace(day=28)
+
+    payments_of_this_month = Payment.objects.filter(created__range=(start_of_month, end_of_month))
+    for item in payments_of_this_month:
+        monthly_total += item.price
+
+    # send provinces that this system is available for them to template
+    provinces = CarCrime.objects.distinct().exclude(province=None).values_list('province', flat=True)
+    
+    # send years of crimes which are in database
+    years = CarCrime.objects.distinct().annotate(year=ExtractYear('created')).values_list('year', flat=True)
+    
+    # send data to circular graph
+    province_crime_dict = {}
+    for province in provinces:
+        province_crime_dict[province]=len(CarCrime.objects.filter(province=province, created__year=datetime.now().year))
+
+    sorted_province_dict = dict(sorted(province_crime_dict.items(), key=lambda x: x[1], reverse=True))
+    
+
+    i = len(sorted_province_dict)
+    if i >= 3:
+        i = 3
+    j = 0
+    top_three_provinces = []
+    top_three_values = []
+    for key, value in sorted_province_dict.items():
+        if j < i:
+            top_three_provinces.append(key)
+            top_three_values.append(value)
+            j += 1
+        else:
+            break
+    
+    # send data to main graph
+    filter_province = None
+    filter_year = None
+
+    if request.method == 'POST':
+        if request.POST.get('selected_province'):
+            city = request.POST.get('selected_province')
+            filter_province = city
+        if request.POST.get('selected_year'):
+            year = request.POST.get('selected_year')
+            filter_year = year
+
+    crimes_in_months = []
+    for i in range(1, 13):  
+        crimes_in_months.append(CarCrime.objects.filter(
+            Q(province=city) &
+            Q(created__year=year) &
+            Q(created__month=i) 
+            ).count())
+    
+    
+    
+        
+        
+    
+    
+
+    context = {
+        'section': 'dashboard',
+        'offline_total_price': offline_total_price,
+        'today_crimes': today_crimes,
+        'monthly_total': monthly_total,
+        'provinces': provinces,
+        'years': years,
+        'top_three_provinces': top_three_provinces,
+        'top_three_values': top_three_values,
+        'filter_province': filter_province,
+        'filter_year': filter_year,
+        'crimes_in_months': crimes_in_months,
+    }
+    return render(request, 'accounts/dashboard.html', context)
 
 @login_required(login_url='login')
 def driver_list(request):
