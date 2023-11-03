@@ -471,12 +471,16 @@
           class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 text-blue-800 text-[13px]">
           <div class="flex flex-col gap-2">
             <label for="" class="mr-2 font-semibold">نمبر پلیت</label>
-            <input type="number" class="punishment-input" />
+            <input type="number" class="punishment-input" required />
           </div>
 
-          <div class="flex flex-col gap-2">
+          <div class="relative flex flex-col gap-2">
             <label for="" class="mr-2 font-semibold">نوع جرم</label>
-            <input type="text" class="punishment-input" />
+            <input id="searchInput" type="text" class="punishment-input" autocomplete="off" />
+            <!-- the autocomplete list -->
+            <ul id="autocompleteList"
+              class="hidden absolute left-0 top-full w-full mt-0.5 max-h-64 overflow-y-auto bg-gray-50  border-gray-200 rounded shadow text-gray-700 text-xs leading-5">
+            </ul>
           </div>
 
           <div class="flex flex-col gap-2">
@@ -491,7 +495,7 @@
 
           <div class="pr-2 flex items-end pb-2 mt-2 sm:mt-0">
             <div class="flex gap-2">
-              <input type="checkbox" name="" value="" checked>
+              <input type="checkbox" name="" value="" checked class="outline-none">
               <label class="font-semibold">پرداخت شد.</label>
             </div>
           </div>
@@ -506,7 +510,7 @@
         <!-- submit  -->
         <div class="mt-4 md:mt-6 flex justify-center  ">
           <input type="submit" value="تایید"
-            class="w-32 sm:w-36 h-8 text-white text-[13px] rounded cursor-pointer bg-blue-500 hover:bg-blue-700 ease-in duration-200">
+            class="w-32 sm:w-36 h-8 text-white text-[13px] rounded cursor-pointer outline-none bg-blue-500 hover:bg-blue-700 ease-in duration-200">
         </div>
       </form>
       <!-- End punishment -->
@@ -520,7 +524,54 @@
 
 
   <script>
+    // the autocomplete search box 
+    const searchInput = document.getElementById('searchInput');
+    const autocompleteList = document.getElementById('autocompleteList');
 
+    const crimes = [
+      'رعایت نکردن سرعت مجاز:',
+      'عبور از چراغ قرمز',
+      'عبور از خطوط ایمنی',
+      'رانندگی در حالت مستی',
+      'عدم رعایت اولویت عبور',
+      'سوار شدن بر خودرو در حال حرکت',
+      'عدم داشتن مدارک رانندگی معتبر',
+      'ترک محل حادثه',
+      'نقض سیستم راهنمایی و رانندگی',
+      // Add more country names here
+    ];
+
+    searchInput.addEventListener('input', function () {
+      const searchValue = this.value.trim();
+      const matchings = crimes.filter(crime => crime.includes(searchValue));
+
+      if (searchValue.length > 0 && matchings.length > 0) {
+        autocompleteList.innerHTML = '';
+        autocompleteList.classList.remove('hidden');
+
+        matchings.forEach(crime => {
+          const listItem = document.createElement('li');
+          listItem.textContent = crime;
+          listItem.classList.add('px-2', 'py-2', 'cursor-pointer', 'hover:bg-gray-100');
+
+          listItem.addEventListener('click', function () {
+            searchInput.value = crime;
+            autocompleteList.classList.add('hidden');
+          });
+
+          autocompleteList.appendChild(listItem);
+        });
+      } else {
+        autocompleteList.innerHTML = '';
+        autocompleteList.classList.add('hidden');
+      }
+    });
+    // hide autocompletelist when clicked outside of it
+    document.addEventListener('click', function (event) {
+      if (!autocompleteList.contains(event.target) && event.target !== searchInput) {
+        autocompleteList.classList.add('hidden');
+      }
+    });
   </script>
 
   <script src="./adminScript.js"></script>
