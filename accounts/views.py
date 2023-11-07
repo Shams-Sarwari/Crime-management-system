@@ -275,7 +275,7 @@ def login_user(request):
             if check_user is not None:
                 login(request, check_user)
                 messages.success(request, 'شما موفقانه وارد سیستم شدید')
-                return redirect('home')
+                return redirect('dashboard')
             else: 
 
                 messages.error(request, 'ایمیل و یا رمز عبور وارد شده اشتباه است')

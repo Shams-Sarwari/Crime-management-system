@@ -35,7 +35,7 @@ class CarCrime(models.Model):
     expiry_fine = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     expiry_date = models.DateField()
     payment = models.ForeignKey(Payment, on_delete=models.SET_NULL, null=True, blank=True)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField()
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
