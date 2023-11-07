@@ -10,6 +10,7 @@ urlpatterns = [
     path('', views.dashboard, name='dashboard'),
     path('driver_list/', views.driver_list, name='driver-list'),
     path('driver/<uuid:pk>/', views.driver_detail, name='driver-detail'),
+    path('register_owner/', views.register_owner, name='register-owner'),
     path('staff_list/', views.staff_list, name='staff-list'),
     path('staff/<uuid:pk>/', views.staff_detail, name='staff-detail'),
     path('login/', views.login_user, name='login'),

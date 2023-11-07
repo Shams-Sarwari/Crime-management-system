@@ -5,20 +5,15 @@ from django.contrib.auth.hashers import make_password
 import uuid
 # Create your models here.
 class UserAccountManager(BaseUserManager):
-    def create_user(self, username, email, password, licence_num=None):
-        
-        if not email:
-            raise ValueError('User must have email')
+    def create_user(self, username, email=None, password=None, is_active=False, is_staff=False, is_superuser=False, is_driver=False, is_owner=False):
+    
         if not username:
-            raise ValueError('User must have username')
+            raise ValueError('User must have a username')
 
-        email = self.normalize_email(email)
-        user = self.model(username = username, email = email)
+        user = self.model(username=username, email=email, is_active=is_active, is_staff=is_staff, is_superuser=is_superuser, is_driver=is_driver, is_owner=is_owner)
         user.set_password(password)
-        user.is_staff = True
         user.save()
         return user
-
     
 
     def create_superuser(self, username, email, password):
@@ -30,10 +25,9 @@ class UserAccountManager(BaseUserManager):
         return user
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=300)
+    username = models.CharField(max_length=300, unique=False)
     email = models.EmailField(max_length=300, unique=True, blank=True, null=True)
-    licence_num = models.CharField(max_length=100, unique=True, blank=True, null=True)
-
+    is_owner = models.BooleanField(default=False)
     is_driver = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)

@@ -2,6 +2,7 @@ from typing import Any, Dict
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.forms import UserCreationForm
 from .models import User, DriverProfile, Address, StaffProfile, WorkPlace
+from cars.models import CarOwner
 from django import forms
 from django.contrib.auth.forms import PasswordChangeForm, SetPasswordForm
 from django.core.exceptions import ValidationError
@@ -9,7 +10,7 @@ from django.core.exceptions import ValidationError
 class CustomDriverUserCreationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'licence_num', 'is_active', 'password1', 'password2']
+        fields = ['username','is_active', 'password1', 'password2']
         
         
     def __init__(self, *args, **kwargs):
@@ -25,13 +26,7 @@ class CustomDriverUserCreationForm(UserCreationForm):
                     {'id': 'myCheckbox', 'checked': 'checked'}
                 )
 
-    def clean_licence_num(self):
-        data = self.cleaned_data['licence_num']
-        if User.objects.filter(licence_num=data).exists():
-            raise forms.ValidationError('این لایسنس نمبر قبلا وارد سیستم گردیده.')
-        return data
-
-
+    
 class DriverEditForm(forms.ModelForm):
     class Meta: 
         model = DriverProfile
@@ -56,14 +51,12 @@ class DriverEditForm(forms.ModelForm):
             )
             
 
+class OwnerEditForm(forms.ModelForm):
+    class Meta:
+        model = CarOwner
+        fields = '__all__'
+        exclude = ['user']
 
-    # def clean_licence_num(self):
-    #     data = self.cleaned_data['licence_num']
-    #     if data != self.instance.licence_num:
-    #         qs = User.objects.filter(licence_num = data)
-    #         if qs.exists():
-    #             raise forms.ValidationError('این لایسنس نمبر قبلا وارد سیستم گردیده.')
-    #         return data
 
 class AddressForm(forms.ModelForm):
     class Meta:
@@ -81,7 +74,7 @@ class AddressForm(forms.ModelForm):
 class CustomStaffCreationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'email', 'is_active', 'is_superuser']
+        fields = ['username','is_active', 'is_superuser']
 
     def __init__(self, *args, **kwargs):
         super(CustomStaffCreationForm, self).__init__(*args, **kwargs)

@@ -18,16 +18,9 @@
       <form action="" class="flex flex-col gap-4 py-7 px-5 md:px-6 text-sm text-gray-600" method='POST'>
         {% csrf_token %}
         <div class="flex flex-col gap-2">
-          <label for="" class="mr-2">نام کاربری</label>
+          <label for="" class="mr-2">ایمیل</label>
           {{ form.username }}
         </div>
-
-        <div class="flex flex-col gap-2">
-          <label for="" class="mr-2">ایمیل آدرس</label>
-          {{ form.email }}
-        </div>
-
-
         <div class="flex flex-col gap-2">
           <label for="" class="mr-2">رمز عبور</label>
           {{ form.password1 }}
