@@ -68,6 +68,7 @@ class CreateOwnerForm(forms.ModelForm):
     class Meta:
         model = CarOwner
         fields = "__all__"
+        exclude = ['user']
 
     def __init__(self, *args, **kwargs):
         super(CreateOwnerForm, self).__init__(*args, **kwargs)

@@ -11,12 +11,11 @@ class CustomAuth(ModelBackend):
             
         except UserModel.DoesNotExist:
             try:
-                user = UserModel.objects.get(licence_num = username)
+                user = UserModel.objects.get(username = username)
             except UserModel.DoesNotExist:
                 return None
 
         if user is not None:
-            #if user.password == password:
             if user.check_password(password):
                 return user
         

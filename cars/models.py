@@ -1,5 +1,5 @@
 from django.db import models
-from accounts.models import DriverProfile, StaffProfile
+from accounts.models import DriverProfile, StaffProfile, User
 import uuid
 
 class CarOwner(models.Model):
@@ -7,13 +7,13 @@ class CarOwner(models.Model):
         ("آقا", "آقا"),
         ("خانم", "خانم"),
     )
-    
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200, blank=True, null=True)
     father_name = models.CharField(max_length=200)
     tazkira_number = models.CharField(max_length=100, unique=True)
     gender = models.CharField(max_length=10, choices=GENDER, default='آقا')
-    phone_number = models.CharField(max_length=200, unique=True)
+    phone_number = models.CharField(max_length=200)
     place_of_work = models.CharField(max_length=200, null=True, blank=True)
     main_address = models.CharField(max_length=200, blank=True, null=True)
     current_address = models.CharField(max_length=200, blank=True, null=True)

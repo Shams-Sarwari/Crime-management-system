@@ -1,12 +1,12 @@
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import DriverProfile, StaffProfile, User, WorkPlace
-from cars.models import JawazSayr
+from cars.models import JawazSayr, CarOwner
 from crimes.models import CarCrime,Crime, Payment
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.views import PasswordResetView
 from django.contrib import messages
-from .forms import CustomDriverUserCreationForm, DriverEditForm, AddressForm, CustomStaffCreationForm, StaffEditForm, WorkPlaceForm, CustomPasswordResetForm, CustomPasswordChangeForm, CustomSetPasswordForm
+from .forms import CustomDriverUserCreationForm, DriverEditForm, AddressForm, CustomStaffCreationForm, StaffEditForm, WorkPlaceForm, CustomPasswordResetForm, CustomPasswordChangeForm, CustomSetPasswordForm, OwnerEditForm
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView, PasswordResetConfirmView
 from django.contrib import messages
@@ -252,7 +252,7 @@ def login_user(request):
             if check_user is not None:
                 login(request, check_user)
                 messages.success(request, 'شما موفقانه وارد سیستم شدید')
-                return redirect('home')
+                return redirect('dashboard')
                 
             else: 
 
@@ -279,6 +279,31 @@ def login_user(request):
             else: 
 
                 messages.error(request, 'ایمیل و یا رمز عبور وارد شده اشتباه است')
+        
+        elif request.POST['type'] == 'owner':
+
+            licence_or_email = request.POST['license_or_email']
+            password = request.POST['password']
+
+            try:
+                owner = CarOwner.objects.get(tazkira_number = licence_or_email)
+                
+            except:
+
+                messages.error(request, 'اکانت با تذکره نمبر وارد شده موجود نیست')
+
+               
+            check_user = authenticate(request, username=licence_or_email, password=password)
+
+            if check_user is not None:
+                login(request, check_user)
+                messages.success(request, 'شما موفقانه وارد سیستم شدید')
+                return redirect('dashboard')
+                
+            else: 
+
+                messages.error(request, 'تذکره نمبر یا رمز عبور وارد شده اشتباه است')
+
   
 
 
@@ -351,6 +376,30 @@ def edit_driver_profile(request, pk):
     }
     return render(request, 'accounts/edit_driver_profile.html', context)
 
+def register_owner(request):
+    
+    if request.method == 'POST':
+        form = CustomDriverUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password1'])
+            user.is_owner = True
+            user.save()
+            owner = CarOwner.objects.get(user=user)
+            messages.success(request,'مالک با موفقیت ثبت شد.')
+            return redirect('cars:update-owner', owner.id)
+
+            
+    else:
+        form = CustomDriverUserCreationForm()
+    context = {
+        'form': form,
+        'section': 'owners',
+    }
+    return render(request, 'accounts/register_owner.html', context)
+
+
+    
 @login_required(login_url='login')
 def create_staff_user(request):
 
@@ -360,6 +409,7 @@ def create_staff_user(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password1'])
             user.is_staff = True
+            user.email = user.username
             user.save()
             staff = StaffProfile.objects.get(user=user)
             return redirect('edit-staff-profile', staff.id)

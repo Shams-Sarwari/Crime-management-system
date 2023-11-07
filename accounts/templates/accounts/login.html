@@ -65,6 +65,9 @@
               >
                 راننده
               </li>
+              <li class="owner px-4 h-8 rounded-sm block bg-color-primary-light hover:bg-color-primary">
+                مالک
+              </li>
             </ul>
           </div>
         </button>
@@ -102,31 +105,41 @@
       const select_button = document.querySelector(".select-button");
       const select_options = document.querySelector(".select-options");
       const btn_text = document.querySelector(".btn-text");
-      const hidden_input = document.getElementById('hidden-input');
-
+      const hidden_input = document.getElementById("hidden-input");
+  
       select_button.addEventListener("click", function () {
         select_options.classList.toggle("hidden");
       });
-
+  
       // change palceholder according to user
       const employee = document.querySelector(".employee");
       const driver = document.querySelector(".driver");
+      const owner = document.querySelector(".owner");
       const email_or_license = document.getElementById("email-or-license");
-
+  
       employee.addEventListener("click", function () {
         btn_text.textContent = "کارمند";
         email_or_license.placeholder = "ایمیل آدرس";
         email_or_license.type = "email";
-        hidden_input.value = 'staff';
-        
+        // change the hidden input value
+        hidden_input.value = "staff";
       });
       driver.addEventListener("click", function () {
         btn_text.textContent = "راننده";
         email_or_license.placeholder = "نمبر لیسنس";
         email_or_license.type = "text";
-        hidden_input.value = 'driver';
-        
+        // change the hidden input value
+        hidden_input.value = "driver";
       });
+      owner.addEventListener("click", function () {
+        btn_text.textContent = "مالک";
+        email_or_license.placeholder = "نمبر تذکره";
+        email_or_license.type = "text";
+        // change the hidden input value
+        hidden_input.value = "owner";
+      });
+  
+      console.log(hidden_input.value);
     </script>
   </body>
 </html>
