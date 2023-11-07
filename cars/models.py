@@ -32,7 +32,6 @@ class Car(models.Model):
         ('راسته', 'راسته'),
         ('چپه', 'چپه')
     )
-    driver = models.ForeignKey(DriverProfile, on_delete=models.SET_NULL, null=True, blank=True)
     owner = models.ForeignKey('CarOwner', on_delete=models.SET_NULL, null=True, blank=True)
     plate_number = models.CharField(max_length=200, blank=True, null=True)
     steering = models.CharField(max_length=10, choices=STEERING_SIDE, default='راسته')
@@ -48,11 +47,8 @@ class Car(models.Model):
         max_length=255, null=True, blank=True, help_text='وزن بالای اکسل')
     number_of_rider = models.PositiveIntegerField(help_text='تعداد راکبین')
     
-    def __str__(self) -> str:
-        driver = None
-        if self.driver: 
-            driver = self.driver.first_name + self.driver.last_name
-        return f'car with plate: {self.plate_number} and engine num: {self.engine_num} driver: {driver}'
+    def __str__(self) -> str:    
+        return f'car with plate: {self.plate_number} and engine num: {self.engine_num}'
     
     
     
@@ -61,7 +57,6 @@ class JawazSayr(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     jawaz_num = models.CharField(max_length=200, primary_key=False, unique=True)
     card_num = models.CharField(max_length=200, unique=True, blank=True, null=True)
-    driver = models.ForeignKey(DriverProfile, on_delete=models.CASCADE)
     car = models.OneToOneField(Car, on_delete=models.CASCADE)
     statistic_num = models.CharField(max_length=200, blank=True, null=True)
     document_num = models.CharField(max_length=200, blank=True, null=True)
@@ -77,7 +72,7 @@ class JawazSayr(models.Model):
     expiry_date = models.DateField()
 
     def __str__(self) -> str:
-        return f'Jawaz Sayr of {self.driver.first_name}'
+        return self.jawaz_num
     
 
 

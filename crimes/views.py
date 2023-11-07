@@ -5,7 +5,7 @@ from accounts.models import DriverProfile
 from cars.models import Car
 from accounts.models import StaffProfile
 from django.contrib import messages
-
+from datetime import date, timedelta
 
 # Create your views here.
 def create_crime(request):
@@ -66,22 +66,103 @@ def driver_crime_list(request):
 
 def create_car_crime(request):
     profile = StaffProfile.objects.get(user = request.user)
-    if request.method == 'POST':
-        form = CreateCarCrimeForm(request.POST)
-        if form.is_valid():
-            plate = form.cleaned_data['plate_num']
-            car = get_object_or_404(Car, plate_number = plate)
-            crime = form.save(commit=False)
-            crime.province = profile.work_place.province
-            crime.stuff = profile
-            crime.car = car
-            crime.save()
-            return redirect('crimes:driver-crime-list')
-    else: 
-        form = CreateCarCrimeForm()
+    all_crimes = Crime.objects.all()
+    crime_list = []
+    for item in all_crimes:
+        crime_list.append(item.title)
 
+    
+    if request.method == 'POST':
+        plate = request.POST.get('plate')
+        try:
+            car = Car.objects.get(plate_number=plate)
+            
+        except:
+            messages.error(request, 'پلیت نمبر وارد شده در سیستم موجود نیست')
+            return redirect('crimes:fine-driver')
+        try:
+            crime = Crime.objects.get(title=request.POST.get('crime_type'))
+        except:
+            messages.error(request, 'لطفا نوعیت جریمه را از لیست بدون تغییر انتخاب کنید')
+            return redirect('crimes:fine-driver')
+        
+        price = request.POST.get('price')
+
+        location = None
+        if request.POST.get('location'):
+            location = request.POST.get('location')
+
+        paid = False
+        if request.POST.get('paid') == 'paid':
+            paid = True
+
+        pending = False
+        if request.POST.get('pending') == 'on':
+            pending = True
+
+        description = None
+        if request.POST.get('message'):
+            description = request.POST.get('message')
+
+        if request.POST.get('licence'):
+            licence = request.POST.get('licence')
+            try:
+                driver = DriverProfile.objects.get(licence_num=licence)
+                car_crime = CarCrime.objects.create(
+                    stuff = request.user.staffprofile,
+                    driver = driver,
+                    car = car,
+                    crime = crime,
+                    location = location,
+                    province = request.user.staffprofile.work_place.province,
+                    description = description,
+                    paid = paid, 
+                    price = price,
+                    pending = pending,
+                    expiry_date = date.today() + timedelta(days=60)
+                )
+                if request.POST.get('paid') == 'paid':
+                    payment = Payment.objects.create(
+                        staff = request.user.staffprofile,
+                        driver = driver,
+                        owner = car.owner,
+                        price = price
+                    )
+                    
+                car_crime.payment = payment
+                car_crime.save()
+            except: 
+                messages.info(request, 'راننده در سیستم ثبت نیست')
+            return redirect('dashboard')
+        else:
+            car_crime = CarCrime.objects.create(
+                    stuff = request.user.staffprofile,
+                    car = car,
+                    crime = crime,
+                    location = location,
+                    province = request.user.staffprofile.work_place.province,
+                    description = description,
+                    paid = paid, 
+                    price = price,
+                    pending = pending,
+                    expiry_date = date.today() + timedelta(days=60)
+                )
+            if request.POST.get('paid') == 'paid':
+                payment = Payment.objects.create(
+                    staff = request.user.staffprofile,
+                    owner = car.owner,
+                    price = price
+                )
+                car_crime.payment = payment
+                car_crime.save()
+            return redirect('dashboard')
+
+        
+        
+    
+    
     context = {
-        'form': form
+        'crime_list': crime_list,
     }
     return render(request, 'crimes/create_driver_crime.html', context)
 
@@ -105,7 +186,7 @@ def log_payment(request, pk):
     # first create the log and then add car crimes to this log
     log = Payment.objects.create(
         staff = request.user.staffprofile,
-        driver = car.driver,
+        owner = car.owner,
         price = total,
     )
     log.save()

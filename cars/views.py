@@ -42,23 +42,25 @@ def car_detail(request, pk):
         jawaz_sayr = None
     
     if jawaz_sayr:
-        if date.today() > jawaz_sayr.expiry_date:
-                crime = CarCrime.objects.create(
-                    car = car,
-                    crime = Crime.objects.get(title='گذشتن تاریخ اعتبار جواز سیر'),
-                    price = 500, 
-                    expiry_date = jawaz_sayr.expiry_date + timedelta(days=60)
+        while jawaz_sayr.expiry_date < date.today():
+            if date.today() > jawaz_sayr.expiry_date:
+                    crime = CarCrime.objects.create(
+                        car = car,
+                        crime = Crime.objects.get(title='گذشتن تاریخ اعتبار جواز سیر'),
+                        price = 500, 
+                        expiry_date = jawaz_sayr.expiry_date + timedelta(days=60)
 
-                )
-                crime.save()
-                jawaz_sayr.expiry_date += timedelta(days=90)
-                jawaz_sayr.save()
-                
+                    )
+                    crime.save()
+                    jawaz_sayr.expiry_date += timedelta(days=90)
+                    jawaz_sayr.save()
+                    
     for item in crimes:
-        if (date.today() > item.expiry_date) and (item.paid == False):
-            item.expiry_fine += item.price/2
-            item.expiry_date += timedelta(days=60)
-            item.save()
+        while item.expiry_date < date.today() and item.paid == False:
+            if (date.today() > item.expiry_date) and (item.paid == False):
+                item.expiry_fine += item.price/2
+                item.expiry_date += timedelta(days=60)
+                item.save()
 
     context = {
         'car': car, 
@@ -74,11 +76,11 @@ def create_car(request, pk=None):
         form = CreateCarForm(request.POST)
         if form.is_valid():
             if pk:
-                driver = DriverProfile.objects.get(id=pk)
+                owner = CarOwner.objects.get(id=pk)
                 car = form.save(commit=False)
-                car.driver = driver
+                car.owner = owner
                 car.save()
-                return redirect('driver-detail', driver.id)
+                return redirect('cars:owner-detail', owner.id)
             
             else:
                 form.save()
@@ -97,9 +99,8 @@ def edit_car(request, pk):
     car = get_object_or_404(Car, id=pk)
 
     # to create car history
-    car_driver = car.driver
+    
     car_owner = car.owner
-    new_driver = None
     new_owner = None
     
 
@@ -107,27 +108,6 @@ def edit_car(request, pk):
     if request.method=='POST':
         
         # create a history if driver or owner has been updated
-        if request.POST['driver_licence'] != '':
-            try: 
-                new_driver = DriverProfile.objects.get(licence_num = request.POST['driver_licence'])
-            except:
-                messages.error(request, 'راننده با این لایسنس در سیستم وجود ندارد')
-                return redirect('cars:car-detail', car.id)
-            if car_driver != new_driver:
-                driver_history = CarHistory.objects.create(
-                    car = car,
-                    driver = new_driver
-                )
-                driver_history.save()
-                OldHistory.objects.create(
-                    car_history = driver_history,
-                    old_driver = car_driver, 
-                )
-
-
-                car.driver = new_driver
-                car.save()
-
         if request.POST['owner_tazkira'] != '':
             try: 
                 new_owner = CarOwner.objects.get(tazkira_number = request.POST['owner_tazkira'])
@@ -198,9 +178,43 @@ def owner_list(request):
 
 def owner_detail(request, pk):
     owner = get_object_or_404(CarOwner, id=pk)
+    cars = owner.car_set.all()
+    
+    try:
+        jawaz_sayr = JawazSayr.objects.filter(car__owner=owner)
+    except:
+        jawaz_sayr = None
+    
+    
+    if jawaz_sayr:
+        for item in jawaz_sayr:
+            while item.expiry_date < date.today():
+                if date.today() > item.expiry_date:
+                    crime = CarCrime.objects.create(
+                        car = item.car,
+                        crime = Crime.objects.get(title='گذشتن تاریخ اعتبار جواز سیر'),
+                        price = 500, 
+                        expiry_date = item.expiry_date + timedelta(days=60)
+
+                    )
+                    crime.save()
+                    item.expiry_date += timedelta(days=90)
+                    item.save()
+    
+    for car in cars:
+        for crime in car.carcrime_set.all():
+            while crime.expiry_date < date.today() and crime.paid == False:
+                print('inside while')
+                if (date.today() > crime.expiry_date) and (crime.paid == False):
+                    crime.expiry_fine += crime.price/2
+                    crime.expiry_date += timedelta(days=60)
+                    crime.save()
+        
+
     context = {
         'owner': owner, 
         'section': 'owners',
+        'num_of_cars': cars.count(),
     }
     return render(request, 'cars/owner_detail.html', context)
 
