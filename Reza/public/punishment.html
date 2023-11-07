@@ -474,6 +474,11 @@
             <input type="number" class="punishment-input" required />
           </div>
 
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2 font-semibold">لایسنس راننده</label>
+            <input type="number" class="punishment-input" required />
+          </div>
+
           <div class="relative flex flex-col gap-2">
             <label for="" class="mr-2 font-semibold">نوع جرم</label>
             <input id="searchInput" type="text" class="punishment-input" autocomplete="off" />
@@ -485,7 +490,7 @@
 
           <div class="flex flex-col gap-2">
             <label for="" class="mr-2 font-semibold">مبلغ</label>
-            <input type="text" class="punishment-input" />
+            <input type="number" class="punishment-input" />
           </div>
 
           <div class="flex flex-col gap-2">
@@ -495,13 +500,27 @@
 
           <div class="pr-2 flex items-end pb-2 mt-2 sm:mt-0">
             <div class="flex gap-2">
-              <input type="checkbox" name="" value="" checked class="outline-none">
+              <input type="checkbox" name="" value="" class="outline-none">
               <label class="font-semibold">پرداخت شد.</label>
             </div>
           </div>
         </div>
+        <!-- send info to admin -->
+        <div class="grid  lg:grid-cols-[2fr,1fr] gap-y-2 lg:gap-x-16 md:mt-8 text-blue-800 text-[13px]">
+          <div class="pr-2 text-justify">
+            <span class="text-lg text-red-600">*</span>
+            <span>لطفاً در صورت عدم توانایی در تصمیم‌گیری، گزینه "ارسال اطلاعات به مدیریت" را انتخاب نمایید. با اطلاع
+              رسانی به مدیریت، امکان اتخاذ تصمیم مناسب و دقیق‌تر به منظور تعیین میزان جریمه فراهم می‌شود. </span>
+          </div>
+          <div class="pr-2 flex items-center pb-2 mt-2 sm:mt-0">
+            <div class="flex gap-2">
+              <input type="checkbox" name="" value="" class="outline-none">
+              <label class="">ارسال اطلاعات به مدیریت.</label>
+            </div>
+          </div>
+        </div>
         <!-- report text area -->
-        <div class="mt-2 md:mt-4">
+        <div class="mt-2 md:mt-8">
           <p class="pr-2 font-semibold text-[13px] text-blue-800">گذارش</p>
           <textarea name="message" rows="6"
             placeholder="در صورتیکه تخلف انجام شده در لیست موجود نیست، لطفاً گزارش تخلف را در اینجا وارد کنید..."

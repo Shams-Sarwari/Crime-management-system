@@ -3543,6 +3543,31 @@ video {
   color: rgb(55 65 81 / var(--tw-text-opacity));
 }
 
+.myinput {
+  height: 2rem;
+  width: 100%;
+  border-radius: 0.25rem;
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  letter-spacing: 0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.myinput:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(209 213 219 / var(--tw-border-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity));
+}
+
 .input-file {
   position: absolute;
   inset: 0px;
@@ -4033,6 +4058,10 @@ video {
     margin-top: 1.5rem;
   }
 
+  .md\:mt-8 {
+    margin-top: 2rem;
+  }
+
   .md\:block {
     display: block;
   }
@@ -4342,12 +4371,21 @@ video {
     grid-template-columns: 1fr 1fr 1fr;
   }
 
+  .lg\:grid-cols-\[2fr\2c 1fr\] {
+    grid-template-columns: 2fr 1fr;
+  }
+
   .lg\:flex-row {
     flex-direction: row;
   }
 
   .lg\:gap-16 {
     gap: 4rem;
+  }
+
+  .lg\:gap-x-16 {
+    -moz-column-gap: 4rem;
+         column-gap: 4rem;
   }
 
   .lg\:px-6 {
