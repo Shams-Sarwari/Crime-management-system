@@ -28,6 +28,9 @@
 .input2 {
   @apply w-full h-8 px-4 bg-gray-50 border border-gray-300 outline-none text-gray-500 focus:text-gray-700 tracking-wide rounded-lg focus:border-gray-400;
 }
+.myinput {
+  @apply w-full h-8 px-2 bg-gray-50 border border-gray-200 outline-none text-gray-500 focus:text-gray-600 tracking-wide rounded focus:border-gray-300;
+}
 .input-file {
   @apply absolute inset-0 w-full h-full opacity-0 cursor-pointer;
 }
