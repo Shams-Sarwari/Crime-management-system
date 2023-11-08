@@ -8,6 +8,7 @@ class CarOwner(models.Model):
         ("خانم", "خانم"),
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    licence_number = models.CharField(max_length=100, null=True, blank=True)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200, blank=True, null=True)
     father_name = models.CharField(max_length=200)

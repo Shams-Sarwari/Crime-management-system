@@ -159,7 +159,7 @@ class CustomPasswordResetForm(forms.Form):
             
             v.widget.attrs.update(
                 {'class':'w-full h-7 mb-5 px-4 bg-gray-50 rounded outline-none placeholder:text-xs placeholder:text-gray-400',
-                'placeholder':"ایمیل یا لایسنس",
+                'placeholder':"ورودی",
                 }
             )
     
