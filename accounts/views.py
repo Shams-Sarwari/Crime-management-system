@@ -198,7 +198,7 @@ def login_user(request):
     check_user = None
 
     if request.user.is_authenticated:
-        return redirect('driver_list')
+        return redirect('dashboard')
 
     if request.method == 'POST':
         if request.POST['type'] == 'driver':
@@ -282,7 +282,6 @@ def login_user(request):
 @login_required(login_url='login')
 def logout_user(request):
     logout(request)
-    messages.success(request, 'شما موفقانه از سیستم خارج شدید')
     return redirect('login')
 
 
@@ -505,7 +504,7 @@ class CustomPasswordResetView(PasswordResetView):
     
     def form_valid(self, form):
         email_or_licence = form.cleaned_data['email_or_licence']
-        user = User.objects.filter(Q(email=email_or_licence) | Q(licence_num=email_or_licence)).first()
+        user = User.objects.filter(Q(email=email_or_licence) | Q(username=email_or_licence)).first()
 
         if user:
             # generate password reset token
@@ -516,24 +515,25 @@ class CustomPasswordResetView(PasswordResetView):
             reset_url = reverse_lazy('password_reset_confirm', kwargs={'uidb64': uid, 'token': token})
             reset_url = self.request.build_absolute_uri(reset_url)
 
-            if user.is_driver:
-                account_sid = 'AC11dd7aa2c922d4e3e4e72c3e48169fbb'
-                auth_token = 'f0f1895b25bce73792f22d93861c0f0f'
-                client = Client(account_sid, auth_token)
-
-                message = client.messages.create(
-                     body=f'کاربر گرامی {user.username} \n شما بخاطر درخواست تغییر رمز عبور در وبسایت ترافیک این پیام را دریافت کردید. لطفا لینک زیر را برای ادامه تنظیمات دنبال کنید. \n {reset_url}',
-                     from_='+13088729493',
-                     to='+93776423768'
-                 )
             
-            elif user.is_staff or user.is_superuser:
-                user_email = user.email
-                message = f'شما برای بازیابی رمز عبور خود در وبسایت رسمی ریاست ترافیک این پیام را دریافت میکنید. برای بازیابی رمز خو لینک زیر را دنبال کنید. \n {reset_url}'
-                email = user.email
-                send_mail('بازیابی رمز عبوز', message, 'traffic@gmail.com', [email],fail_silently=False)
+            account_sid = 'AC11dd7aa2c922d4e3e4e72c3e48169fbb'
+            auth_token = 'f0f1895b25bce73792f22d93861c0f0f'
+            client = Client(account_sid, auth_token)
+
+            message = client.messages.create(
+                    body=f'کاربر گرامی {user.username} \n شما بخاطر درخواست تغییر رمز عبور در وبسایت ترافیک این پیام را دریافت کردید. لطفا لینک زیر را برای ادامه تنظیمات دنبال کنید. \n {reset_url}',
+                    from_='+13088729493',
+                    to='+93776423768'
+                )
+        
+            # elif user.is_staff or user.is_superuser:
+            #     user_email = user.email
+            #     message = f'شما برای بازیابی رمز عبور خود در وبسایت رسمی ریاست ترافیک این پیام را دریافت میکنید. برای بازیابی رمز خو لینک زیر را دنبال کنید. \n {reset_url}'
+            #     email = user.email
+            #     send_mail('بازیابی رمز عبوز', message, 'traffic@gmail.com', [email],fail_silently=False)
         
         
+            
 
         return super().form_valid(form)
 
