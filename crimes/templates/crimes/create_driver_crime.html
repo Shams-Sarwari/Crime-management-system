@@ -1,11 +1,150 @@
 {% extends "base.html" %}
+{% load static %}
 
-
-{% block content %}
+{% comment %} {% block content %}
     <h1>Fine a driver:</h1>
     <form action="" method='POST'>
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value='Fine'>
     </form>
+{% endblock content %} {% endcomment %}
+
+{% block content %}
+    <!-- punishment  -->
+      <!-- title and image -->
+      <div
+        class="flex flex-col gap-y-4 md:flex-row md:max-w-full mx-2 md:mx-4 mt-2 md:mt-4 bg-[#cae7f5] text-gray-500 rounded-t shadow overflow-hidden">
+        <div class="flex-1 flex flex-col p-4 md:p-10 gap-4 justify-center items-center">
+          <h2 class="text-blue-900 font-semibold text-2xl sm:text-3xl">فورم تنظیم جرایم</h2>
+          <p class="text-blue-800 leading-7 text-justify md:text-center ">این فرم برای تنظیم جریمه‌ها در صورت نقض قوانین
+            ترافیک توسط
+            رانندگان طراحی
+            شده است. با
+            پرکردن این فرم و
+            ارسال آن، روند تنظیم جریمه به صورت موثر و سریع انجام می‌شود.</p>
+        </div>
+        <div class="flex-1 flex justify-center px-4">
+          <img src="{% static "media/trafficrules.PNG" %}" alt="traffic rules" class="max-w-full max-h-full object-cover">
+        </div>
+      </div>
+      <!-- end title and img -->
+      <form action="" method='POST'
+        class="max-w-full mb-2 md:mb-4 mx-2 md:mx-4 bg-[#eaf5fb] px-4 md:px-4 lg:px-6 xl:px-8 pt-4 pb-6 rounded-b">
+        {% csrf_token %}
+        <div
+          class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 text-blue-800 text-[13px]">
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2 font-semibold">نمبر پلیت</label>
+            <input type="number" class="punishment-input" name="plate" required />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2 font-semibold">لایسنس راننده</label>
+            <input type="number" class="punishment-input" name='licence'/>
+          </div>
+
+          <div class="relative flex flex-col gap-2">
+            <label for="" class="mr-2 font-semibold">نوع جرم</label>
+            <input id="searchInput" type="text" name='crime_type' class="punishment-input" autocomplete="off" required/>
+            <!-- the autocomplete list -->
+            <ul id="autocompleteList"
+              class="hidden absolute left-0 top-full w-full mt-0.5 max-h-64 overflow-y-auto bg-gray-50  border-gray-200 rounded shadow text-gray-700 text-xs leading-5">
+            </ul>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2 font-semibold">مبلغ</label>
+            <input type="number" class="punishment-input" name='price' required/>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2 font-semibold" >موقعیت</label>
+            <input type="text" class="punishment-input" name="location"/>
+          </div>
+
+          <div class="pr-2 flex items-end pb-2 mt-2 sm:mt-0">
+            <div class="flex gap-2">
+              <input type="checkbox" name="paid" value="paid" class="outline-none">
+              <label class="font-semibold">پرداخت شد.</label>
+            </div>
+          </div>
+        </div>
+        <!-- send info to admin -->
+        <div class="grid  lg:grid-cols-[2fr,1fr] gap-y-2 lg:gap-x-16 md:mt-8 text-blue-800 text-[13px]">
+          <div class="pr-2 text-justify">
+            <span class="text-lg text-red-600">*</span>
+            <span>لطفاً در صورت عدم توانایی در تصمیم‌گیری، گزینه "ارسال اطلاعات به مدیریت" را انتخاب نمایید. با اطلاع
+              رسانی به مدیریت، امکان اتخاذ تصمیم مناسب و دقیق‌تر به منظور تعیین میزان جریمه فراهم می‌شود. </span>
+          </div>
+          <div class="pr-2 flex items-center pb-2 mt-2 sm:mt-0">
+            <div class="flex gap-2">
+              <input type="checkbox" name="pending" value="" class="outline-none">
+              <label class="">ارسال اطلاعات به مدیریت.</label>
+            </div>
+          </div>
+        </div>
+        <!-- report text area -->
+        <div class="mt-2 md:mt-8">
+          <p class="pr-2 font-semibold text-[13px] text-blue-800">گذارش</p>
+          <textarea name="message" rows="6" 
+            placeholder="در صورتیکه تخلف انجام شده در لیست موجود نیست، لطفاً گزارش تخلف را در اینجا وارد کنید..."
+            class="text-gray-500 text-[13px] px-2 py-2 mt-2 w-full bg-gray-50 border border-gray-200 outline-none rounded "></textarea>
+        </div>
+        <!-- submit  -->
+        <div class="mt-4 md:mt-6 flex justify-center  ">
+          <input type="submit" value="تایید"
+            class="w-32 sm:w-36 h-8 text-white text-[13px] rounded cursor-pointer outline-none bg-blue-500 hover:bg-blue-700 ease-in duration-200">
+        </div>
+      </form>
+      <!-- End punishment -->
+
+    </section>
 {% endblock content %}
+
+{% block jscript %}
+    
+  <script>
+    // the autocomplete search box 
+    const searchInput = document.getElementById('searchInput');
+    const autocompleteList = document.getElementById('autocompleteList');
+
+    {% autoescape off %}
+    const crimes = {{ crime_list|safe }};
+    {% endautoescape %}  
+  
+  
+
+    searchInput.addEventListener('input', function () {
+      const searchValue = this.value.trim();
+      const matchings = crimes.filter(crime => crime.includes(searchValue));
+
+      if (searchValue.length > 0 && matchings.length > 0) {
+        autocompleteList.innerHTML = '';
+        autocompleteList.classList.remove('hidden');
+
+        matchings.forEach(crime => {
+          const listItem = document.createElement('li');
+          listItem.textContent = crime;
+          listItem.classList.add('px-2', 'py-2', 'cursor-pointer', 'hover:bg-gray-100');
+
+          listItem.addEventListener('click', function () {
+            searchInput.value = crime;
+            autocompleteList.classList.add('hidden');
+          });
+
+          autocompleteList.appendChild(listItem);
+        });
+      } else {
+        autocompleteList.innerHTML = '';
+        autocompleteList.classList.add('hidden');
+      }
+    });
+    // hide autocompletelist when clicked outside of it
+    document.addEventListener('click', function (event) {
+      if (!autocompleteList.contains(event.target) && event.target !== searchInput) {
+        autocompleteList.classList.add('hidden');
+      }
+    });
+  </script>
+{% endblock jscript %}

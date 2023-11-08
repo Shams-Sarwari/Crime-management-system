@@ -155,41 +155,8 @@ def driver_list(request):
 @login_required(login_url='login')
 def driver_detail(request, pk):
     driver = get_object_or_404(DriverProfile, id=pk)
-    try:
-        jawaz_sayr = JawazSayr.objects.filter(driver=driver)
-    except:
-        jawaz_sayr = None
-    
-    
-    if jawaz_sayr:
-        for item in jawaz_sayr:
-            if date.today() > item.expiry_date:
-                crime = CarCrime.objects.create(
-                    car = item.car,
-                    crime = Crime.objects.get(title='گذشتن تاریخ اعتبار جواز سیر'),
-                    price = 500, 
-                    expiry_date = item.expiry_date + timedelta(days=60)
-
-                )
-                crime.save()
-                item.expiry_date += timedelta(days=90)
-                item.save()
-
-    cars = driver.car_set.all()
-    num_of_cars = len(cars)
-    for car in cars:
-        for crime in car.carcrime_set.all():
-            if (date.today() > crime.expiry_date) and (crime.paid == False):
-                crime.expiry_fine += crime.price/2
-                crime.expiry_date += timedelta(days=60)
-                crime.save()
-                
-    
-
     context = {
-        'driver': driver, 
-        'cars': cars,
-        'num_of_cars': num_of_cars,
+        'driver': driver,
         'section': 'drivers', 
     }
     return render(request, 'accounts/driver_detail.html', context)

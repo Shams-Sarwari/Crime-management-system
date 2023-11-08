@@ -40,55 +40,52 @@
           </div>
           <h3 class="mb-4 text-lg text-center text-color-primary font-semibold">مشخصات موتر</h3>
           <table class="text-[13px] text-gray-600 w-full ">
-            <tr class="bg-gray-200  h-6">
-              <td class="pr-4 max-w-36 ">مالک</td>
+            <tr class="bg-gray-200 h-6">
+              <td class=" pr-4">مالک</td>
               <td>{{ car.owner.first_name }} {{ car.owner.last_name }} </td>
             </tr>
+            
             <tr class=" h-6">
-              <td class="pr-4  ">راننده</td>
-              <td>{{ car.driver.first_name }} {{ car.driver.last_name }}</td>
-            </tr>
-            <tr class="bg-gray-200  h-6">
               <td class="pr-4 ">نمبر پلیت</td>
               <td>{{ car.plate_number }}</td>
             </tr>
-            <tr class=" h-6">
+            <tr class="bg-gray-200 h-6">
               <td class="pr-4  ">مودل</td>
               <td>{{ car.model }}</td>
             </tr>
-            <tr class="bg-gray-200  h-6">
+            <tr class=" h-6">
               <td class="pr-4 ">رنگ</td>
               <td>{{ car.color }}</td>
             </tr>
-            <tr class=" h-6">
-              <td class="pr-4  ">نوع اشترینگ</td>
+            <tr class="bg-gray-200 h-6">
+              <td class="bg-gray-200 pr-4  ">نوع اشترینگ</td>
               <td>{{ car.steering }}</td>
             </tr>
-            <tr class="bg-gray-200  h-6">
+            <tr class=" h-6">
               <td class="pr-4 "> نوع ماشین</td>
               <td>{{ car.engine_type }}</td>
             </tr>
-            <tr class=" h-6">
+            <tr class="bg-gray-200 h-6">
               <td class="pr-4  ">نمبر ماشین</td>
               <td>{{ car.engine_num }}</td>
             </tr>
-            <tr class="bg-gray-200  h-6">
+            <tr class=" h-6">
               <td class="pr-4  ">نمبر شاسی</td>
               <td>{{ car.chassis_num }}</td>
             </tr>
-            <tr class=" h-6">
+            <tr class="bg-gray-200 h-6">
               <td class="pr-4  ">تعداد سلندر</td>
               <td>{{ car.number_of_cylinder }} سلندر</td>
             </tr>
-            <tr class="bg-gray-200  h-6">
+            <tr class=" h-6">
               <td class="pr-4  ">وزن مجاز</td>
               <td>{{ car.legal_weight }} کیلوگرام</td>
             </tr>
-            <tr class=" h-6">
+            <tr class="bg-gray-200 h-6">
               <td class="pr-4  ">وزن بالای اکسل</td>
               <td>{{ car.weight_on_axle }} کیلوگرام</td>
             </tr>
-            <tr class="bg-gray-200 h-6">
+            <tr class="h-6">
               <td class="pr-4  ">تعداد راکبین</td>
               <td>{{ car.number_of_rider }} نفر</td>
             </tr>
@@ -316,11 +313,6 @@
 
         <form action="{% url "cars:edit-car" car.id %}" method="POST" class="flex flex-col gap-4 text-[13px] text-gray-600 px-2 py-2">
           {% csrf_token %}
-          <div class="flex flex-col gap-2">
-            <label for="" class="mr-2">لایسنس راننده</label>
-            <input type="number" class="input2" name="driver_licence" {% if car.driver %}placeholder="{{car.driver.licence_num}}"{% endif %}/>
-          </div>
-
           <div class="flex flex-col gap-2">
             <label for="" class="mr-2">تذکره مالک</label>
             <input type="number" class="input2" name="owner_tazkira" {% if car.owner %}placeholder="{{car.owner.tazkira_number}}"{% endif %}/>
