@@ -443,78 +443,90 @@
 
       </div>
 
-      <!-- div that contains forms -->
-      <div class="w-full pt-4 pl-3 pb-4 pr-3 md:pt-10 md:pr-16 md:pb-6 md:pl-20">
-        <div class="max-w-3xl mx-auto bg-white  rounded-md shadow-md overflow-hidden">
-          <h1 class="form-heading">ثبت جواز سیر جدید</h1>
 
-          <form action="" class="py-5 md:py-7 px-5 md:px-6 text-sm text-gray-600">
-            <!-- div 1 -->
-            <div class="w-full grid md:grid-cols-[1fr,1fr] md:gap-x-10 gap-y-4">
-              <div class="flex flex-col gap-2">
-                <label for="" class="mr-2">نمبر جواز</label>
-                <input type="number" class="input2" />
-              </div>
-
-              <div class="flex flex-col gap-2">
-                <label for="" class="mr-2">نمبر احصاییه</label>
-                <input type="number" class="input2" />
-              </div>
-
-              <div class="flex flex-col gap-2">
-                <label for="" class="mr-2">نمبر مکتوب</label>
-                <input type="number" class="input2" />
-              </div>
-
-              <div class="flex flex-col gap-2">
-                <label for="" class="mr-2">تاریخ مکتوب</label>
-                <input type="date" class="input2" />
-              </div>
-
-              <div class="flex flex-col gap-2">
-                <label for="" class="mr-2">نمبر علم و خبر</label>
-                <input type="number" class="input2" />
-              </div>
-
-              <div class="flex flex-col gap-2">
-                <label for="" class="mr-2">تاریخ علم و خبر</label>
-                <input type="date" class="input2" />
-              </div>
-
-              <div class="flex flex-col gap-2">
-                <label for="" class="mr-2">نمبر تعرفه بانک</label>
-                <input type="number" class="input2" />
-              </div>
-
-              <div class="flex flex-col gap-2">
-                <label for="" class="mr-2">تاریخ تعرفه بانک</label>
-                <input type="date" class="input2" />
-              </div>
-
-              <div class="flex flex-col gap-2">
-                <label for="" class="mr-2">سایز</label>
-                <input type="number" class="input2" />
-              </div>
-
-              <div class="flex flex-col gap-2">
-                <label for="" class="mr-2">اطمینانه مستوفیت</label>
-                <input type="number" class="input2" />
-              </div>
-
-              <div class="flex flex-col gap-2">
-                <label for="" class="mr-2">تاریخ انقضا</label>
-                <input type="date" class="input2" />
-              </div>
-
-            </div>
-
-            <!-- div submit -->
-            <div class="flex items-center justify-end mt-6">
-              <input type="submit" value="ثبت اطلاعات" class="form-submit-btn text-xs">
-            </div>
-          </form>
+      <!-- title and image -->
+      <div
+        class="flex flex-col gap-y-4 md:flex-row md:max-w-full mx-2 md:mx-4 mt-2 md:mt-4 bg-[#cae7f5] text-gray-500 rounded-t shadow overflow-hidden">
+        <div class="flex-1 flex flex-col p-4 md:p-10 gap-4 justify-center items-center">
+          <h2 class="text-blue-900 font-semibold text-2xl sm:text-3xl">فورم ثبت جواز‌‌‌‌سیر جدید</h2>
+          <p class="text-blue-800 leading-7 text-justify md:text-center ">این فرم برای ثبت جواز‌‌‌‌سیر جدید طراحی
+            شده است. با استفاده از این فرم، می‌توانید به صورت سریع و آسان جواز‌‌‌‌سیر جدید را به سیستم اضافه نمایید.
+          </p>
+        </div>
+        <div class="flex-1 flex justify-center px-4 py-8">
+          <img src="../img/jawazsair.png" alt="driver image" class="max-w-full max-h-full object-cover">
         </div>
       </div>
+      <!-- form -->
+      <form action=""
+        class="max-w-full mb-2 md:mb-4 mx-2 md:mx-4 bg-[#eaf5fb] px-4 md:px-4 lg:px-6 xl:px-8 pt-4 pb-6 rounded-b">
+        <!-- div 1 -->
+        <div
+          class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 text-blue-800 text-[13px]">
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">نمبر جواز</label>
+            <input type="number" class="myinput" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">نمبر احصاییه</label>
+            <input type="number" class="myinput" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">نمبر مکتوب</label>
+            <input type="number" class="myinput" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">تاریخ مکتوب</label>
+            <input type="date" class="myinput" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">نمبر علم و خبر</label>
+            <input type="number" class="myinput" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">تاریخ علم و خبر</label>
+            <input type="date" class="myinput" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">نمبر تعرفه بانک</label>
+            <input type="number" class="myinput" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">تاریخ تعرفه بانک</label>
+            <input type="date" class="myinput" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">سایز</label>
+            <input type="number" class="myinput" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">اطمینانه مستوفیت</label>
+            <input type="number" class="myinput" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">تاریخ انقضا</label>
+            <input type="date" class="myinput" />
+          </div>
+
+        </div>
+
+        <!-- div submit -->
+        <div class="flex items-center justify-end mt-6">
+          <input type="submit" value="ثبت اطلاعات"
+            class="w-32 sm:w-36 h-8 text-white text-[13px] rounded cursor-pointer outline-none bg-blue-500 hover:bg-blue-700 ease-in duration-200">
+        </div>
+      </form>
+
     </section>
   </div>
 
