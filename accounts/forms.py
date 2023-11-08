@@ -39,15 +39,25 @@ class DriverEditForm(forms.ModelForm):
         for k, v in self.fields.items():
             if k=='gender':
                 v.widget.attrs.update(
-                    {'class':'h-7 w-28 bg-color-primary text-white text-xs text-center rounded  outline-none'}
+                    {'class':'text-center myinput'}
             )
-            elif k=='tazkira_img' or k=='avatar':
+            elif k=='avatar':
                 v.widget.attrs.update(
-                    {'class':'input-file'}
+                    {'class':'hidden',
+                     'type': 'file',
+                     'id': 'profilePhoto',
+                     'onchange': 'updateProfileFileName(this);'}
+            )
+            elif k=='tazkira_img':
+                v.widget.attrs.update(
+                    {'class':'hidden',
+                     'type': 'file',
+                     'id': 'tazkiraPhoto',
+                     'onchange': 'updateTazkiraFileName(this);'}
             )
             else:
                 v.widget.attrs.update(
-                    {'class':'driver-form-input'}
+                    {'class':'myinput'}
             )
             
 
@@ -68,7 +78,7 @@ class AddressForm(forms.ModelForm):
         
         for k, v in self.fields.items():
             v.widget.attrs.update(
-                    {'class':'driver-form-input'}
+                    {'class':'myinput'}
             )
     
 class CustomStaffCreationForm(UserCreationForm):

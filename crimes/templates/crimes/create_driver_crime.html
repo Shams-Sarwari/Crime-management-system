@@ -1,15 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% comment %} {% block content %}
-    <h1>Fine a driver:</h1>
-    <form action="" method='POST'>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value='Fine'>
-    </form>
-{% endblock content %} {% endcomment %}
-
 {% block content %}
     <!-- punishment  -->
       <!-- title and image -->
@@ -46,7 +37,7 @@
 
           <div class="relative flex flex-col gap-2">
             <label for="" class="mr-2 font-semibold">نوع جرم</label>
-            <input id="searchInput" type="text" name='crime_type' class="punishment-input" autocomplete="off" required/>
+            <input id="searchInput" type="text" name='crime_type' class="punishment-input" autocomplete="off" />
             <!-- the autocomplete list -->
             <ul id="autocompleteList"
               class="hidden absolute left-0 top-full w-full mt-0.5 max-h-64 overflow-y-auto bg-gray-50  border-gray-200 rounded shadow text-gray-700 text-xs leading-5">
@@ -79,7 +70,7 @@
           </div>
           <div class="pr-2 flex items-center pb-2 mt-2 sm:mt-0">
             <div class="flex gap-2">
-              <input type="checkbox" name="pending" value="" class="outline-none">
+              <input type="checkbox" name="pending" value="pending" class="outline-none">
               <label class="">ارسال اطلاعات به مدیریت.</label>
             </div>
           </div>

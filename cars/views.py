@@ -33,7 +33,10 @@ def car_list(request):
 def car_detail(request, pk):
     car = get_object_or_404(Car, id = pk)
     car_history = car.carhistory_set.all()
-    crimes = car.carcrime_set.filter(paid=False)
+    crimes = car.carcrime_set.filter(
+        Q(paid=False) &
+        Q(pending=False)
+        )
     
     # check if the jawazsayr expiry date is passed. if so fine the driver
     try:
@@ -56,8 +59,8 @@ def car_detail(request, pk):
                     jawaz_sayr.save()
                     
     for item in crimes:
-        while item.expiry_date < date.today() and item.paid == False:
-            if (date.today() > item.expiry_date) and (item.paid == False):
+        while item.expiry_date < date.today() and item.paid == False and crime.pending == False:
+            if (date.today() > item.expiry_date) and (item.paid == False) and (crime.pending == False):
                 item.expiry_fine += item.price/2
                 item.expiry_date += timedelta(days=60)
                 item.save()
@@ -203,9 +206,8 @@ def owner_detail(request, pk):
     
     for car in cars:
         for crime in car.carcrime_set.all():
-            while crime.expiry_date < date.today() and crime.paid == False:
-                print('inside while')
-                if (date.today() > crime.expiry_date) and (crime.paid == False):
+            while crime.expiry_date < date.today() and crime.paid == False and crime.pending == False:
+                if (date.today() > crime.expiry_date) and (crime.paid == False) and (crime.pending == False):
                     crime.expiry_fine += crime.price/2
                     crime.expiry_date += timedelta(days=60)
                     crime.save()

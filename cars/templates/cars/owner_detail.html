@@ -317,12 +317,17 @@
               <td class=" w-32">تاریخ انقضا</td>
             </tr>
             {% for crime in car.carcrime_set.all %}
-            {% if not crime.paid %}
+            {% if not crime.paid and not crime.pending %}
             <tr class="h-12 text-center text-gray-600 border-b border-gray-300">
               <td class="w-10 h-12 flex justify-center items-center"><input type="checkbox" value="{{crime.id}}" name="paid_crimes"
                   class=" cursor-pointer">
               </td>
+              {% if crime.crime.title %}
               <td class="text-[13px]">{{ crime.crime.title }}</td>
+              {% else %}
+              <td class="text-[13px]">این جریمه بخاطر تخلف در تاریخ {{crime.created}}از طرف ترافیک وضع گردیده</td>
+              {% endif %}
+              
               <td>{{ crime.price }}</td>
               <td>{{ crime.expiry_fine }}</td>
               <td>{{ crime.get_total }}</td>

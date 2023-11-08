@@ -6,6 +6,7 @@ from cars.models import Car
 from accounts.models import StaffProfile
 from django.contrib import messages
 from datetime import date, timedelta
+from django.db.models import Q
 
 # Create your views here.
 def create_crime(request):
@@ -80,11 +81,13 @@ def create_car_crime(request):
         except:
             messages.error(request, 'پلیت نمبر وارد شده در سیستم موجود نیست')
             return redirect('crimes:fine-driver')
-        try:
-            crime = Crime.objects.get(title=request.POST.get('crime_type'))
-        except:
-            messages.error(request, 'لطفا نوعیت جریمه را از لیست بدون تغییر انتخاب کنید')
-            return redirect('crimes:fine-driver')
+        crime = None
+        if request.POST.get('crime_type'):
+            try:
+                crime = Crime.objects.get(title=request.POST.get('crime_type'))
+            except:
+                messages.error(request, 'لطفا نوعیت جریمه را از لیست بدون تغییر انتخاب کنید')
+                return redirect('crimes:fine-driver')
         
         price = request.POST.get('price')
 
@@ -97,7 +100,7 @@ def create_car_crime(request):
             paid = True
 
         pending = False
-        if request.POST.get('pending') == 'on':
+        if request.POST.get('pending') == 'pending':
             pending = True
 
         description = None
@@ -105,22 +108,27 @@ def create_car_crime(request):
             description = request.POST.get('message')
 
         if request.POST.get('licence'):
+            print('im inside licence')
             licence = request.POST.get('licence')
             try:
                 driver = DriverProfile.objects.get(licence_num=licence)
+            except: 
+                messages.info(request, 'راننده در سیستم ثبت نیست')
+            else:
+                print(f'start createing crime with licence and pending is: {pending}')
                 car_crime = CarCrime.objects.create(
-                    stuff = request.user.staffprofile,
-                    driver = driver,
-                    car = car,
-                    crime = crime,
-                    location = location,
-                    province = request.user.staffprofile.work_place.province,
-                    description = description,
-                    paid = paid, 
-                    price = price,
-                    pending = pending,
-                    expiry_date = date.today() + timedelta(days=60)
-                )
+                        stuff = request.user.staffprofile,
+                        driver = driver,
+                        car = car,
+                        crime = crime,
+                        location = location,
+                        province = request.user.staffprofile.work_place.province,
+                        description = description,
+                        paid = paid, 
+                        price = price,
+                        pending = pending,
+                        expiry_date = date.today() + timedelta(days=60)
+                    )
                 if request.POST.get('paid') == 'paid':
                     payment = Payment.objects.create(
                         staff = request.user.staffprofile,
@@ -128,13 +136,13 @@ def create_car_crime(request):
                         owner = car.owner,
                         price = price
                     )
-                    
-                car_crime.payment = payment
-                car_crime.save()
-            except: 
-                messages.info(request, 'راننده در سیستم ثبت نیست')
-            return redirect('dashboard')
+                        
+                    car_crime.payment = payment
+                    car_crime.save()
+                return redirect('dashboard')
         else:
+            print(f'im inside creating cirme without licence and pending is {pending}')
+
             car_crime = CarCrime.objects.create(
                     stuff = request.user.staffprofile,
                     car = car,
@@ -196,3 +204,24 @@ def log_payment(request, pk):
         item.save()
     
     return redirect('cars:car-detail', car.id)
+
+def notification(request):
+    pending_crimes = CarCrime.objects.filter(
+        Q(pending=True) &
+        Q(province=request.user.staffprofile.work_place.province)
+        )
+    num_of_pending_crimes = pending_crimes.count()
+    context = {
+        'pending_crimes': pending_crimes,
+        'num_of_pending_crimes': num_of_pending_crimes,
+    }
+    return render(request, 'crimes/notifications.html', context)
+
+def remove_pending(request, pk):
+    crime = get_object_or_404(CarCrime, id=pk)
+    if request.method == 'POST':
+        price = request.POST.get('price')
+        crime.price = price
+        crime.pending = False
+        crime.save()
+    return redirect('crimes:notifications')
