@@ -13,5 +13,9 @@ urlpatterns = [
     path('log-payment/<int:pk>/', views.log_payment, name='log-payment'),
     path('notifications/', views.notification, name='notifications'),
     path('remove_pending/<int:pk>/', views.remove_pending, name='remove-pending'),
+    # stipe: 
+    path('online_payment/', views.online_payment, name='online-payment'),
+    path('create-payment-intent', views.create_payment, name='create_payment'),
+    
 
 ]

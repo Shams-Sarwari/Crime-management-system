@@ -1,17 +1,5 @@
 {% extends 'base.html' %}
 
-{% comment %} {% block content %}
-  <form method='POST'>
-    {% csrf_token %}
-    {{ form.as_p }}
-    {{ add_form.as_p }}
-    {{ work_place_form.as_p }}
-    <input type='submit' value='submit'>
-    
-  </form>
-{% endblock content %} {% endcomment %}
-
-
 {% block content %}
 <div class="w-full pt-4 pl-3 pb-4 pr-3 md:pt-10 md:pr-16 md:pb-6 md:pl-20">
     <!-- Second form -->

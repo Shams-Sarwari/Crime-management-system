@@ -7,6 +7,21 @@ from accounts.models import StaffProfile
 from django.contrib import messages
 from datetime import date, timedelta
 from django.db.models import Q
+from django.views import View
+
+# strip imports:
+import json
+import stripe
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from django.http import JsonResponse
+
+
+stripe.api_key = 'sk_test_51OAQ0PItY091qK4GuGeFsuNbfSdGYcMuoHMnFysmYi4WQbPkf2CfGxKHcB1wyuDUedNBPORVjMM7PMVxQa2IQ2yG00dSLua5iU'
 
 # Create your views here.
 def create_crime(request):
@@ -225,3 +240,50 @@ def remove_pending(request, pk):
         crime.pending = False
         crime.save()
     return redirect('crimes:notifications')
+
+def online_payment(request):
+    total = 0
+    if request.method == 'POST':
+        paid_crimes = request.POST.getlist('paid_crimes')
+        car_crimes = []
+        for i in paid_crimes:
+            crime = CarCrime.objects.get(id=int(i))
+            total += crime.price + crime.expiry_fine
+            # crime.paid = True
+            # crime.save()
+            # car_crimes.append(crime)
+            
+    context = {
+        'total': total
+    }
+    return render(request, 'crimes/checkout.html', context)
+
+
+
+# strip: 
+
+def calculate_order_amount(items):
+    # Replace this constant with a calculation of the order's amount
+    # Calculate the order total on the server to prevent
+    # people from directly manipulating the amount on the client
+    return 1400
+
+@csrf_exempt
+@require_POST
+def create_payment(request):
+    try:
+        data = json.loads(request.body)
+        # Create a PaymentIntent with the order amount and currency
+        intent = stripe.PaymentIntent.create(
+            amount=calculate_order_amount(data['items']),
+            currency='usd',
+            automatic_payment_methods={
+                'enabled': True,
+            },
+        )
+        return JsonResponse({
+            'clientSecret': intent['client_secret']
+        })
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=403)
+    
