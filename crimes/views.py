@@ -6,6 +6,22 @@ from cars.models import Car
 from accounts.models import StaffProfile
 from django.contrib import messages
 from datetime import date, timedelta
+from django.db.models import Q
+from django.views import View
+
+# strip imports:
+import json
+import stripe
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from django.http import JsonResponse
+
+
+stripe.api_key = 'sk_test_51OAQ0PItY091qK4GuGeFsuNbfSdGYcMuoHMnFysmYi4WQbPkf2CfGxKHcB1wyuDUedNBPORVjMM7PMVxQa2IQ2yG00dSLua5iU'
 
 # Create your views here.
 def create_crime(request):
@@ -80,11 +96,13 @@ def create_car_crime(request):
         except:
             messages.error(request, 'پلیت نمبر وارد شده در سیستم موجود نیست')
             return redirect('crimes:fine-driver')
-        try:
-            crime = Crime.objects.get(title=request.POST.get('crime_type'))
-        except:
-            messages.error(request, 'لطفا نوعیت جریمه را از لیست بدون تغییر انتخاب کنید')
-            return redirect('crimes:fine-driver')
+        crime = None
+        if request.POST.get('crime_type'):
+            try:
+                crime = Crime.objects.get(title=request.POST.get('crime_type'))
+            except:
+                messages.error(request, 'لطفا نوعیت جریمه را از لیست بدون تغییر انتخاب کنید')
+                return redirect('crimes:fine-driver')
         
         price = request.POST.get('price')
 
@@ -97,7 +115,7 @@ def create_car_crime(request):
             paid = True
 
         pending = False
-        if request.POST.get('pending') == 'on':
+        if request.POST.get('pending') == 'pending':
             pending = True
 
         description = None
@@ -105,22 +123,27 @@ def create_car_crime(request):
             description = request.POST.get('message')
 
         if request.POST.get('licence'):
+            print('im inside licence')
             licence = request.POST.get('licence')
             try:
                 driver = DriverProfile.objects.get(licence_num=licence)
+            except: 
+                messages.info(request, 'راننده در سیستم ثبت نیست')
+            else:
+                print(f'start createing crime with licence and pending is: {pending}')
                 car_crime = CarCrime.objects.create(
-                    stuff = request.user.staffprofile,
-                    driver = driver,
-                    car = car,
-                    crime = crime,
-                    location = location,
-                    province = request.user.staffprofile.work_place.province,
-                    description = description,
-                    paid = paid, 
-                    price = price,
-                    pending = pending,
-                    expiry_date = date.today() + timedelta(days=60)
-                )
+                        stuff = request.user.staffprofile,
+                        driver = driver,
+                        car = car,
+                        crime = crime,
+                        location = location,
+                        province = request.user.staffprofile.work_place.province,
+                        description = description,
+                        paid = paid, 
+                        price = price,
+                        pending = pending,
+                        expiry_date = date.today() + timedelta(days=60)
+                    )
                 if request.POST.get('paid') == 'paid':
                     payment = Payment.objects.create(
                         staff = request.user.staffprofile,
@@ -128,13 +151,13 @@ def create_car_crime(request):
                         owner = car.owner,
                         price = price
                     )
-                    
-                car_crime.payment = payment
-                car_crime.save()
-            except: 
-                messages.info(request, 'راننده در سیستم ثبت نیست')
-            return redirect('dashboard')
+                        
+                    car_crime.payment = payment
+                    car_crime.save()
+                return redirect('dashboard')
         else:
+            print(f'im inside creating cirme without licence and pending is {pending}')
+
             car_crime = CarCrime.objects.create(
                     stuff = request.user.staffprofile,
                     car = car,
@@ -196,3 +219,71 @@ def log_payment(request, pk):
         item.save()
     
     return redirect('cars:car-detail', car.id)
+
+def notification(request):
+    pending_crimes = CarCrime.objects.filter(
+        Q(pending=True) &
+        Q(province=request.user.staffprofile.work_place.province)
+        )
+    num_of_pending_crimes = pending_crimes.count()
+    context = {
+        'pending_crimes': pending_crimes,
+        'num_of_pending_crimes': num_of_pending_crimes,
+    }
+    return render(request, 'crimes/notifications.html', context)
+
+def remove_pending(request, pk):
+    crime = get_object_or_404(CarCrime, id=pk)
+    if request.method == 'POST':
+        price = request.POST.get('price')
+        crime.price = price
+        crime.pending = False
+        crime.save()
+    return redirect('crimes:notifications')
+
+def online_payment(request):
+    total = 0
+    if request.method == 'POST':
+        paid_crimes = request.POST.getlist('paid_crimes')
+        car_crimes = []
+        for i in paid_crimes:
+            crime = CarCrime.objects.get(id=int(i))
+            total += crime.price + crime.expiry_fine
+            # crime.paid = True
+            # crime.save()
+            # car_crimes.append(crime)
+            
+    context = {
+        'total': total
+    }
+    return render(request, 'crimes/checkout.html', context)
+
+
+
+# strip: 
+
+def calculate_order_amount(items):
+    # Replace this constant with a calculation of the order's amount
+    # Calculate the order total on the server to prevent
+    # people from directly manipulating the amount on the client
+    return 1400
+
+@csrf_exempt
+@require_POST
+def create_payment(request):
+    try:
+        data = json.loads(request.body)
+        # Create a PaymentIntent with the order amount and currency
+        intent = stripe.PaymentIntent.create(
+            amount=calculate_order_amount(data['items']),
+            currency='usd',
+            automatic_payment_methods={
+                'enabled': True,
+            },
+        )
+        return JsonResponse({
+            'clientSecret': intent['client_secret']
+        })
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=403)
+    

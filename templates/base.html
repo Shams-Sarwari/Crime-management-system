@@ -6,6 +6,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TCMS | Admin | Drivers</title>
+  <script src="https://js.stripe.com/v3/"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
   <link rel="stylesheet" href="{% static 'css/myswiper.css' %}">
   <link rel="stylesheet" href="{% static "css/output.css" %}" />
@@ -390,7 +391,7 @@
             <span class="sidebar-list-text">جریمه کردن</span></a>
         </li>
         <li>
-          <a href="#" class="sidebar-link">
+          <a href="{% url "crimes:notifications" %}" class="sidebar-link">
             <?xml version="1.0" ?><svg class="feather feather-user-plus w-[18px]" fill="none" height="24"
               stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
               width="24" xmlns="http://www.w3.org/2000/svg">
