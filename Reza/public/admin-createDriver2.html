@@ -457,10 +457,35 @@
       </div>
       <!-- form -->
       <form action=""
-        class="max-w-full mb-2 md:mb-4 mx-2 md:mx-4 bg-[#eaf5fb] px-4 md:px-4 lg:px-6 xl:px-8 pt-4 pb-6 rounded-b">
-        <!-- div 1 -->
+        class="max-w-full mb-2 md:mb-4 mx-2 md:mx-4 bg-[#eaf5fb] px-4 md:px-4 lg:px-6 xl:px-8 pt-4 pb-6 rounded-b text-blue-800 text-[13px]">
+        <!-- create account -->
+        <h3 class="flex gap-2 items-center justify-center md:justify-start text-sm font-semibold mb-5 mt-2 mr-2">
+          <i class="fa-regular fa-user text-red-400 font-bold"></i>
+          <span>ایجاد حساب</span>
+        </h3>
         <div
-          class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 text-blue-800 text-[13px]">
+          class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 pb-8 border-b border-color-secondary">
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">نمبر لایسنس</label>
+            <input type="number" class="myinput" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">رمز عبور</label>
+            <input type="password" class="myinput" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">تایید رمز عبور</label>
+            <input type="password" class="myinput" />
+          </div>
+        </div>
+        <!-- personal Info -->
+        <h3 class="flex gap-2 items-center justify-center md:justify-start text-sm font-semibold mb-5 mt-6 mr-2">
+          <i class="fa-solid fa-id-card text-red-400 font-bold"></i>
+          <span>مشخصات راننده</span>
+        </h3>
+        <div class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 ">
           <div class="flex flex-col gap-2">
             <label for="" class="mr-2">نام</label>
             <input type="text" class="myinput" />
@@ -473,11 +498,6 @@
 
           <div class="flex flex-col gap-2">
             <label for="" class="mr-2">نام پدر</label>
-            <input type="text" class="myinput" />
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <label for="" class="mr-2">نمبر لایسنس</label>
             <input type="text" class="myinput" />
           </div>
 
@@ -496,7 +516,7 @@
 
           <div class="flex flex-col gap-2">
             <label for="" class="mr-2">نمبر تذکره</label>
-            <input type="text" class="myinput" />
+            <input type="number" class="myinput" />
           </div>
 
           <div class="flex flex-col gap-2">
@@ -548,7 +568,7 @@
           </div>
 
           <div
-            class="mt-4 grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 text-blue-800 text-[13px]">
+            class="mt-4 grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 ">
             <div class="flex flex-col gap-2">
               <label for="" class="mr-2">ولایت</label>
               <input type="text" class="myinput" />
@@ -571,7 +591,7 @@
           </div>
         </div>
         <!-- submit -->
-        <div class="flex items-center justify-end mt-6">
+        <div class="flex items-center justify-center md:justify-end mt-6">
           <input type="submit" value="ثبت اطلاعات"
             class="w-32 sm:w-36 h-8 text-white text-[13px] rounded cursor-pointer outline-none bg-blue-500 hover:bg-blue-700 ease-in duration-200">
         </div>
