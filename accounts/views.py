@@ -289,21 +289,42 @@ def logout_user(request):
 def register_driver(request):
     
     if request.method == 'POST':
-        form = CustomDriverUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password1'])
+        register_form = CustomDriverUserCreationForm(request.POST)
+        driver_form = DriverEditForm(request.POST)
+        add_form = AddressForm(request.POST)
+        if register_form.is_valid() and driver_form.is_valid() and add_form.is_valid():
+            user = register_form.save(commit=False)
+            user.set_password(register_form.cleaned_data['password1'])
             user.is_driver = True
             user.save()
-            driver = DriverProfile.objects.get(user=user)
-            messages.success(request,'راننده با موفقیت ثبت شد.')
-            return redirect('edit-driver-profile', driver.id)
+            address = add_form.save()
 
+            driver = DriverProfile.objects.get(user=user)
+            driver.first_name = request.POST.get('first_name')
+            driver.last_name = request.POST.get('last_name')
+            driver.father_name = request.POST.get('father_name')
+            driver.gender = request.POST.get('gender')
+            driver.blood_group = request.POST.get('blood_group')
+            driver.tazkira_num = request.POST.get('tazkira_num')
+            driver.phone_num = request.POST.get('phone_num')
+            driver.avatar = request.FILES.get('avatar')
+            driver.tazkira_img = request.FILES.get('tazkira_img')
+            driver.save()
+            messages.success(request,'راننده با موفقیت ثبت شد.')
+            return redirect('driver-list')
+        else:
+            print('register_form: ', register_form.errors)
+            print('driver_form: ', driver_form.errors)
+            print('add_form: ', add_form.errors)
             
     else:
-        form = CustomDriverUserCreationForm()
+        register_form = CustomDriverUserCreationForm()
+        driver_form = DriverEditForm()
+        add_form = AddressForm()
     context = {
-        'form': form,
+        'register_form': register_form,
+        'driver_form': driver_form,
+        'add_form': add_form,
         'section': 'drivers',
     }
     return render(request, 'accounts/register_driver.html', context)

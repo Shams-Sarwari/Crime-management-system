@@ -15,12 +15,12 @@ class CreateCarForm(forms.ModelForm):
         for k, v in self.fields.items():
             if k=='steering':
                 v.widget.attrs.update(
-                    {'class':'h-7 w-28 bg-color-primary text-white text-center rounded  outline-none'}
+                    {'class':'myinput text-center'}
             )
             
             else:
                 v.widget.attrs.update(
-                    {'class':'driver-form-input'}
+                    {'class':'myinput'}
             )
             
 
@@ -94,7 +94,6 @@ class CreateOwnerForm(forms.ModelForm):
 class JawazForm(forms.ModelForm):
     jawaz_num = forms.IntegerField()
     statistic_num = forms.IntegerField()
-    card_num = forms.IntegerField()
     document_num = forms.IntegerField()
     news_num = forms.IntegerField()
     bank_reg_num = forms.IntegerField()
@@ -106,7 +105,7 @@ class JawazForm(forms.ModelForm):
     class Meta: 
         model = JawazSayr
         fields = '__all__'
-        exclude = ['driver', 'car', 'verified_by', 'created']
+        exclude = ['driver', 'car', 'verified_by', 'created', 'card_num']
         widgets = {
             'expiry_date': forms.DateInput(attrs={'type': 'date'}),
             'bank_reg_date': forms.DateInput(attrs={'type': 'date'}),

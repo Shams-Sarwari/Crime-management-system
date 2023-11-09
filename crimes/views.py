@@ -7,7 +7,6 @@ from accounts.models import StaffProfile
 from django.contrib import messages
 from datetime import date, timedelta
 from django.db.models import Q
-from django.views import View
 
 # strip imports:
 import json
@@ -242,8 +241,9 @@ def remove_pending(request, pk):
     return redirect('crimes:notifications')
 
 def online_payment(request):
+    
     total = 0
-    if request.method == 'POST':
+    if request.method == 'POST':    
         paid_crimes = request.POST.getlist('paid_crimes')
         car_crimes = []
         for i in paid_crimes:
@@ -281,6 +281,7 @@ def create_payment(request):
                 'enabled': True,
             },
         )
+
         return JsonResponse({
             'clientSecret': intent['client_secret']
         })

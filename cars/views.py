@@ -266,17 +266,16 @@ def delete_owner(request, pk):
 
 def create_jawaz(request, pk):
     car = get_object_or_404(Car, id=pk)
+    owner = car.owner
     
-    driver = car.driver
-    if driver == None: 
-        messages.info(request, 'لطفا ابتدا برای این موتر راننده اضافه کنید')
+    if owner == None: 
+        messages.info(request, 'لطفا ابتدا برای این موتر مالک اضافه کنید')
         return redirect('cars:car-detail', car.id)
     if request.method == 'POST':
         form = JawazForm(request.POST)
         if form.is_valid():
             jawaz = form.save(commit=False)
             jawaz.car = car
-            jawaz.driver = driver
             jawaz.verified_by = request.user.staffprofile
             jawaz.created = date.today()
             jawaz.save()

@@ -19,7 +19,7 @@ class CustomDriverUserCreationForm(UserCreationForm):
         for k, v in self.fields.items():
             if k != 'is_active':
                 v.widget.attrs.update(
-                    {'class':'driver-form-input'}
+                    {'class':'myinput'}
                 )
             else: 
                 v.widget.attrs.update(
@@ -31,7 +31,7 @@ class DriverEditForm(forms.ModelForm):
     class Meta: 
         model = DriverProfile
         fields = "__all__"
-        exclude = ['user', 'id', 'current_address']
+        exclude = ['user', 'id', 'current_address', 'licence_num']
     
     def __init__(self, *args, **kwargs):
         super(DriverEditForm, self).__init__(*args, **kwargs)
