@@ -368,8 +368,20 @@ def register_owner(request):
             user.is_owner = True
             user.save()
             owner = CarOwner.objects.get(user=user)
+            owner.first_name = request.POST.get('first_name')
+            owner.last_name = request.POST.get('last_name')
+            owner.father_name = request.POST.get('father_name')
+            owner.gender = request.POST.get('gender')
+            owner.phone_number = request.POST.get('phone_number')
+            owner.licence_number = request.POST.get('licence_num')
+            owner.blood_group = request.POST.get('blood_group')
+            owner.image = request.FILES.get('image')
+            owner.id_image_front = request.FILES.get('id_image_front')
+            owner.main_address = request.POST.get('main_address')
+            owner.current_address = request.POST.get('current_address')
+            owner.save()
             messages.success(request,'مالک با موفقیت ثبت شد.')
-            return redirect('cars:update-owner', owner.id)
+            return redirect('cars:owner-list')
 
             
     else:
@@ -387,21 +399,45 @@ def create_staff_user(request):
 
     if request.method == 'POST':
         form = CustomStaffCreationForm(request.POST)
-        if form.is_valid():
+        add_form = AddressForm(request.POST)
+        work_form = WorkPlaceForm(request.POST)
+        if form.is_valid() and add_form.is_valid() and work_form.is_valid():
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password1'])
             user.is_staff = True
             user.email = user.username
             user.save()
+            address = add_form.save()
+            work_place = work_form.save()
+
             staff = StaffProfile.objects.get(user=user)
-            return redirect('edit-staff-profile', staff.id)
+            staff.email = user.username
+            staff.first_name = request.POST.get('first_name')
+            staff.last_name = request.POST.get('last_name')
+            staff.father_name = request.POST.get('father_name')
+            staff.father_name = request.POST.get('father_name')
+            staff.gender = request.POST.get('gender')
+            staff.tazkira_num = request.POST.get('tazkira_num')
+            staff.phone_num = request.POST.get('phone_num')
+            staff.phone_num = request.POST.get('phone_num')
+            staff.avatar = request.FILES.get('prof_pic')
+            staff.tazkira_img = request.FILES.get('tazkira_img')
+            staff.work_place = work_place
+            staff.current_address = address
+            staff.save()
+
+            return redirect('staff-list')
     
     else: 
         form = CustomStaffCreationForm()
+        add_form = AddressForm()
+        work_form = WorkPlaceForm
     
     context = {
         'form': form,
         'section': 'staffs',
+        'add_form': add_form,
+        'work_form': work_form,
     }
     return render(request, 'accounts/create_staff_user.html', context)
 

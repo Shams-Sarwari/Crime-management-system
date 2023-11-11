@@ -1,173 +1,210 @@
-<!-- title and image -->
-<div
-class="flex flex-col gap-y-4 md:flex-row md:max-w-full mx-2 md:mx-4 mt-2 md:mt-4 bg-[#cae7f5] text-gray-500 rounded-t shadow overflow-hidden">
-<div class="flex-1 flex flex-col p-4 md:p-10 gap-4 justify-center items-center">
-  <h2 class="text-blue-900 font-semibold text-2xl sm:text-3xl">فورم ثبت جواز‌‌‌‌سیر جدید</h2>
-  <p class="text-blue-800 leading-7 text-justify md:text-center ">این فرم برای ثبت جواز‌‌‌‌سیر جدید طراحی
-    شده است. با استفاده از این فرم، می‌توانید به صورت سریع و آسان جواز‌‌‌‌سیر جدید را به سیستم اضافه نمایید.
-  </p>
-</div>
-<div class="flex-1 flex justify-center px-4 py-8">
-  <img src="../img/jawazsair.png" alt="driver image" class="max-w-full max-h-full object-cover">
-</div>
-</div>
-<!-- form -->
-<form action="" method="POST"
-class="max-w-full mb-2 md:mb-4 mx-2 md:mx-4 bg-[#eaf5fb] px-4 md:px-4 lg:px-6 xl:px-8 pt-4 pb-6 rounded-b">
-<!-- div 1 -->
-{% csrf_token %}
-<div
-  class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 text-blue-800 text-[13px]">
-  <div class="flex flex-col gap-2">
-    <label for="" class="mr-2">نمبر جواز</label>
-    {% comment %} <input type="number" class="myinput" /> {% endcomment %}
-    {{ form.jawaz_num }}
-    {% if form.jawaz_num.errors %}
-      <ul>
-        {% for error in form.jawaz_num.errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </div>
+      <!-- title and image -->
+      <div
+        class="flex flex-col gap-y-4 md:flex-row md:max-w-full mx-2 md:mx-4 mt-2 md:mt-4 bg-[#cae7f5] text-gray-500 rounded-t shadow overflow-hidden">
+        <div class="flex-1 flex flex-col p-4 md:p-10 gap-4 justify-center items-center">
+          <h2 class="text-blue-900 font-semibold text-2xl sm:text-3xl">فورم ثبت کارمند جدید</h2>
+          <p class="text-blue-800 leading-7 text-justify md:text-center ">این فرم برای ثبت کارمند جدید طراحی
+            شده است. با استفاده از این فرم، می‌توانید به صورت سریع و آسان کارمندان جدید را به سیستم اضافه نمایید. </p>
+        </div>
+        <div class="flex-1 flex justify-center px-4 py-8">
+          <img src="../img/staff.png" alt="staff image" class="max-w-full max-h-full object-cover">
+        </div>
+      </div>
+      <!-- form -->
+      <form action="" method="POST" enctype="multipart/form-data"
+        class="max-w-full mb-2 md:mb-4 mx-2 md:mx-4 bg-[#eaf5fb] px-4 md:px-4 lg:px-6 xl:px-8 pt-4 pb-6 rounded-b text-blue-800 text-[13px]">
+        {% csrf_token %}
+        <!-- create account -->
+        <h3 class="flex gap-2 items-center justify-center md:justify-start text-sm font-semibold mb-5 mt-2 mr-2">
+          <i class="fa-regular fa-user text-red-400 font-bold"></i>
+          <span>ایجاد حساب</span>
+        </h3>
 
-  <div class="flex flex-col gap-2">
-    <label for="" class="mr-2">نمبر احصاییه</label>
-    {% comment %} <input type="number" class="myinput" /> {% endcomment %}
-    {{ form.statistic_num }}
-    {% if form.statistic.errors %}
-      <ul>
-        {% for error in form.statistic.errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </div>
+        <div
+          class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 pb-8 border-b border-color-secondary">
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">ایمیل آدرس</label>
+            {% comment %} <input type="email" class="myinput" /> {% endcomment %}
+            {{ form.username }}
+          </div>
 
-  <div class="flex flex-col gap-2">
-    <label for="" class="mr-2">نمبر مکتوب</label>
-    {% comment %} <input type="number" class="myinput" /> {% endcomment %}
-    {{ form.document_num }}
-    {% if form.document_num.errors %}
-      <ul>
-        {% for error in form.document_num.errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </div>
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">رمز عبور</label>
+            {% comment %} <input type="password" class="myinput" /> {% endcomment %}
+            {{ form.password1 }}
+          </div>
 
-  <div class="flex flex-col gap-2">
-    <label for="" class="mr-2">تاریخ مکتوب</label>
-    {% comment %} <input type="date" class="myinput" /> {% endcomment %}
-    {{ form.document_date }}
-    {% if form.document_date.errors %}
-      <ul>
-        {% for error in form.document_date.errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </div>
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">تایید رمز عبور</label>
+            {% comment %} <input type="password" class="myinput" /> {% endcomment %}
+            {{ form.password2 }}
+          </div>
 
-  <div class="flex flex-col gap-2">
-    <label for="" class="mr-2">نمبر علم و خبر</label>
-    {% comment %} <input type="number" class="myinput" /> {% endcomment %}
-    {{ form.news_num }}
-    {% if form.news_num.errors %}
-      <ul>
-        {% for error in form.news_num.errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </div>
+          <div class="flex items-center justify-between mt-4">
+            <div class="pr-2">
+              {{ form.is_active }}
+            <label for="myCheckbox">فعال</label>
+          </div>
 
-  <div class="flex flex-col gap-2">
-    <label for="" class="mr-2">تاریخ علم و خبر</label>
-    {% comment %} <input type="date" class="myinput" /> {% endcomment %}
-    {{ form.news_date }}
-    {% if form.news_date.errors %}
-      <ul>
-        {% for error in form.news_date.errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </div>
+          <div class="">
+            {{ form.is_superuser }}
+            <label for="myCheckbox">ادمین</label>
+          </div>
 
-  <div class="flex flex-col gap-2">
-    <label for="" class="mr-2">نمبر تعرفه بانک</label>
-    {% comment %} <input type="number" class="myinput" /> {% endcomment %}
-    {{ form.bank_reg_num }}
-    {% if form.bank_reg_num.errors %}
-      <ul>
-        {% for error in form.bane_reg_num.errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </div>
+        </div>
+        <!-- personal Info -->
+        <h3 class="flex gap-2 items-center justify-center md:justify-start text-sm font-semibold mb-5 mt-6 mr-2">
+          <i class="fa-solid fa-id-card text-red-400 font-bold"></i>
+          <span>مشخصات کارمند</span>
+        </h3>
 
-  <div class="flex flex-col gap-2">
-    <label for="" class="mr-2">تاریخ تعرفه بانک</label>
-    {% comment %} <input type="date" class="myinput" /> {% endcomment %}
-    {{ form.bank_reg_date }}
-    {% if form.benk_reg_date.errors %}
-      <ul>
-        {% for error in form.bank_reg_date.errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </div>
+        <div class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 ">
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">نام</label>
+            <input type="text" class="myinput" name="first_name" required/>
+          </div>
 
-  <div class="flex flex-col gap-2">
-    <label for="" class="mr-2">سایز</label>
-    {% comment %} <input type="number" class="myinput" /> {% endcomment %}
-    {{ form.size }}
-    {% if form.size.errors %}
-      <ul>
-        {% for error in form.size.errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </div>
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">تخلص</label>
+            <input type="text" class="myinput" name="last_name"/>
+          </div>
 
-  <div class="flex flex-col gap-2">
-    <label for="" class="mr-2">اطمینانه مستوفیت</label>
-    {% comment %} <input type="number" class="myinput" /> {% endcomment %}
-    {{ form.rest_assured }}
-    {% if form.rest_assured.errors %}
-      <ul>
-        {% for error in form.rest_assured.errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </div>
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">نام پدر</label>
+            <input type="text" class="myinput" name="father_name" required/>
+          </div>
 
-  <div class="flex flex-col gap-2">
-    <label for="" class="mr-2">تاریخ انقضا</label>
-    {% comment %} <input type="date" class="myinput" /> {% endcomment %}
-    {{ form.expiry_date }}
-    {% if form.expiry_date.errors %}
-      <ul>
-        {% for error in form.expiry_date.errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </div>
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">جنسیت</label>
+            <select name="gender" id="" class="myinput text-center" required>
+              <option value="آقا">آقا</option>
+              <option value="خانم">خانم</option>
+            </select>
+          </div>
 
-</div>
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">نمبر تذکره</label>
+            <input type="text" class="myinput" name="tazkira_num" />
+          </div>
 
-<!-- div submit -->
-<div class="flex items-center justify-end mt-6">
-  <input type="submit" value="ثبت اطلاعات"
-    class="w-32 sm:w-36 h-8 text-white text-[13px] rounded cursor-pointer outline-none bg-blue-500 hover:bg-blue-700 ease-in duration-200">
-</div>
-</form>
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2">شماره تماس</label>
+            <input type="text" class="myinput" name="phone_num"/>
+          </div>
+        </div>
+        <!-- profile and tazkira photo -->
+        <div
+          class="mt-2 grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 text-[13px]">
+          <!-- profile -->
+          <div class="max-w-full px-8 md:px-6 pb-4 bg-gray-50 rounded shadow-sm text-gray-600 mt-4">
+            <h3 class="text-sm font-semibold text-blue-900 pt-3 pb-1.5">عکس پروفایل</h3>
+            <!-- choose photo -->
+            <label for="profilePhoto" class="flex items-center gap-3 cursor-pointer my-2">
+              <span>
+                <i class="fa-solid fa-paperclip text-2xl"></i>
+              </span>
+              <div class="flex flex-col gap-0.5">
+                <span class="text-xs font-semibold text-gray-500">انتخاب عکس</span>
+                <span id="profileFileName" class="text-xs text-gray-500">هیچ عکسی انتخاب نشده</span>
+              </div>
+              <input type="file" id="profilePhoto" accept="image/*" class="hidden" name="prof_pic"
+                onchange="updateProfileFileName(this);">
+            </label>
+          </div>
+          <!-- tazkira -->
+          <div class="max-w-full px-8 md:px-6 pb-4 bg-gray-50 rounded shadow-sm text-gray-600 mt-4">
+            <h3 class="text-sm font-semibold text-blue-900 pt-3 pb-1.5">عکس تذکره</h3>
+            <!-- choose photo -->
+            <label for="tazkiraPhoto" class="flex items-center gap-3 cursor-pointer my-2">
+              <span>
+                <i class="fa-solid fa-paperclip text-2xl"></i>
+              </span>
+              <div class="flex flex-col gap-0.5">
+                <span class="text-xs font-semibold text-gray-500">انتخاب عکس</span>
+                <span id="tazkiraFileName" class="text-xs text-gray-500">هیچ عکسی انتخاب نشده</span>
+              </div>
+              <input type="file" id="tazkiraPhoto" accept="image/*" class="hidden" name="tazkira_img"
+                onchange="updateTazkiraFileName(this);">
+            </label>
+          </div>
+        </div>
+        <!-- place of work -->
+        <div class="mt-4 md:mt-10">
+          <div class="flex items-center gap-3 pr-2">
+            <span class="text-red-500"><i class="fa-solid fa-location-dot"></i></span>
+            <span class="text-sm font-semibold text-blue-800">محل کار</span>
+          </div>
 
-</section>
+          <div
+            class="mt-4 grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 ">
+            <div class="flex flex-col gap-2">
+              <label for="" class="mr-2">ولایت</label>
+              {% comment %} <input type="text" class="myinput" /> {% endcomment %}
+              {{ work_form.province }}
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label for="" class="mr-2">ولسوالی / ناحیه</label>
+              {% comment %} <input type="text" class="myinput" /> {% endcomment %}
+              {{ work_form.district }}
+            </div>
+          </div>
+        </div>
+        <!-- address -->
+        <div class="mt-4 md:mt-10">
+          <div class="flex items-center gap-3 pr-2">
+            <span class="text-red-500"><i class="fa-solid fa-location-dot"></i></span>
+            <span class="text-sm font-semibold text-blue-800">آدرس کارمند</span>
+          </div>
+
+          <div
+            class="mt-4 grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 ">
+            <div class="flex flex-col gap-2">
+              <label for="" class="mr-2">ولایت</label>
+              {% comment %} <input type="text" class="myinput" /> {% endcomment %}
+              {{ add_form.province }}
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label for="" class="mr-2">ناحیه</label>
+              {% comment %} <input type="text" class="myinput" /> {% endcomment %}
+            {{ add_form.district }}
+
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label for="" class="mr-2">سرک</label>
+              {% comment %} <input type="text" class="myinput" /> {% endcomment %}
+            {{ add_form.street }}
+
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label for="" class="mr-2">نمبر خانه</label>
+              {% comment %} <input type="text" class="myinput" /> {% endcomment %}
+            {{ add_form.house_number }}
+
+            </div>
+          </div>
+        </div>
+        <!-- submit -->
+        <div class="flex items-center justify-center md:justify-end mt-6">
+          <input type="submit" value="ثبت اطلاعات"
+            class="w-32 sm:w-36 h-8 text-white text-[13px] rounded cursor-pointer outline-none bg-blue-500 hover:bg-blue-700 ease-in duration-200">
+        </div>
+      </form>
+
+    </section>
+
+    <script>
+      // *************************************************
+      // *************** file name **********************
+      function updateTazkiraFileName(input) {
+        const fileNameElement = document.getElementById('tazkiraFileName');
+        fileNameElement.textContent = input.files[0] ? input.files[0].name : 'هیچ عکسی انتخاب نشده';
+      }
+      function updateProfileFileName(input) {
+        const fileNameElement = document.getElementById('profileFileName');
+        fileNameElement.textContent = input.files[0] ? input.files[0].name : 'هیچ عکسی انتخاب نشده';
+      }
+    </script>

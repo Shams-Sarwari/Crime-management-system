@@ -101,7 +101,7 @@ class CustomStaffCreationForm(UserCreationForm):
                 )
             else: 
                 v.widget.attrs.update(
-                    {'class':'driver-form-input'}
+                    {'class':'myinput'}
                 )
 
     
@@ -154,7 +154,7 @@ class WorkPlaceForm(forms.ModelForm):
         
         for k, v in self.fields.items():
             v.widget.attrs.update(
-                    {'class':'driver-form-input'}
+                    {'class':'myinput'}
             )
     
 
