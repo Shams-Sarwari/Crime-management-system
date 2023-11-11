@@ -1,210 +1,267 @@
-      <!-- title and image -->
+{% extends "base.html" %}
+
+{% block content %}
+  <!-- ****************************** -->
+      <!-- ********** profile ***********-->
       <div
-        class="flex flex-col gap-y-4 md:flex-row md:max-w-full mx-2 md:mx-4 mt-2 md:mt-4 bg-[#cae7f5] text-gray-500 rounded-t shadow overflow-hidden">
-        <div class="flex-1 flex flex-col p-4 md:p-10 gap-4 justify-center items-center">
-          <h2 class="text-blue-900 font-semibold text-2xl sm:text-3xl">فورم ثبت کارمند جدید</h2>
-          <p class="text-blue-800 leading-7 text-justify md:text-center ">این فرم برای ثبت کارمند جدید طراحی
-            شده است. با استفاده از این فرم، می‌توانید به صورت سریع و آسان کارمندان جدید را به سیستم اضافه نمایید. </p>
+        class="relative max-w-full mx-2 md:mx-4 mt-2 md:mt-4 pb-6 md:pb-8 pt-4 bg-white text-gray-500 rounded shadow">
+        <!-- dropdown -->
+        <div class="absolute right-6 top-4">
+          <button onclick="toggleProfileDropdown()"
+            class="inline-block text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5"
+            type="button">
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+              viewBox="0 0 16 3">
+              <path
+                d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
+            </svg>
+          </button>
+          <!-- Dropdown menu -->
+          <div id="profile-dropdown"
+            class="hidden absolute -right-2 top-10 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-36">
+            <ul class="py-2 text-xs">
+              <li>
+                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">چاپ اطلاعات</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100  ">ایجاد جواز سیر</a>
+              </li>
+              <li>
+                <button type="button" onclick="showDeleteNotification(); toggleProfileDropdown();"
+                  class="w-full px-4 py-2 text-red-600 hover:bg-gray-100  ">حذف</button>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="flex-1 flex justify-center px-4 py-8">
-          <img src="../img/staff.png" alt="staff image" class="max-w-full max-h-full object-cover">
+        <!-- photo -->
+        <div class="flex flex-col items-center gap-4 mt-4">
+          <div
+            class="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden flex items-center justify-center p-1 bg-gray-100">
+            <img src="../img/img2.jpg" alt="Image" class="object-contain h-auto rounded-full">
+          </div>
+          <div class="flex flex-col gap-2">
+            <h2 class="text-xl text-color-primary font-semibold">محمد رضا قاسمی</h2>
+            <p class="text-sm text-center">نمبر تذکره: <span>9870240</span></p>
+          </div>
+        </div>
+        <!-- table -->
+        <div class="px-6 mt-8 grid md:grid-cols-[1fr,1fr] gap-x-10">
+          <table class="text-[13px] text-gray-600 w-full">
+            <tr class="bg-gray-200  h-7">
+              <td class="pr-4 w-36 sm:w-72 md:w-36">نام</td>
+              <td>محمدرضا</td>
+            </tr>
+            <tr class=" h-7">
+              <td class="pr-4  ">نام پدر</td>
+              <td>محمد جمعه</td>
+            </tr>
+            <tr class="bg-gray-200 h-7">
+              <td class="pr-4  ">گروپ خون</td>
+              <td>B+</td>
+            </tr>
+            <tr class=" h-7">
+              <td class="pr-4  ">نمر تذکره</td>
+              <td>آقا</td>
+            </tr>
+            <tr class="bg-gray-200 h-7">
+              <td class="pr-4  ">آدرس فعلی</td>
+              <td class="text-sm">کابل، دشت برچی</td>
+            </tr>
+          </table>
+          <table class="text-[13px] text-gray-600 w-full">
+            <tr class="bg-white md:bg-gray-200 h-7">
+              <td class="pr-4 w-36 sm:w-72 md:w-36">تخلص</td>
+              <td>قاسمی</td>
+            </tr>
+            <tr class=" h-7 bg-gray-200 md:bg-white">
+              <td class="pr-4  ">جنسیت</td>
+              <td>آقا</td>
+            </tr>
+            <tr class="bg-white md:bg-gray-200 h-7">
+              <td class="pr-4  ">نمبر لایسنس</td>
+              <td class="text-sm">569430</td>
+            </tr>
+            <tr class=" h-7 bg-gray-200 md:bg-white">
+              <td class="pr-4  ">شماره تماس</td>
+              <td>0773022427</td>
+            </tr>
+            <tr></tr>
+          </table>
+        </div>
+        <!-- btns -->
+        <div class="flex justify-center gap-6 md:gap-10 mt-8 md:mt-12">
+          <button type="button"
+            class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 md:w-32 py-1 md:py-1.5 text-center">
+            اپدیت
+          </button>
+          <button type="button" onclick="showDeleteNotification()"
+            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 md:w-32 py-1 md:py-1.5 text-center">
+            حذف
+          </button>
         </div>
       </div>
-      <!-- form -->
-      <form action="" method="POST" enctype="multipart/form-data"
-        class="max-w-full mb-2 md:mb-4 mx-2 md:mx-4 bg-[#eaf5fb] px-4 md:px-4 lg:px-6 xl:px-8 pt-4 pb-6 rounded-b text-blue-800 text-[13px]">
-        {% csrf_token %}
-        <!-- create account -->
-        <h3 class="flex gap-2 items-center justify-center md:justify-start text-sm font-semibold mb-5 mt-2 mr-2">
-          <i class="fa-regular fa-user text-red-400 font-bold"></i>
-          <span>ایجاد حساب</span>
-        </h3>
 
-        <div
-          class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 pb-8 border-b border-color-secondary">
-          <div class="flex flex-col gap-2">
-            <label for="" class="mr-2">ایمیل آدرس</label>
-            {% comment %} <input type="email" class="myinput" /> {% endcomment %}
-            {{ form.username }}
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <label for="" class="mr-2">رمز عبور</label>
-            {% comment %} <input type="password" class="myinput" /> {% endcomment %}
-            {{ form.password1 }}
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <label for="" class="mr-2">تایید رمز عبور</label>
-            {% comment %} <input type="password" class="myinput" /> {% endcomment %}
-            {{ form.password2 }}
-          </div>
-
-          <div class="flex items-center justify-between mt-4">
-            <div class="pr-2">
-              {{ form.is_active }}
-            <label for="myCheckbox">فعال</label>
-          </div>
-
-          <div class="">
-            {{ form.is_superuser }}
-            <label for="myCheckbox">ادمین</label>
-          </div>
-
+      <!-- ******************************************* -->
+      <!-- ************* punishment ****************** -->
+      <div id="fine"
+        class="max-w-full mx-2 md:mx-4 mt-4 mb-4 md:mb-10 bg-white text-gray-600 rounded shadow overflow-hidden">
+        <!-- car name, plateNO -->
+        <div class="bg-color-secondary-light text-blue-800 text-sm font-bold py-2 md:py-3 text-center">
+          <span>جدول جرایم راننده</span>
         </div>
-        <!-- personal Info -->
-        <h3 class="flex gap-2 items-center justify-center md:justify-start text-sm font-semibold mb-5 mt-6 mr-2">
-          <i class="fa-solid fa-id-card text-red-400 font-bold"></i>
-          <span>مشخصات کارمند</span>
-        </h3>
-
-        <div class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 ">
-          <div class="flex flex-col gap-2">
-            <label for="" class="mr-2">نام</label>
-            <input type="text" class="myinput" name="first_name" required/>
+        <!-- punishment -->
+        <form method="get" class="px-2 md:px-10 py-4 relative">
+          <input type="checkbox" name="" class="masterCheckbox absolute top-10 right-6 md:right-[54px] cursor-pointer">
+          <!-- line below: fineTable class is for js -->
+          <table class="fineTable w-full">
+            <tr class="h-12 text-center text-gray-600 text-[13px] font-semibold border-b border-gray-500">
+              <td class="w-10 h-12 flex justify-center items-center">
+              </td>
+              <td>پلیت</td>
+              <td>نوع جریمه</td>
+              <td>مقدار جریمه</td>
+              <td>جریمه عدم پرداخت</td>
+              <td>مقدار کُل</td>
+              <td>تاریخ انقضا</td>
+            </tr>
+            <tr class="h-12 text-center text-gray-600 border-b border-gray-300">
+              <td class="w-10 h-12 flex justify-center items-center"><input type="checkbox" name=""
+                  class=" cursor-pointer">
+              </td>
+              <td>20033</td>
+              <td class="text-[13px]">رد شدن از چراغ سرخ</td>
+              <td>200</td>
+              <td>30</td>
+              <td>330</td>
+              <td>1402/10/25</td>
+            </tr>
+            <tr class="h-12 text-center text-gray-600 border-b border-gray-300">
+              <td class="w-10 h-12 flex justify-center items-center"><input type="checkbox" class=" cursor-pointer">
+              </td>
+              <td>25552</td>
+              <td class="text-[13px]">رد شدن از چراغ سرخ</td>
+              <td>200</td>
+              <td>30</td>
+              <td>100</td>
+              <td>1402/10/25</td>
+            </tr>
+          </table>
+          <div class="flex justify-between mt-16">
+            <label class="font-semibold pr-4">مقدار کُل : <span class="total text-lg">00</span></label>
+            <!-- hidden input to send total -->
+            <input type="hidden" name="totalPayemnt" class="hiddenTotal">
+            <input type="submit" value="پرداخت آنلاین"
+              class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none rounded text-xs tracking-widest w-36 py-2 text-center cursor-pointer">
           </div>
-
-          <div class="flex flex-col gap-2">
-            <label for="" class="mr-2">تخلص</label>
-            <input type="text" class="myinput" name="last_name"/>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <label for="" class="mr-2">نام پدر</label>
-            <input type="text" class="myinput" name="father_name" required/>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <label for="" class="mr-2">جنسیت</label>
-            <select name="gender" id="" class="myinput text-center" required>
-              <option value="آقا">آقا</option>
-              <option value="خانم">خانم</option>
-            </select>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <label for="" class="mr-2">نمبر تذکره</label>
-            <input type="text" class="myinput" name="tazkira_num" />
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <label for="" class="mr-2">شماره تماس</label>
-            <input type="text" class="myinput" name="phone_num"/>
-          </div>
-        </div>
-        <!-- profile and tazkira photo -->
-        <div
-          class="mt-2 grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 text-[13px]">
-          <!-- profile -->
-          <div class="max-w-full px-8 md:px-6 pb-4 bg-gray-50 rounded shadow-sm text-gray-600 mt-4">
-            <h3 class="text-sm font-semibold text-blue-900 pt-3 pb-1.5">عکس پروفایل</h3>
-            <!-- choose photo -->
-            <label for="profilePhoto" class="flex items-center gap-3 cursor-pointer my-2">
-              <span>
-                <i class="fa-solid fa-paperclip text-2xl"></i>
-              </span>
-              <div class="flex flex-col gap-0.5">
-                <span class="text-xs font-semibold text-gray-500">انتخاب عکس</span>
-                <span id="profileFileName" class="text-xs text-gray-500">هیچ عکسی انتخاب نشده</span>
-              </div>
-              <input type="file" id="profilePhoto" accept="image/*" class="hidden" name="prof_pic"
-                onchange="updateProfileFileName(this);">
-            </label>
-          </div>
-          <!-- tazkira -->
-          <div class="max-w-full px-8 md:px-6 pb-4 bg-gray-50 rounded shadow-sm text-gray-600 mt-4">
-            <h3 class="text-sm font-semibold text-blue-900 pt-3 pb-1.5">عکس تذکره</h3>
-            <!-- choose photo -->
-            <label for="tazkiraPhoto" class="flex items-center gap-3 cursor-pointer my-2">
-              <span>
-                <i class="fa-solid fa-paperclip text-2xl"></i>
-              </span>
-              <div class="flex flex-col gap-0.5">
-                <span class="text-xs font-semibold text-gray-500">انتخاب عکس</span>
-                <span id="tazkiraFileName" class="text-xs text-gray-500">هیچ عکسی انتخاب نشده</span>
-              </div>
-              <input type="file" id="tazkiraPhoto" accept="image/*" class="hidden" name="tazkira_img"
-                onchange="updateTazkiraFileName(this);">
-            </label>
-          </div>
-        </div>
-        <!-- place of work -->
-        <div class="mt-4 md:mt-10">
-          <div class="flex items-center gap-3 pr-2">
-            <span class="text-red-500"><i class="fa-solid fa-location-dot"></i></span>
-            <span class="text-sm font-semibold text-blue-800">محل کار</span>
-          </div>
-
-          <div
-            class="mt-4 grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 ">
-            <div class="flex flex-col gap-2">
-              <label for="" class="mr-2">ولایت</label>
-              {% comment %} <input type="text" class="myinput" /> {% endcomment %}
-              {{ work_form.province }}
-            </div>
-
-            <div class="flex flex-col gap-2">
-              <label for="" class="mr-2">ولسوالی / ناحیه</label>
-              {% comment %} <input type="text" class="myinput" /> {% endcomment %}
-              {{ work_form.district }}
-            </div>
-          </div>
-        </div>
-        <!-- address -->
-        <div class="mt-4 md:mt-10">
-          <div class="flex items-center gap-3 pr-2">
-            <span class="text-red-500"><i class="fa-solid fa-location-dot"></i></span>
-            <span class="text-sm font-semibold text-blue-800">آدرس کارمند</span>
-          </div>
-
-          <div
-            class="mt-4 grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 ">
-            <div class="flex flex-col gap-2">
-              <label for="" class="mr-2">ولایت</label>
-              {% comment %} <input type="text" class="myinput" /> {% endcomment %}
-              {{ add_form.province }}
-            </div>
-
-            <div class="flex flex-col gap-2">
-              <label for="" class="mr-2">ناحیه</label>
-              {% comment %} <input type="text" class="myinput" /> {% endcomment %}
-            {{ add_form.district }}
-
-            </div>
-
-            <div class="flex flex-col gap-2">
-              <label for="" class="mr-2">سرک</label>
-              {% comment %} <input type="text" class="myinput" /> {% endcomment %}
-            {{ add_form.street }}
-
-            </div>
-
-            <div class="flex flex-col gap-2">
-              <label for="" class="mr-2">نمبر خانه</label>
-              {% comment %} <input type="text" class="myinput" /> {% endcomment %}
-            {{ add_form.house_number }}
-
-            </div>
-          </div>
-        </div>
-        <!-- submit -->
-        <div class="flex items-center justify-center md:justify-end mt-6">
-          <input type="submit" value="ثبت اطلاعات"
-            class="w-32 sm:w-36 h-8 text-white text-[13px] rounded cursor-pointer outline-none bg-blue-500 hover:bg-blue-700 ease-in duration-200">
-        </div>
-      </form>
+        </form>
+      </div>
 
     </section>
+{% endblock content %}
 
-    <script>
-      // *************************************************
-      // *************** file name **********************
-      function updateTazkiraFileName(input) {
-        const fileNameElement = document.getElementById('tazkiraFileName');
-        fileNameElement.textContent = input.files[0] ? input.files[0].name : 'هیچ عکسی انتخاب نشده';
+{% block jscript %}
+    <!-- *************************************** -->
+  <!-- ********* Owner Delete Notification **************** -->
+
+  <div id="confirm-delete-container" class="hidden fixed inset-0 z-50 backdrop-blur-sm p-2">
+    <div class="center-div w-full max-w-sm max-h-full bg-white rounded-lg shadow">
+      <button type="button" onclick="hideDeleteNotification()"
+        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+      </button>
+      <div class="p-6 text-center">
+        <svg class="mx-auto mb-2 text-red-400 w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+          viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+        <h3 class="mb-4 text-[13px] font-normal text-gray-500 leading-7">
+          آیا مطمئن هستید که میخواهید این راننده را حذف کنید؟
+        </h3>
+        <form action="">
+          <input type="submit" value="بله مطمئنم"
+            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg text-sm inline-flex items-center px-5 py-1 text-center ml-2 cursor-pointer">
+          <button type="button" onclick="hideDeleteNotification()"
+            class="inline-block w-28 text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm px-5 py-1 focus:z-10">لغو</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- End owner delete -->
+
+  <script>
+    // ****************************************
+    // ********* profile details ****************
+    const profile_dropdown = document.getElementById("profile-dropdown");
+    function toggleProfileDropdown() {
+      profile_dropdown.classList.toggle("hidden");
+    }
+
+    // *********************************************************
+    // **************Driver Confirm Delete ****************************
+    const confirm_delete_container = document.getElementById('confirm-delete-container');
+    function showDeleteNotification() {
+      confirm_delete_container.classList.remove("hidden");
+    };
+    function hideDeleteNotification() {
+      confirm_delete_container.classList.add("hidden");
+    };
+
+    // ****************************************
+    // ********* fine payemnt*****************
+    function initializeFinePayment(divId) {
+      const masterCheckbox = document.querySelector(`#${divId} .masterCheckbox`);
+      const checkboxes = document.querySelectorAll(`#${divId} .fineTable input[type="checkbox"]`);
+      const hiddenTotal = document.querySelector(`#${divId} .hiddenTotal`);
+
+      hiddenTotal.value = 0;
+
+      let sum = 0;
+
+      // checkboxes
+      masterCheckbox.addEventListener('change', function () {
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = this.checked;
+        });
+
+        calculateSum();
+      });
+
+      checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', function () {
+          calculateSum();
+          synchronizeMasterCheckbox();
+        });
+      });
+
+      function calculateSum() {
+        sum = 0;
+        checkboxes.forEach((checkbox) => {
+
+          if (checkbox.checked) {
+            const row = checkbox.parentNode.parentNode;
+            const value = row.querySelector('td:nth-child(6)').textContent;
+            sum += parseInt(value);
+          }
+        });
+
+        document.querySelector(`#${divId} .total`).textContent = sum;
+        // set the value of hiddenTotal
+        hiddenTotal.value = sum;
       }
-      function updateProfileFileName(input) {
-        const fileNameElement = document.getElementById('profileFileName');
-        fileNameElement.textContent = input.files[0] ? input.files[0].name : 'هیچ عکسی انتخاب نشده';
+
+      function synchronizeMasterCheckbox() {
+        const allChecked = Array.from(checkboxes).every((checkbox) => checkbox.checked);
+        masterCheckbox.checked = allChecked;
       }
-    </script>
+      // ***************************
+    }
+    // end function initializeFinePayment(divId) 
+
+    // call functions
+    initializeFinePayment(`fine`);
+  </script>
+{% endblock jscript %}

@@ -42,7 +42,7 @@ class CarCrime(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
-        return f'plate: {self.car.plate_number} price: {self.price} {self.crime.title[:50]}'
+        return f'plate: {self.car.plate_number} price: {self.price}'
 
     def get_total(self):
         return self.price + self.expiry_fine

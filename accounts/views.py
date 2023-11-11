@@ -120,7 +120,7 @@ def dashboard(request, city='کابل', year=datetime.now().year):
 
     context = {
         'section': 'dashboard',
-        'offline_total_price': offline_total_price,
+        'offline_total_price': int(offline_total_price),
         'today_crimes': today_crimes,
         'monthly_total': monthly_total,
         'provinces': provinces,
@@ -155,8 +155,19 @@ def driver_list(request):
 @login_required(login_url='login')
 def driver_detail(request, pk):
     driver = get_object_or_404(DriverProfile, id=pk)
+    crimes = driver.carcrime_set.filter(
+        Q(paid=False) &
+        Q(pending=False)
+    )
+    for crime in crimes:
+            while crime.expiry_date < date.today() and crime.paid == False and crime.pending == False:
+                if (date.today() > crime.expiry_date) and (crime.paid == False) and (crime.pending == False):
+                    crime.expiry_fine += crime.price/2
+                    crime.expiry_date += timedelta(days=60)
+                    crime.save()
     context = {
         'driver': driver,
+        'crimes': crimes,
         'section': 'drivers', 
     }
     return render(request, 'accounts/driver_detail.html', context)
@@ -341,11 +352,17 @@ def edit_driver_profile(request, pk):
     if request.method == 'POST':
         form = DriverEditForm(request.POST, request.FILES, instance=profile)
         add_form = AddressForm(request.POST)
+        avatar = request.FILES.get('avatar')
+        tazkira_img = request.FILES.get('tazkira_img')
        
         
         if form.is_valid() and add_form.is_valid():
             address = add_form.save()
             profile = form.save(commit=False)
+            if avatar:
+                profile.avatar = avatar
+            if tazkira_img:
+                tazkira_img = tazkira_img
             profile.current_address = address
             profile.save()
             return redirect('driver-detail', profile.id)

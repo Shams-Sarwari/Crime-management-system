@@ -111,4 +111,10 @@ class Address(models.Model):
     house_number = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self) -> str:
-        return f'{self.province}, {self.district}, {self.street}, {self.house_number}'
+        add_str = self.province+', ' + self.district
+        if self.street:
+            add_str += ', ' + self.street
+        if self.house_number:
+            add_str += ', ' + self.house_number
+
+        return add_str

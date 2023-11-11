@@ -31,7 +31,7 @@ class DriverEditForm(forms.ModelForm):
     class Meta: 
         model = DriverProfile
         fields = "__all__"
-        exclude = ['user', 'id', 'current_address', 'licence_num']
+        exclude = ['user', 'id', 'current_address', 'licence_num', 'avatar', 'tazkira_img']
     
     def __init__(self, *args, **kwargs):
         super(DriverEditForm, self).__init__(*args, **kwargs)
@@ -46,6 +46,7 @@ class DriverEditForm(forms.ModelForm):
                     {'class':'hidden',
                      'type': 'file',
                      'id': 'profilePhoto',
+                     'alt': '',
                      'onchange': 'updateProfileFileName(this);'}
             )
             elif k=='tazkira_img':
