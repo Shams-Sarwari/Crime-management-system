@@ -14,6 +14,7 @@ class CarOwner(models.Model):
     father_name = models.CharField(max_length=200)
     tazkira_number = models.CharField(max_length=100, unique=True)
     gender = models.CharField(max_length=10, choices=GENDER, default='آقا')
+    blood_group = models.CharField(max_length=10, null=True, blank=True)
     phone_number = models.CharField(max_length=200)
     place_of_work = models.CharField(max_length=200, null=True, blank=True)
     main_address = models.CharField(max_length=200, blank=True, null=True)
