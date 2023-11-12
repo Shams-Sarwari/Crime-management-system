@@ -22,10 +22,13 @@ from datetime import date, timedelta, datetime
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.db.models.functions import ExtractYear, ExtractMonth
+from django.http import HttpResponse
+from .decorators import superuser_or_staff_required, superuser_required
 
 
 # Create your views here.
 @login_required(login_url='login')
+@superuser_required
 def dashboard(request, city='کابل', year=datetime.now().year):
     # offline payments section:
     offline_payments = CarCrime.objects.filter(payment__created=date.today())
@@ -134,6 +137,7 @@ def dashboard(request, city='کابل', year=datetime.now().year):
     return render(request, 'accounts/dashboard.html', context)
 
 @login_required(login_url='login')
+@ superuser_or_staff_required
 def driver_list(request):
     search_text = ''
     if request.GET.get('search_text'):
@@ -154,25 +158,30 @@ def driver_list(request):
 
 @login_required(login_url='login')
 def driver_detail(request, pk):
-    driver = get_object_or_404(DriverProfile, id=pk)
-    crimes = driver.carcrime_set.filter(
-        Q(paid=False) &
-        Q(pending=False)
-    )
-    for crime in crimes:
-            while crime.expiry_date < date.today() and crime.paid == False and crime.pending == False:
-                if (date.today() > crime.expiry_date) and (crime.paid == False) and (crime.pending == False):
-                    crime.expiry_fine += crime.price/2
-                    crime.expiry_date += timedelta(days=60)
-                    crime.save()
-    context = {
-        'driver': driver,
-        'crimes': crimes,
-        'section': 'drivers', 
-    }
-    return render(request, 'accounts/driver_detail.html', context)
-
+    if request.user.is_staff or request.user.driverprofile.id == pk:
+    
+        driver = get_object_or_404(DriverProfile, id=pk)
+        crimes = driver.carcrime_set.filter(
+            Q(paid=False) &
+            Q(pending=False)
+        )
+        for crime in crimes:
+                while crime.expiry_date < date.today() and crime.paid == False and crime.pending == False:
+                    if (date.today() > crime.expiry_date) and (crime.paid == False) and (crime.pending == False):
+                        crime.expiry_fine += crime.price/2
+                        crime.expiry_date += timedelta(days=60)
+                        crime.save()
+        context = {
+            'driver': driver,
+            'crimes': crimes,
+            'section': 'drivers', 
+        }
+        return render(request, 'accounts/driver_detail.html', context)
+    else: 
+        return HttpResponse("معذرت میخواهیم شما اجازه دسترسی به این صفحه را ندارید")
+        
 @login_required(login_url='login')
+@superuser_or_staff_required
 def staff_list(request):
     search_text = ''
     if request.GET.get('search_text'):
@@ -194,17 +203,20 @@ def staff_list(request):
 
 @login_required(login_url='login')
 def staff_detail(request, pk):
-    staff = get_object_or_404(StaffProfile, id=pk)
-    has_tazkira = False
-    if staff.tazkira_img:
-        has_tazkira = True
-    context = {
-        'staff': staff,
-        'section': 'staffs',
-        'has_tazkira': has_tazkira,
-    }
-    return render(request, 'accounts/staff_detail.html', context)
-
+    if request.user.is_superuser or request.user.staffprofile.id == pk:
+        staff = get_object_or_404(StaffProfile, id=pk)
+        has_tazkira = False
+        if staff.tazkira_img:
+            has_tazkira = True
+        context = {
+            'staff': staff,
+            'section': 'staffs',
+            'has_tazkira': has_tazkira,
+        }
+        return render(request, 'accounts/staff_detail.html', context)
+    else:
+        return HttpResponse("معذرت میخواهیم شما اجازه دسترسی به این صفحه را ندارید")
+        
 def login_user(request):
     check_user = None
 
@@ -301,6 +313,7 @@ def logout_user(request):
 
 
 @login_required(login_url='login')
+@superuser_or_staff_required
 def register_driver(request):
     
     if request.method == 'POST':
@@ -345,6 +358,7 @@ def register_driver(request):
     return render(request, 'accounts/register_driver.html', context)
 
 @login_required(login_url='login')
+@superuser_or_staff_required
 def edit_driver_profile(request, pk):
     profile = DriverProfile.objects.get(id = pk)
     form = DriverEditForm(instance=profile)
@@ -379,6 +393,8 @@ def edit_driver_profile(request, pk):
     }
     return render(request, 'accounts/edit_driver_profile.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def register_owner(request):
     
     if request.method == 'POST':
@@ -416,6 +432,7 @@ def register_owner(request):
 
     
 @login_required(login_url='login')
+@superuser_required
 def create_staff_user(request):
 
     if request.method == 'POST':
@@ -463,6 +480,7 @@ def create_staff_user(request):
     return render(request, 'accounts/create_staff_user.html', context)
 
 @login_required(login_url='login')
+@superuser_required
 def edit_staff_profile(request, pk):
     profile = StaffProfile.objects.get(id = pk)
     form = StaffEditForm(instance=profile)
@@ -511,6 +529,7 @@ def edit_staff_profile(request, pk):
     return render(request, 'accounts/edit_staff_profile.html', context)
 
 @login_required(login_url='login')
+@superuser_or_staff_required
 def delete_driver_profile(request, pk):
     profile = DriverProfile.objects.get(id=pk)
     if request.method == 'POST':
@@ -527,6 +546,7 @@ def delete_driver_profile(request, pk):
     return render(request, 'accounts/driver_detail.html', context)
 
 @login_required(login_url='login')
+@superuser_required
 def delete_staff_profile(request, pk):
     profile = StaffProfile.objects.get(id=pk)
     if request.method == 'POST':
@@ -544,14 +564,20 @@ def delete_staff_profile(request, pk):
 
 @login_required(login_url='login')
 def change_staff_avatar(request, pk):
-    staff = StaffProfile.objects.get(id=pk)
-    if request.method == 'POST' and request.FILES.get('photo'):
-        image = request.FILES.get('photo')
-        staff.avatar = image
-        staff.save()
-    messages.success(request, 'پروفایل موفقانه تبدیل گردید')
-    return redirect('staff-detail', staff.id)
+    if request.user.is_superuser or request.user.staffprofile.id == pk:
+        staff = StaffProfile.objects.get(id=pk)
+        if request.method == 'POST' and request.FILES.get('photo'):
+            image = request.FILES.get('photo')
+            staff.avatar = image
+            staff.save()
+        messages.success(request, 'پروفایل موفقانه تبدیل گردید')
+        return redirect('staff-detail', staff.id)
+    else:
+        return HttpResponse("معذرت میخواهیم شما اجازه دسترسی به این صفحه را ندارید")
+
+
 @login_required(login_url='login')
+@superuser_required
 def change_staff_to_admin(request, pk):
     staff = StaffProfile.objects.get(id=pk)
     if request.method == 'POST' and request.POST.get('admin'):
@@ -561,6 +587,8 @@ def change_staff_to_admin(request, pk):
         
     return redirect('staff-detail', staff.id)
 
+@login_required
+@superuser_required
 def deactive_staff(request, pk):
     staff = StaffProfile.objects.get(id=pk)
     if request.method == 'POST' and request.POST.get('deactive'):

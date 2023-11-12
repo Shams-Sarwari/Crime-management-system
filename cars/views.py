@@ -8,8 +8,12 @@ from accounts.utils import pagination_items
 from django.db.models import Q
 from datetime import date, timedelta
 from django.contrib import messages
+from accounts.decorators import superuser_required, superuser_or_staff_required
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def car_list(request):
     search_text = ''
     if request.GET.get('search_text'):
@@ -30,6 +34,8 @@ def car_list(request):
     }
     return render(request, 'cars/car_list.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def car_detail(request, pk):
     car = get_object_or_404(Car, id = pk)
     car_history = car.carhistory_set.all()
@@ -73,6 +79,8 @@ def car_detail(request, pk):
     }
     return render(request, 'cars/car_detail.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def create_car(request, pk=None):
     
     if request.method == 'POST':
@@ -98,6 +106,8 @@ def create_car(request, pk=None):
     }
     return render(request, 'cars/create_car.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def edit_car(request, pk):
     car = get_object_or_404(Car, id=pk)
 
@@ -145,7 +155,8 @@ def edit_car(request, pk):
         
     return redirect('cars:car-detail', car.id)
     
-
+@login_required(login_url='login')
+@superuser_or_staff_required
 def delete_car(request, pk):
     car = get_object_or_404(Car, id=pk)
     if request.method == 'POST':
@@ -157,7 +168,8 @@ def delete_car(request, pk):
     }
     return render(request, 'cars/delete_car.html', context)
 
-
+@login_required(login_url='login')
+@superuser_or_staff_required
 def owner_list(request):
     search_text=''
     if request.GET.get('search_text'):
@@ -178,7 +190,8 @@ def owner_list(request):
     }
     return render(request, 'cars/owner_list.html', context)
 
-
+@login_required(login_url='login')
+@superuser_or_staff_required
 def owner_detail(request, pk):
     owner = get_object_or_404(CarOwner, id=pk)
     cars = owner.car_set.all()
@@ -220,7 +233,8 @@ def owner_detail(request, pk):
     }
     return render(request, 'cars/owner_detail.html', context)
 
-
+@login_required(login_url='login')
+@superuser_or_staff_required
 def create_owner(request):
     
     if request.method == 'POST':
@@ -237,6 +251,8 @@ def create_owner(request):
     }
     return render(request, 'cars/create_owner.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def update_owner(request, pk):
     owner = get_object_or_404(CarOwner, id=pk)
     form = EditOwnerForm(instance=owner)
@@ -260,6 +276,8 @@ def update_owner(request, pk):
     }
     return render(request, 'cars/update_owner.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def delete_owner(request, pk):
     owner = CarOwner.objects.get(id = pk)
     if request.method == 'POST':
@@ -272,6 +290,8 @@ def delete_owner(request, pk):
     }
     return render(request, 'cars/delete_owner.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def create_jawaz(request, pk):
     car = get_object_or_404(Car, id=pk)
     owner = car.owner
@@ -299,6 +319,8 @@ def create_jawaz(request, pk):
     }
     return render(request, 'cars/create_jawaz.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def jawaz_list(request):
     jawazs = JawazSayr.objects.all()
     context = {
@@ -306,6 +328,8 @@ def jawaz_list(request):
     }
     return render(request, 'cars/jawaz_list.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def jawaz_detail(request, pk):
     jawaz = JawazSayr.objects.get(id=pk)
     context = {
@@ -314,6 +338,8 @@ def jawaz_detail(request, pk):
     return render(request, 'cars/jawaz_detail.html', context)
 
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def update_jawaz(request, pk):
     jawaz = get_object_or_404(JawazSayr, id=pk)
     form = JawazForm(instance=jawaz)
@@ -328,6 +354,8 @@ def update_jawaz(request, pk):
     }
     return render(request, 'cars/create_jawaz.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def delete_jawaz(request, pk):
     jawaz = get_object_or_404(JawazSayr, id=pk)
     car = jawaz.car

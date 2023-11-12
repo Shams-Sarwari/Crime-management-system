@@ -18,11 +18,15 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from accounts.decorators import superuser_or_staff_required, superuser_required
 
 
 stripe.api_key = 'sk_test_51OAQ0PItY091qK4GuGeFsuNbfSdGYcMuoHMnFysmYi4WQbPkf2CfGxKHcB1wyuDUedNBPORVjMM7PMVxQa2IQ2yG00dSLua5iU'
 
 # Create your views here.
+@login_required(login_url='login')
+@superuser_required
 def create_crime(request):
     if request.method == 'POST':
         form = CreateCrimeForm(request.POST)
@@ -38,7 +42,8 @@ def create_crime(request):
     }
     return render(request, 'crimes/create_crime.html', context)
 
-
+@login_required(login_url='login')
+@superuser_required
 def crime_list(request):
     crimes = Crime.objects.all()
     context = {
@@ -46,6 +51,8 @@ def crime_list(request):
     }
     return render(request, 'crimes/crime_list.html', context)
 
+@login_required(login_url='login')
+@superuser_required
 def update_crime(request, pk):
     crime = Crime.objects.get(id=pk)
     form = CreateCrimeForm(instance=crime)
@@ -60,6 +67,8 @@ def update_crime(request, pk):
     }
     return render(request, 'crimes/create_crime.html', context)
 
+@login_required(login_url='login')
+@superuser_required
 def delete_crime(request, pk):
     crime = Crime.objects.get(id=pk)
     if request.method == 'POST':
@@ -71,7 +80,8 @@ def delete_crime(request, pk):
     }
     return render(request, 'crimes/delete_crime.html', context)
 
-
+@login_required(login_url='login')
+@superuser_or_staff_required
 def driver_crime_list(request):
     crimes = CarCrime.objects.all()
     context = {
@@ -79,6 +89,8 @@ def driver_crime_list(request):
     }
     return render(request, 'crimes/driver_crime_list.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def create_car_crime(request):
     profile = StaffProfile.objects.get(user = request.user)
     all_crimes = Crime.objects.all()
@@ -188,6 +200,8 @@ def create_car_crime(request):
     }
     return render(request, 'crimes/create_driver_crime.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def log_payment(request, pk):
     # driver = DriverProfile.objects.get(id=pk)
     car = Car.objects.get(id=pk)
@@ -219,6 +233,8 @@ def log_payment(request, pk):
     
     return redirect('cars:car-detail', car.id)
 
+@login_required(login_url='login')
+@superuser_required
 def notification(request):
     pending_crimes = CarCrime.objects.filter(
         Q(pending=True) &
@@ -231,6 +247,8 @@ def notification(request):
     }
     return render(request, 'crimes/notifications.html', context)
 
+@login_required(login_url='login')
+@superuser_required
 def remove_pending(request, pk):
     crime = get_object_or_404(CarCrime, id=pk)
     if request.method == 'POST':
@@ -239,6 +257,7 @@ def remove_pending(request, pk):
         crime.pending = False
         crime.save()
     return redirect('crimes:notifications')
+
 
 def online_payment(request):
     
