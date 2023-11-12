@@ -116,7 +116,7 @@ class StaffEditForm(forms.ModelForm):
     class Meta:
         model = StaffProfile
         fields = "__all__"
-        exclude = ['user', 'id', 'current_address', 'work_place']
+        exclude = ['user', 'id', 'current_address', 'work_place', 'tazkira_img', 'avatar', 'email']
     
     def __init__(self, *args, **kwargs):
         super(StaffEditForm, self).__init__(*args, **kwargs)
@@ -124,7 +124,7 @@ class StaffEditForm(forms.ModelForm):
         for k, v in self.fields.items():
             if k == 'gender':
                 v.widget.attrs.update(
-                    {'class': 'h-7 w-28 bg-color-primary text-white text-xs text-center rounded  outline-none'}
+                    {'class': 'myinput text-center'}
                 )
             elif k=='tazkira_img':
                 v.widget.attrs.update(
@@ -132,7 +132,7 @@ class StaffEditForm(forms.ModelForm):
                 )
             else: 
                 v.widget.attrs.update(
-                        {'class':'driver-form-input'}
+                        {'class':'myinput'}
                 )
 
     

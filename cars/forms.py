@@ -76,7 +76,7 @@ class CreateOwnerForm(forms.ModelForm):
         for k, v in self.fields.items():
             if k=='gender':
                 v.widget.attrs.update(
-                    {'class':'h-7 w-28 bg-color-primary text-white text-center rounded  outline-none'}
+                    {'class':'myinput text-center'}
             )
             elif k=='id_image_front':
                 v.widget.attrs.update(
@@ -88,7 +88,7 @@ class CreateOwnerForm(forms.ModelForm):
                 )
             else:
                 v.widget.attrs.update(
-                    {'class':'driver-form-input'}
+                    {'class':'myinput'}
             )
 
 class JawazForm(forms.ModelForm):
@@ -123,3 +123,29 @@ class JawazForm(forms.ModelForm):
                 }
                     )
             
+class EditOwnerForm(forms.ModelForm):
+    class Meta:
+        model = CarOwner
+        fields = "__all__"
+        exclude = ['user', 'image', 'id_image_front', 'id_image_back', 'tazkira_number']
+
+    def __init__(self, *args, **kwargs):
+        super(EditOwnerForm, self).__init__(*args, **kwargs)
+        
+        for k, v in self.fields.items():
+            if k=='gender':
+                v.widget.attrs.update(
+                    {'class':'myinput text-center'}
+            )
+            elif k=='id_image_front':
+                v.widget.attrs.update(
+                    {'class': 'input-file'}
+                )
+            elif k=='image':
+                v.widget.attrs.update(
+                    {'class': 'input-file'}
+                )
+            else:
+                v.widget.attrs.update(
+                    {'class':'myinput'}
+            )

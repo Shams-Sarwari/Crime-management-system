@@ -474,21 +474,28 @@ def edit_staff_profile(request, pk):
         work_form = WorkPlaceForm()
 
     if request.method == 'POST':
-        avatar = request.FILES.get('prof_pic', None)
+        
         form = StaffEditForm(request.POST, request.FILES, instance=profile)
         add_form = AddressForm(request.POST)
         work_form = WorkPlaceForm(request.POST)
+        avatar = request.FILES.get('avatar')
+        tazkira_img = request.FILES.get('tazkira_img')
         if form.is_valid() and add_form.is_valid() and work_form.is_valid():
             address = add_form.save()
             work_place = work_form.save()
-
             profile = form.save(commit=False)
+            if avatar:
+                profile.avatar = avatar
+            if tazkira_img: 
+                profile.tazkira_img = tazkira_img
             profile.current_address = address
             profile.work_place = work_place
-            if avatar:
-                profile.avatar = request.FILES['prof_pic']
             profile.save()
             return redirect('staff-detail', profile.id)
+        else:
+            print(form.errors)
+            print(add_form.errors)
+            print(work_form.errors)
 
 
     context = {

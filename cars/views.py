@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Car, CarOwner, CarHistory, JawazSayr, OldHistory
 from crimes.models import CarCrime, Crime
-from .forms import CreateCarForm, EditCarForm, CreateOwnerForm, JawazForm
+from .forms import CreateCarForm, EditCarForm, CreateOwnerForm, JawazForm, EditOwnerForm
 from django.http import HttpResponse
 from accounts.models import DriverProfile
 from accounts.utils import pagination_items
@@ -239,13 +239,21 @@ def create_owner(request):
 
 def update_owner(request, pk):
     owner = get_object_or_404(CarOwner, id=pk)
-    form = CreateOwnerForm(instance=owner)
+    form = EditOwnerForm(instance=owner)
     if request.method == 'POST':
-        form = CreateOwnerForm(request.POST, request.FILES, instance=owner)
+        form = EditOwnerForm(request.POST, request.FILES, instance=owner)
+        image = request.FILES.get('image')
+        id_image_front = request.FILES.get('id_image_front') 
         if form.is_valid():
-            form.save()
+            owner_driver = form.save(commit=False)
+            if image: 
+                owner_driver.image = image
+            if id_image_front:
+                owner_driver.id_image_front = id_image_front
+            owner_driver.save()
             return redirect('cars:owner-detail', owner.id)
-
+        else:
+            print(form.errors)
     context = {
         'form': form, 
         'section': 'owners',
@@ -313,7 +321,7 @@ def update_jawaz(request, pk):
         form = JawazForm(request.POST, instance=jawaz)
         if form.is_valid():
             form.save()
-            return redirect('driver-detail', jawaz.driver.id)
+            return redirect('cars:car-detail', jawaz.car.id)
     
     context = {
         'form': form

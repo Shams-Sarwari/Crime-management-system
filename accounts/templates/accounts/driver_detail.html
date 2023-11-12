@@ -34,7 +34,7 @@
         <div class="flex flex-col items-center gap-4 mt-4">
           <div
             class="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden flex items-center justify-center p-1 bg-gray-100">
-            <img src="{{driver.avatar.url }}" alt="Image" class="object-contain h-auto rounded-full">
+            <img {% if driver.avatar %}src="{{driver.avatar.url }}" {% endif %} alt="Image" class="object-contain h-auto rounded-full">
           </div>
           <div class="flex flex-col gap-2">
             <h2 class="text-xl text-color-primary font-semibold">{{ driver.first_name }} {{ driver.last_name }}</h2>
