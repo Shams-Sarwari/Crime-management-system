@@ -191,48 +191,49 @@ def owner_list(request):
     return render(request, 'cars/owner_list.html', context)
 
 @login_required(login_url='login')
-@superuser_or_staff_required
 def owner_detail(request, pk):
-    owner = get_object_or_404(CarOwner, id=pk)
-    cars = owner.car_set.all()
-    
-    try:
-        jawaz_sayr = JawazSayr.objects.filter(car__owner=owner)
-    except:
-        jawaz_sayr = None
-    
-    
-    if jawaz_sayr:
-        for item in jawaz_sayr:
-            while item.expiry_date < date.today():
-                if date.today() > item.expiry_date:
-                    crime = CarCrime.objects.create(
-                        car = item.car,
-                        crime = Crime.objects.get(title='گذشتن تاریخ اعتبار جواز سیر'),
-                        price = 500, 
-                        expiry_date = item.expiry_date + timedelta(days=60)
-
-                    )
-                    crime.save()
-                    item.expiry_date += timedelta(days=90)
-                    item.save()
-    
-    for car in cars:
-        for crime in car.carcrime_set.all():
-            while crime.expiry_date < date.today() and crime.paid == False and crime.pending == False:
-                if (date.today() > crime.expiry_date) and (crime.paid == False) and (crime.pending == False):
-                    crime.expiry_fine += crime.price/2
-                    crime.expiry_date += timedelta(days=60)
-                    crime.save()
+    if request.user.is_staff or request.user.carowner.id == pk:
+        owner = get_object_or_404(CarOwner, id=pk)
+        cars = owner.car_set.all()
         
+        try:
+            jawaz_sayr = JawazSayr.objects.filter(car__owner=owner)
+        except:
+            jawaz_sayr = None
+        
+        
+        if jawaz_sayr:
+            for item in jawaz_sayr:
+                while item.expiry_date < date.today():
+                    if date.today() > item.expiry_date:
+                        crime = CarCrime.objects.create(
+                            car = item.car,
+                            crime = Crime.objects.get(title='گذشتن تاریخ اعتبار جواز سیر'),
+                            price = 500, 
+                            expiry_date = item.expiry_date + timedelta(days=60)
 
-    context = {
-        'owner': owner, 
-        'section': 'owners',
-        'num_of_cars': cars.count(),
-    }
-    return render(request, 'cars/owner_detail.html', context)
+                        )
+                        crime.save()
+                        item.expiry_date += timedelta(days=90)
+                        item.save()
+        
+        for car in cars:
+            for crime in car.carcrime_set.all():
+                while crime.expiry_date < date.today() and crime.paid == False and crime.pending == False:
+                    if (date.today() > crime.expiry_date) and (crime.paid == False) and (crime.pending == False):
+                        crime.expiry_fine += crime.price/2
+                        crime.expiry_date += timedelta(days=60)
+                        crime.save()
+            
 
+        context = {
+            'owner': owner, 
+            'section': 'owners',
+            'num_of_cars': cars.count(),
+        }
+        return render(request, 'cars/owner_detail.html', context)
+    else:
+        return HttpResponse('معذرت میخواهیم شما اجازه دسترسی به این صفحه را ندارید')
 @login_required(login_url='login')
 @superuser_or_staff_required
 def create_owner(request):

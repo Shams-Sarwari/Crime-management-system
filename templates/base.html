@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load crime_tags %}
 <html lang="fa" dir="rtl">
 
 <head>
@@ -264,7 +265,7 @@
 
         {% endif %}
         <li>
-          <a href="{% url "crimes:fine-driver" %}" class="sidebar-link">
+          <a href="{% url "crimes:fine-driver" %}" class="sidebar-link {% if section == 'crime' %}bg-color-primary-light {% endif %}">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 41.64 34.873" class="w-5">
               <g id="_1471085_add_user_business_man_employee_general_human_icon"
                 data-name="1471085_add user_business man_employee_general_human_icon"
@@ -388,7 +389,7 @@
               <i class="fa-solid fa-bell"></i>
               <div
                 class="absolute inline-flex items-center justify-center w-5 h-5 text-[10px] font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1 -right-1 ">
-                20</div>
+                {% total_notifications request %}</div>
             </div>
           </a>
           {% endif %}

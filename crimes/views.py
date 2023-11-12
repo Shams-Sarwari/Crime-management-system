@@ -134,14 +134,34 @@ def create_car_crime(request):
             description = request.POST.get('message')
 
         if request.POST.get('licence'):
-            print('im inside licence')
             licence = request.POST.get('licence')
+            if car.owner.licence_number == licence:
+                car_crime = CarCrime.objects.create(
+                    stuff = request.user.staffprofile,
+                    car = car,
+                    crime = crime,
+                    location = location,
+                    province = request.user.staffprofile.work_place.province,
+                    description = description,
+                    paid = paid, 
+                    price = price,
+                    pending = pending,
+                    expiry_date = date.today() + timedelta(days=60)
+                )
+                if request.POST.get('paid') == 'paid':
+                    payment = Payment.objects.create(
+                        staff = request.user.staffprofile,
+                        owner = car.owner,
+                        price = price
+                    )
+                    car_crime.payment = payment
+                    car_crime.save()
+                return redirect('cars:owner-detail', car.owner.id)
             try:
                 driver = DriverProfile.objects.get(licence_num=licence)
             except: 
                 messages.info(request, 'راننده در سیستم ثبت نیست')
             else:
-                print(f'start createing crime with licence and pending is: {pending}')
                 car_crime = CarCrime.objects.create(
                         stuff = request.user.staffprofile,
                         driver = driver,
@@ -165,7 +185,8 @@ def create_car_crime(request):
                         
                     car_crime.payment = payment
                     car_crime.save()
-                return redirect('dashboard')
+                return redirect('cars:owner-detail', car.owner.id)
+                
         else:
             print(f'im inside creating cirme without licence and pending is {pending}')
 
@@ -189,7 +210,9 @@ def create_car_crime(request):
                 )
                 car_crime.payment = payment
                 car_crime.save()
-            return redirect('dashboard')
+            
+            return redirect('cars:owner-detail', car.owner.id)
+            
 
         
         
@@ -197,6 +220,7 @@ def create_car_crime(request):
     
     context = {
         'crime_list': crime_list,
+        'section': 'crime',
     }
     return render(request, 'crimes/create_driver_crime.html', context)
 
