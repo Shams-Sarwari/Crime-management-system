@@ -230,7 +230,7 @@ def login_user(request):
             if check_user is not None:
                 login(request, check_user)
                 messages.success(request, 'شما موفقانه وارد سیستم شدید')
-                return redirect('dashboard')
+                return redirect('driver-detail', driver.id)
                 
             else: 
 
@@ -253,7 +253,11 @@ def login_user(request):
             if check_user is not None:
                 login(request, check_user)
                 messages.success(request, 'شما موفقانه وارد سیستم شدید')
-                return redirect('dashboard')
+                if staff.is_superuser:
+                    return redirect('dashboard')
+                else:
+                    return redirect('crimes:fine-driver')
+
             else: 
 
                 messages.error(request, 'ایمیل و یا رمز عبور وارد شده اشتباه است')
@@ -276,7 +280,7 @@ def login_user(request):
             if check_user is not None:
                 login(request, check_user)
                 messages.success(request, 'شما موفقانه وارد سیستم شدید')
-                return redirect('dashboard')
+                return redirect('cars:owner-detail', owner.id)
                 
             else: 
 

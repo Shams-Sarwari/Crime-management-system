@@ -251,50 +251,7 @@
     });
   });// end foreach
 
-  // *********************************************************
-  // ************** notifications ****************************
-  function initializeNotification(divId) {
-    const expandableText = document.querySelector(`#${divId} .expandableText`);
-    const seeMoreBtn = document.querySelector(`#${divId} .seeMoreBtn`);
-    const seeLessBtn = document.querySelector(`#${divId} .seeLessBtn`);
-
-    seeMoreBtn.addEventListener("click", function () {
-      expandableText.classList.remove("h-20");
-      seeMoreBtn.classList.add("hidden");
-      seeLessBtn.classList.remove("hidden");
-    });
-
-    seeLessBtn.addEventListener("click", function () {
-      expandableText.classList.add("h-20");
-      seeLessBtn.classList.add("hidden");
-      seeMoreBtn.classList.remove("hidden");
-    });
-
-  }// end initializeNotification()
-
-  // call functions
-  for (let i = 1; i <= 5; i++) {
-    initializeNotification(`notification${i}`);
-  }
-  // ******* more or less notifications ***********
-  const moreNotifications = document.getElementById("moreNotifications");
-  const lessNotifications = document.getElementById("lessNotifications");
-  const notificationContainer = document.getElementById("notificationContainer");
-
-  moreNotifications.addEventListener("click", function () {
-    notificationContainer.classList.remove("max-h-52");
-    notificationContainer.classList.remove("md:max-h-[340px]");
-    moreNotifications.classList.add("hidden");
-    lessNotifications.classList.remove("hidden");
-  });
-
-  lessNotifications.addEventListener("click", function () {
-    notificationContainer.classList.add("max-h-52");
-    notificationContainer.classList.add("md:max-h-[340px]")
-    lessNotifications.classList.add("hidden");
-    moreNotifications.classList.remove("hidden");
-  });
-
+  
 
   // ***********************************************************
   // ********************** cards animations *******************
