@@ -6,6 +6,7 @@
       <!-- profile and jawazsair -->
       <div
         class="relative flex flex-col gap-y-4 md:flex-row md:max-w-[960px] mx-2 md:mx-auto mt-2 md:mt-4 pb-6 pt-4 bg-white text-gray-500 rounded-lg shadow">
+        {% if request.user.is_staff %}
         <!-- dropdown -->
         <div class="absolute right-6 top-2">
           <button onclick="toggleProfileDropdown()"
@@ -37,6 +38,7 @@
             </ul>
           </div>
         </div>
+        {% endif %}
         <!-- profile card -->
         <div class="w-full max-w-md px-4">
           <div class="flex flex-col items-center gap-2 mt-6">
@@ -106,6 +108,7 @@
             </table>
             <!-- btns -->
             <div class="flex justify-center gap-6 mt-8">
+              {% if request.user.is_staff %}
               <button type="button" onclick="window.open('{% url "cars:create-car-with-owner" owner.id %}', '_self');"
                 class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 py-1 text-center">
                 ثبت موتر
@@ -114,6 +117,7 @@
                 class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 py-1 text-center">
                 حذف
               </button>
+              {% endif %}
             </div>
           </div>
 
@@ -129,6 +133,7 @@
               <div class="swiper-slide" id="jawaz{{forloop.counter}}"> 
                 <div class="px-10 md:pl-12 md:pr-16">
                   <!-- jawaz dropdown -->
+                  {% if request.user.is_staff %}
                   <div class="absolute left-10 top-0">
                     <button 
                       class="jawazBtn inline-block text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5"
@@ -153,6 +158,7 @@
                       </ul>
                     </div>
                   </div>
+                  {% endif %}
                   <h2 class="mr-2 pb-2 text-lg text-color-primary font-semibold">مشخصات جواز سیر</h2>
                   <table class="w-full text-[13px] border-t-2 border-b-2 border-gray-400">
                     <tr class="border-b h-8">
@@ -243,8 +249,12 @@
           <div class="flex gap-8 py-2 md:py-0">
             <div
               class="flex items-center cursor-pointer text-xs md:text-sm py-1 px-2 rounded hover:bg-color-primary-light ease-in duration-200">
+              {% if not car.jawazsayr %}
+              {% if request.user.is_staff %}
               <a href="{% url "cars:create-jawaz" car.id %}">افزودن جواز
                 سیر</a>
+              {% endif %}
+              {% endif %}
             </div>
             <!-- car-info-btn: it's for js -->
             <div
@@ -262,25 +272,26 @@
                 <td class="pr-4 w-36 ">مالک</td>
                 <td>{{ car.owner }}</td>
               </tr>
+              
               <tr class=" h-7">
-                <td class="pr-4  ">راننده</td>
-                <td>{{ car.driver.first_name }} {{ car.driver.last_name }}</td>
-              </tr>
-              <tr class="bg-gray-200  h-7">
                 <td class="pr-4 w-36 ">نمبر پلیت</td>
                 <td>{{ car.plate_number }}</td>
               </tr>
-              <tr class=" h-7">
+              <tr class="bg-gray-200  h-7">
                 <td class="pr-4  ">مودل</td>
                 <td>{{ car.model }}</td>
               </tr>
-              <tr class="bg-gray-200  h-7">
+              <tr class="h-7">
                 <td class="pr-4  ">وزن مجاز</td>
                 <td>{{ car.legal_weight }} کیلوگرام</td>
               </tr>
-              <tr class=" h-7">
+              <tr class="bg-gray-200  h-7">
                 <td class="pr-4  ">تعداد راکبین</td>
                 <td>{{ car.number_of_rider }} نفر</td>
+              </tr>
+              <tr class="h-7">
+                <td class="pr-4  ">وزن بالای اکسل</td>
+                <td>{{ car.weight_on_axle }}</td>
               </tr>
             </table>
 
@@ -312,9 +323,11 @@
             </table>
           </div>
           <div class="flex justify-end">
+            {% if request.user.is_staff %}
             <a href="{% url "cars:car-detail" car.id %}"
               class="text-white text-xs bg-color-primary hover:bg-color-primary-lighter focus:outline-none rounded w-32 py-1.5 text-center">جزییات
               بیشتر</a>
+            {% endif %}
           </div>
         </div>
         <!-- punishment -->
@@ -409,6 +422,7 @@
     }
     // ****************************************
     // ********* jawaz details ****************
+    {% if request.user.is_staff %}
     function initializeJawaz(divId) {
       const jawazBtn = document.querySelector(`#${divId} .jawazBtn`);
       const jawazDropdown = document.querySelector(`#${divId} .jawazDropdown`);
@@ -420,6 +434,8 @@
     for (let i = 1; i <= {{num_of_cars}}; i++) {
       initializeJawaz(`jawaz${i}`);
     }
+    {% endif %}
+
     // ****************************************
     // ********* car and fine payemnt*****************
     function initializeFinePayment(divId) {

@@ -8,8 +8,12 @@ from accounts.utils import pagination_items
 from django.db.models import Q
 from datetime import date, timedelta
 from django.contrib import messages
+from accounts.decorators import superuser_required, superuser_or_staff_required
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def car_list(request):
     search_text = ''
     if request.GET.get('search_text'):
@@ -30,6 +34,8 @@ def car_list(request):
     }
     return render(request, 'cars/car_list.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def car_detail(request, pk):
     car = get_object_or_404(Car, id = pk)
     car_history = car.carhistory_set.all()
@@ -73,6 +79,8 @@ def car_detail(request, pk):
     }
     return render(request, 'cars/car_detail.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def create_car(request, pk=None):
     
     if request.method == 'POST':
@@ -98,6 +106,8 @@ def create_car(request, pk=None):
     }
     return render(request, 'cars/create_car.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def edit_car(request, pk):
     car = get_object_or_404(Car, id=pk)
 
@@ -145,7 +155,8 @@ def edit_car(request, pk):
         
     return redirect('cars:car-detail', car.id)
     
-
+@login_required(login_url='login')
+@superuser_or_staff_required
 def delete_car(request, pk):
     car = get_object_or_404(Car, id=pk)
     if request.method == 'POST':
@@ -157,7 +168,8 @@ def delete_car(request, pk):
     }
     return render(request, 'cars/delete_car.html', context)
 
-
+@login_required(login_url='login')
+@superuser_or_staff_required
 def owner_list(request):
     search_text=''
     if request.GET.get('search_text'):
@@ -178,49 +190,52 @@ def owner_list(request):
     }
     return render(request, 'cars/owner_list.html', context)
 
-
+@login_required(login_url='login')
 def owner_detail(request, pk):
-    owner = get_object_or_404(CarOwner, id=pk)
-    cars = owner.car_set.all()
-    
-    try:
-        jawaz_sayr = JawazSayr.objects.filter(car__owner=owner)
-    except:
-        jawaz_sayr = None
-    
-    
-    if jawaz_sayr:
-        for item in jawaz_sayr:
-            while item.expiry_date < date.today():
-                if date.today() > item.expiry_date:
-                    crime = CarCrime.objects.create(
-                        car = item.car,
-                        crime = Crime.objects.get(title='گذشتن تاریخ اعتبار جواز سیر'),
-                        price = 500, 
-                        expiry_date = item.expiry_date + timedelta(days=60)
-
-                    )
-                    crime.save()
-                    item.expiry_date += timedelta(days=90)
-                    item.save()
-    
-    for car in cars:
-        for crime in car.carcrime_set.all():
-            while crime.expiry_date < date.today() and crime.paid == False and crime.pending == False:
-                if (date.today() > crime.expiry_date) and (crime.paid == False) and (crime.pending == False):
-                    crime.expiry_fine += crime.price/2
-                    crime.expiry_date += timedelta(days=60)
-                    crime.save()
+    if request.user.is_staff or request.user.carowner.id == pk:
+        owner = get_object_or_404(CarOwner, id=pk)
+        cars = owner.car_set.all()
         
+        try:
+            jawaz_sayr = JawazSayr.objects.filter(car__owner=owner)
+        except:
+            jawaz_sayr = None
+        
+        
+        if jawaz_sayr:
+            for item in jawaz_sayr:
+                while item.expiry_date < date.today():
+                    if date.today() > item.expiry_date:
+                        crime = CarCrime.objects.create(
+                            car = item.car,
+                            crime = Crime.objects.get(title='گذشتن تاریخ اعتبار جواز سیر'),
+                            price = 500, 
+                            expiry_date = item.expiry_date + timedelta(days=60)
 
-    context = {
-        'owner': owner, 
-        'section': 'owners',
-        'num_of_cars': cars.count(),
-    }
-    return render(request, 'cars/owner_detail.html', context)
+                        )
+                        crime.save()
+                        item.expiry_date += timedelta(days=90)
+                        item.save()
+        
+        for car in cars:
+            for crime in car.carcrime_set.all():
+                while crime.expiry_date < date.today() and crime.paid == False and crime.pending == False:
+                    if (date.today() > crime.expiry_date) and (crime.paid == False) and (crime.pending == False):
+                        crime.expiry_fine += crime.price/2
+                        crime.expiry_date += timedelta(days=60)
+                        crime.save()
+            
 
-
+        context = {
+            'owner': owner, 
+            'section': 'owners',
+            'num_of_cars': cars.count(),
+        }
+        return render(request, 'cars/owner_detail.html', context)
+    else:
+        return HttpResponse('معذرت میخواهیم شما اجازه دسترسی به این صفحه را ندارید')
+@login_required(login_url='login')
+@superuser_or_staff_required
 def create_owner(request):
     
     if request.method == 'POST':
@@ -237,6 +252,8 @@ def create_owner(request):
     }
     return render(request, 'cars/create_owner.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def update_owner(request, pk):
     owner = get_object_or_404(CarOwner, id=pk)
     form = EditOwnerForm(instance=owner)
@@ -260,6 +277,8 @@ def update_owner(request, pk):
     }
     return render(request, 'cars/update_owner.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def delete_owner(request, pk):
     owner = CarOwner.objects.get(id = pk)
     if request.method == 'POST':
@@ -272,6 +291,8 @@ def delete_owner(request, pk):
     }
     return render(request, 'cars/delete_owner.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def create_jawaz(request, pk):
     car = get_object_or_404(Car, id=pk)
     owner = car.owner
@@ -299,6 +320,8 @@ def create_jawaz(request, pk):
     }
     return render(request, 'cars/create_jawaz.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def jawaz_list(request):
     jawazs = JawazSayr.objects.all()
     context = {
@@ -306,6 +329,8 @@ def jawaz_list(request):
     }
     return render(request, 'cars/jawaz_list.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def jawaz_detail(request, pk):
     jawaz = JawazSayr.objects.get(id=pk)
     context = {
@@ -314,6 +339,8 @@ def jawaz_detail(request, pk):
     return render(request, 'cars/jawaz_detail.html', context)
 
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def update_jawaz(request, pk):
     jawaz = get_object_or_404(JawazSayr, id=pk)
     form = JawazForm(instance=jawaz)
@@ -328,6 +355,8 @@ def update_jawaz(request, pk):
     }
     return render(request, 'cars/create_jawaz.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def delete_jawaz(request, pk):
     jawaz = get_object_or_404(JawazSayr, id=pk)
     car = jawaz.car
