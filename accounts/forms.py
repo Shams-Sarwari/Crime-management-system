@@ -86,6 +86,7 @@ class CustomStaffCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username','is_active', 'is_superuser']
+        exclude = ['username']
 
     def __init__(self, *args, **kwargs):
         super(CustomStaffCreationForm, self).__init__(*args, **kwargs)
@@ -100,6 +101,7 @@ class CustomStaffCreationForm(UserCreationForm):
                 v.widget.attrs.update(
                     {'id': 'myCheckbox'}
                 )
+            
             else: 
                 v.widget.attrs.update(
                     {'class':'myinput'}

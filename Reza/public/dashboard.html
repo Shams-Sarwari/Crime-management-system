@@ -22,7 +22,7 @@
     <div class="p-6">
       <!-- photo -->
       <div class="flex flex-col gap-2 justify-center items-center">
-        <img src="../img/img2.jpg" alt="my image" class="inline-block h-16 rounded-full">
+        <img src="../img/reza.JPG" alt="my image" class="inline-block h-16 rounded-full">
         <div class="border-b-2 border-gray-500  text-center pb-3 px-3">
           <p>محمد رضا قاسمی</p>
         </div>
@@ -230,7 +230,10 @@
       <!-- sidebar large -->
       <!-- photo -->
       <div id="img-div-large" class="flex flex-col gap-2 justify-center items-center mt-8 mb-4">
-        <img src="../img/img2.jpg" alt="my image" class="inline-block h-16 rounded-full">
+        <div class="h-16 w-16 rounded-full overflow-hidden">
+        <img src="../img/reza.JPG" alt="my image" class="inline-block object-cover rounded-full">
+
+        </div>
         <div class="border-b-2 border-gray-500  text-center pb-3 px-3">
           <p>محمد رضا قاسمی</p>
         </div>
@@ -432,7 +435,8 @@
     <!-- sidebar finishes and main starts -->
     <section id="main">
       <!-- navbar -->
-      <div class="bg-white h-10 md:12 flex items-center pr-4 justify-start shadow-sm sticky top-0 z-50">
+      <div class="bg-white h-11 flex items-center justify-between pl-4 md:pl-6 pr-2  shadow-lg sticky top-0 z-50">
+        <!-- hamburgars -->
         <div id="large-humgurgar" class="hidden md:block">
           <i class="fa-solid fa-bars px-4 py-2 cursor-pointer text-lg  text-gray-600"></i>
         </div>
@@ -440,8 +444,58 @@
         <div id="mobile-humburgar" class=" md:hidden">
           <i class="fa-solid fa-bars px-4 py-2 cursor-pointer text-lg  text-gray-600"></i>
         </div>
-
+        <!-- search box -->
+        <form method="get" class="md:max-w-xs md:flex-grow">
+          <div class="relative">
+            <input type="text" name="search"
+              class="block w-full outline-none p-1.5  pr-10 text-xs text-gray-700 border border-gray-300 rounded-full bg-gray-50 focus:border-color-secondary-dark "
+              placeholder="اینجا جستجو کنید" required>
+            <button type="submit"
+              class="text-sm text-blue-400 hover:text-blue-600 absolute right-1.5 -bottom-0.5 p-1.5 ">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </div>
+        </form>
+        <!-- profile -->
+        <div class="relative flex items-center gap-4">
+          <!-- notification icon -->
+          <a href="newNotifications.html">
+            <div
+              class="relative inline-flex items-center p-1 text-2xl font-medium text-center text-blue-700 hover:text-blue-800 rounded-lg focus:outline-none">
+              <i class="fa-solid fa-bell"></i>
+              <div
+                class="absolute inline-flex items-center justify-center w-5 h-5 text-[10px] font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1 -right-1 ">
+                20</div>
+            </div>
+          </a>
+          <p class="hidden md:block text-xs text-gray-600 font-semibold">محمد رضا قاسمی</p>
+          <button type="button" onclick="toggleUserProfieDropdown()"
+            class="flex text-sm rounded-full ring-2 focus:ring-4 ring-gray-100">
+            <img class="w-8 h-8 rounded-full" src="../img/reza.JPG" alt="user photo">
+          </button>
+          <!-- Dropdown menu -->
+          <div
+            class="hidden absolute top-full -left-2 mt-2 text-[13px] text-gray-600 list-none bg-white divide-y divide-gray-100 rounded-lg shadow"
+            id="userDropdown">
+            <div class="px-4 py-3">
+              <span class="block  text-gray-600 text-xs font-semibold pb-1">محمد رضا قاسمی</span>
+              <span class="block text-gray-500">mohdrezajan@gmail.com</span>
+            </div>
+            <ul class="pb-2">
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100">تغیر رمز عبور</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100">دیدن پروفایل</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100">خروج</a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
+      <!-- end navbar -->
 
       <!-- ********************************************** -->
       <!--**************** dashboard **********************-->
@@ -613,7 +667,7 @@
             <!-- photo and report -->
             <div class="max-w-md flex  gap-3">
               <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
-                <img src="../img/img2.jpg" alt="my image" class="h-full w-auto object-cover rounded-full">
+                <img src="../img/reza.JPG" alt="my image" class="h-full w-auto object-cover rounded-full">
               </div>
               <div class="expandableText flex flex-col h-20">
                 <span class="font-semibold">محمد رضا قاسمی</span>
