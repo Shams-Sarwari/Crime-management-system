@@ -135,7 +135,8 @@
   // crime chart 
   const crimeChart = document.getElementById('crimeChart');
   // number of crimes in each month
-  let crimes = {{ crimes_in_months }};
+  {% comment %} let crimes = {{ crimes_in_months }}; {% endcomment %}
+  let crimes =  [12, 16, 6, 11, 15, 20, 9, 11, 13, 15, 11, 10] ;
 
   new Chart(crimeChart, {
     type: 'bar',
@@ -186,7 +187,8 @@
   let threeProvinces = {{ top_three_provinces|safe }};
   {% endautoescape %}
   
-  let provincesCrimes = {{ top_three_values }};
+  {% comment %} let provincesCrimes = {{ top_three_values }}; {% endcomment %}
+  let provincesCrimes = [53, 33, 22];
   const crimeChartThreeProvinces = document.getElementById('crimeChartThreeProvinces');
 
   new Chart(crimeChartThreeProvinces, {

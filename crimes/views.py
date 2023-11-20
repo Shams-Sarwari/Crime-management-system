@@ -287,17 +287,24 @@ def online_payment(request):
     
     total = 0
     if request.method == 'POST':    
-        paid_crimes = request.POST.getlist('paid_crimes')
         car_crimes = []
+        paid_crimes = request.POST.getlist('paid_crimes')
+        
         for i in paid_crimes:
             crime = CarCrime.objects.get(id=int(i))
+            car_crimes.append(crime)
             total += crime.price + crime.expiry_fine
             # crime.paid = True
             # crime.save()
             # car_crimes.append(crime)
+        
+        print(car_crimes)
+        print(len(car_crimes))
             
     context = {
-        'total': total
+        'total': total,
+        'paid_crimes': car_crimes, 
+        'num_of_crimes': len(paid_crimes),
     }
     return render(request, 'crimes/checkout.html', context)
 
@@ -314,20 +321,41 @@ def calculate_order_amount(items):
 @csrf_exempt
 @require_POST
 def create_payment(request):
-    try:
-        data = json.loads(request.body)
-        # Create a PaymentIntent with the order amount and currency
-        intent = stripe.PaymentIntent.create(
-            amount=calculate_order_amount(data['items']),
-            currency='usd',
-            automatic_payment_methods={
-                'enabled': True,
-            },
-        )
+        print('this view called')
+        print(request.POST)
+    # loop over the values of the sent data and find the crimes
+    # if request.method == 'POST':
+        try:
+            print('start try')
+            num_of_crimes = int(request.POST.get('num_of_crimes'))
+            for i in range(1, num_of_crimes+1):
+                crime_ids.append(request.POST.get(i))
+            print('inside try')
+        except:
+            pass
+        crime_ids = []
+        
 
-        return JsonResponse({
-            'clientSecret': intent['client_secret']
-        })
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=403)
-    
+        try:
+            data = json.loads(request.body)
+            # Create a PaymentIntent with the order amount and currency
+            intent = stripe.PaymentIntent.create(
+                amount=calculate_order_amount(data['items']),
+                currency='usd',
+                automatic_payment_methods={
+                    'enabled': True,
+                },
+            )
+
+            # if everything is ok:
+            for item in crime_ids:
+                crime = get_object_or_404(CarCrime, id=item)
+                crime.paid = True
+                crime.save()
+
+            return JsonResponse({
+                'clientSecret': intent['client_secret']
+            })
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=403)
+        

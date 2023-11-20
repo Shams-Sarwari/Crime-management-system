@@ -192,7 +192,10 @@ def staff_list(request):
             Q(email=search_text) | 
             Q(tazkira_num=search_text)        
     )
+    # caching code for selecting all staffs with their information
+    staff_list = staff_list.select_related('work_place', 'current_address')
     custom_range, staff_list = pagination_items(request, staff_list, 10)
+    
     context = {
         'staff_list': staff_list,
         'custom_range': custom_range,

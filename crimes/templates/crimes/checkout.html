@@ -162,10 +162,16 @@
   </head>
   <body>
     <!-- Display a payment form -->
-    <form action='crimes:create_payment' method='POST' id="payment-form">
+    <form action='{% url "crimes:create_payment" %}' method='POST' id="payment-form">
+      {% csrf_token %}
       <h2 id="heading">Online Payment</h2>
       <p class="note">Note: This process will deduct {{total}} Afs from your account</p>
-      {% csrf_token %}
+      {% comment %} Send crime ids to backend {% endcomment %}
+      <input type="hidden" name='num_of_crimes' value={{num_of_crimes}}>
+      {% for crime in paid_crimes %}
+        <input type="hidden" name={{forloop.counter}} value={{crime.id}}>
+      {% endfor %}
+      
       <div id="payment-element">
         <!--Stripe.js injects the Payment Element-->
       </div>

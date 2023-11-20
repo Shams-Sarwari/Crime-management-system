@@ -22,8 +22,14 @@ def car_list(request):
             Q(plate_number=search_text) |
             Q(engine_num=search_text)
         )
+
+        # caching code to load jawaz with car:
+        cars = cars.select_related('owner', 'owner__user', 'jawazsayr')
     else:
         cars = Car.objects.all()
+
+        # caching code to load jawaz with car: 
+        cars = cars.select_related('owner', 'owner__user', 'jawazsayr')
     custom_range, cars = pagination_items(request, cars, 10)
 
     context = {
@@ -180,6 +186,7 @@ def owner_list(request):
         )
     else:
         owners = CarOwner.objects.all()
+        
     custom_range, owners = pagination_items(request, owners, 10)
 
     context = {
