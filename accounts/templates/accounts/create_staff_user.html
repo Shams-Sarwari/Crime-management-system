@@ -27,20 +27,42 @@
           class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 pb-8 border-b border-color-secondary">
           <div class="flex flex-col gap-2">
             <label for="" class="mr-2">ایمیل آدرس</label>
-            {% comment %} <input type="email" class="myinput" /> {% endcomment %}
+            <input type="email" name='username' class="myinput" required/>
+            
             {{ form.username }}
+            {% if form.username.errors %}
+              <ul>
+                {% for error in form.username.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
           </div>
 
           <div class="flex flex-col gap-2">
             <label for="" class="mr-2">رمز عبور</label>
             {% comment %} <input type="password" class="myinput" /> {% endcomment %}
             {{ form.password1 }}
+            {% if form.password1.errors %}
+              <ul>
+                {% for error in form.password1.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
           </div>
 
           <div class="flex flex-col gap-2">
             <label for="" class="mr-2">تایید رمز عبور</label>
             {% comment %} <input type="password" class="myinput" /> {% endcomment %}
             {{ form.password2 }}
+            {% if form.password2.errors %}
+              <ul>
+                {% for error in form.password2.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
           </div>
 
           {% comment %} <div class="flex items-center justify-between mt-4">
@@ -87,7 +109,7 @@
 
           <div class="flex flex-col gap-2">
             <label for="" class="mr-2">نمبر تذکره</label>
-            <input type="text" class="myinput" name="tazkira_num" />
+            <input type="number" class="myinput" name="tazkira_num" />
           </div>
 
           <div class="flex flex-col gap-2">

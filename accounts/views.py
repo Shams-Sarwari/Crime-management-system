@@ -192,7 +192,10 @@ def staff_list(request):
             Q(email=search_text) | 
             Q(tazkira_num=search_text)        
     )
+    # caching code for selecting all staffs with their information
+    staff_list = staff_list.select_related('work_place', 'current_address')
     custom_range, staff_list = pagination_items(request, staff_list, 10)
+    
     context = {
         'staff_list': staff_list,
         'custom_range': custom_range,
@@ -439,11 +442,21 @@ def create_staff_user(request):
         form = CustomStaffCreationForm(request.POST)
         add_form = AddressForm(request.POST)
         work_form = WorkPlaceForm(request.POST)
+
+        # validation of the username, if it exists in the system
+        username = request.POST.get('username')
+        all_usernames = User.objects.values_list('username', flat=True)
+        if username in all_usernames:
+            messages.error(request, 'این ایمیل قبلا در سیستم ثبت گردیده')
+            return redirect('create-staff-user')
+        
+
         if form.is_valid() and add_form.is_valid() and work_form.is_valid():
             user = form.save(commit=False)
+            user.username = username
             user.set_password(form.cleaned_data['password1'])
             user.is_staff = True
-            user.email = user.username
+            user.email = username
             user.save()
             address = add_form.save()
             work_place = work_form.save()
@@ -465,6 +478,10 @@ def create_staff_user(request):
             staff.save()
 
             return redirect('staff-list')
+        else:
+            print(form.errors)
+            print(add_form.errors)
+            print(work_form.errors)
     
     else: 
         form = CustomStaffCreationForm()
