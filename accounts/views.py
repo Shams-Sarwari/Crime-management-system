@@ -373,6 +373,7 @@ def edit_driver_profile(request, pk):
     if request.method == 'POST':
         form = DriverEditForm(request.POST, request.FILES, instance=profile)
         add_form = AddressForm(request.POST)
+        licence = request.POST.get('licence_num')
         avatar = request.FILES.get('avatar')
         tazkira_img = request.FILES.get('tazkira_img')
        
@@ -384,6 +385,8 @@ def edit_driver_profile(request, pk):
                 profile.avatar = avatar
             if tazkira_img:
                 tazkira_img = tazkira_img
+            if licence:
+                profile.licence_num = licence
             profile.current_address = address
             profile.save()
             return redirect('driver-detail', profile.id)
@@ -392,6 +395,7 @@ def edit_driver_profile(request, pk):
     context = {
         'form': form, 
         'add_form': add_form,
+        'profile': profile,
         'section': 'drivers'
     }
     return render(request, 'accounts/edit_driver_profile.html', context)
