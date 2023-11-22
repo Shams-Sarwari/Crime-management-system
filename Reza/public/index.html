@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TCMS | Home</title>
+  <link rel="stylesheet" href="output.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="bg-gray-50 font-IRANSans">
+  <header class="relative md:h-[100vh] bg-color-secondary-light shadow-lg">
+    <!-- nav bar  -->
+    <nav
+      class="fixed top-0  w-full bg-color-secondary-lighter h-12 flex justify-between items-center border-b border-color-secondary  px-6 md:px-10 z-50">
+      <div class="md:hidden">
+        <i onclick="toggleMobileMenu();" class="fa-solid fa-bars text-blue-700 text-lg font-bold p-2"></i>
+      </div>
+      <ul class="hidden md:flex items-center gap-10 font-semibold text-blue-800 text-sm">
+        <li class="cursor-pointer hover:text-orange-600"><a href="#home">خانه</a></li>
+        <li class="cursor-pointer hover:text-orange-600"><a href="#contactUs">تماس با ما</a></li>
+        <li class="cursor-pointer hover:text-orange-600"><a href="#aboutUs">در‌باره ما</a></li>
+        <li class="cursor-pointer hover:text-orange-600"><a href="#guide">رهنمود</a></li>
+        <li onclick="showLogin();" class="cursor-pointer hover:text-orange-600">ورود به حساب</li>
+      </ul>
+
+      <div>LOGO</div>
+    </nav>
+    <!-- mobile menu -->
+    <ul id="mobileMenu"
+      class="md:hidden fixed top-12 w-full mt-[1px] text-[13px] text-gray-600 font-semibold list-none bg-color-secondary-lighter divide-y divide-gray-200 rounded shadow pb-2 -translate-y-52 ease-in duration-300">
+      <li>
+        <a href="#home" class="menuItem block px-8 py-2 hover:bg-gray-100">خانه</a>
+      </li>
+      <li>
+        <a href="#contactUs" class="menuItem block px-8 py-2 hover:bg-gray-100">تماس با ما</a>
+      </li>
+      <li>
+        <a href="#aboutUs" class="menuItem block px-8 py-2 hover:bg-gray-100">در باره ما</a>
+      </li>
+      <li>
+        <a href="#guide" class="menuItem block px-8 py-2 hover:bg-gray-100">رهنمود</a>
+      </li>
+      <li>
+        <span onclick="showLogin();" class="menuItem block px-8 py-2 hover:bg-gray-100">ورود به حساب</span>
+      </li>
+    </ul>
+
+
+    <!-- hero section -->
+    <section id="home" class="mt-12 flex flex-col gap-y-4 md:flex-row md:max-w-full  overflow-hidden">
+      <div class="flex-1 flex flex-col p-4 md:p-10 pt-6 md:pt-20 gap-6 md:gap-8 justify-center items-center">
+        <h2 class="text-blue-900 font-semibold text-xl md:text-2xl lg:text-3xl text-center">سیستم مدیریت جرایم ترافیکی
+        </h2>
+        <p class="text-blue-800 leading-7 text-justify md:text-center ">این سیستم برای مدیریت جرایم ترافیکی طراحی شده
+          است. با استفاده از این سیستم می‌توان بصورت آسان، سریع و دقیق جرایم ترافیکی را پیگیری و محاکمه کرد.
+        </p>
+        <div class="hidden md:block">
+          <button type="button" onclick="showLogin();"
+            class="mt-10 w-40 h-10 text-white text-sm rounded cursor-pointer outline-none bg-blue-500 hover:bg-blue-700 ease-in duration-200">ورود
+            به حساب</button>
+        </div>
+      </div>
+      <div class="flex-1 flex justify-center px-4 py-8 lg:pt-14">
+        <img src="../img/home.png" alt="traffic image" class="max-w-full max-h-full object-cover">
+      </div>
+    </section>
+    <!-- end hero section -->
+    <div class="flex justify-center md:hidden pb-10">
+      <button type="button" onclick="showLogin();"
+        class="w-36 h-8 text-white text-[13px] rounded cursor-pointer outline-none bg-blue-500 hover:bg-blue-700 ease-in duration-200">ورود
+        به حساب</button>
+    </div>
+  </header>
+
+  <!-- contact us -->
+  <section id="contactUs"
+    class="bg-color-secondary flex flex-col gap-y-4 md:flex-row md:max-w-full md:pb-10 overflow-hidden">
+    <div class="flex-1 hidden md:flex justify-center px-4 py-8 lg:pt-14">
+      <img src="../img/contact.png" alt="traffic image" class="max-w-full max-h-full object-cover">
+    </div>
+
+    <div class="flex-1 flex flex-col px-4 pt-10 pb-6  gap-6">
+      <div class="flex items-center justify-center gap-3">
+        <i class="fa-solid fa-square-phone text-orange-600 text-2xl"></i>
+        <h2 class="text-blue-900 font-semibold text-xl md:text-2xl text-center">با ما به تماس شوید
+        </h2>
+      </div>
+      <form action="" class="md:px-10 lg:px-12 flex flex-col gap-4 text-[13px] text-blue-900">
+        <div class="flex flex-col gap-2">
+          <label for="" class="mr-2 font-semibold">اسم</label>
+          <input type="text"
+            class="w-full h-8 md:h-9 px-2 bg-color-secondary-lighter border border-gray-300 outline-none text-gray-700 rounded focus:border-gray-400" />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="" class="mr-2 font-semibold">ایمیل</label>
+          <input type="email"
+            class="w-full h-8 md:h-9 px-2 bg-color-secondary-lighter border border-gray-300 outline-none text-gray-700 rounded focus:border-gray-400" />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="" class="mr-2 font-semibold">نظر</label>
+          <textarea name="" rows="8"
+            class="w-full px-2 py-1 bg-color-secondary-lighter border border-gray-300 outline-none text-gray-700 rounded focus:border-gray-400"></textarea>
+        </div>
+        <div class="flex justify-center pt-4">
+          <input type="submit" value="ثبت کردن"
+            class="w-40 h-8  text-white text-[13px] rounded cursor-pointer outline-none bg-blue-500 hover:bg-blue-700 ease-in duration-200">
+        </div>
+      </form>
+    </div>
+  </section>
+  <!-- About us -->
+  <section id="aboutUs"
+    class="bg-color-secondary-light flex flex-col gap-y-4 md:flex-row md:max-w-full  overflow-hidden">
+    <div class="flex-1 flex flex-col px-4 pt-10 pb-6  gap-6">
+      <div class="flex items-center justify-center gap-3">
+        <i class="fa-solid fa-circle-info text-orange-600 text-2xl"></i>
+        <h2 class="text-blue-900 font-semibold text-xl md:text-2xl text-center">در‌باره ما بدانید
+        </h2>
+      </div>
+      <p class=" text-blue-800 leading-7 text-[16px] text-justify md:px-4">سیستم مدیریت جرایم ترافیکی توسط ما توسعه
+        یافته است.
+        هدف
+        ما در این
+        سیستم،
+        تسهیل و سرعت بخشیدن به روند پیگیری و
+        محاکمه جرایم ترافیکی است. با استفاده از این سیستم، می‌توان به آسانی و با دقت بالا جرایم ترافیکی را
+        شناسایی و پیگیری کرد.
+      </p>
+      <div class="flex justify-center items-center gap-4 sm:gap-6 mt-6 text-2xl text-blue-900">
+        <a href="#"><i class="fa-brands fa-facebook hover:text-blue-700 "></i></a>
+        <a href="#"><i class="fa-brands fa-square-instagram hover:text-blue-700"></i></a>
+        <a href="#"><i class="fa-brands fa-whatsapp hover:text-blue-700"></i></a>
+        <a href="#"><i class="fa-brands fa-linkedin hover:text-blue-700"></i></a>
+        <a href="#"><i class="fa-brands fa-square-twitter hover:text-blue-700"></i></a>
+      </div>
+      <div class="flex flex-col gap-2 px-2 sm:px-4 mt-6 text-sm font-semibold text-blue-800">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-square-phone text-orange-600 text-lg"></i>
+          <span class=" tracking-widest">0773044560</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-envelope text-orange-600 text-lg"></i>
+          <span class="tracking-wide">trafficCrimes@gamil.com</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-location-dot text-orange-600 text-lg"></i>
+          <span class=" tracking-wide">چهارراهی دهمزنگ، کابل، افغانستان</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 flex justify-center px-4 py-8 lg:pt-14">
+      <div class="rounded border border-color-secondary overflow-hidden">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3711.680349864141!2d69.15039240352421!3d34.510843854145584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38d1692ef39ba485%3A0x41ec4232081e57bf!2zRGlyZWN0b3JhdGUgb2YgVHJhZmZpYyBQb2xpY2Ug2K8g2KrYsdin2YHZitqp2Ygg2LHZitin2LPYqg!5e0!3m2!1sen!2s!4v1700570722137!5m2!1sen!2s"
+          width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Guide Book -->
+  <section id="guide"
+    class="bg-color-secondary flex flex-col gap-y-4 md:flex-row md:max-w-full md:pb-10 overflow-hidden">
+    <div class="flex-1 hidden md:flex justify-center px-4 py-8 lg:pt-14">
+      <img src="../img/trafficGuideBook.png" alt="traffic guide book" class="max-w-full max-h-full object-cover">
+    </div>
+
+    <div class="flex-1 flex flex-col px-4 pt-10 pb-10  gap-6">
+      <div class="flex items-start sm:items-center justify-center gap-1 sm:gap-3">
+        <i class="fa-solid fa-circle-question text-orange-600 text-2xl"></i>
+        <h2 class="text-blue-900 font-semibold text-xl md:text-2xl text-center">آیا با قوانین ترافیک آشنایی دارید؟
+        </h2>
+      </div>
+      <p class=" text-blue-800 leading-7 text-[16px] text-justify md:px-4">
+        برای یادگیری دقیق قوانین و مقررات ترافیک، خواندن کتاب راهنمای ترافیک بسیار مفید است. این کتاب حاوی اطلاعات کامل
+        و مهمی درباره قوانین ترافیکی و رانندگی است که به شما کمک می‌کند به درستی و با اطمینان بیشتری رانندگی کنید.
+      </p>
+      <p class=" text-blue-800 leading-7 text-[16px] text-justify md:px-4">
+        <span class="text-xl text-red-500">*</span>
+        <span>برای دانلود کردن کتاب رهنمایی ترافیکی روی دکمه دانلود کلیک کنید.</span>
+      </p>
+      <div class="flex justify-center mt-10">
+        <a href="#"
+          class="w-36 h-8 flex items-center justify-center text-white text-[13px] rounded cursor-pointer outline-none bg-blue-500 hover:bg-blue-700 ease-in duration-200">دانلود</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer
+    class="flex flex-col items-center md:items-start  md:flex-row md:justify-between gap-y-8 bg-blue-950 py-8 text-[13px] text-white px-4 lg:px-8">
+    <div class="flex flex-col gap-2">
+      <p class="text-orange-500 font-semibold text-center md:text-start">ساعات کاری</p>
+      <p>شنبه الی چهار‌شنبه از 8:00 تا 4:00 بعد از ظهر</p>
+      <p>روز های پنج شنبه از 8:00 تا 12:00 ظهر</p>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <p class="text-orange-500 font-semibold text-center md:text-start">تماس به ما</p>
+      <p>تلفون: 0772355770</p>
+      <p>ایمیل: trafficCrimes@gamil.com</p>
+      <p>آدرس: چهارراهی دهمزنگ، کابل، افغانستان</p>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <p class="text-orange-500 font-semibold text-center">شبکه های اجتماعی</p>
+      <p>ما را در شبکه های اجتماعی دنبال کنید</p>
+      <div class="flex justify-center items-center gap-4 mt-2 text-xl">
+        <a href="#"><i class="fa-brands fa-facebook hover:text-gray-300 "></i></a>
+        <a href="#"><i class="fa-brands fa-square-instagram hover:text-gray-300"></i></a>
+        <a href="#"><i class="fa-brands fa-whatsapp hover:text-gray-300"></i></a>
+        <a href="#"><i class="fa-brands fa-linkedin hover:text-gray-300"></i></a>
+        <a href="#"><i class="fa-brands fa-square-twitter hover:text-gray-300"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ******************************* -->
+  <!-- ************Login ************ -->
+  <div id="loginForm" class="hidden fixed inset-0 backdrop-blur-sm z-50 px-2 sm:px-0 flex items-center justify-center">
+    <div class="relative bg-white max-w-[360px] px-8 py-8 md:max-w-[420px] rounded shadow-lg">
+      <!-- x btn -->
+      <button onclick="hideLogin();" type="button"
+        class="absolute top-2 right-3 text-gray-400 bg-transparent hover:bg-gray-50 hover:text-gray-700 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+      </button>
+      <!-- end x btn -->
+      <h1 class="text-center text-xl font-bold mb-8 text-blue-800">ورود به حساب</h1>
+      <!-- drop down select menu -->
+      <button
+        class="select-button relative w-full h-9 mb-8 rounded flex items-center justify-center text-[13px] text-gray-600 outline-none border border-gray-200  bg-gray-50 hover:bg-gray-100 hover:border-gray-300 ease-in duration-200">
+        <p class="btn-text px-4 text-sm">کارمند</p>
+        <span class="absolute left-4 text-sm">
+          <i class="fa-solid fa-chevron-down"></i>
+        </span>
+        <!-- options -->
+        <div class="select-options hidden absolute top-full mt-[2px] min-w-full w-max">
+          <ul class="bg-white border divide-y rounded">
+            <li class="employee px-4 h-7 rounded-sm flex items-center justify-center hover:bg-gray-50">
+              کارمند
+            </li>
+            <li class="driver px-4 h-7 rounded-sm flex items-center justify-center hover:bg-gray-50">
+              راننده
+            </li>
+            <li class="owner px-4 h-7 rounded-sm flex items-center justify-center hover:bg-gray-50">
+              مالک
+            </li>
+          </ul>
+        </div>
+      </button>
+      <form action="" method="get" class="text-[13px] text-gray-600">
+        <input id="hidden-input" type="hidden" name="type" value="" />
+        <input id="email-or-license" type="email"
+          class="mb-8 w-full h-9 px-2 bg-gray-50 border border-gray-200 outline-none text-gray-600 rounded focus:border-gray-300 placeholder:text-gray-500"
+          placeholder="ایمیل آدرس" />
+
+        <input type="password"
+          class="mb-8 w-full h-9 px-2 bg-gray-50 border border-gray-200 outline-none text-gray-600 focus:tracking-widest rounded focus:border-gray-300 placeholder:text-gray-500"
+          placeholder="رمز عبور" />
+
+        <input type="submit" value="ورود"
+          class=" w-full h-9  text-white text-sm rounded cursor-pointer outline-none bg-blue-800 hover:bg-blue-700 ease-in duration-200" />
+      </form>
+      <div class="mt-6 text-center pb-4 text-sm text-blue-700 hover:text-blue-900 ease-in duration-200">
+        <a href="#"><span class=""> رمز عبور تان را فراموش کرده اید؟</span></a>
+      </div>
+    </div>
+  </div>
+  <!-- ******************************* -->
+  <!-- ************End Login ************ -->
+
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    // smooth scroll
+    $(document).ready(function () {
+      $('a[href^="#"]').on('click', function (event) {
+        event.preventDefault();
+        var target = $(this.getAttribute('href'));
+        if (target.length) {
+          $('html, body').stop().animate({
+            scrollTop: target.offset().top
+          }, 800);
+        }
+      });
+    });
+
+    // mobile Menu
+    const mobileMenu = document.getElementById("mobileMenu");
+    function toggleMobileMenu() {
+      mobileMenu.classList.toggle("-translate-y-52");
+    }
+    const menuItems = document.querySelectorAll(".menuItem");
+    menuItems.forEach(function (menuItem) {
+      menuItem.addEventListener("click", function () {
+        mobileMenu.classList.toggle("-translate-y-52");
+      });
+    }); // end foreach
+
+    // *********login form ***************
+    // show and hide login form
+    const loginForm = document.getElementById("loginForm");
+    function showLogin() {
+      loginForm.classList.remove("hidden");
+    }
+
+    function hideLogin() {
+      loginForm.classList.add("hidden");
+    }
+    //  drop down list
+    const select_button = document.querySelector(".select-button");
+    const select_options = document.querySelector(".select-options");
+    const btn_text = document.querySelector(".btn-text");
+    const hidden_input = document.getElementById("hidden-input");
+
+    select_button.addEventListener("click", function () {
+      select_options.classList.toggle("hidden");
+    });
+
+    // change palceholder according to user
+    const employee = document.querySelector(".employee");
+    const driver = document.querySelector(".driver");
+    const owner = document.querySelector(".owner");
+    const email_or_license = document.getElementById("email-or-license");
+
+    employee.addEventListener("click", function () {
+      btn_text.textContent = "کارمند";
+      email_or_license.placeholder = "ایمیل آدرس";
+      email_or_license.type = "email";
+      // change the hidden input value
+      hidden_input.value = "staff";
+    });
+    driver.addEventListener("click", function () {
+      btn_text.textContent = "راننده";
+      email_or_license.placeholder = "نمبر لایسنس";
+      email_or_license.type = "text";
+      // change the hidden input value
+      hidden_input.value = "driver";
+    });
+    owner.addEventListener("click", function () {
+      btn_text.textContent = "مالک";
+      email_or_license.placeholder = "نمبر تذکره";
+      email_or_license.type = "text";
+      // change the hidden input value
+      hidden_input.value = "owner";
+    });
+    // *********End login form ***************
+  </script>
+</body>
+
+</html>
