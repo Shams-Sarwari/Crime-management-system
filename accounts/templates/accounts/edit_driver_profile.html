@@ -1,24 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
-{% comment %} 
-{% block content %}
-    <form action="" method="POST" enctype='multipart/form-data'>
-        {% csrf_token %}
-        {{ form.as_p }}
-        {{ add_form.as_p }}
-        <input type="submit" value="Submit">
-    </form>
-    
-{% endblock content %} {% endcomment %}
+
 
 
 {% block content %}
 <div
         class="flex flex-col gap-y-4 md:flex-row md:max-w-full mx-2 md:mx-4 mt-2 md:mt-4 bg-[#cae7f5] text-gray-500 rounded-t shadow overflow-hidden">
         <div class="flex-1 flex flex-col p-4 md:p-10 gap-4 justify-center items-center">
-          <h2 class="text-blue-900 font-semibold text-2xl sm:text-3xl">فورم ثبت راننده جدید</h2>
-          <p class="text-blue-800 leading-7 text-justify md:text-center ">این فرم برای ثبت راننده جدید طراحی
-            شده است. با استفاده از این فرم، می‌توانید به صورت سریع و آسان رانندگان جدید را به سیستم اضافه نمایید. </p>
+          <h2 class="text-blue-900 font-semibold text-2xl sm:text-3xl">فورم تغییر مشخصات راننده </h2>
+          <p class="text-blue-800 leading-7 text-justify md:text-center ">این فرم برای تغییر مشخصات راننده طراحی
+            شده است. با استفاده از این فرم، می‌توانید به صورت سریع و آسان مشخصات رانندگان را تغییر دهید. </p>
         </div>
         <div class="flex-1 flex justify-center px-4 py-8">
           <img src="{% static "media/driver.png" %}" alt="driver image" class="max-w-full max-h-full object-cover">
@@ -45,7 +36,7 @@
 
           <div class="flex flex-col gap-2">
             <label for="" class="mr-2">نمبر لایسنس</label>
-            {{ form.licence_num }}
+            <input type="number" class="myinput" name="licence_num" value="{{profile.licence_num}}">
           </div>
           
           <div class="flex flex-col gap-2">
