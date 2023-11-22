@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- notifications -->
+    <div
+    class="max-w-full mx-2 md:mx-4 my-2 md:my-4 bg-color-secondary-light rounded overflow-hidden text-gray-800 text-[13px]">
+    <!-- head -->
+    <div class="bg-color-secondary py-2 px-6 md:px-12 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div
+          class="relative inline-flex items-center p-1 text-3xl font-medium text-center text-blue-800 rounded-lg focus:outline-none">
+          <i class="fa-solid fa-bell"></i>
+          <div
+            class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1.5 -right-1 ">
+            {{num_of_pending_crimes}}</div>
+        </div>
+        <span class="font-semibold text-[16px]">اعلان ها</span>
+      </div>
+      <button id="moreNotifications" type="button"
+        class="flex items-center gap-2 hover:text-blue-700 ease-in duration-200">
+        <span class="font-semibold text-xs">اعلانات بیشتر</span>
+        <i class="fa-solid fa-chevron-down fa-beat"></i>
+      </button>
+      <button id="lessNotifications" type="button"
+        class="hidden flex items-center gap-2 hover:text-blue-700 ease-in duration-200">
+        <span class="font-semibold text-xs">اعلانات کمتر</span>
+        <i class="fa-solid fa-chevron-up fa-beat"></i>
+      </button>
+    </div>
+
+    <div id="notificationContainer" class="max-h-52 md:max-h-[340px]">
+      <!-- nitification 1  loop here-->
+      {% for crime in pending_crimes %}
+      <div id="notification{{forloop.counter}}"
+        class="border-t border-color-secondary px-2 md:px-4 xl:px-8 py-4 flex flex-col md:flex-row md:gap-4 lg:gap-16 xl:gap-20">
+        <!-- photo and report -->
+        <div class="max-w-md flex  gap-3">
+          <div class="bg-gray-300 p-[2px] mt-2 flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
+            <img src="{{crime.stuff.avatar.url}}" alt="my image" class="h-full w-full object-cover rounded-full">
+          </div>
+          <div class="expandableText flex flex-col h-20">
+            <span class="font-semibold"> {{crime.stuff.first_name}} {{crime.stuff.last_name}} </span>
+            <span class="overflow-hidden text-justify h-auto">
+              {{ crime.description }}
+            </span>
+            <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
+            <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
+          </div>
+        </div>
+        <!-- driver and car -->
+        <div
+          class="max-w-full  flex-grow pt-2 md:pt-0 mt-2 md:mt-0  px-2 sm:pl-4 sm:pr-8 md:px-0 flex justify-between border-t md:border-none text-xs md:text-[13px]">
+          <div class="flex flex-col gap-2">
+            <span class="font-semibold">مالک</span>
+            <span> {{ crime.car.owner.first_name }} {{ crime.car.owner.last_name }}</span>
+            <span>تذکره: {{crime.car.owner.tazkira_number}}</span>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <span class="font-semibold">راننده</span>
+            {% if crime.driver %}
+            <span>{{ crime.driver.first_name }} {{crime.driver.last_name }}</span>
+            <span>لایسنس: {{crime.driver.licence_num }}</span>
+            {% else %}
+            <span>-</span>
+            <span>-</span>
+            {% endif %}
+            
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <span class="font-semibold">موتر</span>
+            <span> {{ crime.car.model }}</span>
+            <span>پلیت: {{crime.car.plate_number}}</span>
+          </div>
+
+          <form action="{% url "crimes:remove-pending" crime.id %}" class="flex flex-col gap-2" method="POST">
+            {% csrf_token %} 
+            <span class="font-semibold">تعیین جریمه</span>
+            <input type="number" value={{crime.price}} name='price'
+              class="w-20 sm:w-24 h-6 px-2  border border-gray-300 rounded outline-none focus:border-gray-400 focus:text-gray-700 tracking-wide">
+            <input type="submit" value="تایید"
+              class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-300 outline-none hover:border-gray-400 hover:text-gray-700 rounded focus:border-gray-400 cursor-pointer">
+          </form>
+        </div>
+
+      </div>
+      {% endfor %}
+      
+      
+    </div>
+
+  </div>
+  <!-- End notifications -->
+
+  <!-- ************************************ -->
+  <!-- ********** users comments ********* -->
+  <div
+    class="max-w-full mx-2 md:mx-4 my-2 md:my-4 bg-color-secondary-light rounded overflow-hidden text-gray-800 text-[13px]">
+    <!-- head -->
+    <div class="bg-color-secondary py-2 px-6 md:px-12 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div
+          class="relative inline-flex items-center p-1 text-3xl font-medium text-center text-blue-700 rounded-lg focus:outline-none">
+          <i class="fa-solid fa-comment-dots"></i>
+          <div
+            class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1.5 -right-1 ">
+            20</div>
+        </div>
+        <span class="font-semibold text-[16px]">نظریات کاربران</span>
+      </div>
+      <button id="moreComments" type="button"
+        class="flex items-center gap-2 hover:text-blue-700 ease-in duration-200">
+        <span class="font-semibold text-xs">نظریات بیشتر</span>
+        <i class="fa-solid fa-chevron-down fa-beat"></i>
+      </button>
+      <button id="lessComments" type="button"
+        class="hidden flex items-center gap-2 hover:text-blue-700 ease-in duration-200">
+        <span class="font-semibold text-xs">نظریات کمتر</span>
+        <i class="fa-solid fa-chevron-up fa-beat"></i>
+      </button>
+    </div>
+    <!-- comments -->
+    <div id="commentContainer"
+      class="max-h-[320px] md:max-h-[330px] grid lg:grid-cols-[1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 px-2 sm:px-4 md:px-8 text-blue-800 text-[13px] divide-y divide-color-secondary">
+      <!-- comment 1 -->
+      <div class="flex flex-col gap-2 py-2 sm:py-4">
+        <span class="mr-2 font-semibold">اسم</span>
+        <span
+          class="w-full h-8 px-2 flex items-center bg-gray-50 border border-gray-200 text-gray-700 rounded">محمدرضا
+          قاسمی
+        </span>
+
+        <span class="mr-2 font-semibold">ایمیل</span>
+        <span
+          class="w-full h-8 px-2 flex items-center bg-gray-50 border border-gray-200 text-gray-700 rounded">rezajanqasimi@gmail.com
+        </span>
+
+        <span class="mr-2 font-semibold">نظر</span>
+        <span
+          class="w-full min-h-[90px] px-2 py-2 bg-gray-50 border border-gray-200 text-gray-600 text-xs rounded">احترام
+          به قوانین ترافیکی، کلیدی برای ایمنی و آرامش در جاده‌هاست. با رعایت سرعت مجاز، عدم استفاده از گوشی همراه
+          در
+          حین رانندگی، می‌توانیم به حفظ سلامتی خود و
+          دیگران در مسیرهای رانندگی کمک کنیم.
+        </span>
+        <form action="" class="flex justify-between mt-2">
+          <div class="flex items-center gap-2 mr-2">
+            <input type="checkbox" class="cursor-pointer">
+            <span class="text-xs md:text-13px">علامت‌گذاری به عنوان خوانده شده</span>
+          </div>
+          <input type="submit" value="انجام"
+            class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-200 outline-none hover:border-gray-300 hover:text-gray-700 rounded cursor-pointer">
+        </form>
+
+      </div>
+      <!-- comment 2 -->
+      <div class="flex flex-col gap-2 py-2 sm:py-4">
+        <span class="mr-2 font-semibold">اسم</span>
+        <span
+          class="w-full h-8 px-2 flex items-center bg-gray-50 border border-gray-200 text-gray-700 rounded">محمدرضا
+          قاسمی
+        </span>
+
+        <span class="mr-2 font-semibold">ایمیل</span>
+        <span
+          class="w-full h-8 px-2 flex items-center bg-gray-50 border border-gray-200 text-gray-700 rounded">rezajanqasimi@gmail.com
+        </span>
+
+        <span class="mr-2 font-semibold">نظر</span>
+        <span
+          class="w-full min-h-[85px] px-2 py-2 bg-gray-50 border border-gray-200 text-gray-600 text-xs rounded">احترام
+          به قوانین ترافیکی، کلیدی برای ایمنی و آرامش در جاده‌هاست. با رعایت سرعت مجاز، عدم استفاده از گوشی همراه
+          در
+          حین رانندگی، استفاده از کمربند ایمنی و رعایت فاصله ایمن با خودروهای دیگر، می‌توانیم به حفظ سلامتی خود و
+          دیگران در مسیرهای رانندگی کمک کنیم.
+        </span>
+        <form action="" class="flex justify-between mt-2">
+          <div class="flex items-center gap-2 mr-2">
+            <input type="checkbox" class="cursor-pointer">
+            <span class="text-xs md:text-13px">علامت‌گذاری به عنوان خوانده شده</span>
+          </div>
+          <input type="submit" value="انجام"
+            class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-200 outline-none hover:border-gray-300 hover:text-gray-700 rounded cursor-pointer">
+        </form>
+
+      </div>
+      <!-- comment 3 -->
+      <div class="flex flex-col gap-2 py-2 sm:py-4">
+        <span class="mr-2 font-semibold">اسم</span>
+        <span
+          class="w-full h-8 px-2 flex items-center bg-gray-50 border border-gray-200 text-gray-700 rounded">محمدرضا
+          قاسمی
+        </span>
+
+        <span class="mr-2 font-semibold">ایمیل</span>
+        <span
+          class="w-full h-8 px-2 flex items-center bg-gray-50 border border-gray-200 text-gray-700 rounded">rezajanqasimi@gmail.com
+        </span>
+
+        <span class="mr-2 font-semibold">نظر</span>
+        <span
+          class="w-full min-h-32 px-2 py-2 bg-gray-50 border border-gray-200 text-gray-600 text-xs rounded">احترام
+          به قوانین ترافیکی، کلیدی برای ایمنی و آرامش در جاده‌هاست. با رعایت سرعت مجاز، عدم استفاده از گوشی همراه
+          در
+          حین رانندگی، استفاده از کمربند ایمنی و رعایت فاصله ایمن با خودروهای دیگر، می‌توانیم به حفظ سلامتی خود و
+          دیگران در مسیرهای رانندگی کمک کنیم.
+        </span>
+        <form action="" class="flex justify-between mt-2">
+          <div class="flex items-center gap-2 mr-2">
+            <input type="checkbox" class="cursor-pointer">
+            <span class="text-xs md:text-13px">علامت‌گذاری به عنوان خوانده شده</span>
+          </div>
+          <input type="submit" value="انجام"
+            class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-200 outline-none hover:border-gray-300 hover:text-gray-700 rounded cursor-pointer">
+        </form>
+      </div>
+
+    </div>
+  </div>
+  <!-- end comments  -->
+</section>
+{% endblock content %}
+
+{% block jscript %}
+<script>
+    // *********************************************************
+    // ************** notifications ****************************
+    function initializeNotification(divId) {
+      const expandableText = document.querySelector(`#${divId} .expandableText`);
+      const seeMoreBtn = document.querySelector(`#${divId} .seeMoreBtn`);
+      const seeLessBtn = document.querySelector(`#${divId} .seeLessBtn`);
+
+      seeMoreBtn.addEventListener("click", function () {
+        expandableText.classList.remove("h-20");
+        seeMoreBtn.classList.add("hidden");
+        seeLessBtn.classList.remove("hidden");
+      });
+
+      seeLessBtn.addEventListener("click", function () {
+        expandableText.classList.add("h-20");
+        seeLessBtn.classList.add("hidden");
+        seeMoreBtn.classList.remove("hidden");
+      });
+
+    }// end initializeNotification()
+
+    // call functions
+    for (let i = 1; i <= {{num_of_pending_crimes}}; i++) {
+      initializeNotification(`notification${i}`);
+    }
+    // ******* more or less notifications ***********
+    const moreNotifications = document.getElementById("moreNotifications");
+    const lessNotifications = document.getElementById("lessNotifications");
+    const notificationContainer = document.getElementById("notificationContainer");
+
+    moreNotifications.addEventListener("click", function () {
+      notificationContainer.classList.remove("max-h-52");
+      notificationContainer.classList.remove("md:max-h-[340px]");
+      moreNotifications.classList.add("hidden");
+      lessNotifications.classList.remove("hidden");
+    });
+
+    lessNotifications.addEventListener("click", function () {
+      notificationContainer.classList.add("max-h-52");
+      notificationContainer.classList.add("md:max-h-[340px]")
+      lessNotifications.classList.add("hidden");
+      moreNotifications.classList.remove("hidden");
+    });
+
+    // **********************************************
+    // ******* more or less comments ***********
+    const moreComments = document.getElementById("moreComments");
+    const lessComments = document.getElementById("lessComments");
+    const commentContainer = document.getElementById("commentContainer");
+
+    moreComments.addEventListener("click", function () {
+      commentContainer.classList.remove("max-h-[320px]");
+      commentContainer.classList.remove("md:max-h-[330px]");
+      moreComments.classList.add("hidden");
+      lessComments.classList.remove("hidden");
+    });
+
+    lessComments.addEventListener("click", function () {
+      commentContainer.classList.add("max-h-[320px]");
+      commentContainer.classList.add("md:max-h-[330px]");
+      lessComments.classList.add("hidden");
+      moreComments.classList.remove("hidden");
+    });
+  </script>
+{% endblock jscript %}

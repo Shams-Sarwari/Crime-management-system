@@ -6,6 +6,7 @@
       <!-- profile and jawazsair -->
       <div
         class="relative flex flex-col gap-y-4 md:flex-row md:max-w-[960px] mx-2 md:mx-auto mt-2 md:mt-4 pb-6 pt-4 bg-white text-gray-500 rounded-lg shadow">
+        {% if request.user.is_staff %}
         <!-- dropdown -->
         <div class="absolute right-6 top-2">
           <button onclick="toggleProfileDropdown()"
@@ -37,11 +38,12 @@
             </ul>
           </div>
         </div>
+        {% endif %}
         <!-- profile card -->
         <div class="w-full max-w-md px-4">
           <div class="flex flex-col items-center gap-2 mt-6">
             <div class="w-20 h-20 md:w-24 md:h-24 overflow-hidden">
-              <img src="{{ owner.image.url }}" alt="Image" class="object-contain h-auto rounded-full">
+              <img {% if owner.image %} src="{{ owner.image.url }}" {% endif %} alt="Image" class="object-contain h-auto rounded-full">
             </div>
             <div class="flex flex-col gap-1">
               <h2 class="text-xl text-color-primary font-semibold">{{ owner.first_name }} {{ owner.last_name }}</h2>
@@ -67,7 +69,22 @@
                 <td class="pr-4  ">جنسیت</td>
                 <td>{{ owner.gender }}</td>
               </tr>
-              
+              <tr class="bg-gray-200 h-7">
+                <td class="pr-4  ">راننده</td>
+                {% if owner.licence_number %}
+                <td>بلی</td>
+                {% else %}
+                <td>نخیر</td>
+                {% endif %}
+              </tr>
+              <tr class=" h-7">
+                <td class="pr-4  ">لایسنس نمبر</td>
+                {% if owner.licence_number %}
+                <td>{{ owner.licence_number }}</td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+              </tr>
               <tr class="bg-gray-200 h-7">
                 <td class="pr-4  ">نمبر تذکره</td>
                 <td class="text-sm">{{ owner.tazkira_number }}</td>
@@ -91,6 +108,7 @@
             </table>
             <!-- btns -->
             <div class="flex justify-center gap-6 mt-8">
+              {% if request.user.is_staff %}
               <button type="button" onclick="window.open('{% url "cars:create-car-with-owner" owner.id %}', '_self');"
                 class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 py-1 text-center">
                 ثبت موتر
@@ -99,6 +117,7 @@
                 class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 py-1 text-center">
                 حذف
               </button>
+              {% endif %}
             </div>
           </div>
 
@@ -114,6 +133,7 @@
               <div class="swiper-slide" id="jawaz{{forloop.counter}}"> 
                 <div class="px-10 md:pl-12 md:pr-16">
                   <!-- jawaz dropdown -->
+                  {% if request.user.is_staff %}
                   <div class="absolute left-10 top-0">
                     <button 
                       class="jawazBtn inline-block text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5"
@@ -138,6 +158,7 @@
                       </ul>
                     </div>
                   </div>
+                  {% endif %}
                   <h2 class="mr-2 pb-2 text-lg text-color-primary font-semibold">مشخصات جواز سیر</h2>
                   <table class="w-full text-[13px] border-t-2 border-b-2 border-gray-400">
                     <tr class="border-b h-8">
@@ -228,8 +249,12 @@
           <div class="flex gap-8 py-2 md:py-0">
             <div
               class="flex items-center cursor-pointer text-xs md:text-sm py-1 px-2 rounded hover:bg-color-primary-light ease-in duration-200">
+              {% if not car.jawazsayr %}
+              {% if request.user.is_staff %}
               <a href="{% url "cars:create-jawaz" car.id %}">افزودن جواز
                 سیر</a>
+              {% endif %}
+              {% endif %}
             </div>
             <!-- car-info-btn: it's for js -->
             <div
@@ -247,25 +272,26 @@
                 <td class="pr-4 w-36 ">مالک</td>
                 <td>{{ car.owner }}</td>
               </tr>
+              
               <tr class=" h-7">
-                <td class="pr-4  ">راننده</td>
-                <td>{{ car.driver.first_name }} {{ car.driver.last_name }}</td>
-              </tr>
-              <tr class="bg-gray-200  h-7">
                 <td class="pr-4 w-36 ">نمبر پلیت</td>
                 <td>{{ car.plate_number }}</td>
               </tr>
-              <tr class=" h-7">
+              <tr class="bg-gray-200  h-7">
                 <td class="pr-4  ">مودل</td>
                 <td>{{ car.model }}</td>
               </tr>
-              <tr class="bg-gray-200  h-7">
+              <tr class="h-7">
                 <td class="pr-4  ">وزن مجاز</td>
                 <td>{{ car.legal_weight }} کیلوگرام</td>
               </tr>
-              <tr class=" h-7">
+              <tr class="bg-gray-200  h-7">
                 <td class="pr-4  ">تعداد راکبین</td>
                 <td>{{ car.number_of_rider }} نفر</td>
+              </tr>
+              <tr class="h-7">
+                <td class="pr-4  ">وزن بالای اکسل</td>
+                <td>{{ car.weight_on_axle }}</td>
               </tr>
             </table>
 
@@ -297,13 +323,16 @@
             </table>
           </div>
           <div class="flex justify-end">
+            {% if request.user.is_staff %}
             <a href="{% url "cars:car-detail" car.id %}"
               class="text-white text-xs bg-color-primary hover:bg-color-primary-lighter focus:outline-none rounded w-32 py-1.5 text-center">جزییات
               بیشتر</a>
+            {% endif %}
           </div>
         </div>
         <!-- punishment -->
-        <form class="px-2 md:px-10 py-6 relative" action="">
+        <form class="px-2 md:px-10 py-6 relative" action="{% url "crimes:online-payment" %}" method='POST'>
+          {% csrf_token %}
           <input type="checkbox" name="" class="masterCheckbox absolute top-10 right-6 md:right-[54px] cursor-pointer">
           <!-- line below: fineTable class is for js -->
           <table class="fineTable">
@@ -317,12 +346,17 @@
               <td class=" w-32">تاریخ انقضا</td>
             </tr>
             {% for crime in car.carcrime_set.all %}
-            {% if not crime.paid %}
+            {% if not crime.paid and not crime.pending %}
             <tr class="h-12 text-center text-gray-600 border-b border-gray-300">
               <td class="w-10 h-12 flex justify-center items-center"><input type="checkbox" value="{{crime.id}}" name="paid_crimes"
                   class=" cursor-pointer">
               </td>
+              {% if crime.crime.title %}
               <td class="text-[13px]">{{ crime.crime.title }}</td>
+              {% else %}
+              <td class="text-[13px]">این جریمه بخاطر تخلف در تاریخ {{crime.created}}از طرف ترافیک وضع گردیده</td>
+              {% endif %}
+              
               <td>{{ crime.price }}</td>
               <td>{{ crime.expiry_fine }}</td>
               <td>{{ crime.get_total }}</td>
@@ -344,31 +378,6 @@
 {% endblock content %}
 
 {% block jscript %}
-    <!-- *************************************** -->
-  <!-- ********* Confirm Pyament Notification **************** -->
-  <!--  Confirm Pyament with blur functionality -->
-  <div id="confirmPayment" class="hidden fixed inset-0 z-50 backdrop-blur-sm p-2">
-    <div class="center-div w-full max-w-sm max-h-full bg-white rounded-lg shadow">
-      <button type="button" onclick="hideConfimPayment()"
-        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
-        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-        </svg>
-      </button>
-      <div class="p-6 pt-4 text-center">
-        <h3 class="text-sm font-semibold text-color-primary mb-2">تایید مبلغ پرداخت شده</h3>
-        <p id="confirmPaymentMessage" class="mb-4 text-sm font-normal text-gray-500 leading-7">
-          آیا مبلغ ۴۵۰ افغانی را دریافت کرده اید؟
-        </p>
-        <button id="confirmPaymentBtn"
-          class="w-28 text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg text-sm  py-1 text-center ml-2 cursor-pointer">بلی</button>
-        <button onclick="hideConfimPayment()"
-          class="inline-block w-28 text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm px-5 py-1 focus:z-10">نخیر</button>
-      </div>
-    </div>
-  </div>
-  <!-- End confirm payment -->
     
   <!-- *************************************** -->
   <!-- ********* Delete Notification **************** -->
@@ -413,6 +422,7 @@
     }
     // ****************************************
     // ********* jawaz details ****************
+    {% if request.user.is_staff %}
     function initializeJawaz(divId) {
       const jawazBtn = document.querySelector(`#${divId} .jawazBtn`);
       const jawazDropdown = document.querySelector(`#${divId} .jawazDropdown`);
@@ -424,6 +434,8 @@
     for (let i = 1; i <= {{num_of_cars}}; i++) {
       initializeJawaz(`jawaz${i}`);
     }
+    {% endif %}
+
     // ****************************************
     // ********* car and fine payemnt*****************
     function initializeFinePayment(divId) {
@@ -475,23 +487,7 @@
         masterCheckbox.checked = allChecked;
       }
 
-      // form submit confirm ***********************
-      const form = document.querySelector(`#${divId} form`);
-      const confirmPayment = document.querySelector('#confirmPayment');
-      const confirmPaymentMessage = document.querySelector('#confirmPaymentMessage');
-      const confirmPaymentBtn = document.querySelector('#confirmPaymentBtn');
-
-      form.addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent the default form submission
-        confirmPaymentMessage.textContent = `آیا مبلغ ${document.querySelector(`#${divId} .total`).textContent} افغانی را دریافت کرده اید؟`;
-        confirmPayment.classList.remove("hidden");  // Show the confirmation message
-
-        confirmPaymentBtn.addEventListener('click', function () {
-          confirmPayment.classList.add("hidden"); // Hide the confirmation message
-          form.submit(); // Manually submit the form
-        });
-      });
-      // ***************************
+      
     }
 
 
@@ -502,15 +498,6 @@
       initializeFinePayment(`fine${i}`);
     }
 
-    // *********************************************************
-    // ************** Confirm Payment ****************************
-    const confirmPayment = document.getElementById('confirmPayment');
-    function showConfirmPayment() {
-      confirmPayment.classList.remove("hidden");
-    };
-    function hideConfimPayment() {
-      confirmPayment.classList.add("hidden");
-    };
 
     // *********************************************************
     // ************** Confirm Delete ****************************

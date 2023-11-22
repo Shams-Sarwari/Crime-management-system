@@ -56,7 +56,7 @@
             <td class="text-center text-lg hidden md:table-cell">{{ forloop.counter }}</td>
             <td class="border-r-2">
               <div class="flex justify-center">
-                <img src="{{ driver.avatar.url }}" alt="my image" class="w-9 h-9 rounded-full" />
+                <img {% if driver.avatar %}src="{{ driver.avatar.url }}"{% endif %} alt="my image" class="w-9 h-9 rounded-full" />
             </td>
             <td class="border-r-2 pr-4 pl-2">{{ driver.first_name }}</td>
             <td class="border-r-2 pr-4 pl-2"> {{ driver.last_name }}</td>

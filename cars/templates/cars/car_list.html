@@ -30,7 +30,6 @@
           <tr class="h-10 border-b-2">
             <th class="w-12 text-center text-lg hidden md:table-cell">#</th>
             <th class="border-r-2 pr-4 w-40">مالک</th>
-            <th class="border-r-2 pr-4 w-40">راننده</th>
             <th class="border-r-2 pr-4 w-44">نمبر پلیت</th>
             <th class="border-r-2 pr-4 hidden md:table-cell">مودل</th>
             <th class="border-r-2 pr-4 hidden md:table-cell">نمبر انجن</th>
@@ -43,7 +42,6 @@
           <tr class="mytable-row" onclick="window.open('{% url "cars:car-detail" car.id %}', '_self');">
             <td class="text-center text-lg hidden md:table-cell">{{ forloop.counter }}</td>
             <td class="border-r-2 pr-4 pl-2">{{ car.owner.first_name }}</td>
-            <td class="border-r-2 pr-4 pl-2">{{ car.driver.first_name }}</td>
             <td class="border-r-2 pr-4 pl-2">{{ car.plate_number }}</td>
             <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">{{ car.model }}</td>
             <td class="border-r-2 pr-4 pl-2 hidden md:table-cell">{{ car.engine_num }}</td>

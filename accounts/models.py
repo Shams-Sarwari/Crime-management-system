@@ -58,7 +58,7 @@ class StaffProfile(models.Model):
     current_address = models.ForeignKey('Address', on_delete=models.CASCADE, null=True)
     work_place = models.ForeignKey('WorkPlace', on_delete=models.SET_NULL, null=True)
     phone_num = models.CharField(max_length=14,unique=True, null=True, blank=True)
-    tazkira_img = models.ImageField(upload_to="staff/id_images")
+    tazkira_img = models.ImageField(upload_to="staff/id_images", default="tazkira.jpg", null=True, blank=True)
     avatar = models.ImageField(upload_to="staff/profile_images", default="staff.jpg", null=True, blank=True)
    
 
@@ -96,8 +96,8 @@ class DriverProfile(models.Model):
     tazkira_num = models.CharField(max_length=255)
     current_address = models.ForeignKey('Address', on_delete=models.CASCADE, blank=True, null=True)
     phone_num = models.CharField(max_length=14,unique=True, null=True, blank=True)
-    tazkira_img = models.ImageField(upload_to="driver/id_images", default="driver_id.jpg", null=True, blank=True)
-    avatar = models.ImageField(upload_to="driver/profile_images", default="driver.jpg", null=True, blank=True)
+    tazkira_img = models.ImageField(upload_to="driver/id_images", default="/tazkira.jpg",  null=True, blank=True)
+    avatar = models.ImageField(upload_to="driver/profile_images", default="/driver.jpg", null=True, blank=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
 
     def __str__(self) -> str:
@@ -111,4 +111,10 @@ class Address(models.Model):
     house_number = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self) -> str:
-        return f'{self.province}, {self.district}, {self.street}, {self.house_number}'
+        add_str = self.province+', ' + self.district
+        if self.street:
+            add_str += ', ' + self.street
+        if self.house_number:
+            add_str += ', ' + self.house_number
+
+        return add_str

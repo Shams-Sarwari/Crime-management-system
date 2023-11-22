@@ -276,7 +276,14 @@
               <td class="w-10 h-12 flex justify-center items-center"><input type="checkbox" name="paid_crimes" value="{{crime.id}}" 
                   class=" cursor-pointer">
               </td>
+              {% if crime.crime %}
               <td class="text-[13px]">{{ crime.crime.title }}</td>
+              {% else %}
+              <td class="text-[13px]">
+              این جریمه بخاطر تخلف در تاریخ {{crime.created}}از طرف ترافیک وضع گردیده
+
+              </td>
+              {% endif %}
               <td>{{ crime.price }}</td>
               <td>{{ crime.expiry_fine }}</td>
               <td>{{ crime.get_total }}</td>
