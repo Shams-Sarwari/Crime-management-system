@@ -4,14 +4,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TCMS | Admin | dashboard</title>
+  <title>TCMS | New Crime</title>
+  <!-- swiper css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="myswiper.css">
   <link rel="stylesheet" href="output.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
-<body class="bg-gray-100 font-IRANSans">
+<body class="bg-gray-50 font-IRANSans">
   <!-- mobile Nav  -->
   <nav id="mobile-nav" class="hidden h-[100vh] w-64 bg-color-primary absolute z-50 text-white rounded-l-xl">
     <!-- xmark -->
@@ -22,7 +26,7 @@
     <div class="p-6">
       <!-- photo -->
       <div class="flex flex-col gap-2 justify-center items-center">
-        <img src="../img/reza.JPG" alt="my image" class="inline-block h-16 rounded-full">
+        <img src="../img/img2.jpg" alt="my image" class="inline-block h-16 rounded-full">
         <div class="border-b-2 border-gray-500  text-center pb-3 px-3">
           <p>محمد رضا قاسمی</p>
         </div>
@@ -123,7 +127,31 @@
             </svg><span class="sidebar-list-text">مالکان
               موتر</span></a>
         </li>
-        
+        <li>
+          <a href="#" class="sidebar-link-mobile">
+            <?xml version="1.0" ?><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="w-[18px]">
+              <defs>
+                <style>
+                  .cls-1 {
+                    fill: none;
+                    stroke: #fff;
+                    stroke-linejoin: round;
+                    stroke-width: 2px;
+                  }
+                </style>
+              </defs>
+              <title />
+              <g data-name="207-User" id="_207-User">
+                <circle class="cls-1" cx="16" cy="8" r="7" />
+                <path class="cls-1" d="M23.55,18A11,11,0,0,0,5,26v5H18" />
+                <line class="cls-1" x1="24" x2="24" y1="21" y2="31" />
+                <line class="cls-1" x1="29" x2="19" y1="26" y2="26" />
+              </g>
+            </svg>
+            <span class="sidebar-list-text">ایجاد راننده
+              جدید</span>
+          </a>
+        </li>
         <li>
           <a href="#" class="sidebar-link-mobile ">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 41.64 34.873" class="w-5">
@@ -143,7 +171,19 @@
             </svg>
             <span class="sidebar-list-text">ایجاد کارمند جدید</span></a>
         </li>
-        
+        <li>
+          <a href="#" class="sidebar-link-mobile bg-color-primary-light">
+            <?xml version="1.0" ?><svg class="feather feather-user-plus w-[18px]" fill="none" height="24"
+              stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+              width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="8.5" cy="7" r="4" />
+              <line x1="20" x2="20" y1="8" y2="14" />
+              <line x1="23" x2="17" y1="11" y2="11" />
+            </svg><span class="sidebar-list-text">ایجاد
+              مالک موتر</span>
+          </a>
+        </li>
         <li>
           <a href="#" class="sidebar-link-mobile"> <svg xmlns="http://www.w3.org/2000/svg" width="31" height="25"
               viewBox="0 0 31 25" class="w-5">
@@ -176,8 +216,8 @@
                   stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
                   stroke-width="1" />
               </g>
-            </svg><span class="sidebar-list-text">جریمه کردن
-               </span></a>
+            </svg><span class="sidebar-list-text">ثبت
+              موتر جدید</span></a>
         </li>
         <li>
           <a href="#" class="sidebar-link-mobile"><i class="fa-solid fa-arrow-right-from-bracket py-1 pr-1"></i><span
@@ -194,16 +234,13 @@
       <!-- sidebar large -->
       <!-- photo -->
       <div id="img-div-large" class="flex flex-col gap-2 justify-center items-center mt-8 mb-4">
-        <div class="h-16 w-16 rounded-full overflow-hidden">
-        <img src="../img/reza.JPG" alt="my image" class="inline-block object-cover rounded-full">
-
-        </div>
+        <img src="../img/img2.jpg" alt="my image" class="inline-block h-16 rounded-full">
         <div class="border-b-2 border-gray-500  text-center pb-3 px-3">
           <p>محمد رضا قاسمی</p>
         </div>
       </div>
       <!-- links menu  -->
-      <ul id="ul-large" class="text-sm flex flex-col gap-2">
+      <ul id="ul-large" class="text-sm flex flex-col gap-1">
         <li>
           <a href="#" class="sidebar-link">
             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="18" viewBox="0,0,256,256">
@@ -298,9 +335,33 @@
             </svg><span class="sidebar-list-text">مالکان
               موتر</span></a>
         </li>
-        
         <li>
           <a href="#" class="sidebar-link">
+            <?xml version="1.0" ?><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="w-[18px]">
+              <defs>
+                <style>
+                  .cls-1 {
+                    fill: none;
+                    stroke: #fff;
+                    stroke-linejoin: round;
+                    stroke-width: 2px;
+                  }
+                </style>
+              </defs>
+              <title />
+              <g data-name="207-User" id="_207-User">
+                <circle class="cls-1" cx="16" cy="8" r="7" />
+                <path class="cls-1" d="M23.55,18A11,11,0,0,0,5,26v5H18" />
+                <line class="cls-1" x1="24" x2="24" y1="21" y2="31" />
+                <line class="cls-1" x1="29" x2="19" y1="26" y2="26" />
+              </g>
+            </svg>
+            <span class="sidebar-list-text">ایجاد راننده
+              جدید</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link ">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 41.64 34.873" class="w-5">
               <g id="_1471085_add_user_business_man_employee_general_human_icon"
                 data-name="1471085_add user_business man_employee_general_human_icon"
@@ -316,9 +377,21 @@
                   transform="translate(-13.764 6.453)" fill="#fff" />
               </g>
             </svg>
-            <span class="sidebar-list-text">ثبت جریمه</span></a>
+            <span class="sidebar-list-text">ایجاد کارمند جدید</span></a>
         </li>
-        
+        <li>
+          <a href="#" class="sidebar-link bg-color-primary-light">
+            <?xml version="1.0" ?><svg class="feather feather-user-plus w-[18px]" fill="none" height="24"
+              stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+              width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="8.5" cy="7" r="4" />
+              <line x1="20" x2="20" y1="8" y2="14" />
+              <line x1="23" x2="17" y1="11" y2="11" />
+            </svg><span class="sidebar-list-text">ایجاد
+              مالک موتر</span>
+          </a>
+        </li>
         <li>
           <a href="#" class="sidebar-link"> <svg xmlns="http://www.w3.org/2000/svg" width="31" height="25"
               viewBox="0 0 31 25" class="w-5">
@@ -351,8 +424,8 @@
                   stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
                   stroke-width="1" />
               </g>
-            </svg><span class="sidebar-list-text">جریمه کردن
-               </span></a>
+            </svg><span class="sidebar-list-text">ثبت
+              موتر جدید</span></a>
         </li>
         <li>
           <a href="#" class="sidebar-link"><i class="fa-solid fa-arrow-right-from-bracket py-1 pr-1"></i><span
@@ -363,8 +436,7 @@
     <!-- sidebar finishes and main starts -->
     <section id="main">
       <!-- navbar -->
-      <div class="bg-white h-11 flex items-center justify-between pl-4 md:pl-6 pr-2  shadow-lg sticky top-0 z-50">
-        <!-- hamburgars -->
+      <div class="bg-white h-10 md:12 flex items-center pr-4 justify-start shadow-sm sticky top-0 z-50">
         <div id="large-humgurgar" class="hidden md:block">
           <i class="fa-solid fa-bars px-4 py-2 cursor-pointer text-lg  text-gray-600"></i>
         </div>
@@ -372,243 +444,60 @@
         <div id="mobile-humburgar" class=" md:hidden">
           <i class="fa-solid fa-bars px-4 py-2 cursor-pointer text-lg  text-gray-600"></i>
         </div>
-        <!-- search box -->
-        <form method="get" class="md:max-w-xs md:flex-grow">
-          <div class="relative">
-            <input type="text" name="search"
-              class="block w-full outline-none p-1.5  pr-10 text-xs text-gray-700 border border-gray-300 rounded-full bg-gray-50 focus:border-color-secondary-dark "
-              placeholder="اینجا جستجو کنید" required>
-            <button type="submit"
-              class="text-sm text-blue-400 hover:text-blue-600 absolute right-1.5 -bottom-0.5 p-1.5 ">
-              <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-          </div>
-        </form>
-        <!-- profile -->
-        <div class="relative flex items-center gap-4">
-          <!-- notification icon -->
-          <a href="newNotifications.html">
-            <div
-              class="relative inline-flex items-center p-1 text-2xl font-medium text-center text-blue-700 hover:text-blue-800 rounded-lg focus:outline-none">
-              <i class="fa-solid fa-bell"></i>
-              <div
-                class="absolute inline-flex items-center justify-center w-5 h-5 text-[10px] font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1 -right-1 ">
-                20</div>
-            </div>
-          </a>
-          <p class="hidden md:block text-xs text-gray-600 font-semibold">محمد رضا قاسمی</p>
-          <button type="button" onclick="toggleUserProfieDropdown()"
-            class="flex text-sm rounded-full ring-2 focus:ring-4 ring-gray-100">
-            <img class="w-8 h-8 rounded-full" src="../img/reza.JPG" alt="user photo">
-          </button>
-          <!-- Dropdown menu -->
-          <div
-            class="hidden absolute top-full -left-2 mt-2 text-[13px] text-gray-600 list-none bg-white divide-y divide-gray-100 rounded-lg shadow"
-            id="userDropdown">
-            <div class="px-4 py-3">
-              <span class="block  text-gray-600 text-xs font-semibold pb-1">محمد رضا قاسمی</span>
-              <span class="block text-gray-500">mohdrezajan@gmail.com</span>
-            </div>
-            <ul class="pb-2">
-              <li>
-                <a href="#" class="block px-4 py-2 hover:bg-gray-100">تغیر رمز عبور</a>
-              </li>
-              <li>
-                <a href="#" class="block px-4 py-2 hover:bg-gray-100">دیدن پروفایل</a>
-              </li>
-              <li>
-                <a href="#" class="block px-4 py-2 hover:bg-gray-100">خروج</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <!-- end navbar -->
-
-      <!-- ********************************************** -->
-      <!--**************** dashboard **********************-->
-      <!-- cards -->
-      <div id="cards"
-        class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr,1fr] gap-2 md:gap-4 mx-2 md:mx-4 mt-2 md:mt-4 text-gray-500">
-        <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
-          <div class="flex flex-col gap-2">
-            <span id="onlinePayment" class="text-3xl text-orange-500  font-semibold">2500</span>
-            <span class="text-[13px] font-semibold">پرداختی حضوری</span>
-          </div>
-          <span class="text-3xl text-blue-800 font-semibold"><i class="fa-solid fa-receipt"></i></span>
-        </div>
-
-        <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
-          <div class="flex flex-col gap-2">
-            <span id="offlinePayment" class="text-3xl text-orange-500  font-semibold">4000</span>
-            <span class="text-[13px] font-semibold">پرداختی آنلاین</span>
-          </div>
-          <span class="text-3xl text-blue-800 font-semibold"><i class="fa-brands fa-cc-amazon-pay"></i></span>
-        </div>
-
-        <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
-          <div class="flex flex-col gap-2">
-            <span id="todayCrime" class="text-3xl text-orange-500  font-semibold">120</span>
-            <span class="text-[13px] font-semibold">جرایم امروز</span>
-          </div>
-          <span class="text-3xl text-blue-800 font-semibold"><i class="fa-solid fa-ban"></i></span>
-        </div>
-
-        <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
-          <div class="flex flex-col gap-2">
-            <span id="monthlyIncome" class="text-3xl text-orange-500  font-semibold">55600</span>
-            <span class="text-[13px] font-semibold">درامد ماهانه</span>
-          </div>
-          <span class="text-3xl text-blue-800 font-semibold"><i class="fa-solid fa-money-check-dollar"></i>
-          </span>
-        </div>
 
       </div>
-      <!-- end cards -->
 
-      <!-- charts -->
-      <div class="max-w-full mx-2 md:mx-4 my-2 md:my-4 flex flex-col lg:flex-row gap-x-4 gap-y-2">
-        <!-- chart 1 -->
-        <div class="max-w-2/3 flex-grow bg-white shadow-sm rounded">
-          <!-- year, province and hidden form -->
-          <div class="flex justify-center gap-2 md:gap-8 pb-2 pt-4">
-            <!-- Year dropdown -->
-            <div class="relative">
-              <button onclick="toggleYearDropdown()"
-                class="flex items-center justify-center gap-4 py-1 w-24 text-gray-500 text-center text-sm border hover:bg-gray-100 focus:outline-none rounded-lg "
-                type="button">
-                <span id="year">2018</span>
-                <i class="fa-solid fa-angle-down"></i>
-              </button>
-              <!-- Dropdown menu -->
-              <div id="yearDropdown"
-                class="hidden absolute right-0 top-8 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-24 overflow-hidden">
-                <ul class="py-1 text-sm h-36 overflow-y-auto">
-                  <li class="years block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2017
-                  </li>
-                  <li class="years block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2018
-                  </li>
-                  <li class="years block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2019
-                  </li>
-                  <li class="years block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2020
-                  </li>
-                  <li class="years block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2021
-                  </li>
-                  <li class="years block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2022
-                  </li>
-                  <li class="years block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2023
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <!-- province dropdown -->
-            <div class="relative">
-              <button onclick="toggleProvinceDropdown()"
-                class="flex items-center justify-center gap-4 py-1 w-24 md:w-28 text-gray-500 text-center text-[13px] border hover:bg-gray-100 focus:outline-none rounded-lg "
-                type="button">
-                <span id="province">کابل</span>
-                <i class="fa-solid fa-angle-down"></i>
-              </button>
-              <!-- Dropdown menu -->
-              <div id="provinceDropdown"
-                class="hidden absolute right-0 top-8 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-24 md:w-28 overflow-hidden">
-                <ul class="py-1 text-xs text-center h-36 overflow-y-auto">
-                  <li class="provinces block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    کابل
-                  </li>
-                  <li class="provinces block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    هرات
-                  </li>
-                  <li class="provinces block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    مزار شریف
-                  </li>
-                  <li class="provinces block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    بامیان
-                  </li>
-                  <li class="provinces block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    غزنی
-                  </li>
-                  <li class="provinces block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    هلمند
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <!-- hidden form -->
-            <form action="">
-              <input type="hidden" name="" id="yearInput">
-              <input type="hidden" name="" id="provinceInput">
-              <input type="submit" value="تایید"
-                class="w-24 py-1 text-gray-500 text-center text-[13px] border hover:bg-gray-100 focus:outline-none rounded-lg cursor-pointer">
-            </form>
-          </div>
-          <!-- chart -->
-          <div class="p-4 min-h-20">
-            <canvas id="crimeChart"></canvas>
-          </div>
+      <!--  new Crime  -->
+      <!-- title and image -->
+      <div
+        class="flex flex-col gap-y-4 md:flex-row md:max-w-full mx-2 md:mx-4 mt-2 md:mt-4 bg-[#cae7f5] text-gray-500 rounded-t shadow overflow-hidden">
+        <div class="flex-1 flex flex-col p-4 md:p-10 gap-4 justify-center items-center">
+          <h2 class="text-blue-900 font-semibold text-2xl sm:text-3xl">فرم اضافه کردن جریمه جدید</h2>
+          <p class="text-blue-800 leading-7 text-justify md:text-center ">
+            این فرم برای افزودن جریمهجدید به سیستم مدیریت جرایم ترافیکی ایجاد شده است. با استفاده از این فرم، می‌توانید
+            جریمه
+            جدیدی را به سیستم اضافه کنید. لطفاً اطلاعات زیر را در فرم وارد کنید.
+          </p>
         </div>
-        <!-- chart 2 -->
-        <div class="max-w-1/3 flex-grow flex items-center justify-center md:block bg-white shadow-sm rounded">
-          <!-- year and hidden form -->
-          <div class="flex justify-center gap-2 md:gap-8 pb-2 pt-4">
-            <!-- Year dropdown -->
-            <div class="relative">
-              <button onclick="toggleTopYearDropdown()"
-                class="flex items-center justify-center gap-4 py-1 w-24 text-gray-500 text-center text-sm border hover:bg-gray-100 focus:outline-none rounded-lg "
-                type="button">
-                <span id="topYear">2018</span>
-                <i class="fa-solid fa-angle-down"></i>
-              </button>
-              <!-- Dropdown menu -->
-              <div id="topYearDropdown"
-                class="hidden absolute right-0 top-8 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-24 overflow-hidden">
-                <ul class="py-1 text-sm h-36 overflow-y-auto">
-                  <li class="topYears block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2017
-                  </li>
-                  <li class="topYears block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2018
-                  </li>
-                  <li class="topYears block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2019
-                  </li>
-                  <li class="topYears block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2020
-                  </li>
-                  <li class="topYears block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2021
-                  </li>
-                  <li class="topYears block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2022
-                  </li>
-                  <li class="topYears block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    2023
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <!-- hidden form -->
-            <form action="">
-              <input type="hidden" name="" id="topYearInput">
-              <input type="submit" value="تایید"
-                class="w-24 py-1 text-gray-500 text-center text-[13px] border hover:bg-gray-100 focus:outline-none rounded-lg cursor-pointer">
-            </form>
-          </div>
-          <!-- chart -->
-          <div class="p-4 min-h-16">
-            <canvas id="crimeChartThreeProvinces"></canvas>
-          </div>
+        <div class="flex-1 flex justify-center px-4 py-4">
+          <img src="../img/newCrime.png" alt="traffic rules" class="max-w-full max-h-full object-cover">
         </div>
       </div>
-      <!-- end charts -->
+      <!-- end title and img -->
+      <form action="" id="newCrimeForm"
+        class="max-w-full mb-2 md:mb-4 mx-2 md:mx-4 bg-color-secondary-light px-4 md:px-4 lg:px-6 xl:px-8 pt-8 pb-6 rounded-b">
+        <div
+          class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 text-blue-800 text-[13px]">
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2 font-semibold">موضوع</label>
+            <input type="text" class="punishment-input" id="title" />
+          </div>
 
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2 font-semibold">حد اقل</label>
+            <input id="min" type="number" class="punishment-input" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="" class="mr-2 font-semibold">حد اکثر</label>
+            <input id="max" type="number" class="punishment-input" />
+          </div>
+
+        </div>
+
+        <!-- text area -->
+        <div class="mt-2 md:mt-8">
+          <p class="pr-2 font-semibold text-[13px] text-blue-800">توضیحات</p>
+          <textarea id="description" name="description" rows="6" placeholder="لطفا توضیحات جریمه را در اینجا وارد کنید."
+            class="text-gray-500 text-[13px] px-2 py-2 mt-2 w-full bg-gray-50 border border-gray-200 outline-none rounded "></textarea>
+        </div>
+        <!-- submit  -->
+        <div class="mt-4 md:mt-6 flex justify-center  ">
+          <input type="submit" value="تایید"
+            class="w-36 sm:w-40 h-8 text-white text-[13px] rounded cursor-pointer outline-none bg-blue-500 hover:bg-blue-700 ease-in duration-200">
+        </div>
+      </form>
+      <!-- End new crime -->
 
     </section>
   </div>
@@ -618,181 +507,6 @@
 
 
 
-
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <script>
-    // ****************************************************
-    // ************** Charts ****************************
-    // crime chart 
-    const crimeChart = document.getElementById('crimeChart');
-    let crimes = [131, 95, 50, 66, 70, 100, 46, 110, 72, 90, 64, 40];
-
-    new Chart(crimeChart, {
-      type: 'bar',
-      data: {
-        labels: [
-          'January', 'February', 'March', 'April', 'May', 'June',
-          'July', 'August', 'September', 'October', 'November', 'December'
-        ],
-        datasets: [{
-          label: 'Traffic Crimes',
-          data: crimes,
-          backgroundColor: [
-            'rgba(255,99,132,1)',
-            'rgba(54,162,235,1)',
-            'rgba(255,206,86,1)',
-            'rgba(75,205,192,1)',
-            'rgba(255,159,64,1)',
-            'rgba(255,99,132,1)',
-            'rgba(54,162,235,1)',
-            'rgba(255,206,86,1)',
-            'rgba(75,205,192,1)',
-            'rgba(255,159,64,1)',
-            'rgba(255,99,132,1)',
-            'rgba(54,162,235,1)',
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        // new
-        animation: {
-          x: {
-            duration: 5000,
-            from: 0
-          },
-          y: {
-            duration: 4000,
-            from: 500
-          }
-        }
-        // end new
-      }
-    });
-
-    // three provinces chart
-    let threeProvinces = ['Kabul', 'Herat', 'Mazar'];
-    let provincesCrimes = [131, 95, 50];
-    const crimeChartThreeProvinces = document.getElementById('crimeChartThreeProvinces');
-
-    new Chart(crimeChartThreeProvinces, {
-      type: 'polarArea',
-      data: {
-        labels: threeProvinces,
-        datasets: [{
-          label: 'Traffic Crimes',
-          data: provincesCrimes,
-          backgroundColor: [
-            'rgba(255,99,132,0.9)',
-            'rgba(54,162,235,0.9)',
-            'rgba(255,206,86,0.9)',
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        // new 
-
-        // end new 
-      }
-    });
-
-
-    // ****************************************
-    // ********* year dropdown ****************
-    const yearDropdown = document.getElementById("yearDropdown");
-    function toggleYearDropdown() {
-      yearDropdown.classList.toggle("hidden");
-    }
-
-    const years = document.querySelectorAll(".years");
-    const year = document.getElementById("year");
-    const yearInput = document.getElementById("yearInput");
-
-    years.forEach((y) => {
-      y.addEventListener('click', function () {
-        toggleYearDropdown();
-        year.textContent = y.textContent;
-        yearInput.value = y.textContent;
-      });
-    });// end foreach
-
-    // ****************************************
-    // ********* top year dropdown ****************
-    const topYearDropdown = document.getElementById("topYearDropdown");
-    function toggleTopYearDropdown() {
-      topYearDropdown.classList.toggle("hidden");
-    }
-
-    const topYears = document.querySelectorAll(".topYears");
-    const topYear = document.getElementById("topYear");
-    const topYearInput = document.getElementById("topYearInput");
-
-    topYears.forEach((y) => {
-      y.addEventListener('click', function () {
-        toggleTopYearDropdown();
-        topYear.textContent = y.textContent;
-        topYearInput.value = y.textContent;
-        console.log(topYearInput.value);
-      });
-    });// end foreach
-
-    // ****************************************
-    // ********* province dropdown ****************
-    const provinceDropdown = document.getElementById("provinceDropdown");
-    function toggleProvinceDropdown() {
-      provinceDropdown.classList.toggle("hidden");
-    }
-
-    const provinces = document.querySelectorAll(".provinces");
-    const province = document.getElementById("province");
-    const provinceInput = document.getElementById("provinceInput");
-
-    provinces.forEach((p) => {
-      p.addEventListener('click', function () {
-        toggleProvinceDropdown();
-        province.textContent = p.textContent;
-        provinceInput.value = p.textContent;
-      });
-    });// end foreach
-
-
-
-    // ***********************************************************
-    // ********************** cards animations *******************
-    function animateNumber(numId) {
-      var countElement = document.getElementById(`${numId}`);
-      var targetNumber = parseInt(countElement.innerText);
-      var duration = 2000; // Animation duration in milliseconds
-      var frameRate = 30; // Number of frames per second
-
-      var increment = targetNumber / (duration / 1000) / frameRate;
-      var currentNumber = 0;
-
-      var interval = setInterval(function () {
-        currentNumber += increment;
-        countElement.innerText = Math.round(currentNumber);
-
-        if (Math.round(currentNumber) >= targetNumber) {
-          clearInterval(interval);
-          countElement.innerText = targetNumber;
-        }
-      }, 1000 / frameRate);
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      animateNumber("onlinePayment");
-      animateNumber("offlinePayment");
-      animateNumber("todayCrime");
-      animateNumber("monthlyIncome");
-    });
-
-
-  </script>
   <script src="./adminScript.js"></script>
 </body>
 
