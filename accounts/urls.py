@@ -7,7 +7,7 @@ from django.conf import settings
 
 
 urlpatterns = [
-    path('', views.dashboard, name='dashboard'),
+    path('dashboard/', views.dashboard, name='dashboard'),
     path('driver_list/', views.driver_list, name='driver-list'),
     path('driver/<uuid:pk>/', views.driver_detail, name='driver-detail'),
     path('register_owner/', views.register_owner, name='register-owner'),
@@ -30,6 +30,7 @@ urlpatterns = [
     path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'), 
     path('password_reset/<uidb64>/<token>/', views.CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('password_reset/complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('', views.home, name='home'),
 
     
 ]

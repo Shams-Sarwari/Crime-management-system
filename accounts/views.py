@@ -22,10 +22,16 @@ from datetime import date, timedelta, datetime
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.db.models.functions import ExtractYear, ExtractMonth
+from django.http import HttpResponse
+from .decorators import superuser_or_staff_required, superuser_required
 
 
 # Create your views here.
+def home(request):
+    return render(request, 'accounts/home.html')
+
 @login_required(login_url='login')
+@superuser_required
 def dashboard(request, city='کابل', year=datetime.now().year):
     # offline payments section:
     offline_payments = CarCrime.objects.filter(payment__created=date.today())
@@ -120,7 +126,7 @@ def dashboard(request, city='کابل', year=datetime.now().year):
 
     context = {
         'section': 'dashboard',
-        'offline_total_price': offline_total_price,
+        'offline_total_price': int(offline_total_price),
         'today_crimes': today_crimes,
         'monthly_total': monthly_total,
         'provinces': provinces,
@@ -134,6 +140,7 @@ def dashboard(request, city='کابل', year=datetime.now().year):
     return render(request, 'accounts/dashboard.html', context)
 
 @login_required(login_url='login')
+@ superuser_or_staff_required
 def driver_list(request):
     search_text = ''
     if request.GET.get('search_text'):
@@ -154,14 +161,30 @@ def driver_list(request):
 
 @login_required(login_url='login')
 def driver_detail(request, pk):
-    driver = get_object_or_404(DriverProfile, id=pk)
-    context = {
-        'driver': driver,
-        'section': 'drivers', 
-    }
-    return render(request, 'accounts/driver_detail.html', context)
-
+    if request.user.is_staff or request.user.driverprofile.id == pk:
+    
+        driver = get_object_or_404(DriverProfile, id=pk)
+        crimes = driver.carcrime_set.filter(
+            Q(paid=False) &
+            Q(pending=False)
+        )
+        for crime in crimes:
+                while crime.expiry_date < date.today() and crime.paid == False and crime.pending == False:
+                    if (date.today() > crime.expiry_date) and (crime.paid == False) and (crime.pending == False):
+                        crime.expiry_fine += crime.price/2
+                        crime.expiry_date += timedelta(days=60)
+                        crime.save()
+        context = {
+            'driver': driver,
+            'crimes': crimes,
+            'section': 'drivers', 
+        }
+        return render(request, 'accounts/driver_detail.html', context)
+    else: 
+        return HttpResponse("معذرت میخواهیم شما اجازه دسترسی به این صفحه را ندارید")
+        
 @login_required(login_url='login')
+@superuser_or_staff_required
 def staff_list(request):
     search_text = ''
     if request.GET.get('search_text'):
@@ -172,7 +195,10 @@ def staff_list(request):
             Q(email=search_text) | 
             Q(tazkira_num=search_text)        
     )
+    # caching code for selecting all staffs with their information
+    staff_list = staff_list.select_related('work_place', 'current_address')
     custom_range, staff_list = pagination_items(request, staff_list, 10)
+    
     context = {
         'staff_list': staff_list,
         'custom_range': custom_range,
@@ -183,17 +209,20 @@ def staff_list(request):
 
 @login_required(login_url='login')
 def staff_detail(request, pk):
-    staff = get_object_or_404(StaffProfile, id=pk)
-    has_tazkira = False
-    if staff.tazkira_img:
-        has_tazkira = True
-    context = {
-        'staff': staff,
-        'section': 'staffs',
-        'has_tazkira': has_tazkira,
-    }
-    return render(request, 'accounts/staff_detail.html', context)
-
+    if request.user.is_superuser or request.user.staffprofile.id == pk:
+        staff = get_object_or_404(StaffProfile, id=pk)
+        has_tazkira = False
+        if staff.tazkira_img:
+            has_tazkira = True
+        context = {
+            'staff': staff,
+            'section': 'staffs',
+            'has_tazkira': has_tazkira,
+        }
+        return render(request, 'accounts/staff_detail.html', context)
+    else:
+        return HttpResponse("معذرت میخواهیم شما اجازه دسترسی به این صفحه را ندارید")
+        
 def login_user(request):
     check_user = None
 
@@ -212,6 +241,7 @@ def login_user(request):
             except:
 
                 messages.error(request, 'اکانت با لایسنس نمبر وارد شده موجود نیست')
+                return redirect('home')
 
                
             check_user = authenticate(request, username=licence_or_email, password=password)
@@ -219,12 +249,12 @@ def login_user(request):
             if check_user is not None:
                 login(request, check_user)
                 messages.success(request, 'شما موفقانه وارد سیستم شدید')
-                return redirect('dashboard')
+                return redirect('driver-detail', driver.id)
                 
             else: 
 
                 messages.error(request, 'لایسنس نمبر یا رمز عبور وارد شده اشتباه است')
-
+                return redirect('home')
         
         elif request.POST['type'] == 'staff':
 
@@ -236,16 +266,23 @@ def login_user(request):
 
             except:    
                 messages.error(request, 'ایمیل وارد شده در سیستم موجود نیست')
+                return redirect('home')
 
             check_user = authenticate(request, username=licence_or_email, password=password)
             
             if check_user is not None:
                 login(request, check_user)
                 messages.success(request, 'شما موفقانه وارد سیستم شدید')
-                return redirect('dashboard')
+                if staff.is_superuser:
+                    return redirect('dashboard')
+                else:
+                    return redirect('crimes:fine-driver')
+
+
             else: 
 
                 messages.error(request, 'ایمیل و یا رمز عبور وارد شده اشتباه است')
+                return redirect('home')
         
         elif request.POST['type'] == 'owner':
 
@@ -258,6 +295,7 @@ def login_user(request):
             except:
 
                 messages.error(request, 'اکانت با تذکره نمبر وارد شده موجود نیست')
+                return redirect('home')
 
                
             check_user = authenticate(request, username=licence_or_email, password=password)
@@ -265,12 +303,12 @@ def login_user(request):
             if check_user is not None:
                 login(request, check_user)
                 messages.success(request, 'شما موفقانه وارد سیستم شدید')
-                return redirect('dashboard')
+                return redirect('cars:owner-detail', owner.id)
                 
             else: 
 
                 messages.error(request, 'تذکره نمبر یا رمز عبور وارد شده اشتباه است')
-
+                return redirect('home')
   
 
 
@@ -282,33 +320,56 @@ def login_user(request):
 @login_required(login_url='login')
 def logout_user(request):
     logout(request)
-    return redirect('login')
+    return redirect('home')
 
 
 @login_required(login_url='login')
+@superuser_or_staff_required
 def register_driver(request):
     
     if request.method == 'POST':
-        form = CustomDriverUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password1'])
+        register_form = CustomDriverUserCreationForm(request.POST)
+        driver_form = DriverEditForm(request.POST)
+        add_form = AddressForm(request.POST)
+        if register_form.is_valid() and driver_form.is_valid() and add_form.is_valid():
+            user = register_form.save(commit=False)
+            user.set_password(register_form.cleaned_data['password1'])
             user.is_driver = True
             user.save()
-            driver = DriverProfile.objects.get(user=user)
-            messages.success(request,'راننده با موفقیت ثبت شد.')
-            return redirect('edit-driver-profile', driver.id)
+            address = add_form.save()
 
+            driver = DriverProfile.objects.get(user=user)
+            driver.first_name = request.POST.get('first_name')
+            driver.last_name = request.POST.get('last_name')
+            driver.father_name = request.POST.get('father_name')
+            driver.gender = request.POST.get('gender')
+            driver.blood_group = request.POST.get('blood_group')
+            driver.tazkira_num = request.POST.get('tazkira_num')
+            driver.phone_num = request.POST.get('phone_num')
+            driver.avatar = request.FILES.get('avatar')
+            driver.tazkira_img = request.FILES.get('tazkira_img')
+            driver.save()
+            messages.success(request,'راننده با موفقیت ثبت شد.')
+            return redirect('driver-list')
+        else:
+            print('register_form: ', register_form.errors)
+            print('driver_form: ', driver_form.errors)
+            print('add_form: ', add_form.errors)
             
     else:
-        form = CustomDriverUserCreationForm()
+        register_form = CustomDriverUserCreationForm()
+        driver_form = DriverEditForm()
+        add_form = AddressForm()
     context = {
-        'form': form,
+        'register_form': register_form,
+        'driver_form': driver_form,
+        'add_form': add_form,
         'section': 'drivers',
     }
     return render(request, 'accounts/register_driver.html', context)
 
 @login_required(login_url='login')
+@superuser_or_staff_required
 def edit_driver_profile(request, pk):
     profile = DriverProfile.objects.get(id = pk)
     form = DriverEditForm(instance=profile)
@@ -320,17 +381,21 @@ def edit_driver_profile(request, pk):
     if request.method == 'POST':
         form = DriverEditForm(request.POST, request.FILES, instance=profile)
         add_form = AddressForm(request.POST)
-        avatar = request.FILES.get('prof_pic', None)
-        tazkira_img = request.FILES.get('tazkira_img', None)
+        licence = request.POST.get('licence_num')
+        avatar = request.FILES.get('avatar')
+        tazkira_img = request.FILES.get('tazkira_img')
+       
         
         if form.is_valid() and add_form.is_valid():
             address = add_form.save()
             profile = form.save(commit=False)
-            profile.current_address = address
             if avatar:
-                profile.avatar = request.FILES['prof_pic']
+                profile.avatar = avatar
             if tazkira_img:
-                profile.tazkira_img = request.FILES['tazkira_pic']
+                tazkira_img = tazkira_img
+            if licence:
+                profile.licence_num = licence
+            profile.current_address = address
             profile.save()
             return redirect('driver-detail', profile.id)
 
@@ -338,10 +403,13 @@ def edit_driver_profile(request, pk):
     context = {
         'form': form, 
         'add_form': add_form,
+        'profile': profile,
         'section': 'drivers'
     }
     return render(request, 'accounts/edit_driver_profile.html', context)
 
+@login_required(login_url='login')
+@superuser_or_staff_required
 def register_owner(request):
     
     if request.method == 'POST':
@@ -352,8 +420,20 @@ def register_owner(request):
             user.is_owner = True
             user.save()
             owner = CarOwner.objects.get(user=user)
+            owner.first_name = request.POST.get('first_name')
+            owner.last_name = request.POST.get('last_name')
+            owner.father_name = request.POST.get('father_name')
+            owner.gender = request.POST.get('gender')
+            owner.phone_number = request.POST.get('phone_number')
+            owner.licence_number = request.POST.get('licence_num')
+            owner.blood_group = request.POST.get('blood_group')
+            owner.image = request.FILES.get('image')
+            owner.id_image_front = request.FILES.get('id_image_front')
+            owner.main_address = request.POST.get('main_address')
+            owner.current_address = request.POST.get('current_address')
+            owner.save()
             messages.success(request,'مالک با موفقیت ثبت شد.')
-            return redirect('cars:update-owner', owner.id)
+            return redirect('cars:owner-list')
 
             
     else:
@@ -367,29 +447,69 @@ def register_owner(request):
 
     
 @login_required(login_url='login')
+@superuser_required
 def create_staff_user(request):
 
     if request.method == 'POST':
         form = CustomStaffCreationForm(request.POST)
-        if form.is_valid():
+        add_form = AddressForm(request.POST)
+        work_form = WorkPlaceForm(request.POST)
+
+        # validation of the username, if it exists in the system
+        username = request.POST.get('username')
+        all_usernames = User.objects.values_list('username', flat=True)
+        if username in all_usernames:
+            messages.error(request, 'این ایمیل قبلا در سیستم ثبت گردیده')
+            return redirect('create-staff-user')
+        
+
+        if form.is_valid() and add_form.is_valid() and work_form.is_valid():
             user = form.save(commit=False)
+            user.username = username
             user.set_password(form.cleaned_data['password1'])
             user.is_staff = True
-            user.email = user.username
+            user.email = username
             user.save()
+            address = add_form.save()
+            work_place = work_form.save()
+
             staff = StaffProfile.objects.get(user=user)
-            return redirect('edit-staff-profile', staff.id)
+            staff.email = user.username
+            staff.first_name = request.POST.get('first_name')
+            staff.last_name = request.POST.get('last_name')
+            staff.father_name = request.POST.get('father_name')
+            staff.father_name = request.POST.get('father_name')
+            staff.gender = request.POST.get('gender')
+            staff.tazkira_num = request.POST.get('tazkira_num')
+            staff.phone_num = request.POST.get('phone_num')
+            staff.phone_num = request.POST.get('phone_num')
+            staff.avatar = request.FILES.get('prof_pic')
+            staff.tazkira_img = request.FILES.get('tazkira_img')
+            staff.work_place = work_place
+            staff.current_address = address
+            staff.save()
+
+            return redirect('staff-list')
+        else:
+            print(form.errors)
+            print(add_form.errors)
+            print(work_form.errors)
     
     else: 
         form = CustomStaffCreationForm()
+        add_form = AddressForm()
+        work_form = WorkPlaceForm
     
     context = {
         'form': form,
         'section': 'staffs',
+        'add_form': add_form,
+        'work_form': work_form,
     }
     return render(request, 'accounts/create_staff_user.html', context)
 
 @login_required(login_url='login')
+@superuser_required
 def edit_staff_profile(request, pk):
     profile = StaffProfile.objects.get(id = pk)
     form = StaffEditForm(instance=profile)
@@ -405,21 +525,28 @@ def edit_staff_profile(request, pk):
         work_form = WorkPlaceForm()
 
     if request.method == 'POST':
-        avatar = request.FILES.get('prof_pic', None)
+        
         form = StaffEditForm(request.POST, request.FILES, instance=profile)
         add_form = AddressForm(request.POST)
         work_form = WorkPlaceForm(request.POST)
+        avatar = request.FILES.get('avatar')
+        tazkira_img = request.FILES.get('tazkira_img')
         if form.is_valid() and add_form.is_valid() and work_form.is_valid():
             address = add_form.save()
             work_place = work_form.save()
-
             profile = form.save(commit=False)
+            if avatar:
+                profile.avatar = avatar
+            if tazkira_img: 
+                profile.tazkira_img = tazkira_img
             profile.current_address = address
             profile.work_place = work_place
-            if avatar:
-                profile.avatar = request.FILES['prof_pic']
             profile.save()
             return redirect('staff-detail', profile.id)
+        else:
+            print(form.errors)
+            print(add_form.errors)
+            print(work_form.errors)
 
 
     context = {
@@ -431,6 +558,7 @@ def edit_staff_profile(request, pk):
     return render(request, 'accounts/edit_staff_profile.html', context)
 
 @login_required(login_url='login')
+@superuser_or_staff_required
 def delete_driver_profile(request, pk):
     profile = DriverProfile.objects.get(id=pk)
     if request.method == 'POST':
@@ -447,6 +575,7 @@ def delete_driver_profile(request, pk):
     return render(request, 'accounts/driver_detail.html', context)
 
 @login_required(login_url='login')
+@superuser_required
 def delete_staff_profile(request, pk):
     profile = StaffProfile.objects.get(id=pk)
     if request.method == 'POST':
@@ -464,14 +593,20 @@ def delete_staff_profile(request, pk):
 
 @login_required(login_url='login')
 def change_staff_avatar(request, pk):
-    staff = StaffProfile.objects.get(id=pk)
-    if request.method == 'POST' and request.FILES.get('photo'):
-        image = request.FILES.get('photo')
-        staff.avatar = image
-        staff.save()
-    messages.success(request, 'پروفایل موفقانه تبدیل گردید')
-    return redirect('staff-detail', staff.id)
+    if request.user.is_superuser or request.user.staffprofile.id == pk:
+        staff = StaffProfile.objects.get(id=pk)
+        if request.method == 'POST' and request.FILES.get('photo'):
+            image = request.FILES.get('photo')
+            staff.avatar = image
+            staff.save()
+        messages.success(request, 'پروفایل موفقانه تبدیل گردید')
+        return redirect('staff-detail', staff.id)
+    else:
+        return HttpResponse("معذرت میخواهیم شما اجازه دسترسی به این صفحه را ندارید")
+
+
 @login_required(login_url='login')
+@superuser_required
 def change_staff_to_admin(request, pk):
     staff = StaffProfile.objects.get(id=pk)
     if request.method == 'POST' and request.POST.get('admin'):
@@ -481,6 +616,8 @@ def change_staff_to_admin(request, pk):
         
     return redirect('staff-detail', staff.id)
 
+@login_required
+@superuser_required
 def deactive_staff(request, pk):
     staff = StaffProfile.objects.get(id=pk)
     if request.method == 'POST' and request.POST.get('deactive'):

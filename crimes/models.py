@@ -42,13 +42,20 @@ class CarCrime(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
-        return f'plate: {self.car.plate_number} price: {self.price} {self.crime.title[:50]}'
+        return f'plate: {self.car.plate_number} price: {self.price}'
 
     def get_total(self):
         return self.price + self.expiry_fine
     
 
 
+class Contact(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    comment = models.TextField()
+    read = models.BooleanField(default=False)
+    created = models.DateField(auto_now_add=True)
 
-    
+    def __str__(self) -> str:
+        return self.name
 

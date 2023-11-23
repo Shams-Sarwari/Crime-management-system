@@ -19,7 +19,7 @@ class CustomDriverUserCreationForm(UserCreationForm):
         for k, v in self.fields.items():
             if k != 'is_active':
                 v.widget.attrs.update(
-                    {'class':'driver-form-input'}
+                    {'class':'myinput'}
                 )
             else: 
                 v.widget.attrs.update(
@@ -31,7 +31,7 @@ class DriverEditForm(forms.ModelForm):
     class Meta: 
         model = DriverProfile
         fields = "__all__"
-        exclude = ['user', 'id', 'current_address']
+        exclude = ['user', 'id', 'current_address', 'licence_num', 'avatar', 'tazkira_img']
     
     def __init__(self, *args, **kwargs):
         super(DriverEditForm, self).__init__(*args, **kwargs)
@@ -39,15 +39,26 @@ class DriverEditForm(forms.ModelForm):
         for k, v in self.fields.items():
             if k=='gender':
                 v.widget.attrs.update(
-                    {'class':'h-7 w-28 bg-color-primary text-white text-xs text-center rounded  outline-none'}
+                    {'class':'text-center myinput'}
             )
-            elif k=='tazkira_img' or k=='avatar':
+            elif k=='avatar':
                 v.widget.attrs.update(
-                    {'class':'input-file'}
+                    {'class':'hidden',
+                     'type': 'file',
+                     'id': 'profilePhoto',
+                     'alt': '',
+                     'onchange': 'updateProfileFileName(this);'}
+            )
+            elif k=='tazkira_img':
+                v.widget.attrs.update(
+                    {'class':'hidden',
+                     'type': 'file',
+                     'id': 'tazkiraPhoto',
+                     'onchange': 'updateTazkiraFileName(this);'}
             )
             else:
                 v.widget.attrs.update(
-                    {'class':'driver-form-input'}
+                    {'class':'myinput'}
             )
             
 
@@ -68,13 +79,14 @@ class AddressForm(forms.ModelForm):
         
         for k, v in self.fields.items():
             v.widget.attrs.update(
-                    {'class':'driver-form-input'}
+                    {'class':'myinput'}
             )
     
 class CustomStaffCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username','is_active', 'is_superuser']
+        exclude = ['username']
 
     def __init__(self, *args, **kwargs):
         super(CustomStaffCreationForm, self).__init__(*args, **kwargs)
@@ -89,9 +101,10 @@ class CustomStaffCreationForm(UserCreationForm):
                 v.widget.attrs.update(
                     {'id': 'myCheckbox'}
                 )
+            
             else: 
                 v.widget.attrs.update(
-                    {'class':'driver-form-input'}
+                    {'class':'myinput'}
                 )
 
     
@@ -105,7 +118,7 @@ class StaffEditForm(forms.ModelForm):
     class Meta:
         model = StaffProfile
         fields = "__all__"
-        exclude = ['user', 'id', 'current_address', 'work_place']
+        exclude = ['user', 'id', 'current_address', 'work_place', 'tazkira_img', 'avatar', 'email']
     
     def __init__(self, *args, **kwargs):
         super(StaffEditForm, self).__init__(*args, **kwargs)
@@ -113,7 +126,7 @@ class StaffEditForm(forms.ModelForm):
         for k, v in self.fields.items():
             if k == 'gender':
                 v.widget.attrs.update(
-                    {'class': 'h-7 w-28 bg-color-primary text-white text-xs text-center rounded  outline-none'}
+                    {'class': 'myinput text-center'}
                 )
             elif k=='tazkira_img':
                 v.widget.attrs.update(
@@ -121,7 +134,7 @@ class StaffEditForm(forms.ModelForm):
                 )
             else: 
                 v.widget.attrs.update(
-                        {'class':'driver-form-input'}
+                        {'class':'myinput'}
                 )
 
     
@@ -144,7 +157,7 @@ class WorkPlaceForm(forms.ModelForm):
         
         for k, v in self.fields.items():
             v.widget.attrs.update(
-                    {'class':'driver-form-input'}
+                    {'class':'myinput'}
             )
     
 
