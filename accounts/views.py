@@ -27,6 +27,9 @@ from .decorators import superuser_or_staff_required, superuser_required
 
 
 # Create your views here.
+def home(request):
+    return render(request, 'accounts/home.html')
+
 @login_required(login_url='login')
 @superuser_required
 def dashboard(request, city='کابل', year=datetime.now().year):
@@ -238,6 +241,7 @@ def login_user(request):
             except:
 
                 messages.error(request, 'اکانت با لایسنس نمبر وارد شده موجود نیست')
+                return redirect('home')
 
                
             check_user = authenticate(request, username=licence_or_email, password=password)
@@ -250,7 +254,7 @@ def login_user(request):
             else: 
 
                 messages.error(request, 'لایسنس نمبر یا رمز عبور وارد شده اشتباه است')
-
+                return redirect('home')
         
         elif request.POST['type'] == 'staff':
 
@@ -262,6 +266,7 @@ def login_user(request):
 
             except:    
                 messages.error(request, 'ایمیل وارد شده در سیستم موجود نیست')
+                return redirect('home')
 
             check_user = authenticate(request, username=licence_or_email, password=password)
             
@@ -273,9 +278,11 @@ def login_user(request):
                 else:
                     return redirect('crimes:fine-driver')
 
+
             else: 
 
                 messages.error(request, 'ایمیل و یا رمز عبور وارد شده اشتباه است')
+                return redirect('home')
         
         elif request.POST['type'] == 'owner':
 
@@ -288,6 +295,7 @@ def login_user(request):
             except:
 
                 messages.error(request, 'اکانت با تذکره نمبر وارد شده موجود نیست')
+                return redirect('home')
 
                
             check_user = authenticate(request, username=licence_or_email, password=password)
@@ -300,7 +308,7 @@ def login_user(request):
             else: 
 
                 messages.error(request, 'تذکره نمبر یا رمز عبور وارد شده اشتباه است')
-
+                return redirect('home')
   
 
 
@@ -312,7 +320,7 @@ def login_user(request):
 @login_required(login_url='login')
 def logout_user(request):
     logout(request)
-    return redirect('login')
+    return redirect('home')
 
 
 @login_required(login_url='login')

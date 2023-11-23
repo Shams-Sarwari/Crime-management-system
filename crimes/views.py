@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CreateCrimeForm, CreateCarCrimeForm
-from .models import Crime, CarCrime, Payment
+from .forms import CreateCrimeForm, CreateCarCrimeForm, ContactForm
+from .models import Crime, CarCrime, Payment, Contact
 from accounts.models import DriverProfile
 from cars.models import Car
 from accounts.models import StaffProfile
@@ -265,9 +265,14 @@ def notification(request):
         Q(province=request.user.staffprofile.work_place.province)
         )
     num_of_pending_crimes = pending_crimes.count()
+
+    pending_comments = Contact.objects.filter(read=False)
+    num_of_pending_comments = pending_comments.count()
     context = {
         'pending_crimes': pending_crimes,
         'num_of_pending_crimes': num_of_pending_crimes,
+        'pending_comments': pending_comments, 
+        'num_of_pending_comments': num_of_pending_comments,
     }
     return render(request, 'crimes/notifications.html', context)
 
@@ -358,4 +363,30 @@ def create_payment(request):
             })
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=403)
+        
+def create_contact(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        comment = request.POST.get('comment')
+        Contact.objects.create(
+            name = name,
+            email = email, 
+            comment = comment, 
+
+        )
+        
+        messages.success(request, 'نظر شما موفقانه ثبت گردید.')
+        return redirect('home')
+
+def mark_contact_read(request, pk):
+    if request.method == 'POST' and request.POST.get('checked') == 'checked':
+        contact = Contact.objects.get(id=pk)
+        contact.read = True
+        contact.save()
+        return redirect('crimes:notifications')
+    else:
+        return redirect('crimes:notifications')
+
+    
         
