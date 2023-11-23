@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <!-- ********************************************** -->
+      <!--**************** Jawazsair Fines list **********************-->
+      <div
+        class="max-w-full mx-2 md:mx-4 mt-2 md:mt-4 mb-4 md:mb-10 bg-white text-gray-600 rounded shadow overflow-hidden">
+        <div class="bg-color-secondary-light text-blue-800 text-lg font-bold py-2 md:py-3 text-center">
+          <span>لیست جرایم جواز سیر</span>
+        </div>
+
+        <div class="px-2 md:px-10 py-4 relative pb-8">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <tr class="h-12 text-center text-gray-600 text-[13px] font-semibold border-b border-gray-500">
+                <td scope="row" class="whitespace-nowrap px-2">شماره</td>
+                <td scope="row" class="whitespace-nowrap px-2">مالک</td>
+                <td scope="row" class="whitespace-nowrap px-2">پلیت</td>
+                <td scope="row" class="whitespace-nowrap px-2">نمبر جواز</td>
+                {% comment %} <td scope="row" class="whitespace-nowrap px-2">تاریخ انقضا</td> {% endcomment %}
+                <td scope="row" class="whitespace-nowrap px-2">مبلغ جریمه</td>
+                <td scope="row" class="whitespace-nowrap px-2">نمبر تماس</td>
+              </tr>
+              {% for crime in jawaz_crimes %}
+              <tr class="h-12 text-center text-gray-600 border-b border-gray-300">
+                <td class="whitespace-nowrap px-2">{{ forloop.counter }}</td>
+                <td class="text-[13px] whitespace-nowrap px-2">{{ crime.car.owner }}</td>
+                <td class="whitespace-nowrap px-2">{{ crime.car.plate_number }}</td>
+                <td class="whitespace-nowrap px-2">{{ crime.car.jawazsayr }}</td>
+                {% comment %} <td class="whitespace-nowrap px-2">1402/10/25</td> {% endcomment %}
+                <td class="whitespace-nowrap px-2">{{ crime.price }}</td>
+                <td class="whitespace-nowrap px-2">{{ crime.car.owner.phone_number }}</td>
+              </tr>
+              {% endfor %}
+              
+              
+
+            </table>
+          </div>
+          <!-- pagination -->
+          {% if jawaz_crimes.has_other_pages %}
+          <div class="flex justify-center mt-8">
+            <ul class="inline-flex -space-x-px text-sm">
+            {% if jawaz_crimes.has_previous %}
+              <li>
+                <a href="?page={{queryset.previous_page_number}}"
+                  class="flex items-center justify-center gap-2 px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 ">
+                  <i class="fa-solid fa-angles-right"></i>
+                  <span>قبلی</span>
+                </a>
+              </li>
+            {% endif %}
+            {% for page in custom_range %} 
+              {% if page == jawaz_crimes.number %}
+              <li>
+                <a href="?page={{page}}" aria-current="page"
+                  class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{page}}</a>
+              </li>
+              {% else %}
+              <li>
+                <a href="?page={{page}}"
+                  class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">{{page}}</a>
+              </li>
+              {% endif %}
+              
+            {% endfor %}
+              
+              
+              {% if jawaz_crimes.has_next %}
+              <li>
+                <a href="?page={{jawaz_crimes.next_page_number}}"
+                  class="flex items-center justify-center gap-2 px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 ">
+                  <span>بعدی</span>
+                  <i class="fa-solid fa-angles-left"></i>
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+    </section>
+{% endblock content %}

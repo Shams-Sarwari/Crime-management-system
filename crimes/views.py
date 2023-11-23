@@ -7,6 +7,7 @@ from accounts.models import StaffProfile
 from django.contrib import messages
 from datetime import date, timedelta
 from django.db.models import Q
+from accounts.utils import pagination_items
 
 # strip imports:
 import json
@@ -396,5 +397,16 @@ def mark_contact_read(request, pk):
     else:
         return redirect('crimes:notifications')
 
-    
+def jawaz_crime_list(request):
+    jawaz_crimes = CarCrime.objects.filter(
+        Q(paid=False) &
+        Q(crime__title='گذشتن تاریخ اعتبار جواز سیر')
+    )
+    custom_range, jawaz_crimes = pagination_items(request, jawaz_crimes, 6)
+    context = {
+        'jawaz_crimes': jawaz_crimes,
+        'custom_range': custom_range,
+        'section': 'jawaz'
+    }
+    return render(request, 'crimes/jawaz_crime_list.html', context)
         
