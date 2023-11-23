@@ -29,16 +29,24 @@ stripe.api_key = 'sk_test_51OAQ0PItY091qK4GuGeFsuNbfSdGYcMuoHMnFysmYi4WQbPkf2CfG
 @superuser_required
 def create_crime(request):
     if request.method == 'POST':
-        form = CreateCrimeForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('crimes:crime-list')
-
+        title = request.POST.get('title')
+        min = request.POST.get('min')
+        max = request.POST.get('max')
+        desc = request.POST.get('description')
+        Crime.objects.create(
+            title = title, 
+            description = desc, 
+            min_price = min,
+            max_price = max, 
+        )
+        messages.success(request, 'موضوع جریمه موفقانه ثبت سیستم گردید')
+        return redirect('crimes:create-crime')
     else:
         form = CreateCrimeForm()
 
     context = {
-        'form': form
+        'form': form,
+        'section': 'crime_subject'
     }
     return render(request, 'crimes/create_crime.html', context)
 

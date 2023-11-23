@@ -76,9 +76,13 @@ def dashboard(request, city='کابل', year=datetime.now().year):
     years = CarCrime.objects.distinct().annotate(year=ExtractYear('created')).values_list('year', flat=True)
     
     # send data to circular graph
+    circular_year = datetime.now().year
+    if request.method == "GET":
+        if request.GET.get('selected_year'):
+            circular_year = request.GET.get('selected_year')
     province_crime_dict = {}
     for province in provinces:
-        province_crime_dict[province]=len(CarCrime.objects.filter(province=province, created__year=datetime.now().year))
+        province_crime_dict[province]=len(CarCrime.objects.filter(province=province, created__year=circular_year))
 
     sorted_province_dict = dict(sorted(province_crime_dict.items(), key=lambda x: x[1], reverse=True))
     

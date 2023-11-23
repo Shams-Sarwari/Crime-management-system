@@ -1,11 +1,127 @@
 {% extends "base.html" %}
+{% load static %}
 
-
-{% block content %}
+{% comment %} {% block content %}
     <h2>Create crime page</h2>
     <form action="" method='POST'>
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Create">
     </form>
+{% endblock content %} {% endcomment %}
+
+
+{% block content %}
+    <!--  new Crime  -->
+      <!-- title and image -->
+      <div
+        class="flex flex-col gap-y-4 md:flex-row md:max-w-full mx-2 md:mx-4 mt-2 md:mt-4 bg-[#cae7f5] text-gray-500 rounded-t shadow overflow-hidden">
+        <div class="flex-1 flex flex-col p-4 md:p-10 gap-4 justify-center items-center">
+          <h2 class="text-blue-900 font-semibold text-2xl sm:text-3xl">فرم اضافه کردن جریمه جدید</h2>
+          <p class="text-blue-800 leading-7 text-justify md:text-center ">
+            این فرم برای افزودن جریمهجدید به سیستم مدیریت جرایم ترافیکی ایجاد شده است. با استفاده از این فرم، می‌توانید
+            جریمه
+            جدیدی را به سیستم اضافه کنید. لطفاً اطلاعات زیر را در فرم وارد کنید.
+          </p>
+        </div>
+        <div class="flex-1 flex justify-center px-4 py-4">
+          <img src="{% static "media/newCrime.png" %}" alt="traffic rules" class="max-w-full max-h-full object-cover">
+        </div>
+      </div>
+      <!-- end title and img -->
+      <form action="" id="newCrimeForm" method="POST"
+        class="max-w-full mb-2 md:mb-4 mx-2 md:mx-4 bg-color-secondary-light px-4 md:px-4 lg:px-6 xl:px-8 pt-8 pb-6 rounded-b">
+        {% csrf_token %}
+        <div
+          class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 text-blue-800 text-[13px]">
+          <div class="relative flex flex-col gap-2">
+            <label for="" class="mr-2 font-semibold">موضوع</label>
+            <input type="text" name="title" class="punishment-input" id="title" />
+          </div>
+
+          <div class="relative flex flex-col gap-2">
+            <label for="" class="mr-2 font-semibold">حد اقل</label>
+            <input id="min" name="min" type="number" class="punishment-input" />
+          </div>
+
+          <div class="relative flex flex-col gap-2">
+            <label for="" class="mr-2 font-semibold">حد اکثر</label>
+            <input id="max" name="max" type="number" class="punishment-input" />
+          </div>
+
+        </div>
+
+        <!-- text area -->
+        <div class="relative mt-2 md:mt-8">
+          <p class="pr-2 font-semibold text-[13px] text-blue-800">توضیحات</p>
+          <textarea id="description" name="description" rows="6" placeholder="لطفا توضیحات جریمه را در اینجا وارد کنید."
+            class="text-gray-500 text-[13px] px-2 py-2 mt-2 w-full bg-gray-50 border border-gray-200 outline-none rounded "></textarea>
+        </div>
+        <!-- submit  -->
+        <div class="mt-4 md:mt-6 flex justify-center  ">
+          <input type="submit" value="تایید"
+            class="w-36 sm:w-40 h-8 text-white text-[13px] rounded cursor-pointer outline-none bg-blue-500 hover:bg-blue-700 ease-in duration-200">
+        </div>
+      </form>
+      <!-- End new crime -->
+
+
+    </section>
 {% endblock content %}
+
+{% block jscript %}
+<script src="{% static "js/validationFunctions.js" %}"></script>
+<script>
+  // ************************************************
+  // ***************** Validate Form ****************
+  const form = document.getElementById("newCrimeForm");
+  const titleInput = document.getElementById("title");
+  const minInput = document.getElementById("min");
+  const maxInput = document.getElementById("max");
+  const descriptionInput = document.getElementById("description");
+
+
+  form.addEventListener("submit", function (event) {
+    // Validate title
+    if (titleInput.value.trim() === "") {
+      generateMessage(titleInput, "موضوع نمی‌تواند خالی باشد.")
+      event.preventDefault();
+      return;
+    } else if (!isPersianText(titleInput.value)) {
+      generateMessage(titleInput, "موضوع باید فقط شامل حروف فارسی باشد.")
+      event.preventDefault();
+      return;
+    } else if (titleInput.value.trim().length < 3) {
+      generateMessage(titleInput, "موضوع نمیتواند از سه حرف کمتر باشد.")
+      event.preventDefault();
+      return;
+    }
+    // Validate min
+    if (minInput.value.trim() === "") {
+      generateMessage(minInput, "این فیلد نمی‌تواند خالی باشد.")
+      event.preventDefault();
+      return;
+    } else if (parseInt(minInput.value.trim()) === 0) {
+      generateMessage(minInput, "این فیلد نمیتواند صفر باشد.")
+      event.preventDefault();
+      return;
+    } else if (parseInt(minInput.value.trim()) < 0) {
+      generateMessage(minInput, "این فیلد نمیتواند منفی باشد.")
+      event.preventDefault();
+      return;
+    }
+    // Validate max
+    if (parseInt(maxInput.value.trim()) === 0) {
+      generateMessage(maxInput, "این فیلد نمیتواند صفر باشد.")
+      event.preventDefault();
+      return;
+    } else if (parseInt(maxInput.value.trim()) < 0) {
+      generateMessage(maxInput, "این فیلد نمیتواند منفی باشد.")
+      event.preventDefault();
+      return;
+    }
+
+  });
+
+</script>
+{% endblock jscript %}
