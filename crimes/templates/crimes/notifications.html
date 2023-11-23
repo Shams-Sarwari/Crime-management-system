@@ -105,7 +105,7 @@
           <i class="fa-solid fa-comment-dots"></i>
           <div
             class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1.5 -right-1 ">
-            20</div>
+            {{ num_of_pending_comments }}</div>
         </div>
         <span class="font-semibold text-[16px]">نظریات کاربران</span>
       </div>
@@ -123,30 +123,29 @@
     <!-- comments -->
     <div id="commentContainer"
       class="max-h-[320px] md:max-h-[330px] grid lg:grid-cols-[1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 px-2 sm:px-4 md:px-8 text-blue-800 text-[13px] divide-y divide-color-secondary">
+      {% for comment in pending_comments %}
       <!-- comment 1 -->
       <div class="flex flex-col gap-2 py-2 sm:py-4">
         <span class="mr-2 font-semibold">اسم</span>
         <span
-          class="w-full h-8 px-2 flex items-center bg-gray-50 border border-gray-200 text-gray-700 rounded">محمدرضا
-          قاسمی
+          class="w-full h-8 px-2 flex items-center bg-gray-50 border border-gray-200 text-gray-700 rounded">
+          {{ comment.name }}
         </span>
 
         <span class="mr-2 font-semibold">ایمیل</span>
         <span
-          class="w-full h-8 px-2 flex items-center bg-gray-50 border border-gray-200 text-gray-700 rounded">rezajanqasimi@gmail.com
+          class="w-full h-8 px-2 flex items-center bg-gray-50 border border-gray-200 text-gray-700 rounded">{{ comment.email }}
         </span>
 
         <span class="mr-2 font-semibold">نظر</span>
         <span
-          class="w-full min-h-[90px] px-2 py-2 bg-gray-50 border border-gray-200 text-gray-600 text-xs rounded">احترام
-          به قوانین ترافیکی، کلیدی برای ایمنی و آرامش در جاده‌هاست. با رعایت سرعت مجاز، عدم استفاده از گوشی همراه
-          در
-          حین رانندگی، می‌توانیم به حفظ سلامتی خود و
-          دیگران در مسیرهای رانندگی کمک کنیم.
+          class="w-full min-h-[90px] px-2 py-2 bg-gray-50 border border-gray-200 text-gray-600 text-xs rounded">
+         {{ comment.comment}}
         </span>
-        <form action="" class="flex justify-between mt-2">
+        <form action="{% url "crimes:mark-contact-read" comment.id %}" class="flex justify-between mt-2" method='POST'>
+          {% csrf_token %}
           <div class="flex items-center gap-2 mr-2">
-            <input type="checkbox" class="cursor-pointer">
+            <input type="checkbox" class="cursor-pointer" name='checked' value='checked'>
             <span class="text-xs md:text-13px">علامت‌گذاری به عنوان خوانده شده</span>
           </div>
           <input type="submit" value="انجام"
@@ -154,67 +153,7 @@
         </form>
 
       </div>
-      <!-- comment 2 -->
-      <div class="flex flex-col gap-2 py-2 sm:py-4">
-        <span class="mr-2 font-semibold">اسم</span>
-        <span
-          class="w-full h-8 px-2 flex items-center bg-gray-50 border border-gray-200 text-gray-700 rounded">محمدرضا
-          قاسمی
-        </span>
-
-        <span class="mr-2 font-semibold">ایمیل</span>
-        <span
-          class="w-full h-8 px-2 flex items-center bg-gray-50 border border-gray-200 text-gray-700 rounded">rezajanqasimi@gmail.com
-        </span>
-
-        <span class="mr-2 font-semibold">نظر</span>
-        <span
-          class="w-full min-h-[85px] px-2 py-2 bg-gray-50 border border-gray-200 text-gray-600 text-xs rounded">احترام
-          به قوانین ترافیکی، کلیدی برای ایمنی و آرامش در جاده‌هاست. با رعایت سرعت مجاز، عدم استفاده از گوشی همراه
-          در
-          حین رانندگی، استفاده از کمربند ایمنی و رعایت فاصله ایمن با خودروهای دیگر، می‌توانیم به حفظ سلامتی خود و
-          دیگران در مسیرهای رانندگی کمک کنیم.
-        </span>
-        <form action="" class="flex justify-between mt-2">
-          <div class="flex items-center gap-2 mr-2">
-            <input type="checkbox" class="cursor-pointer">
-            <span class="text-xs md:text-13px">علامت‌گذاری به عنوان خوانده شده</span>
-          </div>
-          <input type="submit" value="انجام"
-            class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-200 outline-none hover:border-gray-300 hover:text-gray-700 rounded cursor-pointer">
-        </form>
-
-      </div>
-      <!-- comment 3 -->
-      <div class="flex flex-col gap-2 py-2 sm:py-4">
-        <span class="mr-2 font-semibold">اسم</span>
-        <span
-          class="w-full h-8 px-2 flex items-center bg-gray-50 border border-gray-200 text-gray-700 rounded">محمدرضا
-          قاسمی
-        </span>
-
-        <span class="mr-2 font-semibold">ایمیل</span>
-        <span
-          class="w-full h-8 px-2 flex items-center bg-gray-50 border border-gray-200 text-gray-700 rounded">rezajanqasimi@gmail.com
-        </span>
-
-        <span class="mr-2 font-semibold">نظر</span>
-        <span
-          class="w-full min-h-32 px-2 py-2 bg-gray-50 border border-gray-200 text-gray-600 text-xs rounded">احترام
-          به قوانین ترافیکی، کلیدی برای ایمنی و آرامش در جاده‌هاست. با رعایت سرعت مجاز، عدم استفاده از گوشی همراه
-          در
-          حین رانندگی، استفاده از کمربند ایمنی و رعایت فاصله ایمن با خودروهای دیگر، می‌توانیم به حفظ سلامتی خود و
-          دیگران در مسیرهای رانندگی کمک کنیم.
-        </span>
-        <form action="" class="flex justify-between mt-2">
-          <div class="flex items-center gap-2 mr-2">
-            <input type="checkbox" class="cursor-pointer">
-            <span class="text-xs md:text-13px">علامت‌گذاری به عنوان خوانده شده</span>
-          </div>
-          <input type="submit" value="انجام"
-            class="w-20 sm:w-24 h-6 bg-gray-50 border border-gray-200 outline-none hover:border-gray-300 hover:text-gray-700 rounded cursor-pointer">
-        </form>
-      </div>
+      {% endfor %}
 
     </div>
   </div>

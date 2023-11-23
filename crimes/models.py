@@ -49,6 +49,13 @@ class CarCrime(models.Model):
     
 
 
+class Contact(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    comment = models.TextField()
+    read = models.BooleanField(default=False)
+    created = models.DateField(auto_now_add=True)
 
-    
+    def __str__(self) -> str:
+        return self.name
 

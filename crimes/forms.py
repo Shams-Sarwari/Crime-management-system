@@ -1,5 +1,5 @@
 from django import forms
-from .models import Crime, CarCrime
+from .models import Crime, CarCrime, Contact
 
 class CreateCrimeForm(forms.ModelForm):
     class Meta:
@@ -30,3 +30,9 @@ class CreateCarCrimeForm(forms.ModelForm):
         fields = [
             'plate_num', 'crime', 'location', 'description', 'paid', 'price', 'expiry_date'
         ]
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = '__all__'
+        exclude = ['read']
