@@ -7,6 +7,8 @@ from accounts.models import StaffProfile
 from django.contrib import messages
 from datetime import date, timedelta
 from django.db.models import Q
+from accounts.utils import pagination_items
+from django.conf import settings
 
 # strip imports:
 import json
@@ -22,23 +24,31 @@ from django.contrib.auth.decorators import login_required
 from accounts.decorators import superuser_or_staff_required, superuser_required
 
 
-stripe.api_key = 'sk_test_51OAQ0PItY091qK4GuGeFsuNbfSdGYcMuoHMnFysmYi4WQbPkf2CfGxKHcB1wyuDUedNBPORVjMM7PMVxQa2IQ2yG00dSLua5iU'
+# stripe.api_key = 'sk_test_51OAQ0PItY091qK4GuGeFsuNbfSdGYcMuoHMnFysmYi4WQbPkf2CfGxKHcB1wyuDUedNBPORVjMM7PMVxQa2IQ2yG00dSLua5iU'
 
 # Create your views here.
 @login_required(login_url='login')
 @superuser_required
 def create_crime(request):
     if request.method == 'POST':
-        form = CreateCrimeForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('crimes:crime-list')
-
+        title = request.POST.get('title')
+        min = request.POST.get('min')
+        max = request.POST.get('max')
+        desc = request.POST.get('description')
+        Crime.objects.create(
+            title = title, 
+            description = desc, 
+            min_price = min,
+            max_price = max, 
+        )
+        messages.success(request, 'موضوع جریمه موفقانه ثبت سیستم گردید')
+        return redirect('crimes:create-crime')
     else:
         form = CreateCrimeForm()
 
     context = {
-        'form': form
+        'form': form,
+        'section': 'crime_subject'
     }
     return render(request, 'crimes/create_crime.html', context)
 
@@ -314,56 +324,6 @@ def online_payment(request):
     return render(request, 'crimes/checkout.html', context)
 
 
-
-# strip: 
-
-def calculate_order_amount(items):
-    # Replace this constant with a calculation of the order's amount
-    # Calculate the order total on the server to prevent
-    # people from directly manipulating the amount on the client
-    return 1400
-
-@csrf_exempt
-@require_POST
-def create_payment(request):
-        print('this view called')
-        print(request.POST)
-    # loop over the values of the sent data and find the crimes
-    # if request.method == 'POST':
-        try:
-            print('start try')
-            num_of_crimes = int(request.POST.get('num_of_crimes'))
-            for i in range(1, num_of_crimes+1):
-                crime_ids.append(request.POST.get(i))
-            print('inside try')
-        except:
-            pass
-        crime_ids = []
-        
-
-        try:
-            data = json.loads(request.body)
-            # Create a PaymentIntent with the order amount and currency
-            intent = stripe.PaymentIntent.create(
-                amount=calculate_order_amount(data['items']),
-                currency='usd',
-                automatic_payment_methods={
-                    'enabled': True,
-                },
-            )
-
-            # if everything is ok:
-            for item in crime_ids:
-                crime = get_object_or_404(CarCrime, id=item)
-                crime.paid = True
-                crime.save()
-
-            return JsonResponse({
-                'clientSecret': intent['client_secret']
-            })
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=403)
-        
 def create_contact(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -388,5 +348,143 @@ def mark_contact_read(request, pk):
     else:
         return redirect('crimes:notifications')
 
-    
+def jawaz_crime_list(request):
+    jawaz_crimes = CarCrime.objects.filter(
+        Q(paid=False) &
+        Q(crime__title='گذشتن تاریخ اعتبار جواز سیر')
+    )
+    custom_range, jawaz_crimes = pagination_items(request, jawaz_crimes, 6)
+    context = {
+        'jawaz_crimes': jawaz_crimes,
+        'custom_range': custom_range,
+        'section': 'jawaz'
+    }
+    return render(request, 'crimes/jawaz_crime_list.html', context)
+
+
+# strip: 
+
+# def calculate_order_amount(items):
+#     # Replace this constant with a calculation of the order's amount
+#     # Calculate the order total on the server to prevent
+#     # people from directly manipulating the amount on the client
+#     return 1400
+
+# @csrf_exempt
+# @require_POST
+# def create_payment(request):
+#         print('this view called')
+#         print(request.POST)
+#     # loop over the values of the sent data and find the crimes
+#     # if request.method == 'POST':
+#         try:
+#             print('start try')
+#             num_of_crimes = int(request.POST.get('num_of_crimes'))
+#             for i in range(1, num_of_crimes+1):
+#                 crime_ids.append(request.POST.get(i))
+#             print('inside try')
+#         except:
+#             pass
+#         crime_ids = []
         
+
+#         try:
+#             data = json.loads(request.body)
+#             # Create a PaymentIntent with the order amount and currency
+#             intent = stripe.PaymentIntent.create(
+#                 amount=calculate_order_amount(data['items']),
+#                 currency='usd',
+#                 automatic_payment_methods={
+#                     'enabled': True,
+#                 },
+#             )
+
+#             # if everything is ok:
+#             for item in crime_ids:
+#                 crime = get_object_or_404(CarCrime, id=item)
+#                 crime.paid = True
+#                 crime.save()
+
+#             return JsonResponse({
+#                 'clientSecret': intent['client_secret']
+#             })
+#         except Exception as e:
+#             return JsonResponse({'error': str(e)}, status=403)
+        
+
+def success_view(request):
+    return render(request, 'crimes/success.html')
+
+def cancel_view(request):
+    return render(request, 'crimes/cancel.html')
+
+
+@csrf_exempt
+def strip_config(request):
+    if request.method == 'GET':
+        stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
+        return JsonResponse(stripe_config, safe=False)
+    
+
+@csrf_exempt
+def create_checkout_session(request, crimes):
+    crimes = crimes.rstrip(',')
+    crime_ids = crimes.split(',')
+    print(crime_ids)    
+    
+    total_price = 0
+    for item in crime_ids:
+        crime = get_object_or_404(CarCrime, id=int(item))
+        total_price += crime.price
+        total_price += crime.expiry_fine
+    if request.method == 'GET':
+        domain_url = 'http://localhost:8000/'
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        try:
+          
+            # Create new Checkout Session for the order
+            # Other optional params include:
+            # [billing_address_collection] - to display billing address details on the page
+            # [customer] - if you have an existing Stripe Customer ID
+            # [payment_intent_data] - capture the payment later
+            # [customer_email] - prefill the email input in the form
+            # For full details see https://stripe.com/docs/api/checkout/sessions/create
+
+            # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
+            
+            checkout_session = stripe.checkout.Session.create(
+                # success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
+                
+                success_url= domain_url + 'success/',
+                cancel_url=domain_url + 'cancelled/',
+                payment_method_types=['card'],
+                mode='payment',
+                line_items=[
+                {
+                    'price_data': {
+                        'currency': 'afn',
+                        'unit_amount': str(int(total_price * 100)),
+                        'product_data': {
+                            'name': 'Payment of crimes'
+                        },
+                    },
+                    'quantity': 1,
+                },
+            ]
+            )
+            log = Payment.objects.create(
+                price = total_price,
+                online = True,  
+            )
+            for item in crime_ids:
+                crime = get_object_or_404(CarCrime, id=int(item))
+                crime.paid = True
+                crime.payment = log
+                crime.save()
+            
+            
+
+                    
+            return JsonResponse({'sessionId': checkout_session['id']})
+        except Exception as e:
+            return JsonResponse({'error': str(e)})

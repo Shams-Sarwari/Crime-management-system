@@ -7,7 +7,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TCMS | Admin | Drivers</title>
-  <script src="https://js.stripe.com/v3/"></script>
+  {% block style %}
+  
+  {% endblock style %}
+
+  
+  
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
   <link rel="stylesheet" href="{% static 'css/myswiper.css' %}">
   <link rel="stylesheet" href="{% static "css/output.css" %}" />
@@ -96,6 +101,32 @@
               </g>
             </svg>
             <span class="sidebar-list-text"> موضوع جریمه
+              </span>
+          </a>
+        </li>
+
+        <li>
+          <a href="{% url "register-driver" %}" class="sidebar-link-mobile">
+            <?xml version="1.0" ?><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="w-[18px]">
+              <defs>
+                <style>
+                  .cls-1 {
+                    fill: none;
+                    stroke: #fff;
+                    stroke-linejoin: round;
+                    stroke-width: 2px;
+                  }
+                </style>
+              </defs>
+              <title />
+              <g data-name="207-User" id="_207-User">
+                <circle class="cls-1" cx="16" cy="8" r="7" />
+                <path class="cls-1" d="M23.55,18A11,11,0,0,0,5,26v5H18" />
+                <line class="cls-1" x1="24" x2="24" y1="21" y2="31" />
+                <line class="cls-1" x1="29" x2="19" y1="26" y2="26" />
+              </g>
+            </svg>
+            <span class="sidebar-list-text"> جواز سیر 
               </span>
           </a>
         </li>
@@ -237,7 +268,7 @@
           </a>
         </li>
         <li>
-          <a href="{% url "register-driver" %}" class="sidebar-link">
+          <a href="{% url "crimes:create-crime" %}" class="sidebar-link {% if section == 'crime_subject' %}bg-color-primary-light {% endif %}">
             <?xml version="1.0" ?><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="w-[18px]">
               <defs>
                 <style>
@@ -258,6 +289,32 @@
               </g>
             </svg>
             <span class="sidebar-list-text">  موضوع جریمه 
+              </span>
+          </a>
+        </li>
+
+        <li>
+          <a href="{% url "crimes:jawaz-crime-list" %}" class="sidebar-link {% if section == 'jawaz' %}bg-color-primary-light {% endif %}">
+            <?xml version="1.0" ?><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="w-[18px]">
+              <defs>
+                <style>
+                  .cls-1 {
+                    fill: none;
+                    stroke: #fff;
+                    stroke-linejoin: round;
+                    stroke-width: 2px;
+                  }
+                </style>
+              </defs>
+              <title />
+              <g data-name="207-User" id="_207-User">
+                <circle class="cls-1" cx="16" cy="8" r="7" />
+                <path class="cls-1" d="M23.55,18A11,11,0,0,0,5,26v5H18" />
+                <line class="cls-1" x1="24" x2="24" y1="21" y2="31" />
+                <line class="cls-1" x1="29" x2="19" y1="26" y2="26" />
+              </g>
+            </svg>
+            <span class="sidebar-list-text">   جواز 
               </span>
           </a>
         </li>

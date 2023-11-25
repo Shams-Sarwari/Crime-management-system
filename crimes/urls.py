@@ -15,9 +15,11 @@ urlpatterns = [
     path('remove_pending/<int:pk>/', views.remove_pending, name='remove-pending'),
     path('create_contact/', views.create_contact, name='create-contact'),
     path('mark_contact_read/<int:pk>/', views.mark_contact_read, name='mark-contact-read'),
+    path('jawaz_crime_list/', views.jawaz_crime_list, name='jawaz-crime-list'),
     # stipe: 
-    path('online_payment/', views.online_payment, name='online-payment'),
-    path('create-payment-intent/', views.create_payment, name='create_payment'),
+    # path('online_payment/', views.online_payment, name='online-payment'),
+    # path('create-payment-intent/', views.create_payment, name='create_payment'),
+
 
     
 
