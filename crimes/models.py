@@ -3,10 +3,11 @@ from accounts.models import DriverProfile, StaffProfile
 from cars.models import Car, CarOwner
 # Create your models here.
 class Payment(models.Model):
-    staff = models.ForeignKey(StaffProfile, on_delete=models.CASCADE)
+    staff = models.ForeignKey(StaffProfile, on_delete=models.CASCADE, null=True, blank=True)
     driver = models.ForeignKey(DriverProfile, on_delete=models.CASCADE, null=True, blank=True)
     owner = models.ForeignKey(CarOwner,on_delete=models.CASCADE, null=True, blank=True)
-    price = models.DecimalField(max_digits=5, decimal_places=0)
+    price = models.DecimalField(max_digits=20, decimal_places=0)
+    online = models.BooleanField(default=False)
     created = models.DateField(auto_now_add=True)
 
     def __str__(self) -> str:

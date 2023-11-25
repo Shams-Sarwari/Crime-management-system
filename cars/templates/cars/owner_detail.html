@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
+{% block style %}
+<script src="https://js.stripe.com/v3/"></script>
+
+{% endblock style %}
+
 {% block content %}
 
   <!-- driver detatil -->
@@ -117,6 +122,7 @@
                 class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 py-1 text-center">
                 حذف
               </button>
+
               {% endif %}
             </div>
           </div>
@@ -331,7 +337,8 @@
           </div>
         </div>
         <!-- punishment -->
-        <form class="px-2 md:px-10 py-6 relative" action="{% url "crimes:online-payment" %}" method='POST'>
+        <form class="px-2 md:px-10 py-6 relative" action="" method='POST'>
+
           {% csrf_token %}
           <input type="checkbox" name="" class="masterCheckbox absolute top-10 right-6 md:right-[54px] cursor-pointer">
           <!-- line below: fineTable class is for js -->
@@ -374,6 +381,8 @@
         </form>
       </div>
       {% endfor %}
+      <button class="mt-4 button is-primary bg-orange-400 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded" id="submitBtn">Purchase!</button>
+
     </section>
 {% endblock content %}
 
@@ -438,11 +447,15 @@
 
     // ****************************************
     // ********* car and fine payemnt*****************
+    let para ="";
+    
     function initializeFinePayment(divId) {
       const carInfo = document.querySelector(`#${divId} .car-info`);
       const carInfoBtn = document.querySelector(`#${divId} .car-info-btn`);
       const masterCheckbox = document.querySelector(`#${divId} .masterCheckbox`);
       const checkboxes = document.querySelectorAll(`#${divId} .fineTable input[type="checkbox"]`);
+      
+      
 
       let sum = 0;
 
@@ -459,12 +472,30 @@
         });
 
         calculateSum();
-      });
+        // added new
+        para = '';
+        const allChecked = Array.from(checkboxes).every((checkbox) => checkbox.checked);
+        if(allChecked){
+          checkboxes.forEach((checkbox) => {
+          para += `${checkbox.value.trim()},`;
+          });
+        }else if(!allChecked){
+          para = ''; 
+        }
+        console.log(para);
+      });// end master checkbox
 
       checkboxes.forEach((checkbox) => {
         checkbox.addEventListener('change', function () {
           calculateSum();
           synchronizeMasterCheckbox();
+          // added new 
+          if(checkbox.checked){
+            para += `${checkbox.value.trim()},`;
+          }else{
+            para = para.replace(`${checkbox.value.trim()},`, '');
+          }
+          console.log(para);
         });
       });
 
@@ -509,6 +540,33 @@
       confirm_delete_container.classList.add("hidden");
     };
 
+    // stripe js
+      // Stripe javascript
+  console.log("Sanity check!");
+
+fetch("/strip-config/")
+.then((result) => { return result.json(); })
+.then((data) => {
+  // Initialize Stripe.js
+  const stripe = Stripe(data.publicKey);
+    // new
+  // Event handler
+  document.querySelector("#submitBtn").addEventListener("click", () => {
+    // Get Checkout Session ID
+    let new_url = '/create-checkout-session/' + para;
+    fetch(new_url)
+    .then((result) => { return result.json(); })
+    .then((data) => {
+      console.log(data);
+      // Redirect to Stripe Checkout
+      return stripe.redirectToCheckout({sessionId: data.sessionId})
+    })
+    .then((res) => {
+      console.log(res);
+    });
+  });
+});
+
   </script>
   <!-- swiper js CDN-->
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
@@ -534,5 +592,9 @@
     function printPage(){
       window.print()
     }
+  </script>
+  <script>
+  
+
   </script>
 {% endblock jscript %}

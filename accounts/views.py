@@ -34,13 +34,21 @@ def home(request):
 @superuser_required
 def dashboard(request, city='کابل', year=datetime.now().year):
     # offline payments section:
-    offline_payments = CarCrime.objects.filter(payment__created=date.today())
+    offline_payments = CarCrime.objects.filter(
+        Q(payment__created=date.today()) &
+        Q(payment__online=False))
     offline_total_price = 0
     for item in offline_payments:
         offline_total_price += item.price + item.expiry_fine
 
     
     # online payment section:
+    online_payments = CarCrime.objects.filter(
+        Q(payment__created=date.today()) &
+        Q(payment__online=True))
+    online_today_total_price = 0
+    for item in online_payments:
+        online_today_total_price += item.price + item.expiry_fine
 
     # number of todays crime:
     current_date = timezone.now().date()
@@ -139,6 +147,7 @@ def dashboard(request, city='کابل', year=datetime.now().year):
         'top_three_values': top_three_values,
         'filter_province': filter_province,
         'filter_year': filter_year,
+        'online_today_total_price': online_today_total_price,
         'crimes_in_months': crimes_in_months,
     }
     return render(request, 'accounts/dashboard.html', context)

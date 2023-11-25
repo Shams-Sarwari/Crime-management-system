@@ -16,7 +16,7 @@
 
         <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
           <div class="flex flex-col gap-2">
-            <span id="offlinePayment" class="text-3xl text-orange-500  font-semibold">4000</span>
+            <span id="offlinePayment" class="text-3xl text-orange-500  font-semibold">{{online_today_total_price}}</span>
             <span class="text-[13px] font-semibold">پرداختی آنلاین</span>
           </div>
           <span class="text-3xl text-blue-800 font-semibold"><i class="fa-brands fa-cc-amazon-pay"></i></span>
@@ -129,7 +129,7 @@
               <!-- Dropdown menu -->
               <div id="topYearDropdown"
                 class="hidden absolute right-0 top-8 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-24 overflow-hidden">
-                <ul class="py-1 text-sm h-36 overflow-y-auto">
+                <ul class="py-1 text-sm max-h-36 overflow-y-auto">
                   {% for year in years %}
                   <li class="topYears block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
                     {{year}}

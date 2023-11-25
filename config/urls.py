@@ -15,11 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from crimes.views import create_checkout_session, strip_config, success_view, cancel_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cars/', include('cars.urls')),
     path('crime/', include('crimes.urls')),
+    # stripe urls
+    path('create-checkout-session/<str:crimes>/', create_checkout_session, name="create-checkout-session"),
+    path('strip-config/', strip_config, name='stripe-config'),
+    path('success/', success_view, name='success'),
+    path('cancelled/', cancel_view, name='cancelled'),
+
+    
     path('', include('accounts.urls')),
     
 ]
