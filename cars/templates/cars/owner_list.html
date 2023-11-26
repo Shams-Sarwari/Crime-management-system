@@ -45,8 +45,9 @@
           <tr class="mytable-row" onclick="window.open('{% url "cars:owner-detail" owner.id %}', '_self');">
             <td class="text-center text-lg hidden md:table-cell">{{ forloop.counter }}</td>
             <td class="border-r-2">
-              <div class="flex justify-center">
-                <img src="{{ owner.image.url }}" alt="my image" class="w-9 h-9 rounded-full" />
+              <div class="flex justify-center   overflow-hidden">
+                <img {% if owner.image %}src="{{ owner.image.url }}"{% endif %} alt="my image" class="w-9 h-9 object-cover rounded-full" />
+              </div>
             </td>
             <td class="border-r-2 pr-2 md:pr-4 pl-2">{{ owner.first_name }}</td>
             <td class="border-r-2 pr-2 md:pr-4 pl-2">{{ owner.last_name }}</td>

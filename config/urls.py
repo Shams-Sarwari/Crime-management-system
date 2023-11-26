@@ -24,7 +24,7 @@ urlpatterns = [
     # stripe urls
     path('create-checkout-session/<str:crimes>/', create_checkout_session, name="create-checkout-session"),
     path('strip-config/', strip_config, name='stripe-config'),
-    path('success/', success_view, name='success'),
+    path('success/<str:crimes>/', success_view, name='success'),
     path('cancelled/', cancel_view, name='cancelled'),
 
     

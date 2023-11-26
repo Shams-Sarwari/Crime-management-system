@@ -322,7 +322,7 @@
           {% csrf_token %}
           <div class="flex flex-col gap-2">
             <label for="" class="mr-2">تذکره مالک</label>
-            <input type="number" class="input2" name="owner_tazkira" {% if car.owner %}placeholder="{{car.owner.tazkira_number}}"{% endif %}/>
+            <input type="text" class="input2" name="owner_tazkira" {% if car.owner %}placeholder="{{car.owner.tazkira_number}}"{% endif %}/>
           </div>
 
           <div class="flex flex-col gap-2">

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CreateCrimeForm, CreateCarCrimeForm, ContactForm
 from .models import Crime, CarCrime, Payment, Contact
 from accounts.models import DriverProfile
-from cars.models import Car
+from cars.models import Car, CarOwner
 from accounts.models import StaffProfile
 from django.contrib import messages
 from datetime import date, timedelta
@@ -30,10 +30,16 @@ from accounts.decorators import superuser_or_staff_required, superuser_required
 @login_required(login_url='login')
 @superuser_required
 def create_crime(request):
+    crimes = Crime.objects.all()
+    custom_range, crimes = pagination_items(request, crimes, 6)
+
     if request.method == 'POST':
         title = request.POST.get('title')
-        min = request.POST.get('min')
-        max = request.POST.get('max')
+        min = float(request.POST.get('min'))
+        if request.POST.get('max'):
+            max = float(request.POST.get('max'))
+        else:
+            max = None
         desc = request.POST.get('description')
         Crime.objects.create(
             title = title, 
@@ -48,6 +54,8 @@ def create_crime(request):
 
     context = {
         'form': form,
+        'crimes': crimes,
+        'custom_range': custom_range,
         'section': 'crime_subject'
     }
     return render(request, 'crimes/create_crime.html', context)
@@ -83,7 +91,8 @@ def delete_crime(request, pk):
     crime = Crime.objects.get(id=pk)
     if request.method == 'POST':
         crime.delete()
-        return redirect('crimes:crime-list')
+        messages.success(request, 'موضوع موفقانه از سیستم حذف گردید')
+        return redirect('crimes:create-crime')
 
     context = {
         'crime': crime
@@ -412,7 +421,46 @@ def jawaz_crime_list(request):
 #             return JsonResponse({'error': str(e)}, status=403)
         
 
-def success_view(request):
+def success_view(request, crimes):
+    
+    print(crimes)
+    crimes = crimes.rstrip(',')
+    crime_ids = crimes.split(',')
+    print(crime_ids)
+    status = crime_ids[0]
+    status_id = crime_ids[1]
+    owner = None
+    driver = None
+    if status == 'owner': 
+        owner = get_object_or_404(CarOwner, id=int(status_id))
+    elif status == 'driver': 
+        driver = get_object_or_404(DriverProfile, id=status_id)
+    
+    total_price = 0
+    for item in crime_ids[2:]:
+        crime = get_object_or_404(CarCrime, id=int(item))
+        total_price += crime.price
+        total_price += crime.expiry_fine
+    
+    if owner:
+        log = Payment.objects.create(
+            price = total_price,
+            owner = owner,
+            online = True,  
+        )
+    elif driver:
+        log = Payment.objects.create(
+            price = total_price,
+            driver = driver,
+            online = True,  
+        )
+    for item in crime_ids[2:]:
+        crime = get_object_or_404(CarCrime, id=int(item))
+        crime.paid = True
+        crime.payment = log
+        crime.save()
+            
+
     return render(request, 'crimes/success.html')
 
 def cancel_view(request):
@@ -428,12 +476,14 @@ def strip_config(request):
 
 @csrf_exempt
 def create_checkout_session(request, crimes):
+    print(crimes)
     crimes = crimes.rstrip(',')
     crime_ids = crimes.split(',')
-    print(crime_ids)    
+    
+    
     
     total_price = 0
-    for item in crime_ids:
+    for item in crime_ids[2:]:
         crime = get_object_or_404(CarCrime, id=int(item))
         total_price += crime.price
         total_price += crime.expiry_fine
@@ -455,7 +505,7 @@ def create_checkout_session(request, crimes):
             checkout_session = stripe.checkout.Session.create(
                 # success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
                 
-                success_url= domain_url + 'success/',
+                success_url= domain_url + 'success/' + crimes,
                 cancel_url=domain_url + 'cancelled/',
                 payment_method_types=['card'],
                 mode='payment',
@@ -472,15 +522,6 @@ def create_checkout_session(request, crimes):
                 },
             ]
             )
-            log = Payment.objects.create(
-                price = total_price,
-                online = True,  
-            )
-            for item in crime_ids:
-                crime = get_object_or_404(CarCrime, id=int(item))
-                crime.paid = True
-                crime.payment = log
-                crime.save()
             
             
 
