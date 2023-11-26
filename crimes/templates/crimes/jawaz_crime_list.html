@@ -18,8 +18,9 @@
                 <td scope="row" class="whitespace-nowrap px-2">مالک</td>
                 <td scope="row" class="whitespace-nowrap px-2">پلیت</td>
                 <td scope="row" class="whitespace-nowrap px-2">نمبر جواز</td>
-                {% comment %} <td scope="row" class="whitespace-nowrap px-2">تاریخ انقضا</td> {% endcomment %}
                 <td scope="row" class="whitespace-nowrap px-2">مبلغ جریمه</td>
+                <td scope="row" class="whitespace-nowrap px-2">جریمه عدم پرداخت</td>
+                
                 <td scope="row" class="whitespace-nowrap px-2">نمبر تماس</td>
               </tr>
               {% for crime in jawaz_crimes %}
@@ -29,7 +30,8 @@
                 <td class="whitespace-nowrap px-2">{{ crime.car.plate_number }}</td>
                 <td class="whitespace-nowrap px-2">{{ crime.car.jawazsayr }}</td>
                 {% comment %} <td class="whitespace-nowrap px-2">1402/10/25</td> {% endcomment %}
-                <td class="whitespace-nowrap px-2">{{ crime.price }}</td>
+                <td class="whitespace-nowrap px-2">{{ crime.price}}</td>
+                <td class="whitespace-nowrap px-2">{{ crime.expiry_fine}}</td>
                 <td class="whitespace-nowrap px-2">{{ crime.car.owner.phone_number }}</td>
               </tr>
               {% endfor %}

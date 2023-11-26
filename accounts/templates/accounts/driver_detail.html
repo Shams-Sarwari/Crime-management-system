@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+{% block style %}
+<script src="https://js.stripe.com/v3/"></script>
+
+{% endblock style %}
+
 {% block content %}
   <!-- ****************************** -->
       <!-- ********** profile ***********-->
@@ -111,7 +116,7 @@
           <span>جدول جرایم راننده</span>
         </div>
         <!-- punishment -->
-        <form class="px-2 md:px-10 py-4 relative" action="{% url "crimes:online-payment" %}" method='POST'>
+        <form class="px-2 md:px-10 py-4 relative" action="" method='POST'>
           {% csrf_token %}
           <input type="checkbox" name="" class="masterCheckbox absolute top-10 right-6 md:right-[54px] cursor-pointer">
           <!-- line below: fineTable class is for js -->
@@ -149,14 +154,18 @@
             
 
           </table>
-          <div class="flex justify-between mt-16">
-            <label class="font-semibold pr-4">مقدار کُل : <span class="total text-lg">00</span></label>
-            <!-- hidden input to send total -->
-            <input type="hidden" name="totalPayemnt" class="hiddenTotal">
-            <input type="submit" value="پرداخت آنلاین"
-              class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none rounded text-xs tracking-widest w-36 py-2 text-center cursor-pointer">
-          </div>
+          
         </form>
+        
+        <div class="flex justify-between mt-10 pb-6 px-2 md:px-10">
+          <label class="font-semibold pr-4">مقدار کُل : <span class="total text-lg">00</span></label>
+          <!-- hidden input to send total -->
+          <input type="hidden" name="totalPayemnt" class="hiddenTotal">
+          <button class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none rounded text-xs tracking-widest w-36 py-2 text-center cursor-pointer" id="submitBtn">پرداخت</button>
+          
+        </div>
+
+        
       </div>
 
     </section>
@@ -216,6 +225,8 @@
 
     // ****************************************
     // ********* fine payemnt*****************
+    let para = "driver"+ "," + "{{driver.id}}"+ ",";
+
     function initializeFinePayment(divId) {
       const masterCheckbox = document.querySelector(`#${divId} .masterCheckbox`);
       const checkboxes = document.querySelectorAll(`#${divId} .fineTable input[type="checkbox"]`);
@@ -232,12 +243,30 @@
         });
 
         calculateSum();
-      });
+        // added new
+        para = 'driver,'+"{{driver.id}}"+",";
+        const allChecked = Array.from(checkboxes).every((checkbox) => checkbox.checked);
+        if(allChecked){
+          checkboxes.forEach((checkbox) => {
+          para += `${checkbox.value.trim()},`;
+          });
+        }else if(!allChecked){
+          para = 'driver,' + "{{driver.id}}"+","; 
+        }
+        console.log(para);
+      });// end master checkbox
 
       checkboxes.forEach((checkbox) => {
         checkbox.addEventListener('change', function () {
           calculateSum();
           synchronizeMasterCheckbox();
+          // added new 
+          if(checkbox.checked){
+            para += `${checkbox.value.trim()},`;
+          }else{
+            para = para.replace(`${checkbox.value.trim()},`, '');
+          }
+          console.log(para);
         });
       });
 
@@ -272,5 +301,36 @@
     function printPage(){
       window.print()
     }
+
+
+        // stripe js
+      // Stripe javascript
+  console.log("Sanity check!");
+
+  fetch("/strip-config/")
+  .then((result) => { return result.json(); })
+  .then((data) => {
+    // Initialize Stripe.js
+    const stripe = Stripe(data.publicKey);
+      // new
+    // Event handler
+    
+    document.querySelector("#submitBtn").addEventListener("click", () => {
+      // Get Checkout Session ID
+      let new_url = '/create-checkout-session/' + para;
+      fetch(new_url)
+      .then((result) => { return result.json(); })
+      .then((data) => {
+        console.log(data);
+        // Redirect to Stripe Checkout
+        return stripe.redirectToCheckout({sessionId: data.sessionId})
+      })
+      .then((res) => {
+        console.log(res);
+      });
+    });
+    
+  });
+  
   </script>
 {% endblock jscript %}

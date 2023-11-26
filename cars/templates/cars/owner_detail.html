@@ -47,8 +47,8 @@
         <!-- profile card -->
         <div class="w-full max-w-md px-4">
           <div class="flex flex-col items-center gap-2 mt-6">
-            <div class="w-20 h-20 md:w-24 md:h-24 overflow-hidden">
-              <img {% if owner.image %} src="{{ owner.image.url }}" {% endif %} alt="Image" class="object-contain h-auto rounded-full">
+            <div class="w-20 h-20 md:w-24 md:h-24 overflow-hidden rounded-full">
+              <img {% if owner.image %} src="{{ owner.image.url }}" {% endif %} alt="Image" class="object-cover">
             </div>
             <div class="flex flex-col gap-1">
               <h2 class="text-xl text-color-primary font-semibold">{{ owner.first_name }} {{ owner.last_name }}</h2>
@@ -337,7 +337,7 @@
           </div>
         </div>
         <!-- punishment -->
-        <form class="px-2 md:px-10 py-6 relative" action="" method='POST'>
+        <form class="px-2 md:px-10 pt-6 relative" action="" method='POST'>
 
           {% csrf_token %}
           <input type="checkbox" name="" class="masterCheckbox absolute top-10 right-6 md:right-[54px] cursor-pointer">
@@ -373,15 +373,15 @@
             {% endfor %}
             
           </table>
-          <div class="flex justify-between mt-16">
-            <label class="font-semibold pr-4">مقدار کُل : <span class="total text-lg">00</span></label>
-            <input type="submit" value="پرداخت آنلاین"
-              class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none rounded text-xs tracking-widest w-36 py-2 text-center cursor-pointer">
-          </div>
         </form>
+        <div class="flex justify-between mt-10 pb-6 px-2 md:px-10">
+          <label class="font-semibold pr-4">مقدار کُل : <span class="total text-lg">00</span></label>
+            <button class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none rounded text-xs tracking-widest w-36 py-2 text-center cursor-pointer" id="submitBtn{{forloop.counter}}">پرداخت</button>
+        </div>
+      
+
       </div>
       {% endfor %}
-      <button class="mt-4 button is-primary bg-orange-400 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded" id="submitBtn">Purchase!</button>
 
     </section>
 {% endblock content %}
@@ -447,9 +447,13 @@
 
     // ****************************************
     // ********* car and fine payemnt*****************
-    let para ="";
+    {% comment %} let para = "owner," + {{ owner.id}} + ','; {% endcomment %}
     
+    
+    let myPara = ""; 
+
     function initializeFinePayment(divId) {
+      let para = "owner"+ "," +{{owner.id}}+",";
       const carInfo = document.querySelector(`#${divId} .car-info`);
       const carInfoBtn = document.querySelector(`#${divId} .car-info-btn`);
       const masterCheckbox = document.querySelector(`#${divId} .masterCheckbox`);
@@ -473,14 +477,16 @@
 
         calculateSum();
         // added new
-        para = '';
+        para = 'owner,'+{{owner.id}}+",";
         const allChecked = Array.from(checkboxes).every((checkbox) => checkbox.checked);
         if(allChecked){
           checkboxes.forEach((checkbox) => {
           para += `${checkbox.value.trim()},`;
+          myPara = para; 
           });
         }else if(!allChecked){
-          para = ''; 
+          para = 'owner,' + {{owner.id}}+","; 
+          myPara = para; 
         }
         console.log(para);
       });// end master checkbox
@@ -492,8 +498,10 @@
           // added new 
           if(checkbox.checked){
             para += `${checkbox.value.trim()},`;
+            myPara = para; 
           }else{
             para = para.replace(`${checkbox.value.trim()},`, '');
+            myPara = para; 
           }
           console.log(para);
         });
@@ -517,14 +525,11 @@
         const allChecked = Array.from(checkboxes).every((checkbox) => checkbox.checked);
         masterCheckbox.checked = allChecked;
       }
-
-      
     }
 
-
     // end function initializeFinePayment(divId) 
-
     // call functions
+
     for (let i = 1; i <= {{num_of_cars}}; i++) {
       initializeFinePayment(`fine${i}`);
     }
@@ -551,20 +556,22 @@ fetch("/strip-config/")
   const stripe = Stripe(data.publicKey);
     // new
   // Event handler
-  document.querySelector("#submitBtn").addEventListener("click", () => {
-    // Get Checkout Session ID
-    let new_url = '/create-checkout-session/' + para;
-    fetch(new_url)
-    .then((result) => { return result.json(); })
-    .then((data) => {
-      console.log(data);
-      // Redirect to Stripe Checkout
-      return stripe.redirectToCheckout({sessionId: data.sessionId})
-    })
-    .then((res) => {
-      console.log(res);
+  for(let i = 1; i<= {{num_of_cars}}; i++){
+    document.querySelector(`#submitBtn${i}`).addEventListener("click", () => {
+      // Get Checkout Session ID
+      let new_url = '/create-checkout-session/' + myPara;
+      fetch(new_url)
+      .then((result) => { return result.json(); })
+      .then((data) => {
+        console.log(data);
+        // Redirect to Stripe Checkout
+        return stripe.redirectToCheckout({sessionId: data.sessionId})
+      })
+      .then((res) => {
+        console.log(res);
+      });
     });
-  });
+  }
 });
 
   </script>
