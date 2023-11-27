@@ -28,6 +28,8 @@ from .decorators import superuser_or_staff_required, superuser_required
 
 # Create your views here.
 def home(request):
+    if request.user.is_authenticated:
+        logout(request)
     return render(request, 'accounts/home.html')
 
 @login_required(login_url='login')
@@ -239,9 +241,15 @@ def staff_detail(request, pk):
 def login_user(request):
     check_user = None
 
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.is_superuser:
         return redirect('dashboard')
-
+    elif request.user.is_authenticated and request.user.is_staff:
+        return redirect('crimes:fine-driver')
+    elif request.user.is_authenticated and request.user.is_owner:
+        return redirect('cars:owner-detail', request.user.carowner.id)
+    elif request.user.is_authenticated and request.user.is_driver:
+        return redirect('driver-detail', request.user.driverprofile.id )
+        
     if request.method == 'POST':
         if request.POST['type'] == 'driver':
 
@@ -666,15 +674,16 @@ class CustomPasswordResetView(PasswordResetView):
             reset_url = self.request.build_absolute_uri(reset_url)
 
             
-            account_sid = 'AC11dd7aa2c922d4e3e4e72c3e48169fbb'
-            auth_token = 'f0f1895b25bce73792f22d93861c0f0f'
+            account_sid = 'AC107249e5f7742024a4dfc4c9bc091350'
+            auth_token = '6f1f266ae8955e4ca0ac895698549f2a'
             client = Client(account_sid, auth_token)
 
             message = client.messages.create(
                     body=f'کاربر گرامی {user.username} \n شما بخاطر درخواست تغییر رمز عبور در وبسایت ترافیک این پیام را دریافت کردید. لطفا لینک زیر را برای ادامه تنظیمات دنبال کنید. \n {reset_url}',
-                    from_='+13088729493',
-                    to='+93776423768'
+                    from_='+14842287089',
+                    to='+93793545428'
                 )
+            print(message.sid)
         
             # elif user.is_staff or user.is_superuser:
             #     user_email = user.email

@@ -8,8 +8,9 @@ from django.contrib import messages
 from datetime import date, timedelta
 from django.db.models import Q
 from accounts.utils import pagination_items
+from django.urls import reverse_lazy
 from django.conf import settings
-
+from twilio.rest import Client
 # strip imports:
 import json
 import stripe
@@ -167,6 +168,19 @@ def create_car_crime(request):
                     pending = pending,
                     expiry_date = date.today() + timedelta(days=60)
                 )
+                # generate a message to driver's phone number:
+                # payment_url = reverse_lazy('cars:owner-detail', kwargs={'pk':car.owner.id})
+                # payment_url = request.build_absolute_uri(payment_url)
+                # account_sid = 'AC107249e5f7742024a4dfc4c9bc091350'
+                # auth_token = '6f1f266ae8955e4ca0ac895698549f2a'
+                # client = Client(account_sid, auth_token)
+                # message = client.messages.create(
+                #     body= f'\u202Eکاربر گرامی، شما بخاطر نقض قوانین ترافیکی ({crime.title}) از طرف ریاست ترافیک، مبلغ ({price}) افغانی جریمه شدید لطفا برای پرداخت نمودن جریمه خود به لینک زیر مراجعه نمایید \n {payment_url}',
+                #     from_='+14842287089',
+                #     to='+93793545428'
+                # )
+                # print(message.sid)
+
                 if request.POST.get('paid') == 'paid':
                     payment = Payment.objects.create(
                         staff = request.user.staffprofile,
@@ -180,6 +194,8 @@ def create_car_crime(request):
                 driver = DriverProfile.objects.get(licence_num=licence)
             except: 
                 messages.info(request, 'راننده در سیستم ثبت نیست')
+                return redirect('crimes:fine-driver')
+                
             else:
                 car_crime = CarCrime.objects.create(
                         stuff = request.user.staffprofile,
@@ -194,6 +210,21 @@ def create_car_crime(request):
                         pending = pending,
                         expiry_date = date.today() + timedelta(days=60)
                     )
+                
+                # generate a message to driver's phone number:
+                # payment_url = reverse_lazy('cars:owner-detail', kwargs={'pk':car.owner.id})
+                # payment_url = request.build_absolute_uri(payment_url)
+
+                # account_sid = 'AC107249e5f7742024a4dfc4c9bc091350'
+                # auth_token = '6f1f266ae8955e4ca0ac895698549f2a'
+                # client = Client(account_sid, auth_token)
+                # message = client.messages.create(
+                #     body= f'\u202Eکاربر گرامی، شما بخاطر نقض قوانین ترافیکی ({crime.title}) از طرف ریاست ترافیک، مبلغ ({price}) افغانی جریمه شدید لطفا برای پرداخت نمودن جریمه خود به لینک زیر مراجعه نمایید \n {payment_url}',
+                #     from_='+14842287089',
+                #     to='+93793545428'
+                # )
+                # print(message.sid)
+
                 if request.POST.get('paid') == 'paid':
                     payment = Payment.objects.create(
                         staff = request.user.staffprofile,
@@ -207,7 +238,7 @@ def create_car_crime(request):
                 return redirect('cars:owner-detail', car.owner.id)
                 
         else:
-            print(f'im inside creating cirme without licence and pending is {pending}')
+            
 
             car_crime = CarCrime.objects.create(
                     stuff = request.user.staffprofile,
@@ -221,6 +252,21 @@ def create_car_crime(request):
                     pending = pending,
                     expiry_date = date.today() + timedelta(days=60)
                 )
+            
+            # generate a message to driver's phone number:
+            # payment_url = reverse_lazy('cars:owner-detail', kwargs={'pk':car.owner.id})
+            # payment_url = request.build_absolute_uri(payment_url)
+
+            # account_sid = 'AC107249e5f7742024a4dfc4c9bc091350'
+            # auth_token = '6f1f266ae8955e4ca0ac895698549f2a'
+            # client = Client(account_sid, auth_token)
+            # message = client.messages.create(
+            #     body= f'\u202Eکاربر گرامی، شما بخاطر نقض قوانین ترافیکی ({crime.title}) از طرف ریاست ترافیک، مبلغ ({price}) افغانی جریمه شدید لطفا برای پرداخت نمودن جریمه خود به لینک زیر مراجعه نمایید \n {payment_url}',
+            #     from_='+14842287089',
+            #     to='+93793545428'
+            # )
+            # print(message.sid)
+
             if request.POST.get('paid') == 'paid':
                 payment = Payment.objects.create(
                     staff = request.user.staffprofile,
