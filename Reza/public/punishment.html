@@ -465,18 +465,18 @@
         </div>
       </div>
       <!-- end title and img -->
-      <form action=""
+      <form id="form" action=""
         class="max-w-full mb-2 md:mb-4 mx-2 md:mx-4 bg-[#eaf5fb] px-4 md:px-4 lg:px-6 xl:px-8 pt-4 pb-6 rounded-b">
         <div
           class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 text-blue-800 text-[13px]">
-          <div class="flex flex-col gap-2">
+          <div class="relative flex flex-col gap-2">
             <label for="" class="mr-2 font-semibold">نمبر پلیت</label>
-            <input type="number" class="punishment-input" required />
+            <input id="plateNo" type="number" class="punishment-input" />
           </div>
 
-          <div class="flex flex-col gap-2">
+          <div class="relative flex flex-col gap-2">
             <label for="" class="mr-2 font-semibold">لایسنس راننده</label>
-            <input type="number" class="punishment-input" required />
+            <input id="license" type="text" class="punishment-input" />
           </div>
 
           <div class="relative flex flex-col gap-2">
@@ -484,18 +484,28 @@
             <input id="searchInput" type="text" class="punishment-input" autocomplete="off" />
             <!-- the autocomplete list -->
             <ul id="autocompleteList"
-              class="hidden absolute left-0 top-full w-full mt-0.5 max-h-64 overflow-y-auto bg-gray-50  border-gray-200 rounded shadow text-gray-700 text-xs leading-5">
+              class="hidden absolute left-0 top-full w-full mt-0.5 max-h-64 overflow-y-auto bg-gray-50  border-gray-200 rounded shadow text-gray-700 text-xs leading-5 z-10">
             </ul>
           </div>
 
           <div class="flex flex-col gap-2">
-            <label for="" class="mr-2 font-semibold">مبلغ</label>
-            <input type="number" class="punishment-input" />
+            <label for="" class="mr-2 font-semibold">حد اقل جریمه</label>
+            <input id="minInput" type="number" class="punishment-input" />
           </div>
 
           <div class="flex flex-col gap-2">
+            <label for="" class="mr-2 font-semibold">حد اکثر جریمه</label>
+            <input id="maxInput" type="number" class="punishment-input" />
+          </div>
+
+          <div class="relative flex flex-col gap-2">
+            <label for="" class="mr-2 font-semibold">مبلغ</label>
+            <input id="fine" type="number" class="punishment-input" />
+          </div>
+
+          <div class="relative flex flex-col gap-2">
             <label for="" class="mr-2 font-semibold">موقعیت</label>
-            <input type="text" class="punishment-input" />
+            <input id="place" type="text" class="punishment-input" />
           </div>
 
           <div class="pr-2 flex items-end pb-2 mt-2 sm:mt-0">
@@ -520,9 +530,9 @@
           </div>
         </div>
         <!-- report text area -->
-        <div class="mt-2 md:mt-8">
+        <div class="relative mt-2 md:mt-8">
           <p class="pr-2 font-semibold text-[13px] text-blue-800">گذارش</p>
-          <textarea name="message" rows="6"
+          <textarea id="report" name="message" rows="6"
             placeholder="در صورتیکه تخلف انجام شده در لیست موجود نیست، لطفاً گزارش تخلف را در اینجا وارد کنید..."
             class="text-gray-500 text-[13px] px-2 py-2 mt-2 w-full bg-gray-50 border border-gray-200 outline-none rounded "></textarea>
         </div>
@@ -541,26 +551,46 @@
 
 
 
-
+  <script src="validationFunctions.js"></script>
   <script>
     // the autocomplete search box 
     const searchInput = document.getElementById('searchInput');
     const autocompleteList = document.getElementById('autocompleteList');
+    const minInput = document.getElementById('minInput');
+    const maxInput = document.getElementById('maxInput');
+    const fine = document.getElementById('fine');
+    let min = 0;
+    let max = 0;
 
-    const crimes = [
-      'رعایت نکردن سرعت مجاز:',
-      'عبور از چراغ قرمز',
-      'عبور از خطوط ایمنی',
-      'رانندگی در حالت مستی',
-      'عدم رعایت اولویت عبور',
-      'سوار شدن بر خودرو در حال حرکت',
-      'عدم داشتن مدارک رانندگی معتبر',
-      'ترک محل حادثه',
-      'نقض سیستم راهنمایی و رانندگی',
-      // Add more country names here
+    const crimeDetails = [
+      ['رعایت نکردن سرعت مجاز:', '20', ''],
+      ['عبور از چراغ قرمز', '100', '200'],
+      ['عبور از خطوط ایمنی', '50', '100'],
+      ['رانندگی در حالت مستی', '70', '120'],
+      ['عدم رعایت اولویت عبور', '200', '500'],
+      ['سوار شدن بر خودرو در حال حرکت', '40', '100'],
+      ['عدم داشتن مدارک رانندگی معتبر', '90', '140'],
+      ['ترک محل حادثه', '100', '200'],
+      ['نقض سیستم راهنمایی و رانندگی', '60', '180'],
     ];
 
+    const crimes = crimeDetails.map(function (innerArray) {
+      return innerArray[0];
+    });
+
     searchInput.addEventListener('input', function () {
+      // new
+      if (searchInput.value.trim() === "") {
+        minInput.value = "";
+        maxInput.value = "";
+        fine.value = "";
+        minInput.disabled = false;
+        maxInput.disabled = false;
+        fine.disabled = false;
+        min = 0;
+        max = 0;
+      }
+      // *new
       const searchValue = this.value.trim();
       const matchings = crimes.filter(crime => crime.includes(searchValue));
 
@@ -576,6 +606,23 @@
           listItem.addEventListener('click', function () {
             searchInput.value = crime;
             autocompleteList.classList.add('hidden');
+            // added new
+            minInput.value = "";
+            maxInput.value = "";
+            // added new
+            crimeIndex = crimes.indexOf(crime);
+            min = parseInt(crimeDetails[crimeIndex][1]);
+            max = parseInt(crimeDetails[crimeIndex][2]);
+
+            if (min & max) {
+              minInput.value = min;
+              minInput.disabled = true;
+              maxInput.value = max;
+              maxInput.disabled = true;
+            } else if (!max) {
+              fine.value = min;
+              fine.disabled = true;
+            }
           });
 
           autocompleteList.appendChild(listItem);
@@ -591,6 +638,70 @@
         autocompleteList.classList.add('hidden');
       }
     });
+
+    // *************************************************
+    // *************** validate form **********************
+    const form = document.getElementById("form")
+    const plateNo = document.getElementById("plateNo");
+    const license = document.getElementById("license");
+    const place = document.getElementById("place");
+    const report = document.getElementById("report");
+
+
+    form.addEventListener("submit", function (event) {
+      // validate plateNo
+      if (plateNo.value.trim() === "") {
+        generateMessage(plateNo, "لطفا نمبر پلیت را وارد کنید.");
+        event.preventDefault();
+        return;
+      }
+      // Validate license
+      if (license.value.trim() !== "") {
+        if (!containsOnlyNumbersAndDash(license)) {
+          generateMessage(license, "این فیلد فقط از 0 تا 9 و خط تیره (-) بوده می‌تواند.");
+          event.preventDefault();
+          return;
+        }
+      }
+      // Validate crime
+      if (searchInput.value.trim() !== "") {
+        if (containsDangerousChars(searchInput)) {
+          generateMessage(searchInput, "این فیلد شامل کارکتر های غیر مجاز است.");
+          event.preventDefault();
+          return;
+        }
+      }
+
+      // validate fine
+      if (min & max) {
+        if (!(fine.value >= min && fine.value <= max)) {
+          generateMessage(fine, ` مبلغ این جریمه باید بین ${min} و ${max} افغانی باشد.`);
+          event.preventDefault();
+          return;
+        }
+      }
+
+      // Validate location
+      if (place.value.trim() !== "") {
+        if (containsDangerousChars(place)) {
+          generateMessage(place, "این فیلد شامل کارکتر های غیر مجاز است.");
+          event.preventDefault();
+          return;
+        }
+      }
+
+      // Validate report
+      if (report.value.trim() !== "") {
+        if (containsDangerousChars(report)) {
+          generateMessage(report, "این فیلد شامل کارکتر های غیر مجاز است.");
+          event.preventDefault();
+          return;
+        }
+      }
+
+    }); //end form event listener
+
+
   </script>
 
   <script src="./adminScript.js"></script>
