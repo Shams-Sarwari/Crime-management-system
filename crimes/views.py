@@ -116,7 +116,16 @@ def create_car_crime(request):
     all_crimes = Crime.objects.all()
     crime_list = []
     for item in all_crimes:
-        crime_list.append(item.title)
+        temp = []
+        temp.append(item.title)
+        temp.append(str(int(item.min_price)))
+        if item.max_price:
+            temp.append(str(int(item.max_price)))
+        else:
+            temp.append('')
+        crime_list.append(temp)
+    
+    
 
     
     if request.method == 'POST':
