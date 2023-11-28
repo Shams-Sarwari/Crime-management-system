@@ -472,6 +472,9 @@
                 <a href="{% url "staff-detail" request.user.staffprofile.id %}" class="block px-4 py-2 hover:bg-gray-100">دیدن پروفایل</a>
               </li>
               <li>
+                <a href="#" onclick="toggleUserProfieDropdown(); printPage(); return false; " class="block px-4 py-2 hover:bg-gray-100">پرینت</a>
+              </li>
+              <li>
                 <a href="{% url "logout" %}" class="block px-4 py-2 hover:bg-gray-100">خروج</a>
               </li>
             </ul>
@@ -549,5 +552,10 @@
 
   {% endif %}
   <script src="{% static "js/adminScript.js" %}"></script>
+  <script>
+    function printPage(){
+      window.print()
+    }
+  </script>
 </body>
 </html>
