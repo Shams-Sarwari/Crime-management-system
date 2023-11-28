@@ -11,7 +11,8 @@ class Payment(models.Model):
     created = models.DateField(auto_now_add=True)
 
     def __str__(self) -> str:
-        return f'staff {self.staff} recieved {self.price} on {self.created}'
+        # return f'staff {self.staff} recieved {self.price} on {self.created}'
+        return f'{self.id}'
 
 
 class Crime(models.Model):

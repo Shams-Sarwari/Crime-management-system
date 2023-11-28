@@ -1,0 +1,316 @@
+{% extends "base.html" %}
+{% load crime_tags %}
+
+{% block content %}
+    <!-- ***************************** -->
+      <!--*********** Yearly income   ********-->
+      {% for year in years %}
+      <div class="max-w-full mx-2 md:mx-4 mt-2 md:mt-4 bg-white text-gray-600 rounded shadow overflow-hidden">
+        <div class="text-center sm:text-start text-gray-600 mx-2 sm:mx-10 md:px-2 text-lg  pb-4 pt-4 md:pt-6 border-b">
+          <span class="font-semibold">لیست درآمد سالانه</span>
+        </div>
+        <!-- table -->
+        <div class="px-2 md:px-10 pt-2 relative pb-8">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <tr class="h-12 text-center text-gray-600 text-[13px] font-semibold border-b border-gray-500">
+                <td scope="row" class="whitespace-nowrap px-2">شماره</td>
+                <td scope="row" class="whitespace-nowrap px-2">سال</td>
+                <td scope="row" class="whitespace-nowrap px-2">آنلاین</td>
+                <td scope="row" class="whitespace-nowrap px-2">حضوری</td>
+                <td scope="row" class="whitespace-nowrap px-2">مجموع</td>
+              </tr>
+
+              <tr class="h-12 text-center text-gray-600 border-b border-gray-300">
+                <td class="whitespace-nowrap px-2">{{ forloop.counter }}</td>
+                <td class="whitespace-nowrap px-2">{{year}}</td>
+                <td class="whitespace-nowrap px-2">{% total_online_payment year %}</td>
+                <td class="whitespace-nowrap px-2">{% total_offline_payment year %}</td>
+                <td class="whitespace-nowrap px-2">
+                  <span>{% total_payment year %}</span>
+                  <span class="mr-1 text-xs">افغانی</span>
+                </td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- ***************************** -->
+      <!--*********** end yearly income  ********-->
+      {% endfor %}
+
+      
+      <!-- ***************************** -->
+      <!--*********** paid fines   ********-->
+      <div
+        class="max-w-full mx-2 md:mx-4 mt-2 md:mt-4 mb-4 md:mb-10 bg-white text-gray-600 rounded shadow overflow-hidden">
+        <div
+          class="flex flex-col items-center gap-3 sm:flex-row sm:justify-between text-gray-600 mx-2 sm:mx-10 md:px-2 text-lg  pb-4 pt-4 md:pt-6 border-b">
+          <span class="font-semibold">لیست پرداخت شده‌ها</span>
+          <!-- search box -->
+          <form method="POST" class="max-w-xs w-full">
+            {% csrf_token %}
+            <div class="relative">
+              <input type="text" name="search_id" {% if search_id %}value="{{search_id}}"{% endif %}
+                class="block w-full outline-none p-1.5  pr-10 text-xs text-gray-700 font-normal border border-gray-300 rounded bg-gray-50 focus:border-gray-400 placeholder:font-normal"
+                placeholder="اینجا جستجو کنید">
+              <button type="submit"
+                class="text-sm text-blue-400 hover:text-blue-600 absolute right-1.5 -bottom-0.5 p-1.5 ">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+        <!-- table -->
+        <div class="px-2 md:px-10 pt-2 relative pb-8">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <tr class="h-12 text-center text-gray-600 text-[13px] font-semibold border-b border-gray-500">
+                <td scope="row" class="whitespace-nowrap px-2">شماره</td>
+                <td scope="row" class="whitespace-nowrap px-2">نمبر اساس</td>
+                <td scope="row" class="whitespace-nowrap px-2">پرداخت کننده</td>
+                <td scope="row" class="whitespace-nowrap px-2">دریافت کننده</td>
+                <td scope="row" class="whitespace-nowrap px-2">مبلغ</td>
+              </tr>
+              {% for payment in payments %}
+              <tr onclick="showPaymentDetails{{forloop.counter}}();"
+                class="h-12 text-center text-gray-600 border-b border-gray-300 hover:cursor-pointer hover:bg-gray-50">
+                <td class="whitespace-nowrap px-2">{{ forloop.counter }}</td>
+                <td class="whitespace-nowrap px-2">{{payment.id}}</td>
+                {% if payment.owner %}
+                <td class="text-[13px] whitespace-nowrap px-2">{{payment.owner.first_name}} {{payment.owner.last_name }}</td>
+                {% elif payment.driver %}
+                <td class="text-[13px] whitespace-nowrap px-2">{{payment.driver.first_name}} {{payment.driver.last_name }}</td>
+                {% endif %}
+
+                {% if payment.online %}
+                <td class="text-[13px] whitespace-nowrap px-2">آنلاین</td>
+                {% else %}
+                <td class="text-[13px] whitespace-nowrap px-2">{{payment.staff.first_name }} {{payment.staff.last_name}}</td>
+                {% endif %}
+                <td class="whitespace-nowrap px-2">{{payment.price}}</td>
+              </tr>
+              {% endfor %}
+              
+
+            </table>
+          </div>
+          {% if payments.has_other_pages %}
+          <!-- pagination -->
+          <div class="flex justify-center mt-8">
+            <ul class="inline-flex -space-x-px text-sm">
+            {% if payments.has_previous %}  
+            <li>
+                <a href="?page={{payments.previous_page_number}}"
+                  class="flex items-center justify-center gap-2 px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 ">
+                  <i class="fa-solid fa-angles-right"></i>
+                  <span>قبلی</span>
+                </a>
+              </li>
+            {% else %}
+            <li>
+                <button
+                  class="flex items-center justify-center gap-2 px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 cursor-not-allowed " disabled>
+                  <i class="fa-solid fa-angles-right"></i>
+                  <span>قبلی</span>
+                </button>
+            </li>
+            {% endif %}
+            {% for number in custom_range %}  
+            
+            {% if number == payments.number %}
+            <li>
+              <a href="?page={{number}}" aria-current="page"
+                class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{number}}</a>
+            </li>
+            {% else %}
+            <li>
+              <a href="?page={{number}}"
+                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">{{number}}</a>
+            </li>
+            {% endif %}
+            
+            {% endfor %}
+              
+              {% if payments.has_next %}
+              <li>
+                <a href="?page={{payments.next_page_number}}"
+                  class="flex items-center justify-center gap-2 px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 ">
+                  <span>بعدی</span>
+                  <i class="fa-solid fa-angles-left"></i>
+                </a>
+              </li>
+              {% else %}
+              <li>
+                <button
+                  class="flex items-center justify-center gap-2 px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 cursor-not-allowed" disabled>
+                  <span>بعدی</span>
+                  <i class="fa-solid fa-angles-left"></i>
+                </button>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      <!-- ***************************** -->
+      <!--*********** end paid fines  ********-->
+      
+      {% for payment in payments %}
+      <!-- ***************************** -->
+      <!--*********** payment details  ********-->
+      <div id="paymentDetails{{forloop.counter}}" class="hidden fixed inset-0 backdrop-blur-sm z-50 px-2 flex items-center justify-center">
+        <div class="relative bg-white px-4 md:px-8 pb-8 pt-4 w-full max-w-3xl rounded shadow-2xl ">
+          <!-- x btn -->
+          <button onclick="hidePaymentDetails{{forloop.counter}}();" type="button"
+            class="absolute top-2 right-3 text-gray-400 bg-transparent hover:bg-gray-50 hover:text-gray-700 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+          </button>
+          <!-- end x btn -->
+          <!-- head -->
+          <div class="flex flex-col items-center gap-y-2">
+            <!-- tick icon -->
+            <div
+              class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 md:w-10 md:h-10 text-green-500 bg-green-100 rounded-full">
+              <svg class="w-7 h-7 md:w-8 md:h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+              </svg>
+            </div>
+            <h1 class="text-center text-sm font-semibold text-gray-600">اطلاعات پرداخت</h1>
+          </div>
+          <!-- details -->
+          <div class="grid md:grid-cols-[1fr,1fr] gap-x-8 gap-y-6 mt-5 text-xs text-gray-600">
+            <div class="md:pl-4">
+              <table class="w-full rtl:text-right">
+                <tbody>
+                  <tr class="odd:bg-white even:bg-gray-50 border-b ">
+                    <td class="px-2 sm:px-6 py-1 whitespace-nowrap">
+                      نمبر اساس
+                    </td>
+                    <th scope="row" class="px-2 sm:px-6 py-1 font-normal text-[13px] tracking-wider whitespace-nowrap">
+                      {{payment.id}}
+                    </th>
+                  </tr>
+                  <tr class="odd:bg-white even:bg-gray-50 border-b ">
+                    <td class="px-2 sm:px-6 py-1 whitespace-nowrap">
+                      پرداخت کننده
+                    </td>
+                    {% if payment.owner %}
+                    <th scope="row" class="px-2 sm:px-6 py-1 font-normal whitespace-nowrap">
+                       {{payment.owner.first_name}} {{payment.owner.last_name}} 
+                    </th>
+                    {% elif payment.driver %}
+                    <th scope="row" class="px-2 sm:px-6 py-1 font-normal whitespace-nowrap">
+                       {{payment.driver.first_name}} {{payment.driver.last_name}}      
+                    </th>
+                    {% endif %}
+                  </tr>
+                  <tr class="odd:bg-white even:bg-gray-50 border-b ">
+                    <td class="px-2 sm:px-6 py-1 whitespace-nowrap">
+                      دریافت کننده
+                    </td>
+                    {% if payment.online %}
+                    <th scope="row" class="px-2 sm:px-6 py-1 font-normal whitespace-nowrap">
+                        آنلاین
+                    </th>
+                    {% elif payment.staff %}
+                    <th scope="row" class="px-2 sm:px-6 py-1 font-normal whitespace-nowrap">
+                        {{payment.staff.first_name}} {{payment.staff.last_name}}
+                    </th>
+                    {% endif %}
+                  </tr>
+                  <tr class="odd:bg-white even:bg-gray-50 border-b ">
+                    <td class="px-2 sm:px-6 py-1 whitespace-nowrap">
+                      تاریخ پرداخت
+                    </td>
+                    <th scope="row" class="px-2 sm:px-6 py-1 font-normal tracking-wider text-[13px] whitespace-nowrap">
+                      {{payment.created}}
+                    </th>
+                  </tr>
+                  <tr class="odd:bg-white even:bg-gray-50 border-b ">
+                    <td class="px-2 sm:px-6 py-1 whitespace-nowrap">
+                      مبلغ پرداخت
+                    </td>
+                    <th scope="row" class="px-2 sm:px-6 py-1 font-normal whitespace-nowrap">
+                      <span class="text-sm">{{payment.price}}</span>
+                      <span>AFN</span>
+                    </th>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            
+            <!-- crimes list -->
+            <div class="flex flex-col gap-2">
+              <label for="" class="mr-2 text-gray-700 font-medium">لیست جریمه ها</label>
+              <div class="w-full px-2 py-2 text-xs h-[108px] overflow-y-auto border border-gray-200 rounded-sm ">
+                <div class="flex flex-col gap-2">
+                {% for crime in payment.carcrime_set.all %}
+                  <p class="flex gap-2">
+                    <i class="fa-solid fa-circle text-gray-400 text-[6px] mt-1.5"></i>
+                    {% if crime.crime.title %}
+                    <span class="text-gray-500">{{ crime.crime.title }} ({{crime.created}})</span>
+                    {% else %}
+                    <span class="text-gray-500">جریمه از طرف ریاست ترافیک ({{crime.created}})</span>
+                    {% endif %}
+                    
+                  </p>
+                {% endfor %}
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          <!-- payemnt logos -->
+          <div class="flex items-center justify-center gap-3 mt-8">
+            <div class="h-3">
+              <img src="../img/paymentLogo1.png" alt="" class="h-full">
+            </div>
+            <div class="h-4">
+              <img src="../img/paymentlogo2.png" alt="" class="h-full">
+            </div>
+            <div class="h-4">
+              <img src="../img/paymentLogo3.png" alt="" class="h-full">
+            </div>
+          </div>
+
+        </div>
+        <!-- end card -->
+      </div>
+      <!-- ***************************** -->
+      <!--******** End payment details ****** -->
+      {% endfor %}
+    </section>
+{% endblock content %}
+
+
+{% block jscript %}
+<script>
+    for (let i = 1; i <= {{num_of_payments}}; i++) {
+        const paymentDetails = document.getElementById(`paymentDetails${i}`);
+      
+        // Create function names with the variable i
+        const showFunctionName = "showPaymentDetails" + i;
+        const hideFunctionName = "hidePaymentDetails" + i;
+      
+        // Create the showPaymentDetails function dynamically
+        window[showFunctionName] = function() {
+          paymentDetails.classList.remove("hidden");
+        };
+      
+        // Create the hidePaymentDetails function dynamically
+        window[hideFunctionName] = function() {
+          paymentDetails.classList.add("hidden");
+        };
+      }
+  </script>
+{% endblock jscript %}

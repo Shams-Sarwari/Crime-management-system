@@ -426,55 +426,6 @@ def jawaz_crime_list(request):
     return render(request, 'crimes/jawaz_crime_list.html', context)
 
 
-# strip: 
-
-# def calculate_order_amount(items):
-#     # Replace this constant with a calculation of the order's amount
-#     # Calculate the order total on the server to prevent
-#     # people from directly manipulating the amount on the client
-#     return 1400
-
-# @csrf_exempt
-# @require_POST
-# def create_payment(request):
-#         print('this view called')
-#         print(request.POST)
-#     # loop over the values of the sent data and find the crimes
-#     # if request.method == 'POST':
-#         try:
-#             print('start try')
-#             num_of_crimes = int(request.POST.get('num_of_crimes'))
-#             for i in range(1, num_of_crimes+1):
-#                 crime_ids.append(request.POST.get(i))
-#             print('inside try')
-#         except:
-#             pass
-#         crime_ids = []
-        
-
-#         try:
-#             data = json.loads(request.body)
-#             # Create a PaymentIntent with the order amount and currency
-#             intent = stripe.PaymentIntent.create(
-#                 amount=calculate_order_amount(data['items']),
-#                 currency='usd',
-#                 automatic_payment_methods={
-#                     'enabled': True,
-#                 },
-#             )
-
-#             # if everything is ok:
-#             for item in crime_ids:
-#                 crime = get_object_or_404(CarCrime, id=item)
-#                 crime.paid = True
-#                 crime.save()
-
-#             return JsonResponse({
-#                 'clientSecret': intent['client_secret']
-#             })
-#         except Exception as e:
-#             return JsonResponse({'error': str(e)}, status=403)
-        
 
 def success_view(request, crimes):
     
@@ -584,3 +535,30 @@ def create_checkout_session(request, crimes):
             return JsonResponse({'sessionId': checkout_session['id']})
         except Exception as e:
             return JsonResponse({'error': str(e)})
+        
+
+def payment_list(request):
+    search_id = None
+    payments = Payment.objects.all().order_by('-id')
+    years_of_payments = Payment.objects.values_list('created__year', flat=True).distinct()
+    custom_range, payments = pagination_items(request, payments, 7)
+
+    if request.method == "POST" and request.POST.get('search_id'):
+        search_id = int(request.POST.get('search_id'))
+        print(search_id)
+        try:
+            payments = Payment.objects.filter(id=search_id)
+        except:
+            payments = []
+        
+    
+
+    context = {
+        'payments': payments,
+        'years': years_of_payments,
+        'num_of_payments': len(payments),
+        'custom_range': custom_range,
+        'search_id': search_id,
+        'section': 'payment'
+    }
+    return render(request, 'crimes/payment_list.html', context)
