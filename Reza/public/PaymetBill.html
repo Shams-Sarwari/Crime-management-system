@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TCMS | paid fines</title>
+  <title>TCMS | PaymentBill</title>
   <!-- swiper css -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
   <link rel="stylesheet" href="myswiper.css">
@@ -448,294 +448,109 @@
       </div>
 
 
-      <!-- ***************************** -->
-      <!--*********** Yearly income   ********-->
-      <div class="max-w-full mx-2 md:mx-4 mt-2 md:mt-4 bg-white text-gray-600 rounded shadow overflow-hidden">
-        <div class="text-center sm:text-start text-gray-600 mx-2 sm:mx-10 md:px-2 text-lg  pb-4 pt-4 md:pt-6 border-b">
-          <span class="font-semibold">لیست درآمد سالانه</span>
-        </div>
-        <!-- table -->
-        <div class="px-2 md:px-10 pt-2 relative pb-8">
-          <div class="overflow-x-auto">
-            <table class="w-full">
-              <tr class="h-12 text-center text-gray-600 text-[13px] font-semibold border-b border-gray-500">
-                <td scope="row" class="whitespace-nowrap px-2">شماره</td>
-                <td scope="row" class="whitespace-nowrap px-2">سال</td>
-                <td scope="row" class="whitespace-nowrap px-2">آنلاین</td>
-                <td scope="row" class="whitespace-nowrap px-2">حضوری</td>
-                <td scope="row" class="whitespace-nowrap px-2">مجموع</td>
-              </tr>
-
-              <tr class="h-12 text-center text-gray-600 border-b border-gray-300">
-                <td class="whitespace-nowrap px-2">2</td>
-                <td class="whitespace-nowrap px-2">2023</td>
-                <td class="whitespace-nowrap px-2">20000</td>
-                <td class="whitespace-nowrap px-2">40500</td>
-                <td class="whitespace-nowrap px-2">
-                  <span>60500</span>
-                  <span class="mr-1 text-xs">افغانی</span>
-                </td>
-              </tr>
-
-            </table>
-          </div>
-        </div>
-      </div>
-      <!-- ***************************** -->
-      <!--*********** end yearly income  ********-->
 
 
-      <!-- ***************************** -->
-      <!--*********** paid fines   ********-->
-      <div
-        class="max-w-full mx-2 md:mx-4 mt-2 md:mt-4 mb-4 md:mb-10 bg-white text-gray-600 rounded shadow overflow-hidden">
-        <div
-          class="flex flex-col items-center gap-3 sm:flex-row sm:justify-between text-gray-600 mx-2 sm:mx-10 md:px-2 text-lg  pb-4 pt-4 md:pt-6 border-b">
-          <span class="font-semibold">لیست پرداخت شده‌ها</span>
-          <!-- search box -->
-          <form method="get" class="max-w-xs w-full">
-            <div class="relative">
-              <input type="text" name="search"
-                class="block w-full outline-none p-1.5  pr-10 text-xs text-gray-700 font-normal border border-gray-300 rounded bg-gray-50 focus:border-gray-400 placeholder:font-normal"
-                placeholder="اینجا جستجو کنید" required>
-              <button type="submit"
-                class="text-sm text-blue-400 hover:text-blue-600 absolute right-1.5 -bottom-0.5 p-1.5 ">
-                <i class="fa-solid fa-magnifying-glass"></i>
-              </button>
+
+      <!-- PymentBill -->
+      <div class="mt-2 md:mt-4 mb-8 flex justify-center">
+        <div class="relative pb-8 bg-white text-gray-700 rounded shadow">
+          <a href="#"
+            class="absolute top-1.5 left-3 text-gray-500 bg-transparent hover:bg-gray-50 hover:text-gray-700 rounded-lg text-sm w-7 h-7 ml-auto inline-flex justify-center items-center">
+            <i class="fa-solid fa-arrow-left"></i>
+          </a>
+          <!-- A4 -->
+          <div id="printContent" class="flex flex-col pt-4 pb-8 px-10 text-gray-600 text-[13px]" style="width: 210mm;">
+            <!-- head -->
+            <div class="flex flex-col items-center gap-y-2 pb-3">
+              <div
+                class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 md:w-10 md:h-10 text-green-500 bg-green-100 rounded-full">
+                <svg class="w-7 h-7 md:w-8 md:h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                </svg>
+              </div>
+              <h1 class="text-center text-[16px] font-semibold text-gray-600">اطلاعات پرداخت</h1>
             </div>
-          </form>
-        </div>
-        <!-- table -->
-        <div class="px-2 md:px-10 pt-2 relative pb-8">
-          <div class="overflow-x-auto">
-            <table class="w-full">
-              <tr class="h-12 text-center text-gray-600 text-[13px] font-semibold border-b border-gray-500">
-                <td scope="row" class="whitespace-nowrap px-2">شماره</td>
-                <td scope="row" class="whitespace-nowrap px-2">نمبر اساس</td>
-                <td scope="row" class="whitespace-nowrap px-2">پرداخت کننده</td>
-                <td scope="row" class="whitespace-nowrap px-2">دریافت کننده</td>
-                <td scope="row" class="whitespace-nowrap px-2">مبلغ</td>
-              </tr>
+            <!-- info -->
+            <div class="flex justify-between px-4 pb-3">
+              <div class="flex flex-col gap-1">
+                <p>
+                  <span class="font-semibold">نمبر اساس:</span>
+                  <span class="text-sm tracking-wider mr-1">134996</span>
+                </p>
+                <p>
+                  <span class="font-semibold">پرداخت کننده:</span>
+                  <span class="mr-1">محمد علی انصاری</span>
+                </p>
+              </div>
 
-              <tr onclick="showPaymentDetails();"
-                class="h-12 text-center text-gray-600 border-b border-gray-300 hover:cursor-pointer hover:bg-gray-50">
-                <td class="whitespace-nowrap px-2">5</td>
-                <td class="whitespace-nowrap px-2">20033</td>
-                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
-                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
-                <td class="whitespace-nowrap px-2">20067</td>
-              </tr>
+              <div class="flex flex-col gap-1">
+                <p>
+                  <span class="font-semibold">تاریخ:</span>
+                  <span class="text-sm tracking-wider mr-1">2023/03/18</span>
+                </p>
 
-              <tr onclick="showPaymentDetails();"
-                class="h-12 text-center text-gray-600 border-b border-gray-300 hover:cursor-pointer hover:bg-gray-50">
-                <td class="whitespace-nowrap px-2">5</td>
-                <td class="whitespace-nowrap px-2">20033</td>
-                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
-                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
-                <td class="whitespace-nowrap px-2">20067</td>
-              </tr>
-
-              <tr onclick="showPaymentDetails();"
-                class="h-12 text-center text-gray-600 border-b border-gray-300 hover:cursor-pointer hover:bg-gray-50">
-                <td class="whitespace-nowrap px-2">5</td>
-                <td class="whitespace-nowrap px-2">20033</td>
-                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
-                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
-                <td class="whitespace-nowrap px-2">20067</td>
-              </tr>
-
-              <tr onclick="showPaymentDetails();"
-                class="h-12 text-center text-gray-600 border-b border-gray-300 hover:cursor-pointer hover:bg-gray-50">
-                <td class="whitespace-nowrap px-2">5</td>
-                <td class="whitespace-nowrap px-2">20033</td>
-                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
-                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
-                <td class="whitespace-nowrap px-2">20067</td>
-              </tr>
-
-              <tr onclick="showPaymentDetails();"
-                class="h-12 text-center text-gray-600 border-b border-gray-300 hover:cursor-pointer hover:bg-gray-50">
-                <td class="whitespace-nowrap px-2">5</td>
-                <td class="whitespace-nowrap px-2">20033</td>
-                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
-                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
-                <td class="whitespace-nowrap px-2">20067</td>
-              </tr>
-
-            </table>
-          </div>
-          {% if payments.has_other_pages %}
-          <!-- pagination -->
-          <div class="flex justify-center mt-8">
-            <ul class="inline-flex -space-x-px text-sm">
-              <li>
-                <a href="#"
-                  class="flex items-center justify-center gap-2 px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 cursor-not-allowed">
-                  <i class="fa-solid fa-angles-right"></i>
-                  <span>قبلی</span>
-                </a>
-              </li>
-              <li>
-                <a href="#"
-                  class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">1</a>
-              </li>
-              <li>
-                <a href="#"
-                  class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">2</a>
-              </li>
-              <li>
-                <a href="#" aria-current="page"
-                  class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-              </li>
-              <li>
-                <a href="#"
-                  class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">4</a>
-              </li>
-              <li>
-                <a href="#"
-                  class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">5</a>
-              </li>
-              <li>
-                <a href="#"
-                  class="flex items-center justify-center gap-2 px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 ">
-                  <span>بعدی</span>
-                  <i class="fa-solid fa-angles-left"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-          {% endif %}
-        </div>
-      </div>
-      <!-- ***************************** -->
-      <!--*********** end paid fines  ********-->
-
-      <!-- ***************************** -->
-      <!--*********** payment details  ********-->
-      <div id="paymentDetails" class="hidden fixed inset-0 backdrop-blur-sm z-50 px-2 flex items-center justify-center">
-        <div class="relative bg-white px-4 md:px-8 pb-8 pt-4 w-full max-w-3xl rounded shadow-2xl ">
-          <!-- x btn -->
-          <button onclick="hidePaymentDetails();" type="button"
-            class="absolute top-2 right-3 text-gray-400 bg-transparent hover:bg-gray-50 hover:text-gray-700 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
-            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-            </svg>
-          </button>
-          <!-- end x btn -->
-          <!-- head -->
-          <div class="flex flex-col items-center gap-y-2">
-            <!-- tick icon -->
-            <div
-              class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 md:w-10 md:h-10 text-green-500 bg-green-100 rounded-full">
-              <svg class="w-7 h-7 md:w-8 md:h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-              </svg>
-            </div>
-            <h1 class="text-center text-sm font-semibold text-gray-600">اطلاعات پرداخت</h1>
-          </div>
-          <!-- details -->
-          <div class="grid md:grid-cols-[1fr,1fr] gap-x-8 gap-y-6 mt-5 text-xs text-gray-600">
-            <div class="md:pl-4">
-              <table class="w-full rtl:text-right">
-                <tbody>
-                  <tr class="odd:bg-white even:bg-gray-50 border-b ">
-                    <td class="px-2 sm:px-6 py-1 whitespace-nowrap">
-                      نمبر اساس
-                    </td>
-                    <th scope="row" class="px-2 sm:px-6 py-1 font-normal text-[13px] tracking-wider whitespace-nowrap">
-                      2223434
-                    </th>
-                  </tr>
-                  <tr class="odd:bg-white even:bg-gray-50 border-b ">
-                    <td class="px-2 sm:px-6 py-1 whitespace-nowrap">
-                      پرداخت کننده
-                    </td>
-                    <th scope="row" class="px-2 sm:px-6 py-1 font-normal whitespace-nowrap">
-                      محمد علی انصاری
-                    </th>
-                  </tr>
-                  <tr class="odd:bg-white even:bg-gray-50 border-b ">
-                    <td class="px-2 sm:px-6 py-1 whitespace-nowrap">
-                      دریافت کننده
-                    </td>
-                    <th scope="row" class="px-2 sm:px-6 py-1 font-normal whitespace-nowrap">
-                      شمس الله سروری
-                    </th>
-                  </tr>
-                  <tr class="odd:bg-white even:bg-gray-50 border-b ">
-                    <td class="px-2 sm:px-6 py-1 whitespace-nowrap">
-                      تاریخ پرداخت
-                    </td>
-                    <th scope="row" class="px-2 sm:px-6 py-1 font-normal tracking-wider text-[13px] whitespace-nowrap">
-                      2023/06/23
-                    </th>
-                  </tr>
-                  <tr class="odd:bg-white even:bg-gray-50 border-b ">
-                    <td class="px-2 sm:px-6 py-1 whitespace-nowrap">
-                      مبلغ پرداخت
-                    </td>
-                    <th scope="row" class="px-2 sm:px-6 py-1 font-normal whitespace-nowrap">
-                      <span class="text-sm">500</span>
-                      <span>AFN</span>
-                    </th>
-                  </tr>
-
-                </tbody>
-              </table>
-            </div>
-
-
-            <!-- crimes list -->
-            <div class="flex flex-col gap-2">
-              <label for="" class="mr-2 text-gray-700 font-medium">لیست جریمه ها</label>
-              <div class="w-full px-2 py-2 text-xs h-[108px] overflow-y-auto border border-gray-200 rounded-sm ">
-                <div class="flex flex-col gap-2">
-                  <p class="flex gap-2">
-                    <i class="fa-solid fa-circle text-gray-400 text-[6px] mt-1.5"></i>
-                    <span class="text-gray-500">رد شدن از چراغ سرخ.</span>
-                    <span class="tracking-wider">(2023/04/22)</span>
-                  </p>
-                  <p class="flex gap-2">
-                    <i class="fa-solid fa-circle text-gray-400 text-[6px] mt-1.5"></i>
-                    <span class="text-gray-500">استفاده از تلفون همراه هنگام رانندگی.</span>
-                    <span class="tracking-wider">(2023/04/22)</span>
-                  </p>
-                  <p class="flex gap-2">
-                    <i class="fa-solid fa-circle text-gray-400 text-[6px] mt-1.5"></i>
-                    <span class="text-gray-500">فرار کردن از محمل حادثه .</span>
-                    <span class="tracking-wider">(2023/04/22)</span>
-                  </p>
-                  <p class="flex gap-2">
-                    <i class="fa-solid fa-circle text-gray-400 text-[6px] mt-1.5"></i>
-                    <span class="text-gray-500">رد شدن از چراغ سرخ.</span>
-                    <span class="tracking-wider">(2023/04/22)</span>
-                  </p>
-                </div>
+                <p>
+                  <span class="font-semibold">دریافت کننده:</span>
+                  <span class="mr-1">محمد علی احمدی</span>
+                </p>
               </div>
             </div>
+            <!-- fineslist -->
+            <div class="flex flex-col gap-20 flex-grow border px-4 py-4">
+              <div>
+                <table class="w-full">
+                  <tr class="h-12 text-center text-gray-700 text-[13px] font-semibold border-b border-gray-500">
+                    <td scope="row" class="whitespace-nowrap px-2">شماره</td>
+                    <td scope="row" class="whitespace-nowrap px-2 text-right pr-24 w-96">جریمه</td>
+                    <td scope="row" class="whitespace-nowrap px-2">تاریخ</td>
+                    <td scope="row" class="whitespace-nowrap px-2 ">مبلغ</td>
+                  </tr>
 
-          </div>
-          <!-- payemnt logos -->
-          <div class="flex items-center justify-center gap-3 mt-8">
-            <div class="h-3">
-              <img src="../img/paymentLogo1.png" alt="" class="h-full">
-            </div>
-            <div class="h-4">
-              <img src="../img/paymentlogo2.png" alt="" class="h-full">
-            </div>
-            <div class="h-4">
-              <img src="../img/paymentLogo3.png" alt="" class="h-full">
-            </div>
-          </div>
+                  <tr class="h-12 text-center text-gray-600 border-b border-gray-300">
+                    <td class="whitespace-nowrap px-2 text-sm">1</td>
+                    <td class="whitespace-nowrap px-2 text-right">رد شدن از چراغ سرخ.</td>
+                    <td class="whitespace-nowrap px-2 tracking-wider text-sm">2023/02/13</td>
+                    <td class="whitespace-nowrap px-2">
+                      <span class="tracking-wider text-sm">60500</span>
+                      <span class="mr-1 text-xs">افغانی</span>
+                    </td>
+                  </tr>
 
+                  <tr class="h-12 text-center text-gray-600 border-b border-gray-300">
+                    <td class="whitespace-nowrap px-2 text-sm">2</td>
+                    <td class="whitespace-nowrap px-2 text-right">استعمال وسیله نقلیه باربر جهت حمل و نقل اشخاص.</td>
+                    <td class="whitespace-nowrap px-2 tracking-wider text-sm">2023/02/13</td>
+                    <td class="whitespace-nowrap px-2">
+                      <span class="tracking-wider text-sm">60500</span>
+                      <span class="mr-1 text-xs">افغانی</span>
+                    </td>
+                  </tr>
+
+                </table>
+              </div>
+              <div class="flex justify-between px-8 pb-8">
+                <div class="flex gap-1">
+                  <span class="font-semibold">مبلغ پرداخت:</span>
+                  <p>
+                    <span class="tracking-wider text-sm">6000</span>
+                    <span class="mr-1 text-xs">افغانی</span>
+                  </p>
+                </div>
+                <p class="font-semibold">امضاء</p>
+              </div>
+            </div>
+          </div>
+          <!-- end A4 -->
+          <div class="flex justify-center">
+            <button type="button"
+              class="w-32 h-8  text-white text-[13px] rounded cursor-pointer outline-none bg-blue-500 hover:bg-blue-700 ease-in duration-200">چاپ
+              کردن</button>
+          </div>
         </div>
-        <!-- end card -->
       </div>
-      <!-- ***************************** -->
-      <!--******** End payment details ****** -->
+
 
     </section>
   </div>
@@ -746,13 +561,16 @@
 
 
   <script>
-    const paymentDetails = document.getElementById("paymentDetails");
-    function showPaymentDetails() {
-      paymentDetails.classList.remove("hidden");
+    function printDiv() {
+      var printContent = document.getElementById("printContent");
+      var originalContents = document.body.innerHTML;
+      document.body.innerHTML = printContent.innerHTML;
+      window.print();
+      document.body.innerHTML = originalContents;
     }
-    function hidePaymentDetails() {
-      paymentDetails.classList.add("hidden");
-    }
+
+    var printButton = document.querySelector("button");
+    printButton.addEventListener("click", printDiv);
   </script>
   <script src="./adminScript.js"></script>
 </body>
