@@ -31,7 +31,7 @@
     </nav>
     <!-- mobile menu -->
     <ul id="mobileMenu"
-      class="md:hidden fixed top-12 w-full mt-[1px] text-[13px] text-gray-600 font-semibold list-none bg-color-secondary-lighter divide-y divide-gray-200 rounded shadow pb-2 -translate-y-52 ease-in duration-300">
+      class="md:hidden fixed top-12 w-full mt-[1px] text-[13px] text-gray-600 font-semibold list-none bg-color-secondary-lighter divide-y divide-gray-200 rounded shadow pb-2 -translate-y-52 ease-in duration-300 z-10">
       <li>
         <a href="#home" class="menuItem block px-8 py-2 hover:bg-gray-100">خانه</a>
       </li>
@@ -89,20 +89,20 @@
         <h2 class="text-blue-900 font-semibold text-xl md:text-2xl text-center">با ما به تماس شوید
         </h2>
       </div>
-      <form action="" class="md:px-10 lg:px-12 flex flex-col gap-4 text-[13px] text-blue-900">
-        <div class="flex flex-col gap-2">
+      <form id="contactForm" action="" class="md:px-10 lg:px-12 flex flex-col gap-4 text-[13px] text-blue-900">
+        <div class="relative flex flex-col gap-2">
           <label for="" class="mr-2 font-semibold">اسم</label>
-          <input type="text"
+          <input id="contactName" type="text"
             class="w-full h-8 md:h-9 px-2 bg-color-secondary-lighter border border-gray-300 outline-none text-gray-700 rounded focus:border-gray-400" />
         </div>
-        <div class="flex flex-col gap-2">
+        <div class="relative flex flex-col gap-2">
           <label for="" class="mr-2 font-semibold">ایمیل</label>
-          <input type="email"
+          <input id="contactEmail" type="text"
             class="w-full h-8 md:h-9 px-2 bg-color-secondary-lighter border border-gray-300 outline-none text-gray-700 rounded focus:border-gray-400" />
         </div>
-        <div class="flex flex-col gap-2">
+        <div class="relative flex flex-col gap-2">
           <label for="" class="mr-2 font-semibold">نظر</label>
-          <textarea name="" rows="8"
+          <textarea id="contactComment" name="" rows="8"
             class="w-full px-2 py-1 bg-color-secondary-lighter border border-gray-300 outline-none text-gray-700 rounded focus:border-gray-400"></textarea>
         </div>
         <div class="flex justify-center pt-4">
@@ -223,7 +223,7 @@
   <!-- ******************************* -->
   <!-- ************Login ************ -->
   <div id="loginForm" class="hidden fixed inset-0 backdrop-blur-sm z-50 px-2 sm:px-0 flex items-center justify-center">
-    <div class="relative bg-white max-w-[360px] px-8 py-8 md:max-w-[420px] rounded shadow-lg">
+    <div class="relative bg-white max-w-[360px] px-8 py-8 md:max-w-[420px] rounded shadow-lg flex-grow">
       <!-- x btn -->
       <button onclick="hideLogin();" type="button"
         class="absolute top-2 right-3 text-gray-400 bg-transparent hover:bg-gray-50 hover:text-gray-700 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
@@ -242,7 +242,7 @@
           <i class="fa-solid fa-chevron-down"></i>
         </span>
         <!-- options -->
-        <div class="select-options hidden absolute top-full mt-[2px] min-w-full w-max">
+        <div class="select-options hidden absolute top-full mt-[2px] min-w-full w-max z-10">
           <ul class="bg-white border divide-y rounded">
             <li class="employee px-4 h-7 rounded-sm flex items-center justify-center hover:bg-gray-50">
               کارمند
@@ -256,15 +256,19 @@
           </ul>
         </div>
       </button>
-      <form action="" method="get" class="text-[13px] text-gray-600">
-        <input id="hidden-input" type="hidden" name="type" value="" />
-        <input id="email-or-license" type="email"
-          class="mb-8 w-full h-9 px-2 bg-gray-50 border border-gray-200 outline-none text-gray-600 rounded focus:border-gray-300 placeholder:text-gray-500"
-          placeholder="ایمیل آدرس" />
+      <form id="login" action="" method="get" class="text-[13px] text-gray-600">
+        <input id="hidden-input" type="hidden" name="type" value="staff" />
+        <div class="relative mb-8">
+          <input id="email-or-license" type="text"
+            class="w-full h-9 px-2 bg-gray-50 border border-gray-200 outline-none text-gray-600 rounded focus:border-gray-300 placeholder:text-gray-500"
+            placeholder="ایمیل آدرس" />
+        </div>
 
-        <input type="password"
-          class="mb-8 w-full h-9 px-2 bg-gray-50 border border-gray-200 outline-none text-gray-600 focus:tracking-widest rounded focus:border-gray-300 placeholder:text-gray-500"
-          placeholder="رمز عبور" />
+        <div class="relative mb-8">
+          <input id="passwordInput" type="password"
+            class="w-full h-9 px-2 bg-gray-50 border border-gray-200 outline-none text-gray-600 focus:tracking-widest rounded focus:border-gray-300 placeholder:text-gray-500"
+            placeholder="رمز عبور" />
+        </div>
 
         <input type="submit" value="ورود"
           class=" w-full h-9  text-white text-sm rounded cursor-pointer outline-none bg-blue-800 hover:bg-blue-700 ease-in duration-200" />
@@ -278,8 +282,10 @@
   <!-- ************End Login ************ -->
 
 
-
+  <!-- jquery for smooth scroll -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- valdiation functions  -->
+  <script src="validationFunctions.js"></script>
   <script>
     // smooth scroll
     $(document).ready(function () {
@@ -306,6 +312,8 @@
       });
     }); // end foreach
 
+
+    // ************************************
     // *********login form ***************
     // show and hide login form
     const loginForm = document.getElementById("loginForm");
@@ -326,34 +334,116 @@
       select_options.classList.toggle("hidden");
     });
 
-    // change palceholder according to user
+    // select some elements 
     const employee = document.querySelector(".employee");
     const driver = document.querySelector(".driver");
     const owner = document.querySelector(".owner");
     const email_or_license = document.getElementById("email-or-license");
-
+    // select password and form
+    const login = document.getElementById("login");
+    const passwordInput = document.getElementById("passwordInput");
+    // change palceholder according to user
     employee.addEventListener("click", function () {
       btn_text.textContent = "کارمند";
       email_or_license.placeholder = "ایمیل آدرس";
-      email_or_license.type = "email";
+      email_or_license.value = "";
       // change the hidden input value
       hidden_input.value = "staff";
     });
     driver.addEventListener("click", function () {
       btn_text.textContent = "راننده";
       email_or_license.placeholder = "نمبر لایسنس";
-      email_or_license.type = "text";
+      email_or_license.value = "";
       // change the hidden input value
       hidden_input.value = "driver";
     });
     owner.addEventListener("click", function () {
       btn_text.textContent = "مالک";
       email_or_license.placeholder = "نمبر تذکره";
-      email_or_license.type = "text";
+      email_or_license.value = "";
       // change the hidden input value
       hidden_input.value = "owner";
     });
+
+    // *** validate login form *********
+    login.addEventListener("submit", function (event) {
+      // Validate email, licence or tazkira
+      if (email_or_license.value.trim() === "") {
+        generateMessage(email_or_license, "این فیلد نمی‌تواند خالی باشد.")
+        event.preventDefault();
+        return;
+      } else if (hidden_input.value.trim() == 'staff') {
+        if (!validateEmail(email_or_license.value.trim())) {
+          generateMessage(email_or_license, "فرمت ایمیل نا معتبر است.");
+          event.preventDefault();
+          return;
+        }
+      } else if (hidden_input.value.trim() === 'owner' || hidden_input.value.trim() == 'driver') {
+        if (!containsOnlyNumbersAndDash(email_or_license)) {
+          generateMessage(email_or_license, "این فیلد فقط از ۰ تا ۹ و خط تیره (-) بوده می‌تواند.");
+          event.preventDefault();
+          return;
+        }
+      }
+      // validate password
+      if (passwordInput.value.trim() === "") {
+        generateMessage(passwordInput, "این فیلد نمی‌تواند خالی باشد.")
+        event.preventDefault();
+        return;
+      } else if (passwordInput.value.trim().length < 8) {
+        generateMessage(passwordInput, "رمز عبور حد اقل هشت حرف باشد.")
+        event.preventDefault();
+        return;
+      }
+    }); //end login form event listener
+
     // *********End login form ***************
+
+    // **************************************************
+    // ***************** Validate contact Form ****************
+    const contactForm = document.getElementById("contactForm");
+    const contactNameInput = document.getElementById("contactName");
+    const contactEmailInput = document.getElementById("contactEmail");
+    const contactCommentInput = document.getElementById("contactComment");
+
+
+    contactForm.addEventListener("submit", function (event) {
+      // Validate title
+      if (contactNameInput.value.trim() === "") {
+        generateMessage(contactNameInput, "نام نمی‌تواند خالی باشد.");
+        event.preventDefault();
+        return;
+      } else if (!isPersianText(contactNameInput.value)) {
+        generateMessage(contactNameInput, "نام باید فقط شامل حروف فارسی باشد.");
+        event.preventDefault();
+        return;
+      } else if (contactNameInput.value.trim().length < 3) {
+        generateMessage(contactNameInput, "نام نمیتواند از سه حرف کمتر باشد.");
+        event.preventDefault();
+        return;
+      }
+      // Validate email
+      if (contactEmailInput.value.trim() === "") {
+        generateMessage(contactEmailInput, "این فیلد نمی‌تواند خالی باشد.");
+        event.preventDefault();
+        return;
+      } else if (!validateEmail(contactEmailInput.value.trim())) {
+        generateMessage(contactEmailInput, "فرمت ایمیل نا معتبر است.");
+        event.preventDefault();
+        return;
+      }
+      // Validate comment
+      if (countWords(contactCommentInput) > 100) {
+        generateMessage(contactCommentInput, "این فیلد نمی‌تواند بیشتر از 100  کلمه بگیرد.");
+        event.preventDefault();
+        return;
+      } else if (containsDangerousChars(contactCommentInput)) {
+        generateMessage(contactCommentInput, "این فیلد شامل کارکتر های غیر مجاز است.");
+        event.preventDefault();
+        return;
+      }
+
+    }); //end form event listener
   </script>
 </body>
 

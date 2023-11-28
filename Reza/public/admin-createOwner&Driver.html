@@ -507,7 +507,7 @@
         </div>
       </div>
       <!-- form -->
-      <form action=""
+      <form id="form" action=""
         class="max-w-full mb-2 md:mb-4 mx-2 md:mx-4 bg-[#eaf5fb] px-4 md:px-4 lg:px-6 xl:px-8 pt-4 pb-6 rounded-b text-blue-800 text-[13px]">
         <!-- create account -->
         <h3 class="flex gap-2 items-center justify-center md:justify-start text-sm font-semibold mb-5 mt-2 mr-2">
@@ -516,19 +516,19 @@
         </h3>
         <div
           class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 pb-8 border-b border-color-secondary">
-          <div class="flex flex-col gap-2">
+          <div class="relative flex flex-col gap-2">
             <label for="" class="mr-2">نمبر تذکره</label>
-            <input type="number" class="myinput" />
+            <input id="tazkiraNo" type="text" class="myinput" />
           </div>
 
-          <div class="flex flex-col gap-2">
+          <div class="relative flex flex-col gap-2">
             <label for="" class="mr-2">رمز عبور</label>
-            <input type="password" class="myinput" />
+            <input id="password" type="password" class="myinput" />
           </div>
 
-          <div class="flex flex-col gap-2">
+          <div class="relative flex flex-col gap-2">
             <label for="" class="mr-2">تایید رمز عبور</label>
-            <input type="password" class="myinput" />
+            <input id="confirmPassword" type="password" class="myinput" />
           </div>
         </div>
         <!-- personal Info -->
@@ -538,19 +538,19 @@
         </h3>
 
         <div class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 ">
-          <div class="flex flex-col gap-2">
+          <div class="relative flex flex-col gap-2">
             <label for="" class="mr-2">نام</label>
-            <input type="text" class="myinput" />
+            <input id="name" type="text" class="myinput" />
           </div>
 
-          <div class="flex flex-col gap-2">
+          <div class="relative flex flex-col gap-2">
             <label for="" class="mr-2">تخلص</label>
-            <input type="text" class="myinput" />
+            <input id="lastName" type="text" class="myinput" />
           </div>
 
-          <div class="flex flex-col gap-2">
+          <div class="relative flex flex-col gap-2">
             <label for="" class="mr-2">نام پدر</label>
-            <input type="text" class="myinput" />
+            <input id="fatherName" type="text" class="myinput" />
           </div>
 
           <div class="flex flex-col gap-2">
@@ -561,9 +561,9 @@
             </select>
           </div>
 
-          <div class="flex flex-col gap-2">
+          <div class="relative flex flex-col gap-2">
             <label for="" class="mr-2">شماره تماس</label>
-            <input type="text" class="myinput" />
+            <input id="phone" type="text" class="myinput" />
           </div>
 
           <div class="text-justify">
@@ -573,21 +573,30 @@
               کنید.</span>
           </div>
 
-          <div class="flex flex-col gap-2">
+          <div class="relative flex flex-col gap-2">
             <label for="" class="mr-2">نمبر لایسنس</label>
-            <input type="text" class="myinput" />
+            <input id="license" type="text" class="myinput" />
           </div>
 
           <div class="flex flex-col gap-2">
             <label for="" class="mr-2">گروپ خون</label>
-            <input type="text" class="myinput" />
+            <select name="" class="myinput text-center">
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+            </select>
           </div>
         </div>
         <!-- profile and tazkira photo -->
         <div
           class="mt-2 grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 text-[13px]">
           <!-- profile -->
-          <div class="max-w-full px-8 md:px-6 pb-4 bg-gray-50 rounded shadow-sm text-gray-600 mt-4">
+          <div class="relative max-w-full px-8 md:px-6 pb-4 bg-gray-50 rounded shadow-sm text-gray-600 mt-4">
             <h3 class="text-sm font-semibold text-blue-900 pt-3 pb-1.5">عکس پروفایل</h3>
             <!-- choose photo -->
             <label for="profilePhoto" class="flex items-center gap-3 cursor-pointer my-2">
@@ -603,7 +612,7 @@
             </label>
           </div>
           <!-- tazkira -->
-          <div class="max-w-full px-8 md:px-6 pb-4 bg-gray-50 rounded shadow-sm text-gray-600 mt-4">
+          <div class="relative max-w-full px-8 md:px-6 pb-4 bg-gray-50 rounded shadow-sm text-gray-600 mt-4">
             <h3 class="text-sm font-semibold text-blue-900 pt-3 pb-1.5">عکس تذکره</h3>
             <!-- choose photo -->
             <label for="tazkiraPhoto" class="flex items-center gap-3 cursor-pointer my-2">
@@ -628,14 +637,14 @@
 
           <div
             class="mt-4 grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 ">
-            <div class="flex flex-col gap-2">
+            <div class="relative flex flex-col gap-2">
               <label for="" class="mr-2">ولایت</label>
-              <input type="text" class="myinput" />
+              <input id="province" type="text" class="myinput" />
             </div>
 
-            <div class="flex flex-col gap-2">
+            <div class="relative flex flex-col gap-2">
               <label for="" class="mr-2">ناحیه</label>
-              <input type="text" class="myinput" />
+              <input id="district" type="text" class="myinput" />
             </div>
 
             <div class="flex flex-col gap-2">
@@ -648,9 +657,9 @@
               <input type="text" class="myinput" />
             </div>
 
-            <div class="flex flex-col gap-2">
+            <div class="relative flex flex-col gap-2">
               <label for="" class="mr-2">سکونت اصلی</label>
-              <input type="text" class="myinput" />
+              <input id="mainResidence" type="text" class="myinput" />
             </div>
           </div>
         </div>
@@ -663,6 +672,9 @@
     </section>
   </div>
 
+
+
+  <script src="validationFunctions.js"></script>
   <script>
     // *************************************************
     // *************** file name **********************
@@ -674,6 +686,183 @@
       const fileNameElement = document.getElementById('profileFileName');
       fileNameElement.textContent = input.files[0] ? input.files[0].name : 'هیچ عکسی انتخاب نشده';
     }
+
+    // *************************************************
+    // *************** validate form **********************
+    const form = document.getElementById("form");
+    const tazkiraNo = document.getElementById("tazkiraNo");
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirmPassword");
+    const name = document.getElementById("name");
+    const lastName = document.getElementById("lastName");
+    const fatherName = document.getElementById("fatherName");
+    const phone = document.getElementById("phone");
+    const license = document.getElementById("license");
+    const profilePhoto = document.getElementById("profilePhoto");
+    const tazkiraPhoto = document.getElementById("tazkiraPhoto");
+    const province = document.getElementById("province");
+    const district = document.getElementById("district");
+    const mainResidence = document.getElementById("mainResidence");
+
+    console.log(form);
+    console.log(tazkiraNo);
+
+    form.addEventListener("submit", function (event) {
+      // Validate tazkiraNO
+      if (tazkiraNo.value.trim() === "") {
+        generateMessage(tazkiraNo, "این فیلد نمی‌تواند خالی باشد.");
+        event.preventDefault();
+        return;
+      } else if (!containsOnlyNumbersAndDash(tazkiraNo)) {
+        generateMessage(tazkiraNo, "این فیلد فقط از ۰ تا ۹ و خط تیره (-) بوده می‌تواند.");
+        event.preventDefault();
+        return;
+      }
+
+      // validate password
+      if (password.value.trim() === "") {
+        generateMessage(password, "این فیلد نمی‌تواند خالی باشد.");
+        event.preventDefault();
+        return;
+      } else if (password.value.trim().length < 8) {
+        generateMessage(password, "رمز عبور حد اقل هشت حرف باشد.");
+        event.preventDefault();
+        return;
+      } else if (!validatePassword(password)) {
+        generateMessage(password, "رمز عبور باید همزمان شامل حروف انگلیسی و اعداد باشد.");
+        event.preventDefault();
+        return;
+      }
+
+      // validate confirmPassword password
+      if (confirmPassword.value.trim() === "") {
+        generateMessage(confirmPassword, "این فیلد نمی‌تواند خالی باشد.");
+        event.preventDefault();
+        return;
+      } else if (confirmPassword.value.trim() !== password.value.trim()) {
+        generateMessage(confirmPassword, " تایید رمز عبور باید با رمز عبور یکسان باشد.");
+        event.preventDefault();
+        return;
+      }
+
+      // validate name
+      if (name.value.trim() === "") {
+        generateMessage(name, "این فیلد نمی‌تواند خالی باشد.");
+        event.preventDefault();
+        return;
+      } else if (name.value.trim().length < 3) {
+        generateMessage(name, "نام باید حد اقل سه حرف باشد.");
+        event.preventDefault();
+        return;
+      } else if (!validateName(name)) {
+        generateMessage(name, "نام باید فقط شامل حروف فارسی و فاصله باشد.");
+        event.preventDefault();
+        return;
+      }
+
+      // validate last name
+      if (lastName.value.trim() === "") {
+        generateMessage(lastName, "این فیلد نمی‌تواند خالی باشد.");
+        event.preventDefault();
+        return;
+      } else if (lastName.value.trim().length < 3) {
+        generateMessage(lastName, "تخلص باید حد اقل سه حرف باشد.");
+        event.preventDefault();
+        return;
+      } else if (!validateName(lastName)) {
+        generateMessage(lastName, "تخلص باید فقط شامل حروف فارسی و فاصله باشد.");
+        event.preventDefault();
+        return;
+      }
+
+      // validate father name
+      if (fatherName.value.trim() === "") {
+        generateMessage(fatherName, "این فیلد نمی‌تواند خالی باشد.");
+        event.preventDefault();
+        return;
+      } else if (fatherName.value.trim().length < 3) {
+        generateMessage(fatherName, "نام باید حد اقل سه حرف باشد.");
+        event.preventDefault();
+        return;
+      } else if (!validateName(fatherName)) {
+        generateMessage(fatherName, "نام باید فقط شامل حروف فارسی و فاصله باشد.");
+        event.preventDefault();
+        return;
+      }
+
+      // Validate phone Number
+      if (phone.value.trim() === "") {
+        generateMessage(phone, "این فیلد نمی‌تواند خالی باشد.");
+        event.preventDefault();
+        return;
+      } else if (!validatePhoneNumber(phone)) {
+        generateMessage(phone, "شماره تماس معتبر نمی باشد.");
+        event.preventDefault();
+        return;
+      }
+
+      // Validate license
+      if (license.value.trim() !== "") {
+        if (!containsOnlyNumbersAndDash(license)) {
+          generateMessage(license, "این فیلد فقط از ۰ تا ۹ و خط تیره (-) بوده می‌تواند.");
+          event.preventDefault();
+          return;
+        }
+      }
+
+      // validate profilePhoto
+      if (profilePhoto.files.length === 0) {
+        generateMessage(profilePhoto, "عکس پروفایل انتخاب نشده است.");
+        event.preventDefault();
+        return;
+      } else if (!validateImageType(profilePhoto)) {
+        generateMessage(profilePhoto, "لطفاً عکس پروفایل را فقط در فرمت‌های JPG، PNG و GIF انتخاب کنید.");
+        event.preventDefault();
+        return;
+      } else if (!validateImageSize(profilePhoto)) {
+        generateMessage(profilePhoto, "عکس پروفایل نمی‌تواند بیشتر از 3MB باشد. ");
+        event.preventDefault();
+        return;
+      }
+
+      // validate tazkiraPhoto
+      if (tazkiraPhoto.files.length === 0) {
+        generateMessage(tazkiraPhoto, "عکس تذکره انتخاب نشده است.");
+        event.preventDefault();
+        return;
+      } else if (!validateImageType(tazkiraPhoto)) {
+        generateMessage(tazkiraPhoto, "لطفاً عکس تذکره را فقط در فرمت‌های JPG، PNG و GIF انتخاب کنید.");
+        event.preventDefault();
+        return;
+      } else if (!validateImageSize(tazkiraPhoto)) {
+        generateMessage(tazkiraPhoto, "عکس تذکره نمی‌تواند بیشتر از 3MB باشد. ");
+        event.preventDefault();
+        return;
+      }
+
+      // validate province 
+      if (containsDangerousChars(province)) {
+        generateMessage(province, "این فیلد شامل کارکتر های غیر مجاز است.");
+        event.preventDefault();
+        return;
+      }
+
+      // validate district 
+      if (containsDangerousChars(district)) {
+        generateMessage(district, "این فیلد شامل کارکتر های غیر مجاز است.");
+        event.preventDefault();
+        return;
+      }
+
+      // validate current resdidence  
+      if (containsDangerousChars(mainResidence)) {
+        generateMessage(mainResidence, "این فیلد شامل کارکتر های غیر مجاز است.");
+        event.preventDefault();
+        return;
+      }
+
+
+    }); //end form event listener
   </script>
   <script src="./adminScript.js"></script>
 </body>

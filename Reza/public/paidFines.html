@@ -4,14 +4,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TCMS | Admin | Create Staff2</title>
+  <title>TCMS | paid fines</title>
+  <!-- swiper css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="myswiper.css">
   <link rel="stylesheet" href="output.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
-<body class="bg-gray-200 font-IRANSans">
+<body class="bg-gray-50 font-IRANSans">
   <!-- mobile Nav  -->
   <nav id="mobile-nav" class="hidden h-[100vh] w-64 bg-color-primary absolute z-50 text-white rounded-l-xl">
     <!-- xmark -->
@@ -149,7 +153,7 @@
           </a>
         </li>
         <li>
-          <a href="#" class="sidebar-link-mobile bg-color-primary-light">
+          <a href="#" class="sidebar-link-mobile ">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 41.64 34.873" class="w-5">
               <g id="_1471085_add_user_business_man_employee_general_human_icon"
                 data-name="1471085_add user_business man_employee_general_human_icon"
@@ -168,7 +172,7 @@
             <span class="sidebar-list-text">ایجاد کارمند جدید</span></a>
         </li>
         <li>
-          <a href="#" class="sidebar-link-mobile">
+          <a href="#" class="sidebar-link-mobile bg-color-primary-light">
             <?xml version="1.0" ?><svg class="feather feather-user-plus w-[18px]" fill="none" height="24"
               stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
               width="24" xmlns="http://www.w3.org/2000/svg">
@@ -357,7 +361,7 @@
           </a>
         </li>
         <li>
-          <a href="#" class="sidebar-link bg-color-primary-light">
+          <a href="#" class="sidebar-link ">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 41.64 34.873" class="w-5">
               <g id="_1471085_add_user_business_man_employee_general_human_icon"
                 data-name="1471085_add user_business man_employee_general_human_icon"
@@ -376,7 +380,7 @@
             <span class="sidebar-list-text">ایجاد کارمند جدید</span></a>
         </li>
         <li>
-          <a href="#" class="sidebar-link">
+          <a href="#" class="sidebar-link bg-color-primary-light">
             <?xml version="1.0" ?><svg class="feather feather-user-plus w-[18px]" fill="none" height="24"
               stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
               width="24" xmlns="http://www.w3.org/2000/svg">
@@ -444,348 +448,309 @@
       </div>
 
 
-      <!-- title and image -->
-      <div
-        class="flex flex-col gap-y-4 md:flex-row md:max-w-full mx-2 md:mx-4 mt-2 md:mt-4 bg-[#cae7f5] text-gray-500 rounded-t shadow overflow-hidden">
-        <div class="flex-1 flex flex-col p-4 md:p-10 gap-4 justify-center items-center">
-          <h2 class="text-blue-900 font-semibold text-2xl sm:text-3xl">فورم ثبت کارمند جدید</h2>
-          <p class="text-blue-800 leading-7 text-justify md:text-center ">این فرم برای ثبت کارمند جدید طراحی
-            شده است. با استفاده از این فرم، می‌توانید به صورت سریع و آسان کارمندان جدید را به سیستم اضافه نمایید. </p>
+      <!-- ***************************** -->
+      <!--*********** Yearly income   ********-->
+      <div class="max-w-full mx-2 md:mx-4 mt-2 md:mt-4 bg-white text-gray-600 rounded shadow overflow-hidden">
+        <div class="text-center sm:text-start text-gray-600 mx-2 sm:mx-10 md:px-2 text-lg  pb-4 pt-4 md:pt-6 border-b">
+          <span class="font-semibold">لیست درآمد سالانه</span>
         </div>
-        <div class="flex-1 flex justify-center px-4 py-8">
-          <img src="../img/staff.png" alt="staff image" class="max-w-full max-h-full object-cover">
+        <!-- table -->
+        <div class="px-2 md:px-10 pt-2 relative pb-8">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <tr class="h-12 text-center text-gray-600 text-[13px] font-semibold border-b border-gray-500">
+                <td scope="row" class="whitespace-nowrap px-2">شماره</td>
+                <td scope="row" class="whitespace-nowrap px-2">سال</td>
+                <td scope="row" class="whitespace-nowrap px-2">آنلاین</td>
+                <td scope="row" class="whitespace-nowrap px-2">حضوری</td>
+                <td scope="row" class="whitespace-nowrap px-2">مجموع</td>
+              </tr>
+
+              <tr class="h-12 text-center text-gray-600 border-b border-gray-300">
+                <td class="whitespace-nowrap px-2">2</td>
+                <td class="whitespace-nowrap px-2">2023</td>
+                <td class="whitespace-nowrap px-2">20000</td>
+                <td class="whitespace-nowrap px-2">40500</td>
+                <td class="whitespace-nowrap px-2">
+                  <span>60500</span>
+                  <span class="mr-1 text-xs">افغانی</span>
+                </td>
+              </tr>
+
+            </table>
+          </div>
         </div>
       </div>
-      <!-- form -->
-      <form id="form" action=""
-        class="max-w-full mb-2 md:mb-4 mx-2 md:mx-4 bg-[#eaf5fb] px-4 md:px-4 lg:px-6 xl:px-8 pt-4 pb-6 rounded-b text-blue-800 text-[13px]">
-        <!-- create account -->
-        <h3 class="flex gap-2 items-center justify-center md:justify-start text-sm font-semibold mb-5 mt-2 mr-2">
-          <i class="fa-regular fa-user text-red-400 font-bold"></i>
-          <span>ایجاد حساب</span>
-        </h3>
+      <!-- ***************************** -->
+      <!--*********** end yearly income  ********-->
 
+
+      <!-- ***************************** -->
+      <!--*********** paid fines   ********-->
+      <div
+        class="max-w-full mx-2 md:mx-4 mt-2 md:mt-4 mb-4 md:mb-10 bg-white text-gray-600 rounded shadow overflow-hidden">
         <div
-          class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 pb-8 border-b border-color-secondary">
-          <div class="relative flex flex-col gap-2">
-            <label for="" class="mr-2">ایمیل آدرس</label>
-            <input id="staffEmail" type="text" class="myinput" />
-          </div>
+          class="flex flex-col items-center gap-3 sm:flex-row sm:justify-between text-gray-600 mx-2 sm:mx-10 md:px-2 text-lg  pb-4 pt-4 md:pt-6 border-b">
+          <span class="font-semibold">لیست پرداخت شده‌ها</span>
+          <!-- search box -->
+          <form method="get" class="max-w-xs w-full">
+            <div class="relative">
+              <input type="text" name="search"
+                class="block w-full outline-none p-1.5  pr-10 text-xs text-gray-700 font-normal border border-gray-300 rounded bg-gray-50 focus:border-gray-400 placeholder:font-normal"
+                placeholder="اینجا جستجو کنید" required>
+              <button type="submit"
+                class="text-sm text-blue-400 hover:text-blue-600 absolute right-1.5 -bottom-0.5 p-1.5 ">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+        <!-- table -->
+        <div class="px-2 md:px-10 pt-2 relative pb-8">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <tr class="h-12 text-center text-gray-600 text-[13px] font-semibold border-b border-gray-500">
+                <td scope="row" class="whitespace-nowrap px-2">شماره</td>
+                <td scope="row" class="whitespace-nowrap px-2">نمبر اساس</td>
+                <td scope="row" class="whitespace-nowrap px-2">پرداخت کننده</td>
+                <td scope="row" class="whitespace-nowrap px-2">دریافت کننده</td>
+                <td scope="row" class="whitespace-nowrap px-2">مبلغ</td>
+              </tr>
 
-          <div class="relative flex flex-col gap-2">
-            <label for="" class="mr-2">رمز عبور</label>
-            <input id="password" type="password" class="myinput" />
-          </div>
+              <tr onclick="showPaymentDetails();"
+                class="h-12 text-center text-gray-600 border-b border-gray-300 hover:cursor-pointer hover:bg-gray-50">
+                <td class="whitespace-nowrap px-2">5</td>
+                <td class="whitespace-nowrap px-2">20033</td>
+                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
+                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
+                <td class="whitespace-nowrap px-2">20067</td>
+              </tr>
 
-          <div class="relative flex flex-col gap-2">
-            <label for="" class="mr-2">تایید رمز عبور</label>
-            <input id="confirmPassword" type="password" class="myinput" />
+              <tr onclick="showPaymentDetails();"
+                class="h-12 text-center text-gray-600 border-b border-gray-300 hover:cursor-pointer hover:bg-gray-50">
+                <td class="whitespace-nowrap px-2">5</td>
+                <td class="whitespace-nowrap px-2">20033</td>
+                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
+                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
+                <td class="whitespace-nowrap px-2">20067</td>
+              </tr>
+
+              <tr onclick="showPaymentDetails();"
+                class="h-12 text-center text-gray-600 border-b border-gray-300 hover:cursor-pointer hover:bg-gray-50">
+                <td class="whitespace-nowrap px-2">5</td>
+                <td class="whitespace-nowrap px-2">20033</td>
+                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
+                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
+                <td class="whitespace-nowrap px-2">20067</td>
+              </tr>
+
+              <tr onclick="showPaymentDetails();"
+                class="h-12 text-center text-gray-600 border-b border-gray-300 hover:cursor-pointer hover:bg-gray-50">
+                <td class="whitespace-nowrap px-2">5</td>
+                <td class="whitespace-nowrap px-2">20033</td>
+                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
+                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
+                <td class="whitespace-nowrap px-2">20067</td>
+              </tr>
+
+              <tr onclick="showPaymentDetails();"
+                class="h-12 text-center text-gray-600 border-b border-gray-300 hover:cursor-pointer hover:bg-gray-50">
+                <td class="whitespace-nowrap px-2">5</td>
+                <td class="whitespace-nowrap px-2">20033</td>
+                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
+                <td class="text-[13px] whitespace-nowrap px-2">بسم الله احمدی</td>
+                <td class="whitespace-nowrap px-2">20067</td>
+              </tr>
+
+            </table>
+          </div>
+          <!-- pagination -->
+          <div class="flex justify-center mt-8">
+            <ul class="inline-flex -space-x-px text-sm">
+              <li>
+                <a href="#"
+                  class="flex items-center justify-center gap-2 px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 ">
+                  <i class="fa-solid fa-angles-right"></i>
+                  <span>قبلی</span>
+                </a>
+              </li>
+              <li>
+                <a href="#"
+                  class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">1</a>
+              </li>
+              <li>
+                <a href="#"
+                  class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">2</a>
+              </li>
+              <li>
+                <a href="#" aria-current="page"
+                  class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
+              </li>
+              <li>
+                <a href="#"
+                  class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">4</a>
+              </li>
+              <li>
+                <a href="#"
+                  class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">5</a>
+              </li>
+              <li>
+                <a href="#"
+                  class="flex items-center justify-center gap-2 px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 ">
+                  <span>بعدی</span>
+                  <i class="fa-solid fa-angles-left"></i>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
-        <!-- personal Info -->
-        <h3 class="flex gap-2 items-center justify-center md:justify-start text-sm font-semibold mb-5 mt-6 mr-2">
-          <i class="fa-solid fa-id-card text-red-400 font-bold"></i>
-          <span>مشخصات کارمند</span>
-        </h3>
+      </div>
+      <!-- ***************************** -->
+      <!--*********** end paid fines  ********-->
 
-        <div class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 ">
-          <div class="relative flex flex-col gap-2">
-            <label for="" class="mr-2">نام</label>
-            <input id="name" type="text" class="myinput" />
+      <!-- ***************************** -->
+      <!--*********** payment details  ********-->
+      <div id="paymentDetails" class="hidden fixed inset-0 backdrop-blur-sm z-50 px-2 flex items-center justify-center">
+        <div class="relative bg-white px-4 md:px-8 pb-8 pt-4 w-full max-w-3xl rounded shadow-2xl ">
+          <!-- x btn -->
+          <button onclick="hidePaymentDetails();" type="button"
+            class="absolute top-2 right-3 text-gray-400 bg-transparent hover:bg-gray-50 hover:text-gray-700 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+          </button>
+          <!-- end x btn -->
+          <!-- head -->
+          <div class="flex flex-col items-center gap-y-2">
+            <!-- tick icon -->
+            <div
+              class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 md:w-10 md:h-10 text-green-500 bg-green-100 rounded-full">
+              <svg class="w-7 h-7 md:w-8 md:h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+              </svg>
+            </div>
+            <h1 class="text-center text-sm font-semibold text-gray-600">اطلاعات پرداخت</h1>
           </div>
+          <!-- details -->
+          <div class="grid md:grid-cols-[1fr,1fr] gap-x-8 gap-y-6 mt-5 text-xs text-gray-600">
+            <div class="md:pl-4">
+              <table class="w-full rtl:text-right">
+                <tbody>
+                  <tr class="odd:bg-white even:bg-gray-50 border-b ">
+                    <td class="px-2 sm:px-6 py-1 whitespace-nowrap">
+                      نمبر اساس
+                    </td>
+                    <th scope="row" class="px-2 sm:px-6 py-1 font-normal text-[13px] tracking-wider whitespace-nowrap">
+                      2223434
+                    </th>
+                  </tr>
+                  <tr class="odd:bg-white even:bg-gray-50 border-b ">
+                    <td class="px-2 sm:px-6 py-1 whitespace-nowrap">
+                      پرداخت کننده
+                    </td>
+                    <th scope="row" class="px-2 sm:px-6 py-1 font-normal whitespace-nowrap">
+                      محمد علی انصاری
+                    </th>
+                  </tr>
+                  <tr class="odd:bg-white even:bg-gray-50 border-b ">
+                    <td class="px-2 sm:px-6 py-1 whitespace-nowrap">
+                      دریافت کننده
+                    </td>
+                    <th scope="row" class="px-2 sm:px-6 py-1 font-normal whitespace-nowrap">
+                      شمس الله سروری
+                    </th>
+                  </tr>
+                  <tr class="odd:bg-white even:bg-gray-50 border-b ">
+                    <td class="px-2 sm:px-6 py-1 whitespace-nowrap">
+                      تاریخ پرداخت
+                    </td>
+                    <th scope="row" class="px-2 sm:px-6 py-1 font-normal tracking-wider text-[13px] whitespace-nowrap">
+                      2023/06/23
+                    </th>
+                  </tr>
+                  <tr class="odd:bg-white even:bg-gray-50 border-b ">
+                    <td class="px-2 sm:px-6 py-1 whitespace-nowrap">
+                      مبلغ پرداخت
+                    </td>
+                    <th scope="row" class="px-2 sm:px-6 py-1 font-normal whitespace-nowrap">
+                      <span class="text-sm">500</span>
+                      <span>AFN</span>
+                    </th>
+                  </tr>
 
-          <div class="relative flex flex-col gap-2">
-            <label for="" class="mr-2">تخلص</label>
-            <input id="lastName" type="text" class="myinput" />
-          </div>
+                </tbody>
+              </table>
+            </div>
 
-          <div class="relative flex flex-col gap-2">
-            <label for="" class="mr-2">نام پدر</label>
-            <input id="fatherName" type="text" class="myinput" />
-          </div>
 
-          <div class="flex flex-col gap-2">
-            <label for="" class="mr-2">جنسیت</label>
-            <select name="" id="" class="myinput text-center">
-              <option value="آقا">آقا</option>
-              <option value="خانم">خانم</option>
-            </select>
-          </div>
-
-          <div class="relative flex flex-col gap-2">
-            <label for="" class="mr-2">نمبر تذکره</label>
-            <input id="tazkiraNo" type="text" class="myinput" />
-          </div>
-
-          <div class="relative flex flex-col gap-2">
-            <label for="" class="mr-2">شماره تماس</label>
-            <input id="phone" type="text" class="myinput" />
-          </div>
-        </div>
-        <!-- profile and tazkira photo -->
-        <div
-          class="mt-2 grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 text-[13px]">
-          <!-- profile -->
-          <div class="relative max-w-full px-8 md:px-6 pb-4 bg-gray-50 rounded shadow-sm text-gray-600 mt-4">
-            <h3 class="text-sm font-semibold text-blue-900 pt-3 pb-1.5">عکس پروفایل</h3>
-            <!-- choose photo -->
-            <label for="profilePhoto" class="flex items-center gap-3 cursor-pointer my-2">
-              <span>
-                <i class="fa-solid fa-paperclip text-2xl"></i>
-              </span>
-              <div class="flex flex-col gap-0.5">
-                <span class="text-xs font-semibold text-gray-500">انتخاب عکس</span>
-                <span id="profileFileName" class="text-xs text-gray-500">هیچ عکسی انتخاب نشده</span>
+            <!-- crimes list -->
+            <div class="flex flex-col gap-2">
+              <label for="" class="mr-2 text-gray-700 font-medium">لیست جریمه ها</label>
+              <div class="w-full px-2 py-2 text-xs h-[108px] overflow-y-auto border border-gray-200 rounded-sm ">
+                <div class="flex flex-col gap-2">
+                  <p class="flex gap-2">
+                    <i class="fa-solid fa-circle text-gray-400 text-[6px] mt-1.5"></i>
+                    <span class="text-gray-500">رد شدن از چراغ سرخ.</span>
+                    <span class="tracking-wider">(2023/04/22)</span>
+                  </p>
+                  <p class="flex gap-2">
+                    <i class="fa-solid fa-circle text-gray-400 text-[6px] mt-1.5"></i>
+                    <span class="text-gray-500">استفاده از تلفون همراه هنگام رانندگی.</span>
+                    <span class="tracking-wider">(2023/04/22)</span>
+                  </p>
+                  <p class="flex gap-2">
+                    <i class="fa-solid fa-circle text-gray-400 text-[6px] mt-1.5"></i>
+                    <span class="text-gray-500">فرار کردن از محمل حادثه .</span>
+                    <span class="tracking-wider">(2023/04/22)</span>
+                  </p>
+                  <p class="flex gap-2">
+                    <i class="fa-solid fa-circle text-gray-400 text-[6px] mt-1.5"></i>
+                    <span class="text-gray-500">رد شدن از چراغ سرخ.</span>
+                    <span class="tracking-wider">(2023/04/22)</span>
+                  </p>
+                </div>
               </div>
-              <input type="file" id="profilePhoto" accept="image/*" class="hidden"
-                onchange="updateProfileFileName(this);">
-            </label>
+            </div>
+
           </div>
-          <!-- tazkira -->
-          <div class="relative max-w-full px-8 md:px-6 pb-4 bg-gray-50 rounded shadow-sm text-gray-600 mt-4">
-            <h3 class="text-sm font-semibold text-blue-900 pt-3 pb-1.5">عکس تذکره</h3>
-            <!-- choose photo -->
-            <label for="tazkiraPhoto" class="flex items-center gap-3 cursor-pointer my-2">
-              <span>
-                <i class="fa-solid fa-paperclip text-2xl"></i>
-              </span>
-              <div class="flex flex-col gap-0.5">
-                <span class="text-xs font-semibold text-gray-500">انتخاب عکس</span>
-                <span id="tazkiraFileName" class="text-xs text-gray-500">هیچ عکسی انتخاب نشده</span>
-              </div>
-              <input type="file" id="tazkiraPhoto" accept="image/*" class="hidden"
-                onchange="updateTazkiraFileName(this);">
-            </label>
+          <!-- payemnt logos -->
+          <div class="flex items-center justify-center gap-3 mt-8">
+            <div class="h-3">
+              <img src="../img/paymentLogo1.png" alt="" class="h-full">
+            </div>
+            <div class="h-4">
+              <img src="../img/paymentlogo2.png" alt="" class="h-full">
+            </div>
+            <div class="h-4">
+              <img src="../img/paymentLogo3.png" alt="" class="h-full">
+            </div>
           </div>
+
         </div>
-        <!-- place of work -->
-        <div class="mt-4 md:mt-10">
-          <div class="flex items-center gap-3 pr-2">
-            <span class="text-red-500"><i class="fa-solid fa-location-dot"></i></span>
-            <span class="text-sm font-semibold text-blue-800">محل کار</span>
-          </div>
-
-          <div
-            class="mt-4 grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 ">
-            <div class="relative flex flex-col gap-2">
-              <label for="" class="mr-2">ولایت</label>
-              <input type="text" class="myinput" />
-            </div>
-
-            <div class="relative flex flex-col gap-2">
-              <label for="" class="mr-2">ولسوالی / ناحیه</label>
-              <input type="text" class="myinput" />
-            </div>
-          </div>
-        </div>
-        <!-- address -->
-        <div class="mt-4 md:mt-10">
-          <div class="flex items-center gap-3 pr-2">
-            <span class="text-red-500"><i class="fa-solid fa-location-dot"></i></span>
-            <span class="text-sm font-semibold text-blue-800">آدرس کارمند</span>
-          </div>
-
-          <div
-            class="mt-4 grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr] gap-y-2 md:gap-y-4 sm:gap-x-6 md:gap-x-8 ">
-            <div class="relative flex flex-col gap-2">
-              <label for="" class="mr-2">ولایت</label>
-              <input type="text" class="myinput" />
-            </div>
-
-            <div class="flex flex-col gap-2">
-              <label for="" class="mr-2">ناحیه</label>
-              <input type="text" class="myinput" />
-            </div>
-
-            <div class="flex flex-col gap-2">
-              <label for="" class="mr-2">سرک</label>
-              <input type="text" class="myinput" />
-            </div>
-
-            <div class="flex flex-col gap-2">
-              <label for="" class="mr-2">نمبر خانه</label>
-              <input type="text" class="myinput" />
-            </div>
-          </div>
-        </div>
-        <!-- submit -->
-        <div class="flex items-center justify-center md:justify-end mt-6">
-          <input type="submit" value="ثبت اطلاعات"
-            class="w-32 sm:w-36 h-8 text-white text-[13px] rounded cursor-pointer outline-none bg-blue-500 hover:bg-blue-700 ease-in duration-200">
-        </div>
-      </form>
-
-
+        <!-- end card -->
+      </div>
+      <!-- ***************************** -->
+      <!--******** End payment details ****** -->
 
     </section>
   </div>
 
 
-  <script src="validationFunctions.js"></script>
+
+
+
+
   <script>
-    // *************************************************
-    // *************** file name **********************
-    function updateTazkiraFileName(input) {
-      const fileNameElement = document.getElementById('tazkiraFileName');
-      fileNameElement.textContent = input.files[0] ? input.files[0].name : 'هیچ عکسی انتخاب نشده';
+    const paymentDetails = document.getElementById("paymentDetails");
+    function showPaymentDetails() {
+      paymentDetails.classList.remove("hidden");
     }
-    function updateProfileFileName(input) {
-      const fileNameElement = document.getElementById('profileFileName');
-      fileNameElement.textContent = input.files[0] ? input.files[0].name : 'هیچ عکسی انتخاب نشده';
+    function hidePaymentDetails() {
+      paymentDetails.classList.add("hidden");
     }
-
-    // *************************************************
-    // *************** validate form **********************
-    const form = document.getElementById("form");
-    const staffEmail = document.getElementById("staffEmail");
-    const password = document.getElementById("password");
-    const confirmPassword = document.getElementById("confirmPassword");
-    const name = document.getElementById("name");
-    const lastName = document.getElementById("lastName");
-    const fatherName = document.getElementById("fatherName");
-    const tazkiraNo = document.getElementById("tazkiraNo");
-    const phone = document.getElementById("phone");
-    const profilePhoto = document.getElementById("profilePhoto");
-    const tazkiraPhoto = document.getElementById("tazkiraPhoto");
-
-
-    form.addEventListener("submit", function (event) {
-      // Validate email
-      if (staffEmail.value.trim() === "") {
-        generateMessage(staffEmail, "این فیلد نمی‌تواند خالی باشد.");
-        event.preventDefault();
-        return;
-      } else if (!validateEmail(staffEmail.value.trim())) {
-        generateMessage(staffEmail, "فرمت ایمیل نا معتبر است.");
-        event.preventDefault();
-        return;
-      }
-
-      // validate password
-      if (password.value.trim() === "") {
-        generateMessage(password, "این فیلد نمی‌تواند خالی باشد.");
-        event.preventDefault();
-        return;
-      } else if (password.value.trim().length < 8) {
-        generateMessage(password, "رمز عبور حد اقل هشت حرف باشد.");
-        event.preventDefault();
-        return;
-      } else if (!validatePassword(password)) {
-        generateMessage(password, "رمز عبور باید همزمان شامل حروف انگلیسی و اعداد باشد.");
-        event.preventDefault();
-        return;
-      }
-
-      // validate confirmPassword password
-      if (confirmPassword.value.trim() === "") {
-        generateMessage(confirmPassword, "این فیلد نمی‌تواند خالی باشد.");
-        event.preventDefault();
-        return;
-      } else if (confirmPassword.value.trim() !== password.value.trim()) {
-        generateMessage(confirmPassword, " تایید رمز عبور باید با رمز عبور یکسان باشد.");
-        event.preventDefault();
-        return;
-      }
-
-      // validate name
-      if (name.value.trim() === "") {
-        generateMessage(name, "این فیلد نمی‌تواند خالی باشد.");
-        event.preventDefault();
-        return;
-      } else if (name.value.trim().length < 3) {
-        generateMessage(name, "نام باید حد اقل سه حرف باشد.");
-        event.preventDefault();
-        return;
-      } else if (!validateName(name)) {
-        generateMessage(name, "نام باید فقط شامل حروف فارسی و فاصله باشد.");
-        event.preventDefault();
-        return;
-      }
-
-      // validate last name
-      if (lastName.value.trim() === "") {
-        generateMessage(lastName, "این فیلد نمی‌تواند خالی باشد.");
-        event.preventDefault();
-        return;
-      } else if (lastName.value.trim().length < 3) {
-        generateMessage(lastName, "تخلص باید حد اقل سه حرف باشد.");
-        event.preventDefault();
-        return;
-      } else if (!validateName(lastName)) {
-        generateMessage(lastName, "تخلص باید فقط شامل حروف فارسی و فاصله باشد.");
-        event.preventDefault();
-        return;
-      }
-
-      // validate father name
-      if (fatherName.value.trim() === "") {
-        generateMessage(fatherName, "این فیلد نمی‌تواند خالی باشد.");
-        event.preventDefault();
-        return;
-      } else if (fatherName.value.trim().length < 3) {
-        generateMessage(fatherName, "نام باید حد اقل سه حرف باشد.");
-        event.preventDefault();
-        return;
-      } else if (!validateName(fatherName)) {
-        generateMessage(fatherName, "نام باید فقط شامل حروف فارسی و فاصله باشد.");
-        event.preventDefault();
-        return;
-      }
-
-      // Validate tazkiraNO
-      if (tazkiraNo.value.trim() === "") {
-        generateMessage(tazkiraNo, "این فیلد نمی‌تواند خالی باشد.");
-        event.preventDefault();
-        return;
-      } else if (!containsOnlyNumbersAndDash(tazkiraNo)) {
-        generateMessage(tazkiraNo, "این فیلد فقط از ۰ تا ۹ و خط تیره (-) بوده می‌تواند.");
-        event.preventDefault();
-        return;
-      }
-
-      // Validate phone Number
-      if (phone.value.trim() === "") {
-        generateMessage(phone, "این فیلد نمی‌تواند خالی باشد.");
-        event.preventDefault();
-        return;
-      } else if (!validatePhoneNumber(phone)) {
-        generateMessage(phone, "شماره تماس معتبر نمی باشد.");
-        event.preventDefault();
-        return;
-      }
-
-      // validate profilePhoto
-      if (profilePhoto.files.length === 0) {
-        generateMessage(profilePhoto, "عکس پروفایل انتخاب نشده است.");
-        event.preventDefault();
-        return;
-      } else if (!validateImageType(profilePhoto)) {
-        generateMessage(profilePhoto, "لطفاً عکس پروفایل را فقط در فرمت‌های JPG، PNG و GIF انتخاب کنید.");
-        event.preventDefault();
-        return;
-      } else if (!validateImageSize(profilePhoto)) {
-        generateMessage(profilePhoto, "عکس پروفایل نمی‌تواند بیشتر از 3MB باشد. ");
-        event.preventDefault();
-        return;
-      }
-
-      // validate tazkiraPhoto
-      if (tazkiraPhoto.files.length === 0) {
-        generateMessage(tazkiraPhoto, "عکس تذکره انتخاب نشده است.");
-        event.preventDefault();
-        return;
-      } else if (!validateImageType(tazkiraPhoto)) {
-        generateMessage(tazkiraPhoto, "لطفاً عکس تذکره را فقط در فرمت‌های JPG، PNG و GIF انتخاب کنید.");
-        event.preventDefault();
-        return;
-      } else if (!validateImageSize(tazkiraPhoto)) {
-        generateMessage(tazkiraPhoto, "عکس تذکره نمی‌تواند بیشتر از 3MB باشد. ");
-        event.preventDefault();
-        return;
-      }
-
-
-    }); //end form event listener
   </script>
   <script src="./adminScript.js"></script>
 </body>
