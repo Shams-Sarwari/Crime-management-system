@@ -329,7 +329,7 @@ def log_payment(request, pk):
         item.payment = log
         item.save()
     
-    return redirect('cars:car-detail', car.id)
+    return redirect('cars:success-payment', log.id)
 
 @login_required(login_url='login')
 @superuser_required
@@ -466,8 +466,10 @@ def success_view(request, crimes):
         crime.payment = log
         crime.save()
             
-
-    return render(request, 'crimes/success.html')
+    context = {
+        'payment': log
+    }
+    return render(request, 'cars/success_payment.html', context)
 
 def cancel_view(request):
     return render(request, 'crimes/cancel.html')

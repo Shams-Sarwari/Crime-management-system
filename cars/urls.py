@@ -20,4 +20,5 @@ urlpatterns = [
     path('jawaz_list/', views.jawaz_list, name='jawaz-list'),
     path('jawaz_detail/<uuid:pk>/', views.jawaz_detail, name='jawaz-detail'),
     path('delete_jawaz/<uuid:pk>/', views.delete_jawaz, name='delete-jawaz'),
+    path('success_payment/<int:pk>/', views.success_payment, name='success-payment'),
 ]

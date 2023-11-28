@@ -28,23 +28,27 @@
               <div class="flex flex-col gap-1">
                 <p>
                   <span class="font-semibold">نمبر اساس:</span>
-                  <span class="text-sm tracking-wider mr-1">134996</span>
+                  <span class="text-sm tracking-wider mr-1">{{payment.id}}</span>
                 </p>
                 <p>
                   <span class="font-semibold">پرداخت کننده:</span>
-                  <span class="mr-1">محمد علی انصاری</span>
+                  <span class="mr-1">{{payment.owner.first_name}} {{payment.owner.last_name}}</span>
                 </p>
               </div>
 
               <div class="flex flex-col gap-1">
                 <p>
                   <span class="font-semibold">تاریخ:</span>
-                  <span class="text-sm tracking-wider mr-1">2023/03/18</span>
+                  <span class="text-sm tracking-wider mr-1">{{ payment.created }}</span>
                 </p>
 
                 <p>
                   <span class="font-semibold">دریافت کننده:</span>
-                  <span class="mr-1">محمد علی احمدی</span>
+                  {% if payment.online %}
+                  <span class="mr-1">آنلاین</span>
+                  {% else %}
+                  <span class="mr-1">{{ payment.staff.first_name }} {{ payment.staff.last_name }}</span>
+                  {% endif %}
                 </p>
               </div>
             </div>
@@ -58,26 +62,19 @@
                     <td scope="row" class="whitespace-nowrap px-2">تاریخ</td>
                     <td scope="row" class="whitespace-nowrap px-2 ">مبلغ</td>
                   </tr>
-
+                  {% for crime in payment.carcrime_set.all %}
                   <tr class="h-12 text-center text-gray-600 border-b border-gray-300">
-                    <td class="whitespace-nowrap px-2 text-sm">1</td>
-                    <td class="whitespace-nowrap px-2 text-right">رد شدن از چراغ سرخ.</td>
-                    <td class="whitespace-nowrap px-2 tracking-wider text-sm">2023/02/13</td>
+                    <td class="whitespace-nowrap px-2 text-sm">{{forloop.counter}}</td>
+                    <td class="whitespace-nowrap px-2 text-right">{{ crime.crime.title }}</td>
+                    <td class="whitespace-nowrap px-2 tracking-wider text-sm">{{ crime.created }}</td>
                     <td class="whitespace-nowrap px-2">
-                      <span class="tracking-wider text-sm">60500</span>
+                      <span class="tracking-wider text-sm">{{ crime.price }}</span>
                       <span class="mr-1 text-xs">افغانی</span>
                     </td>
                   </tr>
+                  {% endfor %}
 
-                  <tr class="h-12 text-center text-gray-600 border-b border-gray-300">
-                    <td class="whitespace-nowrap px-2 text-sm">2</td>
-                    <td class="whitespace-nowrap px-2 text-right">استعمال وسیله نقلیه باربر جهت حمل و نقل اشخاص.</td>
-                    <td class="whitespace-nowrap px-2 tracking-wider text-sm">2023/02/13</td>
-                    <td class="whitespace-nowrap px-2">
-                      <span class="tracking-wider text-sm">60500</span>
-                      <span class="mr-1 text-xs">افغانی</span>
-                    </td>
-                  </tr>
+                  
 
                 </table>
               </div>
@@ -85,7 +82,7 @@
                 <div class="flex gap-1">
                   <span class="font-semibold">مبلغ پرداخت:</span>
                   <p>
-                    <span class="tracking-wider text-sm">6000</span>
+                    <span class="tracking-wider text-sm">{{ payment.price }}</span>
                     <span class="mr-1 text-xs">افغانی</span>
                   </p>
                 </div>

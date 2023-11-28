@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Car, CarOwner, CarHistory, JawazSayr, OldHistory
-from crimes.models import CarCrime, Crime
+from crimes.models import CarCrime, Crime, Payment
 from .forms import CreateCarForm, EditCarForm, CreateOwnerForm, JawazForm, EditOwnerForm
 from django.http import HttpResponse
 from accounts.models import DriverProfile
@@ -241,6 +241,7 @@ def owner_detail(request, pk):
         return render(request, 'cars/owner_detail.html', context)
     else:
         return HttpResponse('معذرت میخواهیم شما اجازه دسترسی به این صفحه را ندارید')
+    
 @login_required(login_url='login')
 @superuser_or_staff_required
 def create_owner(request):
@@ -371,3 +372,10 @@ def delete_jawaz(request, pk):
         jawaz.delete()
     
     return redirect('cars:car-detail', car.id)
+
+def success_payment(request, pk):
+    payment = Payment.objects.get(id=pk)
+    context = {
+        'payment': payment
+    }
+    return render(request, 'cars/success_payment.html', context)

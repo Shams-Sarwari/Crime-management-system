@@ -365,11 +365,11 @@
               <td class="text-[13px]">این جریمه بخاطر تخلف در تاریخ {{crime.created}}از طرف ترافیک وضع گردیده</td>
               {% endif %}
               
-              <td>2023/09/11</td>
-              <td>{{ crime.price }}</td>
-              <td>{{ crime.expiry_fine }}</td>
-              <td>{{ crime.get_total }}</td>
-              <td>{{ crime.expiry_date }}</td>
+              <td>{{ crime.created | date:"Y-m-d"}}</td>
+              <td>{{ crime.price | floatformat:0 }}</td>
+              <td>{{ crime.expiry_fine | floatformat:0 }}</td>
+              <td>{{ crime.get_total | floatformat:0 }}</td>
+              <td>{{ crime.expiry_date | date:"Y-m-d"}}</td>
             </tr>
             {% endif %} 
             {% endfor %}
