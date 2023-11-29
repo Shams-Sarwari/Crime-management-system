@@ -17,10 +17,28 @@ class CustomDriverUserCreationForm(UserCreationForm):
         super(CustomDriverUserCreationForm, self).__init__(*args, **kwargs)
         
         for k, v in self.fields.items():
-            if k != 'is_active':
+            if k == 'username': 
+                v.widget.attrs.update(
+                    {'class':'myinput',
+                     'id': 'license'}
+                )
+
+            elif k == 'password1':
+                v.widget.attrs.update(
+                    {'class':'myinput',
+                     'id': 'password'}
+                )
+
+            elif k == 'password2': 
+                v.widget.attrs.update(
+                    {'class':'myinput',
+                     'id': 'confirmPassword'}
+                )
+            elif k != 'is_active':
                 v.widget.attrs.update(
                     {'class':'myinput'}
                 )
+            
             else: 
                 v.widget.attrs.update(
                     {'id': 'myCheckbox', 'checked': 'checked'}
@@ -78,9 +96,24 @@ class AddressForm(forms.ModelForm):
         super(AddressForm, self).__init__(*args, **kwargs)
         
         for k, v in self.fields.items():
-            v.widget.attrs.update(
-                    {'class':'myinput'}
-            )
+            if k == 'province':
+                v.widget.attrs.update(
+                        {'class':'myinput',
+                         'id': 'province'}
+                )
+            elif k == 'district':
+                v.widget.attrs.update(
+                        {'class':'myinput',
+                         'id': 'district'}
+                )
+            elif k == 'street': 
+                v.widget.attrs.update(
+                        {'class':'myinput'}
+                )
+            elif k == 'house_number': 
+                v.widget.attrs.update(
+                        {'class':'myinput'}
+                )
     
 class CustomStaffCreationForm(UserCreationForm):
     class Meta:
@@ -92,7 +125,17 @@ class CustomStaffCreationForm(UserCreationForm):
         super(CustomStaffCreationForm, self).__init__(*args, **kwargs)
         
         for k, v in self.fields.items():
-            if k == 'is_active':
+            if k == 'password1': 
+                 v.widget.attrs.update(
+                    {'id': 'password', 'class': 'myinput'}
+                    
+                )
+            elif k == 'password2': 
+                 v.widget.attrs.update(
+                    {'id': 'confirmPassword', 'class': 'myinput'}
+                    
+                )
+            elif k == 'is_active':
                 v.widget.attrs.update(
                     {'id': 'myCheckbox', 'checked': 'checked'}
                     
@@ -156,9 +199,21 @@ class WorkPlaceForm(forms.ModelForm):
         super(WorkPlaceForm, self).__init__(*args, **kwargs)
         
         for k, v in self.fields.items():
-            v.widget.attrs.update(
-                    {'class':'myinput'}
-            )
+            if k == 'province':   
+                v.widget.attrs.update(
+                        {'class':'myinput',
+                         'id': 'provinceName'}
+                )
+            elif k == 'district': 
+                v.widget.attrs.update(
+                        {'class':'myinput',
+                         'id': 'districtName'}
+                )
+            else:
+                v.widget.attrs.update(
+                        {'class':'myinput',
+                         }
+                )
     
 
 class CustomPasswordResetForm(forms.Form):
