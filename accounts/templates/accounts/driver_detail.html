@@ -126,6 +126,7 @@
               </td>
               <td>پلیت</td>
               <td>نوع جریمه</td>
+              <td>تاریخ</td>
               <td>مقدار جریمه</td>
               <td>جریمه عدم پرداخت</td>
               <td>مقدار کُل</td>
@@ -141,14 +142,14 @@
               <td class="text-[13px]">{{ crime.crime.title }}</td>
               {% else %}
               <td class="text-[10px]">
-              این جریمه بخاطر تخلف در تاریخ {{crime.created}}از طرف ترافیک وضع گردیده
-
+                این جریمه بخاطر نقض قانون ترافیکی از سوی ریاست ترافیک وضع گردیده
               </td>
               {% endif %}
-              <td>{{ crime.price }}</td>
-              <td>{{ crime.expiry_fine }}</td>
-              <td>{{ crime.get_total }}</td>
-              <td>{{ crime.expiry_date }}</td>
+              <td>{{ crime.created | date:"Y-m-d"}}</td>
+              <td>{{ crime.price | floatformat:0 }}</td>
+              <td>{{ crime.expiry_fine | floatformat:0 }}</td>
+              <td>{{ crime.get_total | floatformat:0 }}</td>
+              <td>{{ crime.expiry_date | date:"Y-m-d" }}</td>
             </tr>
             {% endfor %}
             
@@ -161,7 +162,7 @@
           <label class="font-semibold pr-4">مقدار کُل : <span class="total text-lg">00</span></label>
           <!-- hidden input to send total -->
           <input type="hidden" name="totalPayemnt" class="hiddenTotal">
-          <button class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none rounded text-xs tracking-widest w-36 py-2 text-center cursor-pointer" id="submitBtn">پرداخت</button>
+          <button class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none rounded text-xs tracking-widest w-36 py-2 text-center cursor-not-allowed" id="submitBtn" disabled>پرداخت</button>
           
         </div>
 
@@ -231,6 +232,8 @@
       const masterCheckbox = document.querySelector(`#${divId} .masterCheckbox`);
       const checkboxes = document.querySelectorAll(`#${divId} .fineTable input[type="checkbox"]`);
       const hiddenTotal = document.querySelector(`#${divId} .hiddenTotal`);
+      // enable and disable submitBtn 
+      const submitBtn = document.getElementById(`submitBtn`);
 
       hiddenTotal.value = 0;
 
@@ -253,7 +256,17 @@
         }else if(!allChecked){
           para = 'driver,' + "{{driver.id}}"+","; 
         }
-        console.log(para);
+        // enabe and disable submitBtn
+        const atLeastOneChecked = Array.from(checkboxes).some((checkbox) => checkbox.checked);
+        if(atLeastOneChecked){
+            submitBtn.disabled = false; 
+            submitBtn.classList.remove("cursor-not-allowed");
+            submitBtn.classList.add("cursor-pointer");
+          }else{
+            submitBtn.disabled = true; 
+            submitBtn.classList.add("cursor-not-allowed");
+            submitBtn.classList.remove("cursor-pointer");
+          }
       });// end master checkbox
 
       checkboxes.forEach((checkbox) => {
@@ -266,7 +279,17 @@
           }else{
             para = para.replace(`${checkbox.value.trim()},`, '');
           }
-          console.log(para);
+          // enabe and disable submitBtn
+        const atLeastOneChecked = Array.from(checkboxes).some((checkbox) => checkbox.checked);
+        if(atLeastOneChecked){
+            submitBtn.disabled = false; 
+            submitBtn.classList.remove("cursor-not-allowed");
+            submitBtn.classList.add("cursor-pointer");
+          }else{
+            submitBtn.disabled = true; 
+            submitBtn.classList.add("cursor-not-allowed");
+            submitBtn.classList.remove("cursor-pointer");
+          }
         });
       });
 
@@ -276,7 +299,7 @@
 
           if (checkbox.checked) {
             const row = checkbox.parentNode.parentNode;
-            const value = row.querySelector('td:nth-child(6)').textContent;
+            const value = row.querySelector('td:nth-child(7)').textContent;
             sum += parseInt(value);
           }
         });

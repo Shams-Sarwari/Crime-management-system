@@ -347,6 +347,7 @@
               <td class="w-10 h-12 flex justify-center items-center">
               </td>
               <td class=" w-72">نوع جریمه</td>
+              <td class=" w-32">تاریخ</td>
               <td class="w-32">مقدار جریمه</td>
               <td class=" w-40">جریمه عدم پرداخت</td>
               <td class="w-32">مقدار کُل</td>
@@ -364,10 +365,11 @@
               <td class="text-[13px]">این جریمه بخاطر تخلف در تاریخ {{crime.created}}از طرف ترافیک وضع گردیده</td>
               {% endif %}
               
-              <td>{{ crime.price }}</td>
-              <td>{{ crime.expiry_fine }}</td>
-              <td>{{ crime.get_total }}</td>
-              <td>{{ crime.expiry_date }}</td>
+              <td>{{ crime.created | date:"Y-m-d"}}</td>
+              <td>{{ crime.price | floatformat:0 }}</td>
+              <td>{{ crime.expiry_fine | floatformat:0 }}</td>
+              <td>{{ crime.get_total | floatformat:0 }}</td>
+              <td>{{ crime.expiry_date | date:"Y-m-d"}}</td>
             </tr>
             {% endif %} 
             {% endfor %}
@@ -376,7 +378,7 @@
         </form>
         <div class="flex justify-between mt-10 pb-6 px-2 md:px-10">
           <label class="font-semibold pr-4">مقدار کُل : <span class="total text-lg">00</span></label>
-            <button class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none rounded text-xs tracking-widest w-36 py-2 text-center cursor-pointer" id="submitBtn{{forloop.counter}}">پرداخت</button>
+            <button class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none rounded text-xs tracking-widest w-36 py-2 text-center cursor-pointer cursor-not-allowed" id="submitBtn{{forloop.counter}}" disabled>پرداخت</button>
         </div>
       
 
@@ -452,12 +454,14 @@
     
     let myPara = ""; 
 
-    function initializeFinePayment(divId) {
+    function initializeFinePayment(divId,counter) {
       let para = "owner"+ "," +{{owner.id}}+",";
       const carInfo = document.querySelector(`#${divId} .car-info`);
       const carInfoBtn = document.querySelector(`#${divId} .car-info-btn`);
       const masterCheckbox = document.querySelector(`#${divId} .masterCheckbox`);
       const checkboxes = document.querySelectorAll(`#${divId} .fineTable input[type="checkbox"]`);
+      // added new 
+      const submitBtn = document.getElementById(`submitBtn${counter}`);
       
       
 
@@ -483,10 +487,18 @@
           checkboxes.forEach((checkbox) => {
           para += `${checkbox.value.trim()},`;
           myPara = para; 
+          // enalbe submitBtn
+          submitBtn.disabled = false; 
+          submitBtn.classList.remove("cursor-not-allowed");
+          submitBtn.classList.add("cursor-pointer");
           });
         }else if(!allChecked){
           para = 'owner,' + {{owner.id}}+","; 
           myPara = para; 
+          // disable sbmitBtn
+          submitBtn.disabled = true; 
+          submitBtn.classList.add("cursor-not-allowed");
+          submitBtn.classList.remove("cursor-pointer");
         }
         console.log(para);
       });// end master checkbox
@@ -503,7 +515,17 @@
             para = para.replace(`${checkbox.value.trim()},`, '');
             myPara = para; 
           }
-          console.log(para);
+          // disable and enable the submit button
+          const atLeastOneChecked = Array.from(checkboxes).some((checkbox) => checkbox.checked);
+          if(atLeastOneChecked){
+            submitBtn.disabled = false; 
+            submitBtn.classList.remove("cursor-not-allowed");
+            submitBtn.classList.add("cursor-pointer");
+          }else{
+            submitBtn.disabled = true; 
+            submitBtn.classList.add("cursor-not-allowed");
+            submitBtn.classList.remove("cursor-pointer");
+          }
         });
       });
 
@@ -513,7 +535,7 @@
 
           if (checkbox.checked) {
             const row = checkbox.parentNode.parentNode;
-            const value = row.querySelector('td:nth-child(5)').textContent;
+            const value = row.querySelector('td:nth-child(6)').textContent;
             sum += parseInt(value);
           }
         });
@@ -531,7 +553,7 @@
     // call functions
 
     for (let i = 1; i <= {{num_of_cars}}; i++) {
-      initializeFinePayment(`fine${i}`);
+      initializeFinePayment(`fine${i}`,i);
     }
 
 

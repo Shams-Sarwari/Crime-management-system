@@ -101,7 +101,7 @@ class DriverProfile(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
 
     def __str__(self) -> str:
-        return f'{self.first_name}, {self.last_name}, {self.licence_num}'
+        return f'{self.first_name}'
 
 
 class Address(models.Model):
@@ -111,10 +111,12 @@ class Address(models.Model):
     house_number = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self) -> str:
-        add_str = self.province+', ' + self.district
-        if self.street:
-            add_str += ', ' + self.street
-        if self.house_number:
-            add_str += ', ' + self.house_number
-
+        if self.province and self.district:
+            add_str = self.province+', ' + self.district
+            if self.street:
+                add_str += ', ' + self.street
+            if self.house_number:
+                add_str += ', ' + self.house_number
+        else:
+            add_str = ''
         return add_str

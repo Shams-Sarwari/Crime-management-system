@@ -92,13 +92,13 @@ class CreateOwnerForm(forms.ModelForm):
             )
 
 class JawazForm(forms.ModelForm):
-    jawaz_num = forms.IntegerField()
-    statistic_num = forms.IntegerField()
-    document_num = forms.IntegerField()
-    news_num = forms.IntegerField()
-    bank_reg_num = forms.IntegerField()
-    size = forms.IntegerField()
-    rest_assured = forms.IntegerField()
+    jawaz_num = forms.IntegerField(required=False)
+    statistic_num = forms.IntegerField(required=False)
+    document_num = forms.IntegerField(required=False)
+    news_num = forms.IntegerField(required=False)
+    bank_reg_num = forms.IntegerField(required=False)
+    size = forms.IntegerField(required=False)
+    rest_assured = forms.IntegerField(required=False)
     
     
 
@@ -118,10 +118,23 @@ class JawazForm(forms.ModelForm):
         super(JawazForm, self).__init__(*args, **kwargs)
         
         for k, v in self.fields.items():
-            v.widget.attrs.update(
-                {'class':'input2', 
-                }
-                    )
+            if k == 'jawaz_num' or k == 'statistic_num' or k == 'document_num' or k == 'news_num' or k == 'bank_reg_num' or k == 'rest_assured':
+                v.widget.attrs.update(
+                    {'class':'myinput numberInput'}
+                        )
+            elif k == 'document_date' or k == 'news_date' or k == 'bank_reg_date':
+                 v.widget.attrs.update(
+                    {'class':'myinput pastDate'}
+                        )
+            elif k == 'expiry_date':
+                v.widget.attrs.update(
+                    {'class':'myinput',
+                     'id': 'expiredDate'}
+                        )
+            else:
+                 v.widget.attrs.update(
+                    {'class':'myinput'}
+                        )
             
 class EditOwnerForm(forms.ModelForm):
     class Meta:
