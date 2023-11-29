@@ -3,19 +3,32 @@
   {% if queryset.has_previous %}
   <a href="?page={{queryset.previous_page_number}}" class="pagination-item"
     ><i class="fa-solid fa-angles-right text-xs"></i
-    ><span class="md:pb-1">قبلی</span></a
-  >
+    ><span class="md:pb-1">قبلی</span></a>
+  {% else %}
+  <button class="pagination-item cursor-not-allowed" disabled
+    ><i class="fa-solid fa-angles-right text-xs"></i
+    ><span class="md:pb-1">قبلی</span></button>
   {% endif %} {% for page in custom_range %} {% if page == queryset.number %}
   <a href="?page={{page}}" class="active-item pagination-item"
     ><span>{{page}}</span></a
   >
   {% else %}
   <a href="?page={{page}}" class="pagination-item"><span>{{page}}</span></a>
-  {% endif %} {% endfor %} {% if queryset.has_next %}
+  {% endif %} 
+  
+  {% endfor %} 
+  
+  
+  {% if queryset.has_next %}
   <a href="?page={{queryset.next_page_number}}" class="pagination-item"
     ><span class="md:pb-1">بعدی</span
     ><i class="fa-solid fa-angles-left text-xs"></i
   ></a>
+  {% else %}
+  <button class="pagination-item cursor-not-allowed" disabled
+    ><span class="md:pb-1">بعدی</span
+    ><i class="fa-solid fa-angles-left text-xs"></i
+  ></button>
   {% endif %}
 </div>
 {% endif %}

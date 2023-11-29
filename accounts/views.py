@@ -413,7 +413,7 @@ def edit_driver_profile(request, pk):
             if avatar:
                 profile.avatar = avatar
             if tazkira_img:
-                tazkira_img = tazkira_img
+                profile.tazkira_img = tazkira_img
             if licence:
                 profile.licence_num = licence
             profile.current_address = address
