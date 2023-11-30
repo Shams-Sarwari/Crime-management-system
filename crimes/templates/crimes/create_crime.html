@@ -89,8 +89,12 @@
                 <tr class="h-12 text-center text-gray-600 border-b border-gray-300">
                   <td class="whitespace-nowrap px-2">{{ forloop.counter }}</td>
                   <td class="text-[13px] whitespace-nowrap px-2">{{ crime.title }}</td>
-                  <td class="whitespace-nowrap px-2">{{ crime.min_price }}</td>
-                  <td class="whitespace-nowrap px-2">{{ crime.max_price }}</td>
+                  <td class="whitespace-nowrap px-2">{{ crime.min_price | floatformat:0}}</td>
+                  {% if crime.max_price %}
+                  <td class="whitespace-nowrap px-2">{{ crime.max_price | floatformat:0}}</td>
+                  {% else %}
+                  <td class="whitespace-nowrap px-2">-</td>
+                  {% endif %}
                   <td class="whitespace-nowrap px-2">
                     <form action="{% url "crimes:delete-crime" crime.id %}" method="POST">
                       {% csrf_token %}

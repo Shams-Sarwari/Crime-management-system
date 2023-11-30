@@ -165,6 +165,8 @@ def driver_list(request):
         Q(licence_num=search_text) | 
         Q(tazkira_num=search_text)
     )
+
+
     custom_range, drivers = pagination_items(request, drivers, 10)
     context = {
         'drivers': drivers,
@@ -214,6 +216,7 @@ def staff_list(request):
     staff_list = staff_list.select_related('work_place', 'current_address')
     custom_range, staff_list = pagination_items(request, staff_list, 10)
     
+
     context = {
         'staff_list': staff_list,
         'custom_range': custom_range,

@@ -32,7 +32,11 @@
                 </p>
                 <p>
                   <span class="font-semibold">پرداخت کننده:</span>
+                  {% if payment.owner %}
                   <span class="mr-1">{{payment.owner.first_name}} {{payment.owner.last_name}}</span>
+                  {% elif payment.driver %}
+                  <span class="mr-1">{{payment.driver.first_name}} {{payment.driver.last_name}}</span>
+                  {% endif %}
                 </p>
               </div>
 
