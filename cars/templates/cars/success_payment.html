@@ -62,14 +62,14 @@
                 <table class="w-full">
                   <tr class="h-12 text-center text-gray-700 text-[13px] font-semibold border-b border-gray-500">
                     <td scope="row" class="whitespace-nowrap px-2">شماره</td>
-                    <td scope="row" class="whitespace-nowrap px-2 text-right pr-24 w-96">جریمه</td>
+                    <td scope="row" class=" px-2 text-right pr-24 w-96">جریمه</td>
                     <td scope="row" class="whitespace-nowrap px-2">تاریخ</td>
                     <td scope="row" class="whitespace-nowrap px-2 ">مبلغ</td>
                   </tr>
                   {% for crime in payment.carcrime_set.all %}
                   <tr class="h-12 text-center text-gray-600 border-b border-gray-300">
                     <td class="whitespace-nowrap px-2 text-sm">{{forloop.counter}}</td>
-                    <td class="whitespace-nowrap px-2 text-right">{{ crime.crime.title }}</td>
+                    <td class=" px-2 text-right">{{ crime.crime.title }}</td>
                     <td class="whitespace-nowrap px-2 tracking-wider text-sm">{{ crime.created }}</td>
                     <td class="whitespace-nowrap px-2">
                       <span class="tracking-wider text-sm">{{ crime.price }}</span>
@@ -96,7 +96,7 @@
           </div>
           <!-- end A4 -->
           <div class="flex justify-center">
-            <button type="button"
+            <button type="button" id="printBtn"
               class="w-32 h-8  text-white text-[13px] rounded cursor-pointer outline-none bg-blue-500 hover:bg-blue-700 ease-in duration-200">چاپ
               کردن</button>
           </div>
@@ -117,7 +117,7 @@
       document.body.innerHTML = originalContents;
     }
 
-    var printButton = document.querySelector("button");
+    var printButton = document.querySelector("#printBtn");
     printButton.addEventListener("click", printDiv);
   </script>
 {% endblock jscript %}
