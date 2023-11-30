@@ -10,6 +10,11 @@ class Payment(models.Model):
     online = models.BooleanField(default=False)
     created = models.DateField(auto_now_add=True)
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['-id'])
+        ]
+
     def __str__(self) -> str:
         # return f'staff {self.staff} recieved {self.price} on {self.created}'
         return f'{self.id}'

@@ -403,6 +403,8 @@ def create_contact(request):
         messages.success(request, 'نظر شما موفقانه ثبت گردید.')
         return redirect('home')
 
+@login_required(login_url='login')
+@superuser_required
 def mark_contact_read(request, pk):
     if request.method == 'POST' and request.POST.get('checked') == 'checked':
         contact = Contact.objects.get(id=pk)
@@ -412,12 +414,18 @@ def mark_contact_read(request, pk):
     else:
         return redirect('crimes:notifications')
 
+@login_required(login_url='login')
+@superuser_required
 def jawaz_crime_list(request):
     jawaz_crimes = CarCrime.objects.filter(
         Q(paid=False) &
         Q(crime__title='گذشتن تاریخ اعتبار جواز سیر')
     )
-    custom_range, jawaz_crimes = pagination_items(request, jawaz_crimes, 6)
+    
+    # do caching to bring jawaz crimes with related dependencies
+    jawaz_crimes = jawaz_crimes.select_related('car')
+
+    custom_range, jawaz_crimes = pagination_items(request, jawaz_crimes, 8)
     context = {
         'jawaz_crimes': jawaz_crimes,
         'custom_range': custom_range,
@@ -428,11 +436,8 @@ def jawaz_crime_list(request):
 
 
 def success_view(request, crimes):
-    
-    print(crimes)
     crimes = crimes.rstrip(',')
     crime_ids = crimes.split(',')
-    print(crime_ids)
     status = crime_ids[0]
     status_id = crime_ids[1]
     owner = None
@@ -539,11 +544,18 @@ def create_checkout_session(request, crimes):
             return JsonResponse({'error': str(e)})
         
 
+@login_required(login_url='login')
+@superuser_required
 def payment_list(request):
     search_id = None
     payments = Payment.objects.all().order_by('-id')
     years_of_payments = Payment.objects.values_list('created__year', flat=True).distinct()
+    
+    # also bring dependencies in cache
+    payments = payments.select_related('staff', 'driver', 'owner')
     custom_range, payments = pagination_items(request, payments, 7)
+
+
 
     if request.method == "POST" and request.POST.get('search_id'):
         search_id = int(request.POST.get('search_id'))
