@@ -229,7 +229,7 @@
         event.preventDefault();
         return;
       }
-    } else if (!max){
+    } else if (!max && min){
       if (fine.value != min) {
         generateMessage(fine,`مبلغ این جریمه باید ${min} افغانی باشد.`);
         event.preventDefault();
