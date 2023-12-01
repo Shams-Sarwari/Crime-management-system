@@ -1,158 +1,158 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <!-- ********************************************** -->
-      <!--**************** dashboard **********************-->
-      <!-- cards -->
-      <div id="cards"
-        class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr,1fr] gap-2 md:gap-4 mx-2 md:mx-4 mt-2 md:mt-4 text-gray-500">
-        <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
-          <div class="flex flex-col gap-2">
-            <span id="onlinePayment" class="text-3xl text-orange-500  font-semibold">{{ offline_total_price }}</span>
-            <span class="text-[13px] font-semibold">پرداختی حضوری</span>
-          </div>
-          <span class="text-3xl text-blue-800 font-semibold"><i class="fa-solid fa-receipt"></i></span>
-        </div>
+<!-- ********************************************** -->
+<!--**************** dashboard **********************-->
+<!-- cards -->
+<div id="cards"
+  class="grid sm:grid-cols-[1fr,1fr] lg:grid-cols-[1fr,1fr,1fr,1fr] gap-2 md:gap-4 mx-2 md:mx-4 mt-2 md:mt-4 text-gray-500">
+  <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
+    <div class="flex flex-col gap-2">
+      <span id="onlinePayment" class="text-3xl text-orange-500  font-semibold">{{ offline_total_price }}</span>
+      <span class="text-[13px] font-semibold">پرداختی حضوری</span>
+    </div>
+    <span class="text-3xl text-blue-800 font-semibold"><i class="fa-solid fa-receipt"></i></span>
+  </div>
 
-        <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
-          <div class="flex flex-col gap-2">
-            <span id="offlinePayment" class="text-3xl text-orange-500  font-semibold">{{online_today_total_price}}</span>
-            <span class="text-[13px] font-semibold">پرداختی آنلاین</span>
-          </div>
-          <span class="text-3xl text-blue-800 font-semibold"><i class="fa-brands fa-cc-amazon-pay"></i></span>
-        </div>
+  <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
+    <div class="flex flex-col gap-2">
+      <span id="offlinePayment" class="text-3xl text-orange-500  font-semibold">{{online_today_total_price}}</span>
+      <span class="text-[13px] font-semibold">پرداختی آنلاین</span>
+    </div>
+    <span class="text-3xl text-blue-800 font-semibold"><i class="fa-brands fa-cc-amazon-pay"></i></span>
+  </div>
 
-        <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
-          <div class="flex flex-col gap-2">
-            <span id="todayCrime" class="text-3xl text-orange-500  font-semibold">{{today_crimes}}</span>
-            <span class="text-[13px] font-semibold">جرایم امروز</span>
-          </div>
-          <span class="text-3xl text-blue-800 font-semibold"><i class="fa-solid fa-ban"></i></span>
-        </div>
+  <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
+    <div class="flex flex-col gap-2">
+      <span id="todayCrime" class="text-3xl text-orange-500  font-semibold">{{today_crimes}}</span>
+      <span class="text-[13px] font-semibold">جرایم امروز</span>
+    </div>
+    <span class="text-3xl text-blue-800 font-semibold"><i class="fa-solid fa-ban"></i></span>
+  </div>
 
-        <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
-          <div class="flex flex-col gap-2">
-            <span id="monthlyIncome" class="text-3xl text-orange-500  font-semibold">{{ monthly_total }}</span>
-            <span class="text-[13px] font-semibold">درامد ماهانه</span>
-          </div>
-          <span class="text-3xl text-blue-800 font-semibold"><i class="fa-solid fa-money-check-dollar"></i>
-          </span>
-        </div>
+  <div class="flex items-center justify-between p-6 bg-white shadow-sm rounded h-28">
+    <div class="flex flex-col gap-2">
+      <span id="monthlyIncome" class="text-3xl text-orange-500  font-semibold">{{ monthly_total }}</span>
+      <span class="text-[13px] font-semibold">درامد ماهانه</span>
+    </div>
+    <span class="text-3xl text-blue-800 font-semibold"><i class="fa-solid fa-money-check-dollar"></i>
+    </span>
+  </div>
 
-      </div>
-      <!-- end cards -->
+</div>
+<!-- end cards -->
 
-      <!-- charts -->
-      <div class="max-w-full mx-2 md:mx-4 my-2 md:my-4 flex flex-col lg:flex-row gap-x-4 gap-y-2">
-        <!-- chart 1 -->
-        <div class="max-w-2/3 flex-grow bg-white shadow-sm rounded">
-          <!-- year, province and hidden form -->
-          <div class="flex justify-center gap-2 md:gap-8 pb-2 pt-4">
-            <!-- Year dropdown -->
-            <div class="relative">
-              <button onclick="toggleYearDropdown()"
-                class="flex items-center justify-center gap-4 py-1 w-24 text-gray-500 text-center text-sm border hover:bg-gray-100 focus:outline-none rounded-lg "
-                type="button">
-                {% if filter_year %}
-                <span id="year">{{filter_year}}</span>
-                {% else %}
-                <span id="year">{{years.last}}</span>
-                {% endif %}
-                
-                <i class="fa-solid fa-angle-down"></i>
-              </button>
-              <!-- Dropdown menu -->
-              <div id="yearDropdown"
-                class="hidden absolute right-0 top-8 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-24 overflow-hidden">
-                <ul class="py-1 text-sm max-h-36 overflow-y-auto">
-                  {% for year in years %}
-                  <li class="years block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    {{year}}
-                  </li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
-            <!-- province dropdown -->
-            <div class="relative">
-              <button onclick="toggleProvinceDropdown()"
-                class="flex items-center justify-center gap-4 py-1 w-24 md:w-28 text-gray-500 text-center text-[13px] border hover:bg-gray-100 focus:outline-none rounded-lg "
-                type="button">
-                {% if filter_province %}
-                <span id="province">{{filter_province}}</span>
-                {% else %}
-                <span id="province">{{provinces.0}}</span>
-                {% endif %}
-                
-                
-                <i class="fa-solid fa-angle-down"></i>
-              </button>
-              <!-- Dropdown menu -->
-              <div id="provinceDropdown"
-                class="hidden absolute right-0 top-8 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-24 md:w-28 overflow-hidden">
-                <ul class="py-1 text-xs text-center max-h-36 overflow-y-auto">
-                  {% for province in provinces %}
-                  <li class="provinces block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    {{ province }}
-                  </li>
-                  {% endfor %}
-                  
-                </ul>
-              </div>
-            </div>
-            <!-- hidden form -->
-            <form action="" method='POST'>
-              {% csrf_token %}
-              <input type="hidden" name="selected_year" id="yearInput">
-              <input type="hidden" name="selected_province" id="provinceInput">
-              <input type="submit" value="تایید"
-                class="w-24 py-1 text-gray-500 text-center text-[13px] border hover:bg-gray-100 focus:outline-none rounded-lg cursor-pointer">
-            </form>
-          </div>
-          <!-- chart -->
-          <div class="p-4 min-h-20">
-            <canvas id="crimeChart"></canvas>
-          </div>
-        </div>
-        <!-- chart 2 -->
-        <div class="max-w-1/3 flex-grow flex items-center justify-center md:block bg-white shadow-sm rounded">
-          <!-- year and hidden form -->
-          <div class="flex justify-center gap-2 md:gap-8 pb-2 pt-4">
-            <!-- Year dropdown -->
-            <div class="relative">
-              <button onclick="toggleTopYearDropdown()"
-                class="flex items-center justify-center gap-4 py-1 w-24 text-gray-500 text-center text-sm border hover:bg-gray-100 focus:outline-none rounded-lg "
-                type="button">
-                <span id="topYear">{{ years.last }}</span>
-                <i class="fa-solid fa-angle-down"></i>
-              </button>
-              <!-- Dropdown menu -->
-              <div id="topYearDropdown"
-                class="hidden absolute right-0 top-8 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-24 overflow-hidden">
-                <ul class="py-1 text-sm max-h-36 overflow-y-auto">
-                  {% for year in years %}
-                  <li class="topYears block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    {{year}}
-                  </li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
-            <!-- hidden form -->
-            <form action="" method="GET">
-              
-              <input type="hidden" name="selected_year" id="topYearInput">
-              <input type="submit" value="تایید"
-                class="w-24 py-1 text-gray-500 text-center text-[13px] border hover:bg-gray-100 focus:outline-none rounded-lg cursor-pointer">
-            </form>
-          </div>
-          <div class="p-4 min-h-16">
-            <canvas id="crimeChartThreeProvinces"></canvas>
-          </div>
+<!-- charts -->
+<div class="max-w-full mx-2 md:mx-4 my-2 md:my-4 flex flex-col lg:flex-row gap-x-4 gap-y-2">
+  <!-- chart 1 -->
+  <div class="max-w-2/3 flex-grow bg-white shadow-sm rounded">
+    <!-- year, province and hidden form -->
+    <div class="flex justify-center gap-2 md:gap-8 pb-2 pt-4">
+      <!-- Year dropdown -->
+      <div class="relative">
+        <button onclick="toggleYearDropdown()"
+          class="flex items-center justify-center gap-4 py-1 w-24 text-gray-500 text-center text-sm border hover:bg-gray-100 focus:outline-none rounded-lg "
+          type="button">
+          {% if filter_year %}
+          <span id="year">{{filter_year}}</span>
+          {% else %}
+          <span id="year">{{years.last}}</span>
+          {% endif %}
+
+          <i class="fa-solid fa-angle-down"></i>
+        </button>
+        <!-- Dropdown menu -->
+        <div id="yearDropdown"
+          class="hidden absolute right-0 top-8 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-24 overflow-hidden">
+          <ul class="py-1 text-sm max-h-36 overflow-y-auto">
+            {% for year in years %}
+            <li class="years block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
+              {{year}}
+            </li>
+            {% endfor %}
+          </ul>
         </div>
       </div>
-      <!-- end charts -->
-    </section>
+      <!-- province dropdown -->
+      <div class="relative">
+        <button onclick="toggleProvinceDropdown()"
+          class="flex items-center justify-center gap-4 py-1 w-24 md:w-28 text-gray-500 text-center text-[13px] border hover:bg-gray-100 focus:outline-none rounded-lg "
+          type="button">
+          {% if filter_province %}
+          <span id="province">{{filter_province}}</span>
+          {% else %}
+          <span id="province">{{provinces.0}}</span>
+          {% endif %}
+
+
+          <i class="fa-solid fa-angle-down"></i>
+        </button>
+        <!-- Dropdown menu -->
+        <div id="provinceDropdown"
+          class="hidden absolute right-0 top-8 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-24 md:w-28 overflow-hidden">
+          <ul class="py-1 text-xs text-center max-h-36 overflow-y-auto">
+            {% for province in provinces %}
+            <li class="provinces block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
+              {{ province }}
+            </li>
+            {% endfor %}
+
+          </ul>
+        </div>
+      </div>
+      <!-- hidden form -->
+      <form action="" method='POST'>
+        {% csrf_token %}
+        <input type="hidden" name="selected_year" id="yearInput">
+        <input type="hidden" name="selected_province" id="provinceInput">
+        <input type="submit" value="تایید"
+          class="w-24 py-1 text-gray-500 text-center text-[13px] border hover:bg-gray-100 focus:outline-none rounded-lg cursor-pointer">
+      </form>
+    </div>
+    <!-- chart -->
+    <div class="p-4 min-h-20">
+      <canvas id="crimeChart"></canvas>
+    </div>
+  </div>
+  <!-- chart 2 -->
+  <div class="max-w-1/3 flex-grow flex flex-col items-center justify-center md:block bg-white shadow-sm rounded">
+    <!-- year and hidden form -->
+    <div class="flex justify-center gap-2 md:gap-8 pb-2 pt-4">
+      <!-- Year dropdown -->
+      <div class="relative">
+        <button onclick="toggleTopYearDropdown()"
+          class="flex items-center justify-center gap-4 py-1 w-24 text-gray-500 text-center text-sm border hover:bg-gray-100 focus:outline-none rounded-lg "
+          type="button">
+          <span id="topYear">{{ years.last }}</span>
+          <i class="fa-solid fa-angle-down"></i>
+        </button>
+        <!-- Dropdown menu -->
+        <div id="topYearDropdown"
+          class="hidden absolute right-0 top-8 z-10  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-24 overflow-hidden">
+          <ul class="py-1 text-sm max-h-36 overflow-y-auto">
+            {% for year in years %}
+            <li class="topYears block px-4 py-1 text-gray-700 hover:bg-gray-100 cursor-pointer">
+              {{year}}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <!-- hidden form -->
+      <form action="" method="GET">
+
+        <input type="hidden" name="selected_year" id="topYearInput">
+        <input type="submit" value="تایید"
+          class="w-24 py-1 text-gray-500 text-center text-[13px] border hover:bg-gray-100 focus:outline-none rounded-lg cursor-pointer">
+      </form>
+    </div>
+    <div class="p-4 min-h-16">
+      <canvas id="crimeChartThreeProvinces"></canvas>
+    </div>
+  </div>
+</div>
+<!-- end charts -->
+</section>
 {% endblock content %}
 
 
@@ -166,7 +166,7 @@
   const crimeChart = document.getElementById('crimeChart');
   // number of crimes in each month
   {% comment %} let crimes = {{ crimes_in_months }}; {% endcomment %}
-  let crimes =  [12, 16, 6, 11, 15, 20, 9, 11, 13, 15, 11, 10] ;
+  let crimes = [12, 16, 6, 11, 15, 20, 9, 11, 13, 15, 11, 10];
 
   new Chart(crimeChart, {
     type: 'bar',
@@ -214,9 +214,9 @@
 
   // three provinces chart
   {% autoescape off %}
-  let threeProvinces = {{ top_three_provinces|safe }};
+  let threeProvinces = {{ top_three_provinces| safe }};
   {% endautoescape %}
-  
+
   {% comment %} let provincesCrimes = {{ top_three_values }}; {% endcomment %}
   let provincesCrimes = [53, 33, 22];
   const crimeChartThreeProvinces = document.getElementById('crimeChartThreeProvinces');
@@ -264,26 +264,26 @@
     });
   });// end foreach
 
-  
-    // ****************************************
-    // ********* top year dropdown ****************
-    const topYearDropdown = document.getElementById("topYearDropdown");
-    function toggleTopYearDropdown() {
-      topYearDropdown.classList.toggle("hidden");
-    }
 
-    const topYears = document.querySelectorAll(".topYears");
-    const topYear = document.getElementById("topYear");
-    const topYearInput = document.getElementById("topYearInput");
+  // ****************************************
+  // ********* top year dropdown ****************
+  const topYearDropdown = document.getElementById("topYearDropdown");
+  function toggleTopYearDropdown() {
+    topYearDropdown.classList.toggle("hidden");
+  }
 
-    topYears.forEach((y) => {
-      y.addEventListener('click', function () {
-        toggleTopYearDropdown();
-        topYear.textContent = y.textContent;
-        topYearInput.value = y.textContent;
-        console.log(topYearInput.value);
-      });
-    });// end foreach
+  const topYears = document.querySelectorAll(".topYears");
+  const topYear = document.getElementById("topYear");
+  const topYearInput = document.getElementById("topYearInput");
+
+  topYears.forEach((y) => {
+    y.addEventListener('click', function () {
+      toggleTopYearDropdown();
+      topYear.textContent = y.textContent;
+      topYearInput.value = y.textContent;
+      console.log(topYearInput.value);
+    });
+  });// end foreach
 
 
 
@@ -306,7 +306,7 @@
     });
   });// end foreach
 
-  
+
 
   // ***********************************************************
   // ********************** cards animations *******************
