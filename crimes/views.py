@@ -113,7 +113,7 @@ def driver_crime_list(request):
 @superuser_or_staff_required
 def create_car_crime(request):
     profile = StaffProfile.objects.get(user = request.user)
-    all_crimes = Crime.objects.all()
+    all_crimes = Crime.objects.all().exclude(title='گذشتن تاریخ اعتبار جواز سیر')
     crime_list = []
     for item in all_crimes:
         temp = []
