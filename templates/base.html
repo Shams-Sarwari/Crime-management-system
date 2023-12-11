@@ -8,20 +8,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TCMS | Admin | Drivers</title>
   {% block style %}
-
+  
   {% endblock style %}
 
-
-
+  
+  
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
   <link rel="stylesheet" href="{% static 'css/myswiper.css' %}">
-  <link rel="stylesheet" href="{% static " css/output.css" %}" />
+  <link rel="stylesheet" href="{% static "css/output.css" %}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-
-<body class="bg-gray-200 font-IRANSans">
+<body class="bg-gray-200 font-IRANSans"> 
 
   {% comment %} mobile sidebar {% endcomment %}
   {% if request.user.is_staff %}
@@ -34,8 +33,7 @@
     <div class="p-6">
       <!-- photo -->
       <div class="flex flex-col gap-2 justify-center items-center">
-        <img {% if request.user.staffprofile.avatar %}src="{{request.user.staffprofile.avatar.url}}{% endif %}"
-          alt="my image" class="inline-block h-16 rounded-full">
+        <img {% if request.user.staffprofile.avatar %}src="{{request.user.staffprofile.avatar.url}}{% endif %}" alt="my image" class="inline-block h-16 rounded-full">
         <div class="border-b-2 border-gray-500  text-center pb-3 px-3">
           <p>{{ request.user.staffprofile.first_name }}{{ request.user.staffprofile.last_name }}</p>
         </div>
@@ -44,9 +42,9 @@
       <ul class="mt-4 text-sm">
         {% if request.user.is_superuser %}
         <li>
-          <a href="{% url " dashboard" %}"
-            class="sidebar-link-mobile {% if section == 'dashboard' %}bg-color-primary-light{% endif %}">
-            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="18" viewBox="0,0,256,256">
+          <a href="{% url "dashboard" %}" class="sidebar-link-mobile {% if section == 'dashboard' %}bg-color-primary-light{% endif %}"> 
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20"
+              height="18" viewBox="0,0,256,256">
               <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
                 stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
                 font-family="none" font-weight="none" font-size="none" text-anchor="none"
@@ -61,8 +59,7 @@
         </li>
 
         <li>
-          <a href="{% url 'staff-list' %}"
-            class="sidebar-link-mobile {% if section == 'staffs' %}bg-color-primary-light{% endif %}">
+          <a href="{% url 'staff-list' %}" class="sidebar-link-mobile {% if section == 'staffs' %}bg-color-primary-light{% endif %}">
             <?xml version="1.0" ?><svg id="Layer_1" style="enable-background: new 0 0 128 128" version="1.1"
               viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink" fill="#fff" class="w-5">
@@ -90,12 +87,12 @@
               </path>
             </svg>
             <span class="sidebar-list-text"> موضوع جریمه
-            </span>
+              </span>
           </a>
         </li>
 
         <li>
-          <a href="{% url " register-driver" %}" class="sidebar-link-mobile">
+          <a href="{% url "register-driver" %}" class="sidebar-link-mobile">
             <?xml version="1.0" ?><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="w-[18px]">
               <defs>
                 <style>
@@ -115,15 +112,14 @@
                 <line class="cls-1" x1="29" x2="19" y1="26" y2="26" />
               </g>
             </svg>
-            <span class="sidebar-list-text"> جواز سیر
-            </span>
+            <span class="sidebar-list-text"> جواز سیر 
+              </span>
           </a>
         </li>
 
         {% endif %}
         <li>
-          <a href="{% url 'driver-list' %}"
-            class="sidebar-link-mobile {% if section == 'drivers' %}bg-color-primary-light{% endif %} ">
+          <a href="{% url 'driver-list' %}" class="sidebar-link-mobile {% if section == 'drivers' %}bg-color-primary-light{% endif %} ">
             <?xml version="1.0" ?><svg fill="none" height="15" viewBox="0 0 15 15" class="w-5"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -132,12 +128,11 @@
             </svg></i><span class="sidebar-list-text">راننده ها</span>
           </a>
         </li>
-
-
+        
+        
         <li>
-          <a href="{% url 'cars:car-list' %}"
-            class="sidebar-link-mobile {% if section == 'cars' %}bg-color-primary-light{% endif %}"><svg
-              xmlns="http://www.w3.org/2000/svg" width="38" height="25" viewBox="0 0 38 25" class="w-6">
+          <a href="{% url 'cars:car-list' %}" class="sidebar-link-mobile {% if section == 'cars' %}bg-color-primary-light{% endif %}"><svg xmlns="http://www.w3.org/2000/svg" width="38" height="25"
+              viewBox="0 0 38 25" class="w-6">
               <g id="_172580_cars_icon" data-name="172580_cars_icon" transform="translate(0 0.333)">
                 <rect id="Rectangle_3" data-name="Rectangle 3" width="38" height="25" transform="translate(0 -0.333)"
                   fill="none" />
@@ -162,9 +157,8 @@
               ها</span></a>
         </li>
         <li>
-          <a href="{% url 'cars:owner-list' %}"
-            class="sidebar-link-mobile {% if section == 'owners' %}bg-color-primary-light{% endif %}"><svg
-              xmlns="http://www.w3.org/2000/svg" width="21.383" height="21.383" viewBox="0 0 21.383 21.383" class="w-5">
+          <a href="{% url 'cars:owner-list' %}" class="sidebar-link-mobile {% if section == 'owners' %}bg-color-primary-light{% endif %}"><svg xmlns="http://www.w3.org/2000/svg" width="21.383" height="21.383"
+              viewBox="0 0 21.383 21.383" class="w-5">
               <g id="_172487_key_icon" data-name="172487_key_icon" transform="translate(0.075 0.068)">
                 <rect id="Rectangle_4" data-name="Rectangle 4" width="21" height="21" transform="translate(0 0.24)"
                   fill="none" />
@@ -185,11 +179,10 @@
             </svg><span class="sidebar-list-text">مالکان
               موتر</span></a>
         </li>
-
+        
 
         <li>
-          <a href="{% url " logout" %}" class="sidebar-link-mobile"><i
-              class="fa-solid fa-arrow-right-from-bracket py-1 pr-1"></i><span
+          <a href="{% url "logout" %}" class="sidebar-link-mobile"><i class="fa-solid fa-arrow-right-from-bracket py-1 pr-1"></i><span
               class="sidebar-list-text pr-1">خروج</span></a>
         </li>
       </ul>
@@ -197,15 +190,15 @@
   </nav>
   {% endif %}
   {% if messages %}
-  {% for message in messages %}
-  {% if message.tags == 'success' %}
-  {% include "success.html" with message=message%}
-  {% elif message.tags == 'info' %}
-  {% include "info.html" with message=message%}
-  {% elif message.tags == 'error' %}
-  {% include "error.html" with message=message %}
-  {% endif %}
-  {% endfor %}
+    {% for message in messages %}
+      {% if message.tags == 'success' %}
+        {% include "success.html" with message=message%}
+      {% elif message.tags == 'info' %}
+        {% include "info.html" with message=message%}
+      {% elif message.tags == 'error' %}
+        {% include "error.html" with message=message %}
+      {% endif %}
+    {% endfor %}
   {% endif %}
 
   <!-- container -->
@@ -216,8 +209,7 @@
       <!-- sidebar large -->
       <!-- photo -->
       <div id="img-div-large" class="flex flex-col gap-2 justify-center items-center mt-8 mb-4">
-        <img {% if request.user.staffprofile.avatar %}src="{{request.user.staffprofile.avatar.url}}" {% endif %}
-          alt="my image" class="inline-block h-16 w-16 rounded-full">
+        <img {% if request.user.staffprofile.avatar %}src="{{request.user.staffprofile.avatar.url}}"{% endif %} alt="my image" class="inline-block h-16 w-16 rounded-full">
         <div class="border-b-2 border-gray-500  text-center pb-3 px-3">
           <p>{{ request.user.staffprofile.first_name }} {{ request.user.staffprofile.last_name }}</p>
         </div>
@@ -226,9 +218,9 @@
       <ul id="ul-large" class="text-sm flex flex-col gap-1">
         {% if request.user.is_superuser %}
         <li>
-          <a href="{% url " dashboard" %}"
-            class="sidebar-link {% if section == 'dashboard' %}bg-color-primary-light{% endif %}">
-            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="18" viewBox="0,0,256,256">
+          <a href="{% url "dashboard" %}" class="sidebar-link {% if section == 'dashboard' %}bg-color-primary-light{% endif %}"> 
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20"
+              height="18" viewBox="0,0,256,256">
               <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
                 stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
                 font-family="none" font-weight="none" font-size="none" text-anchor="none"
@@ -242,8 +234,7 @@
             </svg><span class="sidebar-list-text">داشبورد</span></a>
         </li>
         <li>
-          <a href="{% url 'staff-list' %}"
-            class="sidebar-link {% if section == 'staffs' %}bg-color-primary-light {% endif %}">
+          <a href="{% url 'staff-list' %}" class="sidebar-link {% if section == 'staffs' %}bg-color-primary-light {% endif %}">
             <?xml version="1.0" ?><svg id="Layer_1" style="enable-background: new 0 0 128 128" version="1.1"
               viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink" fill="#fff" class="w-5">
@@ -264,30 +255,28 @@
         </li>
         <li>
           <a href="{% url "crimes:create-crime" %}" class="sidebar-link {% if section == 'crime_subject' %}bg-color-primary-light {% endif %}">
-
             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="#fff" viewBox="0 0 256 256">
               <path
                 d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm88,104a87.56,87.56,0,0,1-20.41,56.28L71.72,60.4A88,88,0,0,1,216,128ZM40,128A87.56,87.56,0,0,1,60.41,71.72L184.28,195.6A88,88,0,0,1,40,128Z">
               </path>
             </svg>
-            <span class="sidebar-list-text"> موضوع جریمه
-            </span>
+            <span class="sidebar-list-text">  موضوع جریمه 
+              </span>
           </a>
         </li>
 
         <li>
           <a href="{% url "crimes:jawaz-crime-list" %}" class="sidebar-link {% if section == 'jawaz' %}bg-color-primary-light {% endif %}">
-
             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="#fff" viewBox="0 0 256 256">
               <path
                 d="M184,112a8,8,0,0,1-8,8H112a8,8,0,0,1,0-16h64A8,8,0,0,1,184,112Zm-8,24H112a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm48-88V208a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32H208A16,16,0,0,1,224,48ZM48,208H72V48H48Zm160,0V48H88V208H208Z">
               </path>
             </svg>
-            <span class="sidebar-list-text"> جرایم جواز
-            </span>
+            <span class="sidebar-list-text">   جرایم جواز 
+              </span>
           </a>
         </li>
-
+        
         <li>
           <a href="{% url "crimes:payments" %}" class="sidebar-link {% if section == 'payment' %}bg-color-primary-light {% endif %}">
             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="#fff" viewBox="0 0 256 256">
@@ -295,8 +284,8 @@
                 d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm40-68a28,28,0,0,1-28,28h-4v8a8,8,0,0,1-16,0v-8H104a8,8,0,0,1,0-16h36a12,12,0,0,0,0-24H116a28,28,0,0,1,0-56h4V72a8,8,0,0,1,16,0v8h16a8,8,0,0,1,0,16H116a12,12,0,0,0,0,24h24A28,28,0,0,1,168,148Z">
               </path>
             </svg>
-            <span class="sidebar-list-text"> پرداختی ها
-            </span>
+            <span class="sidebar-list-text">    پرداختی ها
+              </span>
           </a>
         </li>
 
@@ -311,8 +300,7 @@
             <span class="sidebar-list-text">جریمه کردن</span></a>
         </li>
         <li>
-          <a href="{% url 'driver-list' %}"
-            class="sidebar-link {% if section == 'drivers' %}bg-color-primary-light{% endif %}">
+          <a href="{% url 'driver-list' %}" class="sidebar-link {% if section == 'drivers' %}bg-color-primary-light{% endif %}">
             <?xml version="1.0" ?><svg fill="none" height="15" viewBox="0 0 15 15" class="w-5"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -321,11 +309,10 @@
             </svg></i><span class="sidebar-list-text">راننده ها</span>
           </a>
         </li>
-
+        
         <li>
-          <a href="{% url 'cars:car-list' %}"
-            class="sidebar-link {% if section == 'cars' %}bg-color-primary-light{% endif %}"><svg
-              xmlns="http://www.w3.org/2000/svg" width="38" height="25" viewBox="0 0 38 25" class="w-6">
+          <a href="{% url 'cars:car-list' %}" class="sidebar-link {% if section == 'cars' %}bg-color-primary-light{% endif %}"><svg xmlns="http://www.w3.org/2000/svg" width="38" height="25"
+              viewBox="0 0 38 25" class="w-6">
               <g id="_172580_cars_icon" data-name="172580_cars_icon" transform="translate(0 0.333)">
                 <rect id="Rectangle_3" data-name="Rectangle 3" width="38" height="25" transform="translate(0 -0.333)"
                   fill="none" />
@@ -350,9 +337,8 @@
               ها</span></a>
         </li>
         <li>
-          <a href="{% url 'cars:owner-list' %}"
-            class="sidebar-link {% if section == 'owners' %}bg-color-primary-light{% endif %}"><svg
-              xmlns="http://www.w3.org/2000/svg" width="21.383" height="21.383" viewBox="0 0 21.383 21.383" class="w-5">
+          <a href="{% url 'cars:owner-list' %}" class="sidebar-link {% if section == 'owners' %}bg-color-primary-light{% endif %}"><svg xmlns="http://www.w3.org/2000/svg" width="21.383" height="21.383"
+              viewBox="0 0 21.383 21.383" class="w-5">
               <g id="_172487_key_icon" data-name="172487_key_icon" transform="translate(0.075 0.068)">
                 <rect id="Rectangle_4" data-name="Rectangle 4" width="21" height="21" transform="translate(0 0.24)"
                   fill="none" />
@@ -375,8 +361,7 @@
         </li>
 
         <li>
-          <a href="{% url " logout" %}" class="sidebar-link"><i
-              class="fa-solid fa-arrow-right-from-bracket py-1 pr-1"></i><span
+          <a href="{% url "logout" %}" class="sidebar-link"><i class="fa-solid fa-arrow-right-from-bracket py-1 pr-1"></i><span
               class="sidebar-list-text pr-1">خروج</span></a>
         </li>
       </ul>
@@ -384,8 +369,7 @@
     {% endif %}
     <section id="main">
       <!-- navbar -->
-      <div
-        class="bg-white h-11 flex items-center {% if request.user.is_staff %}justify-between{%else%} justify-end {% endif %} pl-4 md:pl-6 pr-2  shadow-lg sticky top-0 z-50">
+      <div class="bg-white h-11 flex items-center {% if request.user.is_staff %}justify-between{%else%} justify-end {% endif %} pl-4 md:pl-6 pr-2  shadow-lg sticky top-0 z-50">
         {% if request.user.is_staff %}
         <!-- hamburgars -->
         <div id="large-humgurgar" class="hidden md:block">
@@ -398,7 +382,7 @@
         {% endif %}
         {% if request.user.is_staff %}
         <!-- search box -->
-        <form method="GET" class="md:max-w-xs md:flex-grow" action="{% url " cars:car-list" %}">
+        <form method="GET" class="md:max-w-xs md:flex-grow" action="{% url "cars:car-list" %}">
           <div class="relative">
             <input type="text" name="search_text" value="{{search_text}}"
               class="block w-full outline-none p-1.5  pr-10 text-xs text-gray-700 border border-gray-300 rounded-full bg-gray-50 focus:border-color-secondary-dark "
@@ -412,10 +396,10 @@
         {% endif %}
         <!-- profile -->
         <div class="relative flex items-center gap-4">
-
+        
           <!-- notification icon -->
           {% if request.user.is_superuser %}
-          <a href="{% url " crimes:notifications" %}">
+          <a href="{% url "crimes:notifications" %}">
             <div
               class="relative inline-flex items-center p-1 text-2xl font-medium text-center text-blue-700 hover:text-blue-800 rounded-lg focus:outline-none">
               <i class="fa-solid fa-bell"></i>
@@ -426,12 +410,10 @@
           </a>
           {% endif %}
           {% if request.user.is_staff %}
-          <p class="hidden md:block text-xs text-gray-600 font-semibold">{{ request.user.staffprofile.first_name }} {{
-            request.user.staffprofile.last_name }}</p>
+          <p class="hidden md:block text-xs text-gray-600 font-semibold">{{ request.user.staffprofile.first_name }} {{ request.user.staffprofile.last_name }}</p>
           <button type="button" onclick="toggleUserProfieDropdown()"
             class="flex text-sm rounded-full ring-2 focus:ring-4 ring-gray-100">
-            <img class="w-8 h-8 rounded-full" {% if request.user.staffprofile.avatar
-              %}src="{{ request.user.staffprofile.avatar.url }}{% endif %}" alt="user photo">
+            <img class="w-8 h-8 rounded-full" {% if request.user.staffprofile.avatar %}src="{{ request.user.staffprofile.avatar.url }}{% endif %}" alt="user photo">
           </button>
           <!-- Dropdown menu -->
           <div
@@ -443,28 +425,24 @@
             </div>
             <ul class="pb-2">
               <li>
-                <a href="{% url " password_change" %}" class="block px-4 py-2 hover:bg-gray-100">تغییر رمز عبور</a>
+                <a href="{% url "password_change" %}" class="block px-4 py-2 hover:bg-gray-100">تغییر رمز عبور</a>
               </li>
               <li>
-                <a href="{% url " staff-detail" request.user.staffprofile.id %}"
-                  class="block px-4 py-2 hover:bg-gray-100">دیدن پروفایل</a>
+                <a href="{% url "staff-detail" request.user.staffprofile.id %}" class="block px-4 py-2 hover:bg-gray-100">دیدن پروفایل</a>
               </li>
               <li>
-                <a href="#" onclick="toggleUserProfieDropdown(); printPage(); return false; "
-                  class="block px-4 py-2 hover:bg-gray-100">پرینت</a>
+                <a href="#" onclick="toggleUserProfieDropdown(); printPage(); return false; " class="block px-4 py-2 hover:bg-gray-100">پرینت</a>
               </li>
               <li>
-                <a href="{% url " logout" %}" class="block px-4 py-2 hover:bg-gray-100">خروج</a>
+                <a href="{% url "logout" %}" class="block px-4 py-2 hover:bg-gray-100">خروج</a>
               </li>
             </ul>
           </div>
           {% elif request.user.is_driver %}
-          <p class="hidden md:block text-xs text-gray-600 font-semibold">{{ request.user.driverprofile.first_name }} {{
-            request.user.driverprofile.last_name }}</p>
+          <p class="hidden md:block text-xs text-gray-600 font-semibold">{{ request.user.driverprofile.first_name }} {{ request.user.driverprofile.last_name }}</p>
           <button type="button" onclick="toggleUserProfieDropdown()"
             class="flex text-sm rounded-full ring-2 focus:ring-4 ring-gray-100">
-            <img class="w-8 h-8 rounded-full" {% if request.user.driverprofile.avatar
-              %}src="{{ request.user.driverprofile.avatar.url }}" {% endif %} alt="user photo">
+            <img class="w-8 h-8 rounded-full" {% if request.user.driverprofile.avatar %}src="{{ request.user.driverprofile.avatar.url }}"{% endif %} alt="user photo">
           </button>
           <!-- Dropdown menu -->
           <div
@@ -475,24 +453,21 @@
             </div>
             <ul class="pb-2">
               <li>
-                <a href="{% url " password_change" %}" class="block px-4 py-2 hover:bg-gray-100">تغییر رمز عبور</a>
+                <a href="{% url "password_change" %}" class="block px-4 py-2 hover:bg-gray-100">تغییر رمز عبور</a>
               </li>
               <li>
-                <a href="{% url " driver-detail" request.user.driverprofile.id %}"
-                  class="block px-4 py-2 hover:bg-gray-100">دیدن پروفایل</a>
+                <a href="{% url "driver-detail" request.user.driverprofile.id %}" class="block px-4 py-2 hover:bg-gray-100">دیدن پروفایل</a>
               </li>
               <li>
-                <a href="{% url " logout" %}" class="block px-4 py-2 hover:bg-gray-100">خروج</a>
+                <a href="{% url "logout" %}" class="block px-4 py-2 hover:bg-gray-100">خروج</a>
               </li>
             </ul>
           </div>
           {% elif request.user.is_owner %}
-          <p class="hidden md:block text-xs text-gray-600 font-semibold">{{ request.user.carowner.first_name }} {{
-            request.user.carowner.last_name }}</p>
+          <p class="hidden md:block text-xs text-gray-600 font-semibold">{{ request.user.carowner.first_name }} {{ request.user.carowner.last_name }}</p>
           <button type="button" onclick="toggleUserProfieDropdown()"
             class="flex text-sm rounded-full ring-2 focus:ring-4 ring-gray-100">
-            <img class="w-8 h-8 rounded-full" {% if request.user.carowner.image
-              %}src="{{ request.user.carowner.image.url }}" {% endif %} alt="user photo">
+            <img class="w-8 h-8 rounded-full" {% if request.user.carowner.image %}src="{{ request.user.carowner.image.url }}"{% endif %} alt="user photo">
           </button>
           <!-- Dropdown menu -->
           <div
@@ -503,14 +478,13 @@
             </div>
             <ul class="pb-2">
               <li>
-                <a href="{% url " password_change" %}" class="block px-4 py-2 hover:bg-gray-100">تغییر رمز عبور</a>
+                <a href="{% url "password_change" %}" class="block px-4 py-2 hover:bg-gray-100">تغییر رمز عبور</a>
               </li>
               <li>
-                <a href="{% url " cars:owner-detail" request.user.carowner.id %}"
-                  class="block px-4 py-2 hover:bg-gray-100">دیدن پروفایل</a>
+                <a href="{% url "cars:owner-detail" request.user.carowner.id %}" class="block px-4 py-2 hover:bg-gray-100">دیدن پروفایل</a>
               </li>
               <li>
-                <a href="{% url " logout" %}" class="block px-4 py-2 hover:bg-gray-100">خروج</a>
+                <a href="{% url "logout" %}" class="block px-4 py-2 hover:bg-gray-100">خروج</a>
               </li>
             </ul>
           </div>
@@ -518,12 +492,12 @@
         </div>
       </div>
       <!-- end navbar -->
-      {% block content %}
+    {% block content %}
 
-      {% endblock content %}
+    {% endblock content %}
   </div>
   {% block jscript %}
-
+  
   {% endblock jscript %}
   <!-- end container -->
   <script>
@@ -536,12 +510,11 @@
   {% if user.is_staff %}
 
   {% endif %}
-  <script src="{% static " js/adminScript.js" %}"></script>
+  <script src="{% static "js/adminScript.js" %}"></script>
   <script>
-    function printPage() {
+    function printPage(){
       window.print()
     }
   </script>
 </body>
-
 </html>
