@@ -235,6 +235,10 @@
         event.preventDefault();
         return;
         }
+    } else if(fine.value.trim() === "") {
+      generateMessage(fine,'این فیلد نمی‌تواند خالی باشد');
+      event.preventDefault();
+      return;
     }
 
     // Validate location

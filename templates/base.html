@@ -420,7 +420,7 @@
             class="hidden absolute top-full -left-2 mt-2 text-[13px] text-gray-600 list-none bg-white divide-y divide-gray-100 rounded-lg shadow"
             id="userDropdown">
             <div class="px-4 py-3">
-              <span class="block  text-gray-600 text-xs font-semibold pb-1">{{request.user.username}}</span>
+              {% comment %} <span class="block  text-gray-600 text-xs font-semibold pb-1">{{request.user.username}}</span> {% endcomment %}
               <span class="block text-gray-500">{{ request.user.staffprofile.email }}</span>
             </div>
             <ul class="pb-2">

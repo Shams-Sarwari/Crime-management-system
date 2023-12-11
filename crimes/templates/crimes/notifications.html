@@ -40,9 +40,19 @@
           </div>
           <div class="expandableText flex flex-col h-20">
             <span class="font-semibold"> {{crime.stuff.first_name}} {{crime.stuff.last_name}} </span>
+            {% if crime.description %}
             <span class="overflow-hidden text-justify h-auto">
               {{ crime.description }}
             </span>
+            {% elif crime.crime.title %}
+            <span class="overflow-hidden text-justify h-auto">
+              {{ crime.crime.title }}
+            </span>
+            {% else %}
+            <span class="overflow-hidden text-justify h-auto">
+              -
+            </span>
+            {% endif %}
             <button class="seeMoreBtn text-xs text-gray-400 pt-1.5">مشاهده بیشتر ...</button>
             <button class="seeLessBtn text-xs text-gray-400 pt-2 hidden">مشاهده کمتر ...</button>
           </div>

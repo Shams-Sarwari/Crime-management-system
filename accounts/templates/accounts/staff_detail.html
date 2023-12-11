@@ -34,6 +34,7 @@
             <!-- btns -->
             <div class="flex justify-center gap-6 mt-8">
               {% if request.user.is_superuser %}
+              {% if staff.user == request.user %}
               <button type="button" onclick="window.open('{% url "edit-staff-profile" staff.id %}', '_self');"
                 class="text-white bg-color-primary hover:bg-color-primary-lighter focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 py-1 text-center">
                 اپدیت
@@ -42,6 +43,7 @@
                 class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded text-sm w-24 py-1 text-center">
                 حذف
               </button>
+              {% endif %}
               {% endif %}
 
             </div>
