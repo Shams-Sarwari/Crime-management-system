@@ -282,11 +282,15 @@ def login_user(request):
         
         elif request.POST['type'] == 'staff':
 
+
             licence_or_email = request.POST['license_or_email']
             password = request.POST['password']
-
+ 
             try:
                 staff = get_user_model().objects.get(email = licence_or_email)
+                # if staff.is_active == False:
+                #     messages.info(request, 'شما اجازه ورود به سیستم را ندارید')
+                #     return redirect('home')
 
             except:    
                 messages.error(request, 'ایمیل وارد شده در سیستم موجود نیست')
